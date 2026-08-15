@@ -411,14 +411,12 @@ export default function Team() {
                   {/* Expanded, Prominent Photo Container */}
                   <div className="relative w-full sm:w-80 md:w-96 sm:shrink-0 aspect-[4/3] sm:aspect-auto overflow-hidden bg-[#050507]">
                     {member.image ? (
-                      <a href={linkedinUrl} target="_blank" rel="noopener noreferrer" className="block w-full h-full">
-                        <img
-                          src={encodeURI(member.image)}
-                          alt={member.name}
-                          loading="lazy"
-                          className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
-                        />
-                      </a>
+                      <img
+                        src={encodeURI(member.image)}
+                        alt={member.name}
+                        loading="lazy"
+                        className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
+                      />
                     ) : (
                       <div className="w-full h-full min-h-[200px] flex flex-col items-center justify-center bg-[repeating-linear-gradient(45deg,transparent,transparent_12px,rgba(255,255,255,0.02)_12px,rgba(255,255,255,0.02)_24px)] text-gray-500 font-mono text-xs">
                         Photo Pending
@@ -464,14 +462,12 @@ export default function Team() {
                   
                   <div className="relative aspect-[3/4] overflow-hidden bg-[#050507]">
                     {advisor.image ? (
-                      <a href={linkedinUrl} target="_blank" rel="noopener noreferrer" className="block w-full h-full">
-                        <img
-                          src={encodeURI(advisor.image)}
-                          alt={advisor.name}
-                          loading="lazy"
-                          className="w-full h-full object-cover object-top filter grayscale-[15%] transition-all duration-700 ease-out group-hover:scale-105 group-hover:grayscale-0"
-                        />
-                      </a>
+                      <img
+                        src={encodeURI(advisor.image)}
+                        alt={advisor.name}
+                        loading="lazy"
+                        className="w-full h-full object-cover object-top filter grayscale-[15%] transition-all duration-700 ease-out group-hover:scale-105 group-hover:grayscale-0"
+                      />
                     ) : (
                       <div className="w-full h-full flex flex-col items-center justify-center bg-[repeating-linear-gradient(45deg,transparent,transparent_12px,rgba(255,255,255,0.02)_12px,rgba(255,255,255,0.02)_24px)] text-gray-500 font-mono text-xs">
                         Photo Pending
@@ -515,14 +511,12 @@ export default function Team() {
                   
                   <div className="relative aspect-[4/5] overflow-hidden bg-[#050507]">
                     {member.image ? (
-                      <a href={linkedinUrl} target="_blank" rel="noopener noreferrer" className="block w-full h-full">
-                        <img
-                          src={encodeURI(member.image)}
-                          alt={member.name}
-                          loading="lazy"
-                          className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
-                        />
-                      </a>
+                      <img
+                        src={encodeURI(member.image)}
+                        alt={member.name}
+                        loading="lazy"
+                        className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
+                      />
                     ) : (
                       <div className="w-full h-full flex flex-col items-center justify-center bg-[repeating-linear-gradient(45deg,transparent,transparent_12px,rgba(255,255,255,0.02)_12px,rgba(255,255,255,0.02)_24px)] text-gray-500 font-mono text-xs">
                         Photo Pending
@@ -567,14 +561,12 @@ export default function Team() {
                   
                   <div className="relative aspect-[3/4] overflow-hidden bg-[#050507]">
                     {head.image ? (
-                      <a href={linkedinUrl} target="_blank" rel="noopener noreferrer" className="block w-full h-full">
-                        <img
-                          src={encodeURI(head.image)}
-                          alt={head.name}
-                          loading="lazy"
-                          className="w-full h-full object-cover object-top filter grayscale-[15%] transition-all duration-700 ease-out group-hover:scale-105 group-hover:grayscale-0"
-                        />
-                      </a>
+                      <img
+                        src={encodeURI(head.image)}
+                        alt={head.name}
+                        loading="lazy"
+                        className="w-full h-full object-cover object-top filter grayscale-[15%] transition-all duration-700 ease-out group-hover:scale-105 group-hover:grayscale-0"
+                      />
                     ) : (
                       <div className="w-full h-full flex flex-col items-center justify-center bg-[repeating-linear-gradient(45deg,transparent,transparent_12px,rgba(255,255,255,0.02)_12px,rgba(255,255,255,0.02)_24px)] text-gray-500 font-mono text-xs">
                         Photo Pending
@@ -619,14 +611,12 @@ export default function Team() {
                   
                   <div className="relative aspect-[3/4] overflow-hidden bg-[#050507]">
                     {cohead.image ? (
-                      <a href={linkedinUrl} target="_blank" rel="noopener noreferrer" className="block w-full h-full">
-                        <img
-                          src={encodeURI(cohead.image)}
-                          alt={cohead.name}
-                          loading="lazy"
-                          className="w-full h-full object-cover object-top filter grayscale-[15%] transition-all duration-700 ease-out group-hover:scale-105 group-hover:grayscale-0"
-                        />
-                      </a>
+                      <img
+                        src={encodeURI(cohead.image)}
+                        alt={cohead.name}
+                        loading="lazy"
+                        className="w-full h-full object-cover object-top filter grayscale-[15%] transition-all duration-700 ease-out group-hover:scale-105 group-hover:grayscale-0"
+                      />
                     ) : (
                       <div className="w-full h-full flex flex-col items-center justify-center bg-[repeating-linear-gradient(45deg,transparent,transparent_12px,rgba(255,255,255,0.02)_12px,rgba(255,255,255,0.02)_24px)] text-gray-500 font-mono text-xs gap-2">
                         <svg className="w-8 h-8 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">

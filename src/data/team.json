@@ -3,7 +3,7 @@
     {
       "name": "Dr. Archana Chaudhari",
       "role": "Faculty Advisor",
-      "image": "/assets/team/Archana ma'am.png",
+      "image": "/assets/team/archana-maam.jpeg",
       "bio": "Guiding the Symbiosis Quantum Club in academic research, university integration, and quantum computing initiatives.",
       "linkedin": "https://www.linkedin.com/in/archanachaudhari/"
     }
@@ -47,7 +47,7 @@
     {
       "name": "Anirudh",
       "role": "Research Advisor",
-      "image": "/assets/team/anirudh.png",
+      "image": "/assets/team/anirudh.jpeg",
       "linkedin": "#"
     }
   ],
@@ -101,7 +101,7 @@
       "role": "Co-Head, Research & Technology",
       "department": "Research & Technology",
       "image": "",
-      "linkedin": "#"
+      "linkedin": "https://www.linkedin.com/in/ishanmalviya10"
     }
   ]
 }
