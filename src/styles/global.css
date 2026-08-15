@@ -1,0 +1,128 @@
+/* ========================================================================
+   GLOBAL STYLES — Typography, Base, Utilities (Tailwind)
+   Matte Dark Black Base + Multi-Color Quantum Spectrum Badges & Cards
+   ======================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+
+@layer base {
+  html, body {
+    overflow-x: clip;
+    max-width: 100vw;
+  }
+
+  body {
+    background-color: #09090b;
+    color: #e2e8f0;
+    font-family: var(--font-body);
+    line-height: 1.65;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    color: #ffffff;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+  }
+
+  p {
+    max-width: 65ch;
+    line-height: 1.7;
+  }
+
+  code, .mono {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+  }
+
+  a {
+    transition: color 200ms ease;
+  }
+
+  ::selection {
+    background: rgba(168, 85, 247, 0.25);
+    color: #ffffff;
+  }
+
+  /* Hide side scrollbar across all browsers */
+  ::-webkit-scrollbar {
+    display: none;
+    width: 0px;
+    height: 0px;
+    background: transparent;
+  }
+  * {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+}
+
+@layer components {
+  /* Matte Black Card Shell */
+  .card-matte {
+    background: #121215;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    transition: border-color 250ms ease, transform 250ms ease, box-shadow 250ms ease;
+  }
+  .card-matte:hover {
+    border-color: rgba(168, 85, 247, 0.4);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+  }
+
+  /* Multi-Color Quantum Spectrum Badges */
+  .badge-spectrum {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 12px;
+    border-radius: 100px;
+    font-family: var(--font-mono);
+    font-size: 0.725rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .badge-violet {
+    background: rgba(168, 85, 247, 0.12);
+    color: #c084fc;
+    border: 1px solid rgba(168, 85, 247, 0.3);
+  }
+
+  .badge-magenta {
+    background: rgba(236, 72, 153, 0.12);
+    color: #f472b6;
+    border: 1px solid rgba(236, 72, 153, 0.3);
+  }
+
+  .badge-cyan {
+    background: rgba(6, 182, 212, 0.12);
+    color: #38bdf8;
+    border: 1px solid rgba(6, 182, 212, 0.3);
+  }
+
+  .badge-emerald {
+    background: rgba(16, 185, 129, 0.12);
+    color: #34d399;
+    border: 1px solid rgba(16, 185, 129, 0.3);
+  }
+
+  .badge-amber {
+    background: rgba(245, 158, 11, 0.12);
+    color: #fbbf24;
+    border: 1px solid rgba(245, 158, 11, 0.3);
+  }
+}
+
+/* Reduced Motion fallback */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

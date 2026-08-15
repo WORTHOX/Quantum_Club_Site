@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "quote": "The Quantum Club completely changed my perspective on physics and computation.",
+    "name": "Aditi Sharma",
+    "role": "Computer Science Student"
+  },
+  {
+    "id": 2,
+    "quote": "A fantastic community for anyone interested in the future of quantum technology.",
+    "name": "Rahul Verma",
+    "role": "AI/ML Enthusiast"
+  },
+  {
+    "id": 3,
+    "quote": "The Fall Fest hackathon was one of the best hands-on technical experiences of my degree.",
+    "name": "Sneha Patil",
+    "role": "Electronics Student"
+  }
+]

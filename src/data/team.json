@@ -1,0 +1,107 @@
+{
+  "faculty": [
+    {
+      "name": "Dr. Archana Chaudhari",
+      "role": "Faculty Advisor",
+      "image": "/assets/team/Archana ma'am.png",
+      "bio": "Guiding the Symbiosis Quantum Club in academic research, university integration, and quantum computing initiatives.",
+      "linkedin": "https://www.linkedin.com/in/archanachaudhari/"
+    }
+  ],
+  "core": [
+    {
+      "name": "Riddhima Deshmukh",
+      "role": "President",
+      "image": "/assets/team/RIDDHIMA DESHMUKH (PRESIDENT).jpg",
+      "rotated": true,
+      "bio": "Leading the quantum revolution at Symbiosis, championing the club's vision for a decade of quantum on cloud.",
+      "linkedin": "https://www.linkedin.com/in/riddhima-deshmukh-45759730a"
+    },
+    {
+      "name": "Akarsh Sunil",
+      "role": "Vice President",
+      "image": "/assets/team/AKARSH SUNIL (VP).jpg",
+      "bio": "Driving quantum education initiatives and coordinating with IBM Quantum for our Fall Fest partnership.",
+      "linkedin": "https://www.linkedin.com/in/akarsh-sunil-a48273322"
+    }
+  ],
+  "advisors": [
+    {
+      "name": "Samarth Bhadane",
+      "role": "President Advisor",
+      "image": "/assets/team/samarth.png",
+      "linkedin": "https://www.linkedin.com/in/samarthsb4real?utm_source=share_via&utm_content=profile&utm_medium=member_android"
+    },
+    {
+      "name": "Eric Siquiera",
+      "role": "Technical Advisor",
+      "image": "/assets/team/eric.png",
+      "linkedin": "#"
+    },
+    {
+      "name": "Disha Gupta",
+      "role": "Vice President Advisor",
+      "image": "/assets/team/disha.png",
+      "linkedin": "#"
+    },
+    {
+      "name": "Anirudh",
+      "role": "Research Advisor",
+      "image": "/assets/team/anirudh.png",
+      "linkedin": "#"
+    }
+  ],
+  "heads": [
+    {
+      "name": "Sarvesh Dungarwal",
+      "role": "MND Head",
+      "department": "Media & Documentation",
+      "image": "/assets/team/SARVESH DUNGARWAL (MND HEAD).jpg",
+      "linkedin": "https://www.linkedin.com/in/sarvesh-dungarwal"
+    },
+    {
+      "name": "Shantanu Shaji",
+      "role": "Events Head",
+      "department": "Events & Operations",
+      "image": "/assets/team/SHANTANU SHAJI (EVENTS HEAD).jpg",
+      "linkedin": "https://www.linkedin.com/in/shantanu-shaji"
+    },
+    {
+      "name": "Shayan Bhowmik",
+      "role": "R&T Head",
+      "department": "Research & Technology",
+      "image": "/assets/team/SHAYAN BHOWMIK (RNT HEAD).jpg",
+      "linkedin": "https://www.linkedin.com/in/shayan-bhowmik-227808321"
+    },
+    {
+      "name": "Ansh Saini",
+      "role": "Website Head",
+      "department": "Digital & Web",
+      "image": "/assets/team/ANSH SAINI (WEBSITE HEAD).jpg",
+      "linkedin": "https://www.linkedin.com/in/ansh-saini-238897271"
+    }
+  ],
+  "coheads": [
+    {
+      "name": "Jeet Paghdar",
+      "role": "Co-Head, Media & Documentation",
+      "department": "Media & Documentation",
+      "image": "/assets/team/JEET PAGHDAR (MND HEAD).jpg",
+      "linkedin": "https://www.linkedin.com/in/jeet-paghdar0808"
+    },
+    {
+      "name": "Apurva Satkar",
+      "role": "Co-Head, Events & Operations",
+      "department": "Events & Operations",
+      "image": "/assets/team/APURVA SATKAR (EVENTS HEAD).jpg",
+      "linkedin": "https://www.linkedin.com/in/apurva-satkar-2486b4363"
+    },
+    {
+      "name": "Ishan Malviya",
+      "role": "Co-Head, Research & Technology",
+      "department": "Research & Technology",
+      "image": "",
+      "linkedin": "#"
+    }
+  ]
+}

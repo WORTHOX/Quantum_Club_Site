@@ -1,0 +1,69 @@
+.logo-circular-wrapper {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  text-decoration: none;
+  transition: transform 250ms ease;
+}
+
+.logo-circular-wrapper:hover {
+  transform: translateY(-1px);
+}
+
+.logo-circular-img-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  position: relative;
+}
+
+.logo-circular-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 0 5px rgba(168, 85, 247, 0.35)) drop-shadow(0 0 2px rgba(192, 132, 252, 0.25));
+  transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1), filter 300ms ease;
+}
+
+.logo-circular-wrapper:hover .logo-circular-img {
+  transform: scale(1.03);
+  filter: drop-shadow(0 0 8px rgba(168, 85, 247, 0.5)) drop-shadow(0 0 3px rgba(192, 132, 252, 0.35));
+}
+
+.logo-circular-text-side {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.logo-circular-title {
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #ffffff;
+}
+
+.logo-circular-sub {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: #c084fc;
+}
+
+/* Size variations */
+.logo-circular-wrapper--sm .logo-circular-title {
+  font-size: 0.9rem;
+}
+.logo-circular-wrapper--sm .logo-circular-sub {
+  font-size: 0.62rem;
+}
+
+.logo-circular-wrapper--lg .logo-circular-title {
+  font-size: 1.35rem;
+}
+.logo-circular-wrapper--lg .logo-circular-sub {
+  font-size: 0.85rem;
+}

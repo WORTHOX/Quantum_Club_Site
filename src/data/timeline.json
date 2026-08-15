@@ -1,0 +1,52 @@
+[
+  {
+    "year": 2016,
+    "title": "IBM puts quantum on the cloud",
+    "description": "IBM Quantum Experience launches, making a 5-qubit processor available to researchers and the public for the first time."
+  },
+  {
+    "year": 2017,
+    "title": "50-qubit milestone",
+    "description": "IBM builds a 50-qubit prototype, pushing the boundary of what classical computers can simulate."
+  },
+  {
+    "year": 2019,
+    "title": "Quantum advantage demonstrated",
+    "description": "Google claims quantum supremacy. IBM pushes back, sparking a productive debate about benchmarks."
+  },
+  {
+    "year": 2020,
+    "title": "Qiskit community grows",
+    "description": "The Qiskit open-source community crosses 300,000 users. Fall Fest begins as a global university event."
+  },
+  {
+    "year": 2021,
+    "title": "127-qubit Eagle processor",
+    "description": "IBM releases the Eagle processor, the first to break the 100-qubit barrier in a production system."
+  },
+  {
+    "year": 2022,
+    "title": "433-qubit Osprey",
+    "description": "IBM Osprey triples the qubit count. Error mitigation techniques make larger circuits practical."
+  },
+  {
+    "year": 2023,
+    "title": "1,121-qubit Condor",
+    "description": "IBM Condor becomes the first processor to exceed 1,000 qubits. The era of utility-scale quantum begins."
+  },
+  {
+    "year": 2024,
+    "title": "Heron and modular systems",
+    "description": "IBM Heron focuses on quality over quantity. Modular quantum systems connect multiple processors."
+  },
+  {
+    "year": 2025,
+    "title": "SQC hosts Fall Fest",
+    "description": "Symbiosis Quantum Club hosts IBM Qiskit Fall Fest for the first time. 127 attendees across three days."
+  },
+  {
+    "year": 2026,
+    "title": "A Decade of Quantum on Cloud",
+    "description": "Ten years since IBM put quantum on the cloud. SQC hosts Fall Fest again, bigger and bolder."
+  }
+]

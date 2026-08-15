@@ -1,0 +1,32 @@
+[
+  {
+    "id": "workshops",
+    "title": "Workshops",
+    "description": "Hands-on sessions with Qiskit, quantum circuits, and real IBM hardware.",
+    "image": "/assets/images/story-workshops.jpg"
+  },
+  {
+    "id": "hackathon",
+    "title": "Hackathons",
+    "description": "48-hour sprints building quantum applications that solve real problems.",
+    "image": "/assets/images/story-hackathon.jpg"
+  },
+  {
+    "id": "speakers",
+    "title": "Guest Lectures",
+    "description": "Talks from IBM researchers, quantum startups, and academic leaders.",
+    "image": "/assets/images/story-speakers.jpg"
+  },
+  {
+    "id": "lab",
+    "title": "Lab Sessions",
+    "description": "Running circuits on IBM quantum processors and analyzing results.",
+    "image": "/assets/images/story-lab.jpg"
+  },
+  {
+    "id": "community",
+    "title": "Community",
+    "description": "Building connections across colleges, companies, and countries.",
+    "image": "/assets/images/story-community.jpg"
+  }
+]

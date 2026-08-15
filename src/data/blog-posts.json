@@ -1,0 +1,68 @@
+[
+  {
+    "id": "quantum-entanglement-sunlight",
+    "date": "2026-08-10",
+    "title": "Scientists Just Made Quantum Entanglement… With Sunlight ☀️",
+    "excerpt": "A joint team from the University of Ottawa and the Max Planck Institute generated real entangled photon pairs straight from raw daylight—bypassing power-hungry lab lasers.",
+    "category": "Quantum Optics",
+    "readTime": "5 min read",
+    "author": "Yogesh Shendage",
+    "authorRole": "Quantum Optics Fellow",
+    "image": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    "id": "tpu-quantum-hardware",
+    "date": "2026-07-28",
+    "title": "Superconducting Qubits & Scalable Cryogenic Control Systems",
+    "excerpt": "Exploring the physical mechanics of transmon qubits, microwave control pulses, and next-generation dilution refrigerators shaping fault-tolerant quantum hardware architectures.",
+    "category": "Hardware",
+    "readTime": "6 min read",
+    "author": "Dr. Aris Thorne",
+    "authorRole": "Quantum Hardware Lead",
+    "image": "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    "id": "qiskit-circuit-optimization",
+    "date": "2026-07-14",
+    "title": "Quantum Circuit Compilation: From High-Level Algorithms to Pulse Control",
+    "excerpt": "An end-to-end guide to optimizing quantum circuits using Qiskit Transpiler passes, dynamical decoupling, and error mitigation for noisy intermediate-scale quantum devices.",
+    "category": "Algorithms",
+    "readTime": "8 min read",
+    "author": "Elena Rostova",
+    "authorRole": "Algorithms Researcher",
+    "image": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    "id": "fall-fest-2026-keynote",
+    "date": "2026-06-30",
+    "title": "Symbiosis Quantum Club & IBM Qiskit Fall Fest 2026: Inspiring Next-Gen Builders",
+    "excerpt": "Reflecting on our annual flagship gathering featuring 48 hours of hands-on hackathons, keynote talks from IBM Quantum executives, and over $10,000 in research bounties.",
+    "category": "Event Recap",
+    "readTime": "5 min read",
+    "author": "Quantum Club Exec Team",
+    "authorRole": "Editorial Board",
+    "image": "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    "id": "quantum-machine-learning",
+    "date": "2026-06-12",
+    "title": "Variational Quantum Eigensolvers: Bridging Chemistry & AI",
+    "excerpt": "How hybrid quantum-classical algorithms like VQE and QAOA are transforming molecular simulation, pharmaceutical discovery, and complex battery chemistry modeling.",
+    "category": "Research",
+    "readTime": "7 min read",
+    "author": "Kaelen Voss",
+    "authorRole": "QML Fellow",
+    "image": "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    "id": "topological-qubits-braiding",
+    "date": "2026-05-25",
+    "title": "Non-Abelian Anyons & Topological Fault Tolerance",
+    "excerpt": "Delving into Majorana zero modes and topological braiding logic that promise hardware-level immunity to decoherence in future quantum processing units.",
+    "category": "Deep Dive",
+    "readTime": "10 min read",
+    "author": "Prof. Sophia Chen",
+    "authorRole": "Faculty Advisor",
+    "image": "https://images.unsplash.com/photo-1507413245164-6160d8298b31?auto=format&fit=crop&w=800&q=80"
+  }
+]

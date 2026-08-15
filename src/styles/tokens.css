@@ -1,0 +1,78 @@
+/* ========================================================================
+   DESIGN TOKENS — Symbiosis Quantum Club
+   Matte Dark Black Surface (#09090b) + Multi-Color Quantum Spectrum
+   ======================================================================== */
+
+:root {
+  /* ── Matte Dark Black Surface Scale ── */
+  --surface-deep:    #050507;
+  --surface-base:    #09090b; /* Primary Matte Dark Black */
+  --surface-raised:  #121215; /* Matte Card Surface */
+  --surface-hover:   #1a1a1f; /* Card Hover State */
+  --surface-glass:   rgba(9, 9, 11, 0.88);
+
+  /* ── Multi-Color Quantum Spectrum Palette ── */
+  --accent-violet:   #a855f7; /* 🔮 Quantum Hardware & Qubits */
+  --accent-magenta:  #ec4899; /* 🌸 Fall Fest & Hackathons */
+  --accent-cyan:     #06b6d4; /* ⚡ Algorithms & Software */
+  --accent-emerald:  #10b981; /* 🌿 Research & Publications */
+  --accent-amber:    #f59e0b; /* ☀️ Keynote Speakers & Leadership */
+
+  /* ── Default Accent ── */
+  --accent:          var(--accent-violet);
+  --accent-hover:    #c084fc;
+  --accent-subtle:   rgba(168, 85, 247, 0.12);
+  --accent-glow:     rgba(168, 85, 247, 0.35);
+
+  /* ── Spectrum Gradients ── */
+  --gradient-primary: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
+  --gradient-cyber:   linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
+  --gradient-emerald: linear-gradient(135deg, #10b981 0%, #06b6d4 100%);
+  --gradient-amber:   linear-gradient(135deg, #f59e0b 0%, #ec4899 100%);
+  --gradient-text:    linear-gradient(135deg, #ffffff 0%, #e2e8f0 45%, #a855f7 100%);
+
+  /* ── Text Scale (High Contrast WCAG AA) ── */
+  --text-primary:    #ffffff;
+  --text-body:       #e2e8f0;
+  --text-muted:      #94a3b8;
+  --text-faint:      #64748b;
+
+  /* ── Borders & Rules ── */
+  --border:          rgba(255, 255, 255, 0.1);
+  --border-hover:    rgba(168, 85, 247, 0.4);
+  --rule:            rgba(255, 255, 255, 0.08);
+
+  /* ── Typography ── */
+  --font-display:    'Space Grotesk', system-ui, sans-serif;
+  --font-body:       'DM Sans', system-ui, sans-serif;
+  --font-mono:       'IBM Plex Mono', 'Menlo', monospace;
+
+  --type-xs:    clamp(0.694rem, 0.65rem + 0.22vw, 0.8rem);
+  --type-sm:    clamp(0.833rem, 0.77rem + 0.32vw, 1rem);
+  --type-base:  clamp(1rem, 0.92rem + 0.42vw, 1.25rem);
+  --type-md:    clamp(1.2rem, 1.08rem + 0.6vw, 1.563rem);
+  --type-lg:    clamp(1.44rem, 1.26rem + 0.9vw, 1.953rem);
+  --type-xl:    clamp(1.728rem, 1.46rem + 1.34vw, 2.441rem);
+  --type-2xl:   clamp(2.074rem, 1.68rem + 1.97vw, 3.052rem);
+  --type-3xl:   clamp(2.488rem, 1.92rem + 2.84vw, 3.815rem);
+  --type-hero:  clamp(2.5rem, 1rem + 5vw, 5.5rem);
+
+  /* ── Spacing ── */
+  --space-xs:   clamp(0.25rem, 0.2rem + 0.25vw, 0.5rem);
+  --space-sm:   clamp(0.5rem, 0.4rem + 0.5vw, 1rem);
+  --space-md:   clamp(1rem, 0.75rem + 1.25vw, 2rem);
+  --space-lg:   clamp(1.5rem, 1rem + 2.5vw, 3.5rem);
+  --space-xl:   clamp(2rem, 1.25rem + 3.75vw, 5rem);
+  --space-2xl:  clamp(3rem, 1.5rem + 7.5vw, 8rem);
+  --space-3xl:  clamp(4rem, 2rem + 10vw, 10rem);
+
+  /* ── Layout ── */
+  --container-max:  1280px;
+  --container-wide: 1440px;
+  --nav-height:     80px;
+
+  /* ── Transitions ── */
+  --transition-fast:   150ms cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-normal: 250ms cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-slow:   400ms cubic-bezier(0.16, 1, 0.3, 1);
+}

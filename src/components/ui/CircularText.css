@@ -1,0 +1,55 @@
+@keyframes circular-text-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.circular-text-container {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  user-select: none;
+}
+
+.circular-text-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  transform-origin: center center;
+  pointer-events: none;
+  z-index: 2;
+  animation: circular-text-spin var(--spin-duration, 12s) linear infinite;
+  will-change: transform;
+}
+
+.circular-text-char {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform-origin: 0 0;
+  font-family: 'Space Grotesk', 'IBM Plex Mono', system-ui, sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #e0aaff;
+  text-shadow: 0 0 8px rgba(168, 85, 247, 0.95), 0 0 16px rgba(236, 72, 153, 0.7);
+  white-space: pre;
+  pointer-events: none;
+  line-height: 1;
+}
+
+.circular-text-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
