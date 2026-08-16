@@ -55,8 +55,8 @@ export default function Blog() {
         {/* Redefined Grid Container Tracks: 520px Left Editorial Sidebar, 1fr Right Stream */}
         <div className="grid grid-cols-1 lg:grid-cols-[520px_1fr] gap-8 lg:gap-12 items-start">
           
-          {/* ── Left Sticky Editorial Sidebar (Half Little Up Sweet Spot) ── */}
-          <aside className="flex flex-col gap-6 lg:sticky lg:top-[175px] lg:self-start lg:h-fit lg:z-10 pt-12 lg:pt-20">
+          {/* ── Left Sticky Editorial Sidebar (Balanced Alignment) ── */}
+          <aside className="flex flex-col gap-6 lg:sticky lg:top-[145px] lg:self-start lg:h-fit lg:z-10 pt-6 lg:pt-10">
             {/* Header Lockup: Line Accent + Monospace Eyebrow */}
             <div className="flex items-center gap-3">
               <div className="w-8 h-[2px] bg-gradient-to-r from-[#34d399] to-[#10b981] shadow-[0_0_10px_rgba(16,185,129,0.6)]" />

@@ -34,7 +34,8 @@ const CATEGORY_HUB_DATA = {
     borderHover: 'group-hover:border-[#f97316]/60',
     glowHover: 'group-hover:shadow-[0_16px_48px_rgba(249,115,22,0.28)]',
     badgeClass: 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30',
-    coverImage: null,
+    tag: 'HANDS-ON SESSIONS',
+    coverImage: '/assets/events/iiser-visit/photo-5.jpg',
     icon: (
       <svg className="w-8 h-8 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
@@ -50,7 +51,8 @@ const CATEGORY_HUB_DATA = {
     borderHover: 'group-hover:border-[#f97316]/60',
     glowHover: 'group-hover:shadow-[0_16px_48px_rgba(249,115,22,0.28)]',
     badgeClass: 'bg-cyan-500/15 text-cyan-400 border-cyan-500/30',
-    coverImage: '/assets/events/badge-dark.png',
+    tag: 'FLAGSHIP PARTNER',
+    coverImage: '/assets/fallfest/Full_Illustration.png',
     icon: (
       <svg className="w-8 h-8 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
@@ -66,7 +68,8 @@ const CATEGORY_HUB_DATA = {
     borderHover: 'group-hover:border-[#f97316]/60',
     glowHover: 'group-hover:shadow-[0_16px_48px_rgba(249,115,22,0.28)]',
     badgeClass: 'bg-purple-500/15 text-purple-400 border-purple-500/30',
-    coverImage: null,
+    tag: '48H CODING SPRINT',
+    coverImage: '/assets/fallfest/Entanglement.png',
     icon: (
       <svg className="w-8 h-8 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M13 10V3L4 14h7v7l9-11h-7z" />
@@ -82,7 +85,8 @@ const CATEGORY_HUB_DATA = {
     borderHover: 'group-hover:border-[#f97316]/60',
     glowHover: 'group-hover:shadow-[0_16px_48px_rgba(249,115,22,0.28)]',
     badgeClass: 'bg-pink-500/15 text-pink-400 border-pink-500/30',
-    coverImage: null,
+    tag: 'ORIENTATION & WELCOME',
+    coverImage: '/assets/events/iiser-visit/photo-6.jpg',
     icon: (
       <svg className="w-8 h-8 text-pink-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
@@ -98,6 +102,7 @@ const CATEGORY_HUB_DATA = {
     borderHover: 'group-hover:border-[#f97316]/60',
     glowHover: 'group-hover:shadow-[0_16px_48px_rgba(249,115,22,0.28)]',
     badgeClass: 'bg-amber-500/15 text-amber-400 border-amber-500/30',
+    tag: 'RESEARCH LAB TOUR',
     coverImage: '/assets/events/iiser-visit/photo-1.jpg',
     icon: (
       <svg className="w-8 h-8 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -340,7 +345,7 @@ export default function Events() {
               </div>
             )}
 
-            {/* ── VIEW 1: REDUCED WIDTH ELONGATED HORIZONTAL CATEGORY CARDS (LANDING STATE) ── */}
+            {/* ── VIEW 1: SQUARE COVER CATEGORY CARDS (LANDING STATE) ── */}
             {selectedCategory === 'Hub' ? (
               <div className="flex flex-col gap-8 sm:gap-10 w-full max-w-[850px] ml-auto">
                 {mainCategories.map(catKey => {
@@ -353,49 +358,51 @@ export default function Events() {
                     borderHover: 'group-hover:border-[#f97316]/60',
                     glowHover: 'group-hover:shadow-[0_16px_48px_rgba(249,115,22,0.28)]',
                     badgeClass: 'bg-amber-500/15 text-amber-400 border-amber-500/30',
+                    tag: 'SQC INITIATIVE',
+                    coverImage: '/assets/events/iiser-visit/photo-1.jpg',
                   }
 
                   return (
                     <div
                       key={catKey}
                       onClick={() => handleSelectCategory(catKey)}
-                      className={`group relative w-full min-h-[240px] sm:min-h-[260px] rounded-2xl p-6 sm:p-8 lg:p-9 bg-gradient-to-r ${info.gradient} border border-white/10 ${info.borderHover} ${info.glowHover} transition-all duration-300 cursor-pointer grid grid-cols-1 md:grid-cols-[260px_1fr] gap-7 items-center overflow-hidden shadow-2xl hover:-translate-y-1.5`}
+                      className={`group relative w-full rounded-3xl p-6 sm:p-7 lg:p-8 bg-gradient-to-r ${info.gradient} border border-white/10 ${info.borderHover} ${info.glowHover} transition-all duration-300 cursor-pointer flex flex-col md:flex-row gap-6 sm:gap-8 items-center overflow-hidden shadow-2xl hover:-translate-y-1.5`}
                     >
-                      {/* Left Visual Cover Frame */}
-                      <div className="relative aspect-[16/10] w-full max-w-[260px] h-[160px] sm:h-[180px] rounded-xl overflow-hidden bg-[#090d0a] border border-white/10 flex flex-col items-center justify-center p-4 text-center group-hover:border-[#f59e0b]/40 transition-all duration-300 shadow-inner shrink-0">
+                      {/* Left Square Visual Cover Frame — Consistent 1:1 Aspect Ratio Across All Categories */}
+                      <div className="relative aspect-square w-full sm:w-[240px] md:w-[240px] lg:w-[260px] h-[240px] sm:h-[240px] lg:h-[260px] rounded-2xl overflow-hidden bg-[#090d0a] border border-white/15 group-hover:border-[#f59e0b]/50 transition-all duration-500 shadow-2xl shrink-0">
                         {info.coverImage ? (
                           <img
                             src={info.coverImage}
                             alt={info.title}
-                            className="w-full h-full object-cover rounded-lg opacity-85 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
+                            className="w-full h-full object-cover object-center brightness-90 contrast-[1.05] group-hover:scale-105 group-hover:brightness-100 transition-all duration-700 ease-out"
+                            loading="lazy"
                           />
                         ) : (
-                          <div className="flex flex-col items-center gap-3">
-                            <div className="p-4 rounded-2xl bg-[#121513] border border-white/10 shadow-md group-hover:scale-110 group-hover:border-[#f59e0b]/40 transition-all duration-300">
+                          <div className="w-full h-full bg-gradient-to-br from-[#1c130d] via-[#121513] to-[#070a08] flex items-center justify-center">
+                            <div className="p-5 rounded-2xl bg-[#121513]/90 border border-white/15 shadow-xl group-hover:scale-110 group-hover:border-[#f59e0b]/50 transition-all duration-300">
                               {info.icon}
                             </div>
-                            <span className="font-mono text-xs text-slate-400 font-bold uppercase tracking-widest">
-                              SQC CATEGORY
-                            </span>
                           </div>
                         )}
                       </div>
 
                       {/* Right Content Area */}
-                      <div className="flex flex-col gap-3 relative z-10 py-1">
-                        <div className="flex items-center gap-3 flex-wrap">
-                          <span className="font-mono text-xs text-slate-400 font-semibold uppercase tracking-wider">
-                            {info.subtitle}
-                          </span>
+                      <div className="flex flex-col justify-between gap-4 relative z-10 py-1 flex-1 w-full">
+                        <div className="flex flex-col gap-2.5">
+                          <div className="flex items-center gap-3 flex-wrap">
+                            <span className="font-mono text-xs text-slate-400 font-semibold uppercase tracking-wider">
+                              {info.subtitle}
+                            </span>
+                          </div>
+
+                          <h3 className="font-display text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight group-hover:text-[#f59e0b] transition-colors m-0">
+                            {info.title}
+                          </h3>
+
+                          <p className="font-body text-base text-slate-300 leading-relaxed max-w-[62ch] m-0">
+                            {info.description}
+                          </p>
                         </div>
-
-                        <h3 className="font-display text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight group-hover:text-[#f59e0b] transition-colors m-0">
-                          {info.title}
-                        </h3>
-
-                        <p className="font-body text-base text-slate-300 leading-relaxed max-w-[65ch] m-0">
-                          {info.description}
-                        </p>
 
                         {/* Action Button: Base dark lockup -> Sunrise Red & Yellow Hover pop-up */}
                         <div className="pt-2">
@@ -454,7 +461,7 @@ export default function Events() {
                         <div className="flex items-center gap-3 pb-3 border-b border-[#f59e0b]/30">
                           <span className="w-2.5 h-2.5 rounded-full bg-[#f59e0b] animate-pulse" />
                           <h3 className="font-display text-xl font-bold text-[#f59e0b] tracking-wide uppercase m-0">
-                            Upcoming Events ({upcomingEvents.length})
+                            Upcoming Events
                           </h3>
                         </div>
 
@@ -472,7 +479,7 @@ export default function Events() {
                         <div className="flex items-center gap-3 pb-3 border-b border-white/10">
                           <span className="w-2.5 h-2.5 rounded-full bg-slate-500" />
                           <h3 className="font-display text-xl font-bold text-white tracking-wide uppercase m-0">
-                            Past Events & Archives ({pastEvents.length})
+                            Past Events & Archives
                           </h3>
                         </div>
 

@@ -39,6 +39,7 @@ export default function App() {
           <Route path="/blog/:id" element={<BlogDetail />} />
           <Route path="/team" element={<Team />} />
           <Route path="/qiskit/:year" element={<QiskitArchive />} />
+          <Route path="*" element={<Home />} />
         </Routes>
       </main>
       <Footer />

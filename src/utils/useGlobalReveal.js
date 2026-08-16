@@ -9,10 +9,10 @@ export function useGlobalReveal() {
   const { pathname } = useLocation()
 
   useEffect(() => {
-    // Small timeout ensures the DOM has updated for the new route
+    // Small timeout ensures the DOM has updated for the new route / on reload
     const timer = setTimeout(() => {
       const elements = gsap.utils.toArray('.reveal-up')
-      if (elements.length === 0) return
+      if (!elements || elements.length === 0) return
 
       // Set initial state
       gsap.set(elements, { autoAlpha: 0, y: 30 })
@@ -33,13 +33,17 @@ export function useGlobalReveal() {
         start: 'top 85%', // trigger when top of element hits 85% down the viewport
         once: true        // only play once
       })
-    }, 100) // 100ms is usually enough for React to render
+
+      // Refresh ScrollTrigger positions after initial layout paint
+      ScrollTrigger.refresh()
+    }, 100)
 
     return () => {
       clearTimeout(timer)
-      // Clean up triggers created for reveal-up elements
+      // Clean up triggers safely
       ScrollTrigger.getAll().forEach(trigger => {
-        if (trigger.vars.trigger && trigger.vars.trigger.classList?.contains('reveal-up')) {
+        const trigEl = trigger.trigger || trigger.vars?.trigger
+        if (trigEl && typeof trigEl.classList?.contains === 'function' && trigEl.classList.contains('reveal-up')) {
           trigger.kill()
         }
       })
