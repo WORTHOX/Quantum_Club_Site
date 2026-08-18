@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useGlobalReveal } from './utils/useGlobalReveal'
+import Preloader from './components/ui/Preloader'
 import Navbar from './components/layout/Navbar'
 import Footer from './components/layout/Footer'
 import Home from './pages/Home'
@@ -25,8 +26,11 @@ function RouteEffects() {
 }
 
 export default function App() {
+  const [loading, setLoading] = useState(true)
+
   return (
     <BrowserRouter>
+      {loading && <Preloader onDone={() => setLoading(false)} />}
       <RouteEffects />
       <Navbar />
       <main id="main">
