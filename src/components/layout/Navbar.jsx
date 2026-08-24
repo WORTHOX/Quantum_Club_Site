@@ -4,35 +4,35 @@ import { motion, LayoutGroup } from 'framer-motion'
 import gsap from 'gsap'
 import LogoWithCircularText from '../shared/LogoWithCircularText'
 
-// Page-specific theme spectrums
+// Page-specific accent spectrums
 const PAGE_THEMES = {
   '/': {
     gradient: 'linear-gradient(90deg, #c084fc 0%, #e879f9 50%, #ec4899 100%)',
-    shadow: '0 0 14px rgba(232, 121, 249, 0.95), 0 0 4px #ec4899',
+    shadow: '0 0 16px rgba(232, 121, 249, 0.9), 0 0 4px #ec4899',
     accentColor: '#e879f9',
   },
   '/events': {
     gradient: 'linear-gradient(90deg, #ef4444 0%, #f97316 50%, #f59e0b 100%)',
-    shadow: '0 0 14px rgba(249, 115, 22, 0.95), 0 0 4px #f59e0b',
+    shadow: '0 0 16px rgba(249, 115, 22, 0.9), 0 0 4px #f59e0b',
     accentColor: '#f97316',
   },
   '/blog': {
     gradient: 'linear-gradient(90deg, #34d399 0%, #10b981 50%, #059669 100%)',
-    shadow: '0 0 14px rgba(52, 211, 153, 0.95), 0 0 4px #10b981',
+    shadow: '0 0 16px rgba(52, 211, 153, 0.9), 0 0 4px #10b981',
     accentColor: '#34d399',
   },
   '/team': {
     gradient: 'linear-gradient(90deg, #06b6d4 0%, #38bdf8 50%, #60a5fa 100%)',
-    shadow: '0 0 14px rgba(6, 182, 212, 0.95), 0 0 4px #38bdf8',
+    shadow: '0 0 16px rgba(6, 182, 212, 0.9), 0 0 4px #38bdf8',
     accentColor: '#06b6d4',
   },
 }
 
 const navLinks = [
-  { to: '/', label: 'Home' },
-  { to: '/events', label: 'Events' },
-  { to: '/blog', label: 'Blog' },
-  { to: '/team', label: 'Team' },
+  { to: '/', label: 'HOME' },
+  { to: '/events', label: 'EVENTS' },
+  { to: '/blog', label: 'BLOG' },
+  { to: '/team', label: 'TEAM' },
 ]
 
 export default function Navbar() {
@@ -40,7 +40,7 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false)
   const location = useLocation()
 
-  // Refs for GSAP circle-clip mobile overlay
+  // Refs for mobile circle-clip overlay
   const overlayRef = useRef(null)
   const mobileItemsRef = useRef([])
 
@@ -56,13 +56,13 @@ export default function Navbar() {
 
   // Scroll detection
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 40)
+    const handleScroll = () => setScrolled(window.scrollY > 25)
     handleScroll()
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  // GSAP circle clip-path mobile menu animation (like reference Navbar.jsx)
+  // GSAP circle clip-path mobile menu animation
   useEffect(() => {
     if (!overlayRef.current) return
 
@@ -72,19 +72,19 @@ export default function Navbar() {
       gsap.fromTo(
         overlayRef.current,
         { clipPath: 'circle(0% at calc(100% - 2.5rem) 2.5rem)' },
-        { clipPath: 'circle(150% at calc(100% - 2.5rem) 2.5rem)', duration: 0.7, ease: 'power3.inOut' }
+        { clipPath: 'circle(150% at calc(100% - 2.5rem) 2.5rem)', duration: 0.65, ease: 'power3.inOut' }
       )
       gsap.fromTo(
         mobileItemsRef.current.filter(Boolean),
-        { y: 60, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.55, stagger: 0.07, delay: 0.25, ease: 'power3.out' }
+        { y: 50, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.5, stagger: 0.08, delay: 0.2, ease: 'power3.out' }
       )
     } else {
       document.body.style.overflow = ''
       if (overlayRef.current) {
         gsap.to(overlayRef.current, {
           clipPath: 'circle(0% at calc(100% - 2.5rem) 2.5rem)',
-          duration: 0.55,
+          duration: 0.5,
           ease: 'power3.inOut',
           onComplete: () => {
             if (overlayRef.current) gsap.set(overlayRef.current, { display: 'none' })
@@ -99,29 +99,27 @@ export default function Navbar() {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-[90] transition-all duration-300 ${scrolled ? 'py-3' : 'py-5'}`}
+        className={`fixed top-0 left-0 right-0 z-50 h-20 flex items-center transition-all duration-300 ${
+          scrolled
+            ? 'bg-[#07040d]/90 backdrop-blur-xl border-b border-white/[0.06] shadow-[0_4px_30px_rgba(7,4,13,0.8)]'
+            : 'bg-transparent border-b border-transparent'
+        }`}
         role="banner"
       >
-        <div
-          className={`mx-auto flex items-center justify-between transition-all duration-300 ${
-            scrolled
-              ? 'max-w-6xl px-6 py-2.5 mx-5 sm:mx-auto backdrop-blur-xl bg-[#070a08]/80 border border-white/[0.08] rounded-full shadow-[0_4px_30px_rgba(7,4,13,0.6)]'
-              : 'max-w-[1440px] px-5 sm:px-8 lg:px-12'
-          }`}
-        >
-          {/* Brand */}
+        <div className="w-full max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 flex items-center justify-between gap-6">
+          {/* Brand Logo with Rotating Circular Text — Left */}
           <Link
             to="/"
-            className="flex items-center gap-3 group no-underline"
+            className="flex items-center gap-3.5 no-underline transition-transform duration-200 hover:-translate-y-0.5 active:scale-[0.98]"
             aria-label="Symbiosis Quantum Club Home"
           >
             <LogoWithCircularText size="md" showTitleText={true} />
           </Link>
 
-          {/* Desktop Nav — Glassmorphic Capsule with LayoutGroup Fluid Beam */}
+          {/* Desktop Navigation Links — Center Glassmorphic Capsule with Fluid Gliding Beam */}
           <LayoutGroup id="navbar-links">
             <nav
-              className="hidden min-[820px]:flex items-center gap-1 px-2.5 py-1.5 rounded-full bg-white/[0.03] border border-white/[0.07] backdrop-blur-md"
+              className="hidden min-[820px]:flex items-center gap-1 px-3 py-1.5 rounded-full bg-white/[0.03] backdrop-blur-md"
               aria-label="Main navigation"
             >
               {navLinks.map((link) => {
@@ -132,27 +130,57 @@ export default function Navbar() {
                   <Link
                     key={link.to}
                     to={link.to}
-                    className={`relative px-4 py-2 rounded-full font-mono text-[0.72rem] tracking-[0.18em] uppercase transition-colors duration-200 no-underline inline-flex items-center justify-center select-none ${
-                      isActive ? 'text-white' : 'text-slate-400 hover:text-white'
+                    className={`relative px-4 py-2 rounded-full font-mono text-[0.75rem] tracking-[0.14em] font-semibold uppercase transition-colors duration-200 no-underline inline-flex items-center justify-center select-none active:scale-[0.97] ${
+                      isActive ? 'text-white' : 'text-slate-400 hover:text-white hover:bg-white/[0.04]'
                     }`}
                   >
-                    {/* Gliding active capsule */}
+                    {/* Fluid Gliding Background Capsule */}
                     {isActive && (
                       <motion.div
-                        layoutId="nav-pill"
-                        className="absolute inset-0 rounded-full bg-white/[0.07] border border-white/10"
-                        transition={{ type: 'spring', stiffness: 400, damping: 32, mass: 0.7 }}
+                        layoutId="navbar-active-pill"
+                        className="absolute inset-0 rounded-full bg-white/[0.06]"
+                        transition={{
+                          type: 'spring',
+                          stiffness: 380,
+                          damping: 30,
+                          mass: 0.8,
+                        }}
                       />
                     )}
-                    {/* Gliding neon beam underline */}
+
+                    {/* Fluid Gliding Volumetric Glow */}
                     {isActive && (
                       <motion.div
-                        layoutId="nav-beam"
-                        className="absolute bottom-0.5 left-3 right-3 h-[2px] rounded-full pointer-events-none"
-                        style={{ background: theme.gradient, boxShadow: theme.shadow }}
-                        transition={{ type: 'spring', stiffness: 400, damping: 32, mass: 0.7 }}
+                        layoutId="navbar-active-glow"
+                        className="absolute -bottom-1 left-2.5 right-2.5 h-3 rounded-full blur-[5px] opacity-75 pointer-events-none"
+                        style={{ background: theme.gradient }}
+                        transition={{
+                          type: 'spring',
+                          stiffness: 380,
+                          damping: 30,
+                          mass: 0.8,
+                        }}
                       />
                     )}
+
+                    {/* Fluid Gliding Quantum Beam Underline */}
+                    {isActive && (
+                      <motion.div
+                        layoutId="navbar-active-beam"
+                        className="absolute bottom-0 left-2.5 right-2.5 h-[2.5px] rounded-full pointer-events-none z-10"
+                        style={{
+                          background: theme.gradient,
+                          boxShadow: theme.shadow,
+                        }}
+                        transition={{
+                          type: 'spring',
+                          stiffness: 380,
+                          damping: 30,
+                          mass: 0.8,
+                        }}
+                      />
+                    )}
+
                     <span className="relative z-10">{link.label}</span>
                   </Link>
                 )
@@ -160,70 +188,71 @@ export default function Navbar() {
             </nav>
           </LayoutGroup>
 
-          {/* Right Actions */}
-          <div className="flex items-center gap-3">
-            {/* Instagram */}
+          {/* Action Buttons — Right */}
+          <div className="flex items-center gap-3 sm:gap-4">
             <a
               href="https://www.instagram.com/quantumclub.sit/"
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden sm:grid place-items-center p-1.5 text-purple-400 hover:text-fuchsia-400 hover:-translate-y-0.5 transition-all duration-200"
+              className="text-purple-400 hover:text-fuchsia-400 hover:-translate-y-0.5 p-1.5 transition-all duration-200 grid place-items-center active:scale-[0.95]"
               aria-label="Instagram"
             >
-              <svg className="w-[18px] h-[18px]" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
                 <rect x="2" y="2" width="20" height="20" rx="5" />
                 <circle cx="12" cy="12" r="5" />
                 <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none" />
               </svg>
             </a>
-            {/* LinkedIn */}
             <a
               href="https://www.linkedin.com/company/symbiosis-quantum-club/"
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden sm:grid place-items-center p-1.5 text-purple-400 hover:text-fuchsia-400 hover:-translate-y-0.5 transition-all duration-200"
+              className="text-purple-400 hover:text-fuchsia-400 hover:-translate-y-0.5 p-1.5 transition-all duration-200 grid place-items-center active:scale-[0.95]"
               aria-label="LinkedIn"
             >
-              <svg className="w-[18px] h-[18px]" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
                 <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z" />
                 <rect x="2" y="9" width="4" height="12" />
                 <circle cx="4" cy="4" r="2" />
               </svg>
             </a>
-            {/* CTA */}
             <Link
-              to="/events"
-              className="hidden min-[820px]:inline-flex items-center gap-2 font-mono text-[0.7rem] font-semibold uppercase tracking-[0.18em] px-4 py-2 rounded-full border border-white/20 text-white/80 hover:border-fuchsia-500 hover:text-white hover:shadow-[0_0_20px_rgba(168,85,247,0.3)] transition-all duration-300"
+              to="/fallfest"
+              className="group inline-flex items-center gap-2 font-mono text-[0.72rem] font-bold uppercase tracking-[0.1em] px-4 sm:px-5 py-2.5 rounded-full text-white bg-gradient-to-r from-purple-600 to-fuchsia-600 shadow-[0_0_24px_rgba(168,85,247,0.45)] hover:from-purple-500 hover:to-pink-500 hover:shadow-[0_0_32px_rgba(236,72,153,0.6)] hover:-translate-y-0.5 active:scale-[0.96] transition-all duration-200"
             >
-              Register →
+              <span>JOIN CLUB</span>
+              <span className="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center group-hover:scale-110 group-hover:bg-white/30 transition-all duration-200">
+                <svg width="12" height="12" viewBox="0 0 16 16" fill="none">
+                  <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </span>
             </Link>
 
-            {/* Mobile hamburger — top-right, triggers circle clip animation */}
+            {/* Mobile Hamburger Button */}
             <button
-              className="flex min-[820px]:hidden flex-col gap-[5px] w-8 h-8 justify-center items-center cursor-pointer z-[95] bg-transparent border-0 relative"
+              className="flex min-[820px]:hidden flex-col gap-1.5 w-8 p-1 cursor-pointer z-50 bg-transparent border-0 active:scale-[0.92]"
               onClick={() => setMenuOpen(!menuOpen)}
               aria-label={menuOpen ? 'Close menu' : 'Open menu'}
               aria-expanded={menuOpen}
             >
-              <span className={`block w-5 h-[1.5px] bg-white rounded-full transition-all duration-300 origin-center ${menuOpen ? 'translate-y-[6.5px] rotate-45' : ''}`} />
-              <span className={`block w-5 h-[1.5px] bg-white rounded-full transition-all duration-300 ${menuOpen ? 'opacity-0 scale-x-0' : ''}`} />
-              <span className={`block w-5 h-[1.5px] bg-white rounded-full transition-all duration-300 origin-center ${menuOpen ? '-translate-y-[6.5px] -rotate-45' : ''}`} />
+              <span className={`block w-full h-[2px] bg-white rounded-full transition-transform duration-300 ${menuOpen ? 'translate-y-[8px] rotate-45' : ''}`} />
+              <span className={`block w-full h-[2px] bg-white rounded-full transition-opacity duration-300 ${menuOpen ? 'opacity-0' : ''}`} />
+              <span className={`block w-full h-[2px] bg-white rounded-full transition-transform duration-300 ${menuOpen ? '-translate-y-[8px] -rotate-45' : ''}`} />
             </button>
           </div>
         </div>
       </header>
 
-      {/* Mobile Full-Screen Overlay — Circle Clip-Path Reveal (reference Navbar.jsx pattern) */}
+      {/* Mobile Circle-Clip Drawer */}
       <div
         ref={overlayRef}
         style={{ display: 'none', clipPath: 'circle(0% at calc(100% - 2.5rem) 2.5rem)' }}
-        className="fixed inset-0 z-[85] flex flex-col items-start justify-center gap-3 px-8 md:px-14 bg-[#070a08]"
+        className="fixed inset-0 z-40 flex flex-col items-start justify-center gap-4 px-8 md:px-14 bg-[#07040d]/98 backdrop-blur-2xl"
       >
-        {/* Ambient glow accents */}
-        <div className="absolute top-1/4 right-0 w-64 h-64 rounded-full bg-[radial-gradient(circle,rgba(168,85,247,0.12)_0%,transparent_70%)] blur-3xl pointer-events-none" />
-        <div className="absolute bottom-1/4 left-0 w-48 h-48 rounded-full bg-[radial-gradient(circle,rgba(6,182,212,0.08)_0%,transparent_70%)] blur-3xl pointer-events-none" />
+        <div className="absolute top-1/4 right-0 w-72 h-72 rounded-full bg-[radial-gradient(circle,rgba(168,85,247,0.15)_0%,transparent_70%)] blur-3xl pointer-events-none" />
+        <div className="absolute bottom-1/4 left-0 w-56 h-56 rounded-full bg-[radial-gradient(circle,rgba(6,182,212,0.1)_0%,transparent_70%)] blur-3xl pointer-events-none" />
 
-        <nav aria-label="Mobile navigation" className="flex flex-col items-start gap-1 w-full">
+        <nav aria-label="Mobile navigation" className="flex flex-col items-start gap-2 w-full">
           {navLinks.map((link, i) => {
             const isActive = isLinkActive(link.to)
             const theme = PAGE_THEMES[link.to] || PAGE_THEMES['/']
@@ -233,12 +262,11 @@ export default function Navbar() {
                 ref={(el) => (mobileItemsRef.current[i] = el)}
                 to={link.to}
                 onClick={() => setMenuOpen(false)}
-                className="group relative font-display text-[13vw] sm:text-[10vw] md:text-[8vw] leading-tight font-bold no-underline transition-colors duration-200"
-                style={{ color: isActive ? theme.accentColor : 'rgba(239,231,214,0.75)' }}
+                className="group relative font-display text-[12vw] sm:text-[9vw] leading-tight font-bold no-underline transition-colors duration-200 active:scale-[0.97]"
+                style={{ color: isActive ? theme.accentColor : 'rgba(239,231,214,0.8)' }}
               >
                 <span className="relative">
                   {link.label}
-                  {/* Hover underline */}
                   <span
                     className="absolute -bottom-1 left-0 h-[2px] w-0 group-hover:w-full transition-all duration-300 rounded-full"
                     style={{ background: theme.gradient }}
@@ -249,22 +277,21 @@ export default function Navbar() {
           })}
         </nav>
 
-        {/* Mobile CTA */}
         <div
           ref={(el) => (mobileItemsRef.current[navLinks.length] = el)}
-          className="mt-8 flex flex-col gap-4 w-full max-w-xs"
+          className="mt-6 flex flex-col gap-4 w-full max-w-xs"
         >
           <Link
-            to="/events"
-            className="inline-flex items-center justify-center gap-2 font-mono text-sm font-semibold uppercase tracking-widest px-6 py-3.5 rounded-full border border-fuchsia-500/70 text-white bg-gradient-to-br from-purple-700 to-fuchsia-700 hover:from-purple-500 hover:to-fuchsia-500 transition-all duration-200 shadow-[0_0_25px_rgba(168,85,247,0.3)]"
+            to="/fallfest"
+            className="inline-flex items-center justify-center gap-2 font-mono text-xs font-bold uppercase tracking-widest px-6 py-3.5 rounded-full text-white bg-gradient-to-r from-purple-600 to-fuchsia-600 shadow-[0_0_25px_rgba(168,85,247,0.4)] active:scale-[0.97] transition-all duration-200"
             onClick={() => setMenuOpen(false)}
           >
-            Join Club →
+            Join Fall Fest 2026 →
           </Link>
           <div className="flex items-center gap-4 pt-1">
-            <a href="https://www.instagram.com/quantumclub.sit/" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-fuchsia-400 transition-colors font-mono text-[10px] tracking-widest uppercase">Instagram</a>
+            <a href="https://www.instagram.com/quantumclub.sit/" target="_blank" rel="noopener noreferrer" className="text-white/50 hover:text-fuchsia-400 transition-colors font-mono text-[10px] tracking-widest uppercase">Instagram</a>
             <span className="text-white/20">·</span>
-            <a href="https://www.linkedin.com/company/symbiosis-quantum-club/" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-cyan-400 transition-colors font-mono text-[10px] tracking-widest uppercase">LinkedIn</a>
+            <a href="https://www.linkedin.com/company/symbiosis-quantum-club/" target="_blank" rel="noopener noreferrer" className="text-white/50 hover:text-cyan-400 transition-colors font-mono text-[10px] tracking-widest uppercase">LinkedIn</a>
           </div>
         </div>
       </div>

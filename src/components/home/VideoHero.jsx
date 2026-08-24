@@ -8,7 +8,7 @@ export default function VideoHero() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ delay: 0.2 })
+      const tl = gsap.timeline({ delay: 0.15 })
 
       tl.from('.hero__divider', {
         scaleX: 0,
@@ -53,8 +53,8 @@ export default function VideoHero() {
   }, [])
 
   return (
-    <section className="relative min-h-screen flex flex-col justify-end pb-16 sm:pb-24 pt-32 overflow-hidden bg-[#07040d] text-white" ref={heroRef} id="hero">
-      {/* Background Visual Layer: Animated Quantum Circuit in Violet & Magenta (Logo Aligned) */}
+    <section className="relative min-h-[92vh] flex flex-col justify-end pb-16 sm:pb-24 pt-32 overflow-hidden bg-[#07040d] text-white" ref={heroRef} id="hero">
+      {/* Background Visual Layer: Animated Quantum Circuit Grid & Subtle Physics Equations */}
       <div className="absolute inset-0 z-[1] pointer-events-none">
         <div className="w-full h-full opacity-65" aria-hidden="true">
           <svg className="w-full h-full object-cover" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
@@ -98,9 +98,20 @@ export default function VideoHero() {
           </svg>
         </div>
         
-        {/* Radial Lighting in Violet & Magenta Ambient Glow */}
-        <div className="absolute top-[12%] left-[15%] w-[65vw] h-[65vw] rounded-full bg-[radial-gradient(circle,rgba(168,85,247,0.18)_0%,rgba(236,72,153,0.09)_45%,transparent_70%)] blur-[95px]" aria-hidden="true" />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#07040d]/30 via-[#07040d]/75 to-[#07040d]" aria-hidden="true" />
+        {/* Subtle Floating Physics / Quantum Equations in Background */}
+        <div className="absolute top-[18%] right-[8%] font-mono text-sm text-purple-400/20 select-none hidden lg:block pointer-events-none">
+          <code>iℏ ∂/∂t |ψ(t)⟩ = Ĥ|ψ(t)⟩</code>
+        </div>
+        <div className="absolute top-[45%] right-[14%] font-mono text-xs text-cyan-400/20 select-none hidden lg:block pointer-events-none">
+          <code>[x̂, p̂] = iℏ · I</code>
+        </div>
+        <div className="absolute top-[65%] right-[6%] font-mono text-xs text-emerald-400/20 select-none hidden lg:block pointer-events-none">
+          <code>|Φ⁺⟩ = 1/√2 (|00⟩ + |11⟩)</code>
+        </div>
+
+        {/* Radial Ambient Lighting */}
+        <div className="absolute top-[10%] left-[15%] w-[65vw] h-[65vw] rounded-full bg-[radial-gradient(circle,rgba(168,85,247,0.18)_0%,rgba(236,72,153,0.08)_45%,transparent_70%)] blur-[95px]" aria-hidden="true" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#07040d]/20 via-[#07040d]/70 to-[#07040d]" aria-hidden="true" />
       </div>
 
       {/* Hero Content — Left Aligned */}
@@ -127,44 +138,48 @@ export default function VideoHero() {
         </h1>
 
         {/* Description */}
-        <p className="hero__description font-body text-base sm:text-lg lg:text-xl leading-relaxed text-slate-300 max-w-[60ch] mb-8">
-          Symbiosis Quantum Club is an experiential launchpad for student researchers, hardware builders, and algorithm pioneers. Join three days of hands-on IBM Qiskit workshops, hackathons, and lectures.
+        <p className="hero__description font-body text-base sm:text-lg lg:text-xl leading-relaxed text-slate-300 max-w-[62ch] mb-8">
+          Symbiosis Quantum Club is an experiential launchpad for student researchers, hardware builders, and algorithm pioneers. Explore quantum linear algebra, transmon physics, and molecular Hamiltonian simulation with IBM Qiskit.
         </p>
 
-        {/* Live Metric Badges */}
+        {/* Live Scientific & Hardware Telemetry Badges */}
         <div className="hero__stats flex flex-wrap items-center gap-3 sm:gap-4 mb-10">
           <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#120d1c]/90 border border-[#a855f7]/30 backdrop-blur-md">
             <span className="w-2 h-2 rounded-full bg-[#c084fc] animate-pulse" />
             <span className="font-mono text-xs font-semibold text-slate-200">500+ Qubits Simulated</span>
           </div>
-          <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#120d1c]/90 border border-[#ec4899]/30 backdrop-blur-md">
-            <span className="w-2 h-2 rounded-full bg-[#ec4899]" />
-            <span className="font-mono text-xs font-semibold text-slate-200">12+ Workshops</span>
+          <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#120d1c]/90 border border-cyan-500/30 backdrop-blur-md">
+            <span className="w-2 h-2 rounded-full bg-cyan-400" />
+            <span className="font-mono text-xs font-semibold text-cyan-200">15 mK Cryo Dilution Stage</span>
+          </div>
+          <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#120d1c]/90 border border-emerald-500/30 backdrop-blur-md">
+            <span className="w-2 h-2 rounded-full bg-emerald-400" />
+            <span className="font-mono text-xs font-semibold text-emerald-200">99.8% 2-Qubit Gate Fidelity</span>
           </div>
           <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#120d1c]/90 border border-white/15 backdrop-blur-md">
             <span className="font-mono text-xs font-semibold text-[#c084fc]">✦ IBM Qiskit Partner</span>
           </div>
         </div>
 
-        {/* Actions */}
+        {/* Actions with Emil Kowalski active scaling */}
         <div className="hero__actions flex flex-wrap items-center gap-4 sm:gap-5">
           <Link 
             to="/fallfest" 
-            className="inline-flex items-center gap-3 font-display text-sm font-bold uppercase tracking-wider px-7 py-3.5 rounded-full bg-gradient-to-r from-[#a855f7] to-[#d946ef] text-white border border-[#d946ef] shadow-[0_0_30px_rgba(168,85,247,0.45)] hover:from-[#c084fc] hover:to-[#ec4899] hover:border-[#ec4899] hover:shadow-[0_0_40px_rgba(236,72,153,0.65)] hover:-translate-y-0.5 transition-all duration-300 group"
+            className="inline-flex items-center gap-3 font-mono text-xs sm:text-sm font-bold uppercase tracking-wider px-7 py-3.5 rounded-full bg-gradient-to-r from-[#a855f7] to-[#d946ef] text-white shadow-[0_0_30px_rgba(168,85,247,0.45)] hover:from-[#c084fc] hover:to-[#ec4899] hover:shadow-[0_0_40px_rgba(236,72,153,0.65)] hover:-translate-y-0.5 active:scale-[0.97] transition-all duration-200 group"
           >
             <span>REGISTER FOR FALL FEST</span>
-            <span className="w-6.5 h-6.5 bg-white/20 rounded-full flex items-center justify-center transition-transform duration-250 group-hover:scale-115 group-hover:translate-x-0.5 group-hover:bg-white/30">
+            <span className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center transition-transform duration-200 group-hover:scale-110 group-hover:translate-x-0.5 group-hover:bg-white/30">
               <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
                 <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
             </span>
           </Link>
-          <Link 
-            to="/events" 
-            className="inline-flex items-center gap-3 font-display text-sm font-bold uppercase tracking-wider px-7 py-3.5 rounded-full border border-[#a855f7]/35 text-white bg-[#a855f7]/[0.06] backdrop-blur-md hover:border-[#c084fc] hover:text-[#c084fc] hover:bg-[#a855f7]/15 hover:shadow-[0_0_24px_rgba(168,85,247,0.3)] hover:-translate-y-0.5 transition-all duration-300"
+          <a 
+            href="#science-foundations" 
+            className="inline-flex items-center gap-3 font-mono text-xs sm:text-sm font-semibold uppercase tracking-wider px-7 py-3.5 rounded-full border border-[#a855f7]/35 text-white bg-[#a855f7]/[0.06] backdrop-blur-md hover:border-[#c084fc] hover:text-[#c084fc] hover:bg-[#a855f7]/15 hover:shadow-[0_0_24px_rgba(168,85,247,0.3)] hover:-translate-y-0.5 active:scale-[0.97] transition-all duration-200"
           >
-            EXPLORE EVENTS
-          </Link>
+            EXPLORE QUANTUM GRAPHS ↓
+          </a>
         </div>
       </div>
 

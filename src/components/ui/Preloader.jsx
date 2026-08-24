@@ -15,7 +15,7 @@ const Preloader = ({ onDone }) => {
         if (rootRef.current) {
           gsap.to(rootRef.current, {
             yPercent: -100,
-            duration: 1,
+            duration: 0.95,
             ease: 'expo.inOut',
             onComplete: () => {
               document.body.style.overflow = ''
@@ -31,16 +31,16 @@ const Preloader = ({ onDone }) => {
 
     tl.to(obj, {
       v: 100,
-      duration: 2.6,
+      duration: 2.2,
       ease: 'power3.inOut',
       onUpdate: () => {
         const v = Math.round(obj.v)
-        // Always 3 digits: 000 → 001 → ... → 100
+        // Strictly 3 digits: 000 → 001 → ... → 100
         setDisplay(String(v).padStart(3, '0'))
         if (barRef.current) barRef.current.style.transform = `scaleX(${v / 100})`
       },
     })
-    tl.to({}, { duration: 0.3 })
+    tl.to({}, { duration: 0.25 })
 
     return () => {
       document.body.style.overflow = ''
@@ -51,41 +51,41 @@ const Preloader = ({ onDone }) => {
   return (
     <div
       ref={rootRef}
-      className="fixed inset-0 z-[99999] flex flex-col justify-between p-8 md:p-12 lg:p-14 select-none overflow-hidden"
-      style={{ background: '#0a0908' }}
+      className="fixed inset-0 z-[99999] flex flex-col justify-between p-6 sm:p-10 md:p-14 lg:p-16 select-none overflow-hidden bg-[#090807]"
       aria-label="Loading Symbiosis Quantum Club"
       role="status"
     >
-      {/* Top Header Row */}
-      <div className="flex items-center justify-between font-mono text-[11px] tracking-[0.25em] uppercase text-[rgba(239,231,214,0.6)]">
-        <span>Symbiosis Quantum Club</span>
-        <span className="hidden md:inline">A Decade of Quantum ✦ 2016 — 2026</span>
+      {/* Top Bar Header */}
+      <div className="flex items-center justify-between font-mono text-[10px] sm:text-[11px] md:text-xs tracking-[0.3em] uppercase text-white/50">
+        <span>SYMBIOSIS QUANTUM CLUB</span>
+        <span className="hidden sm:inline">A DECADE OF QUANTUM ✦ 2016 — 2026</span>
       </div>
 
-      {/* Bottom Lockup */}
-      <div className="flex flex-col items-start gap-4 md:gap-5 w-full">
-        {/* 3-digit counter with tabular-nums so width never shifts */}
-        <div className="flex items-baseline gap-2 sm:gap-3 leading-none">
+      {/* Bottom Area: Grand Serif Counter, Gold Hairline, and Metadata */}
+      <div className="flex flex-col items-start w-full">
+        {/* Counter Number + Amber % Sign */}
+        <div className="flex items-baseline gap-1.5 sm:gap-3 leading-none mb-3 sm:mb-5">
           <span
-            className="text-[clamp(5.5rem,17vw,13.5rem)] leading-[0.85] text-[#efe7d6] font-normal"
+            className="text-[clamp(5.5rem,18vw,14rem)] leading-[0.82] text-[#efe7d6] font-normal"
             style={{
-              fontFamily: "'Playfair Display', 'Didot', 'Bodoni MT', Georgia, serif",
+              fontFamily: "'Bodoni Moda', 'Playfair Display', 'Cormorant Garamond', Didot, serif",
               fontVariantNumeric: 'tabular-nums',
               fontFeatureSettings: '"tnum"',
-              letterSpacing: '0.01em',
+              letterSpacing: '-0.02em',
             }}
           >
             {display}
           </span>
           <span
-            className="text-sm sm:text-base text-[#d97706] font-semibold font-mono mb-1"
+            className="text-base sm:text-2xl md:text-3xl font-bold font-mono text-[#d97706] mb-2 sm:mb-4 select-none"
+            aria-hidden="true"
           >
             %
           </span>
         </div>
 
-        {/* Full-width horizontal progress bar */}
-        <div className="w-full h-[1px] bg-[rgba(239,231,214,0.18)] relative overflow-hidden">
+        {/* Full-width Gold/Amber Hairline Progress Bar */}
+        <div className="w-full h-[1.5px] bg-[#efe7d6]/15 relative overflow-hidden mb-3 sm:mb-4">
           <div
             ref={barRef}
             className="absolute inset-0 origin-left"
@@ -93,10 +93,10 @@ const Preloader = ({ onDone }) => {
           />
         </div>
 
-        {/* Bottom metadata */}
-        <div className="flex items-center justify-between w-full font-mono text-[11px] tracking-[0.25em] uppercase text-[rgba(239,231,214,0.55)] pt-0.5">
-          <span>Loading Superposition</span>
-          <span>Qiskit ▪ IBM Cloud</span>
+        {/* Bottom Metadata */}
+        <div className="flex items-center justify-between w-full font-mono text-[10px] sm:text-[11px] md:text-xs tracking-[0.3em] uppercase text-white/50">
+          <span>LOADING SUPERPOSITION</span>
+          <span>QISKIT ▪ IBM CLOUD</span>
         </div>
       </div>
     </div>
