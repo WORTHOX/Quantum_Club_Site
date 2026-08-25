@@ -11,7 +11,7 @@ export default function CircularText({
 }) {
   const letters = Array.from(text)
   const deg = 360 / letters.length
-  const containerDim = Math.max(radius * 2 + 24, 72)
+  const containerDim = Math.max(radius * 2 + 16, 64)
 
   return (
     <div
