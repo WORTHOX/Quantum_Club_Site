@@ -134,11 +134,11 @@ export default function Navbar() {
                       isActive ? 'text-white' : 'text-slate-400 hover:text-white'
                     }`}
                   >
-                    {/* Fluid Gliding Volumetric Glow */}
+                    {/* Fluid Gliding Volumetric Glow — Cast Downwards */}
                     {isActive && (
                       <motion.div
                         layoutId="navbar-active-glow"
-                        className="absolute -bottom-1.5 left-0 right-0 h-3 rounded-full blur-[6px] opacity-80 pointer-events-none"
+                        className="absolute -bottom-3 left-0 right-0 h-4 rounded-full blur-[7px] opacity-85 pointer-events-none"
                         style={{ background: theme.gradient }}
                         transition={{
                           type: 'spring',
@@ -153,10 +153,10 @@ export default function Navbar() {
                     {isActive && (
                       <motion.div
                         layoutId="navbar-active-beam"
-                        className="absolute -bottom-0.5 left-0 right-0 h-[2px] rounded-full pointer-events-none z-10"
+                        className="absolute -bottom-1.5 left-0 right-0 h-[2px] rounded-full pointer-events-none z-10"
                         style={{
                           background: theme.gradient,
-                          boxShadow: theme.shadow,
+                          boxShadow: `0 5px 15px ${theme.accentColor}bb, 0 8px 24px ${theme.accentColor}55`,
                         }}
                         transition={{
                           type: 'spring',

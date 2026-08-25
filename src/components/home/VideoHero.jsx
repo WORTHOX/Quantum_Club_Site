@@ -1,10 +1,21 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import gsap from 'gsap'
 
 export default function VideoHero() {
   const heroRef = useRef(null)
   const textRef = useRef(null)
+  const floatGroupRef = useRef(null)
+
+  // Interactive wave phase for physics card
+  const [wavePhase, setWavePhase] = useState(0)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setWavePhase((prev) => (prev + 0.15) % (Math.PI * 2))
+    }, 50)
+    return () => clearInterval(interval)
+  }, [])
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -47,16 +58,48 @@ export default function VideoHero() {
         duration: 0.6,
         ease: 'power3.out',
       }, '-=0.2')
+      .from('.hero__floating-card', {
+        y: 35,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.15,
+        ease: 'power3.out',
+      }, '-=0.5')
+
+      // Subtle continuous floating motion on the cards
+      gsap.to('.float-card-1', {
+        y: -10,
+        duration: 3.2,
+        repeat: -1,
+        yoyo: true,
+        ease: 'sine.inOut',
+      })
+      gsap.to('.float-card-2', {
+        y: 12,
+        duration: 3.8,
+        repeat: -1,
+        yoyo: true,
+        ease: 'sine.inOut',
+        delay: 0.5,
+      })
+      gsap.to('.float-card-3', {
+        y: -8,
+        duration: 4.2,
+        repeat: -1,
+        yoyo: true,
+        ease: 'sine.inOut',
+        delay: 1,
+      })
     }, heroRef)
 
     return () => ctx.revert()
   }, [])
 
   return (
-    <section className="relative min-h-[92vh] flex flex-col justify-end pb-16 sm:pb-24 pt-32 overflow-hidden bg-[#07040d] text-white" ref={heroRef} id="hero">
-      {/* Background Visual Layer: Animated Quantum Circuit Grid & Subtle Physics Equations */}
+    <section className="relative min-h-screen flex flex-col justify-center pt-28 pb-16 overflow-hidden bg-[#07040d] text-white" ref={heroRef} id="hero">
+      {/* Background Visual Layer: Animated Quantum Circuit Grid */}
       <div className="absolute inset-0 z-[1] pointer-events-none">
-        <div className="w-full h-full opacity-65" aria-hidden="true">
+        <div className="w-full h-full opacity-55" aria-hidden="true">
           <svg className="w-full h-full object-cover" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
             {/* Grid lines */}
             {[...Array(7)].map((_, i) => (
@@ -97,94 +140,196 @@ export default function VideoHero() {
             ))}
           </svg>
         </div>
+
+        {/* Ambient Glows */}
+        <div className="absolute top-[15%] left-[10%] w-[55vw] h-[55vw] rounded-full bg-[radial-gradient(circle,rgba(168,85,247,0.16)_0%,rgba(236,72,153,0.06)_45%,transparent_70%)] blur-[90px]" aria-hidden="true" />
+        <div className="absolute top-[30%] right-[10%] w-[40vw] h-[40vw] rounded-full bg-[radial-gradient(circle,rgba(6,182,212,0.12)_0%,transparent_70%)] blur-[90px]" aria-hidden="true" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#07040d]/10 via-[#07040d]/60 to-[#07040d]" aria-hidden="true" />
+      </div>
+
+      {/* Main Grid: Left Hero Copy + Right Floating Scientific HUD */}
+      <div className="relative z-10 w-full max-w-[1440px] mx-auto px-5 sm:px-8 md:px-12 lg:px-16 grid grid-cols-1 lg:grid-cols-[1.12fr_0.88fr] gap-12 lg:gap-8 items-center">
         
-        {/* Subtle Floating Physics / Quantum Equations in Background */}
-        <div className="absolute top-[18%] right-[8%] font-mono text-sm text-purple-400/20 select-none hidden lg:block pointer-events-none">
-          <code>iℏ ∂/∂t |ψ(t)⟩ = Ĥ|ψ(t)⟩</code>
-        </div>
-        <div className="absolute top-[45%] right-[14%] font-mono text-xs text-cyan-400/20 select-none hidden lg:block pointer-events-none">
-          <code>[x̂, p̂] = iℏ · I</code>
-        </div>
-        <div className="absolute top-[65%] right-[6%] font-mono text-xs text-emerald-400/20 select-none hidden lg:block pointer-events-none">
-          <code>|Φ⁺⟩ = 1/√2 (|00⟩ + |11⟩)</code>
-        </div>
-
-        {/* Radial Ambient Lighting */}
-        <div className="absolute top-[10%] left-[15%] w-[65vw] h-[65vw] rounded-full bg-[radial-gradient(circle,rgba(168,85,247,0.18)_0%,rgba(236,72,153,0.08)_45%,transparent_70%)] blur-[95px]" aria-hidden="true" />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#07040d]/20 via-[#07040d]/70 to-[#07040d]" aria-hidden="true" />
-      </div>
-
-      {/* Hero Content — Left Aligned */}
-      <div className="relative z-10 w-full max-w-[1440px] mx-auto px-5 sm:px-8 md:px-12 lg:px-16 flex flex-col items-start" ref={textRef}>
-        {/* Eyebrow Lockup */}
-        <div className="flex items-center gap-4 mb-6">
-          <div className="hero__divider w-10 h-[2px] bg-gradient-to-r from-[#a855f7] to-[#ec4899] origin-left shadow-[0_0_12px_rgba(168,85,247,0.8)]" />
-          <span className="hero__eyebrow font-mono text-xs sm:text-sm font-semibold tracking-widest text-[#c084fc] uppercase">
-            SYMBIOSIS QUANTUM CLUB ✦ IBM QISKIT FALL FEST 2026
-          </span>
-        </div>
-
-        {/* Headline */}
-        <h1 className="font-display text-[clamp(2.8rem,6.5vw+1rem,6.5rem)] font-bold leading-[0.95] tracking-tight mb-6 text-white">
-          <span className="block">
-            <span className="hero__title-word inline-block">Decode</span>{' '}
-            <span className="hero__title-word inline-block">The</span>{' '}
-            <span className="hero__title-word inline-block bg-gradient-to-br from-white via-[#c084fc] to-[#f472b6] bg-clip-text text-transparent drop-shadow-[0_0_28px_rgba(168,85,247,0.45)]">Future</span>
-          </span>
-          <span className="block">
-            <span className="hero__title-word inline-block">Of</span>{' '}
-            <span className="hero__title-word inline-block bg-gradient-to-r from-[#c084fc] via-[#e879f9] to-[#38bdf8] bg-clip-text text-transparent drop-shadow-[0_0_28px_rgba(217,70,239,0.35)]">Quantum</span>
-          </span>
-        </h1>
-
-        {/* Description */}
-        <p className="hero__description font-body text-base sm:text-lg lg:text-xl leading-relaxed text-slate-300 max-w-[62ch] mb-8">
-          Symbiosis Quantum Club is an experiential launchpad for student researchers, hardware builders, and algorithm pioneers. Explore quantum linear algebra, transmon physics, and molecular Hamiltonian simulation with IBM Qiskit.
-        </p>
-
-        {/* Live Scientific & Hardware Telemetry Badges */}
-        <div className="hero__stats flex flex-wrap items-center gap-3 sm:gap-4 mb-10">
-          <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#120d1c]/90 border border-[#a855f7]/30 backdrop-blur-md">
-            <span className="w-2 h-2 rounded-full bg-[#c084fc] animate-pulse" />
-            <span className="font-mono text-xs font-semibold text-slate-200">500+ Qubits Simulated</span>
-          </div>
-          <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#120d1c]/90 border border-cyan-500/30 backdrop-blur-md">
-            <span className="w-2 h-2 rounded-full bg-cyan-400" />
-            <span className="font-mono text-xs font-semibold text-cyan-200">15 mK Cryo Dilution Stage</span>
-          </div>
-          <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#120d1c]/90 border border-emerald-500/30 backdrop-blur-md">
-            <span className="w-2 h-2 rounded-full bg-emerald-400" />
-            <span className="font-mono text-xs font-semibold text-emerald-200">99.8% 2-Qubit Gate Fidelity</span>
-          </div>
-          <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#120d1c]/90 border border-white/15 backdrop-blur-md">
-            <span className="font-mono text-xs font-semibold text-[#c084fc]">✦ IBM Qiskit Partner</span>
-          </div>
-        </div>
-
-        {/* Actions with Emil Kowalski active scaling */}
-        <div className="hero__actions flex flex-wrap items-center gap-4 sm:gap-5">
-          <Link 
-            to="/fallfest" 
-            className="inline-flex items-center gap-3 font-mono text-xs sm:text-sm font-bold uppercase tracking-wider px-7 py-3.5 rounded-full bg-gradient-to-r from-[#a855f7] to-[#d946ef] text-white shadow-[0_0_30px_rgba(168,85,247,0.45)] hover:from-[#c084fc] hover:to-[#ec4899] hover:shadow-[0_0_40px_rgba(236,72,153,0.65)] hover:-translate-y-0.5 active:scale-[0.97] transition-all duration-200 group"
-          >
-            <span>REGISTER FOR FALL FEST</span>
-            <span className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center transition-transform duration-200 group-hover:scale-110 group-hover:translate-x-0.5 group-hover:bg-white/30">
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
+        {/* Left Side: Editorial Content */}
+        <div className="flex flex-col items-start" ref={textRef}>
+          {/* Eyebrow Lockup */}
+          <div className="flex items-center gap-4 mb-6">
+            <div className="hero__divider w-10 h-[2px] bg-gradient-to-r from-[#a855f7] to-[#ec4899] origin-left shadow-[0_0_12px_rgba(168,85,247,0.8)]" />
+            <span className="hero__eyebrow font-mono text-xs sm:text-sm font-semibold tracking-widest text-[#c084fc] uppercase">
+              SYMBIOSIS QUANTUM CLUB ✦ IBM QISKIT FALL FEST 2026
             </span>
-          </Link>
-          <a 
-            href="#science-foundations" 
-            className="inline-flex items-center gap-3 font-mono text-xs sm:text-sm font-semibold uppercase tracking-wider px-7 py-3.5 rounded-full border border-[#a855f7]/35 text-white bg-[#a855f7]/[0.06] backdrop-blur-md hover:border-[#c084fc] hover:text-[#c084fc] hover:bg-[#a855f7]/15 hover:shadow-[0_0_24px_rgba(168,85,247,0.3)] hover:-translate-y-0.5 active:scale-[0.97] transition-all duration-200"
-          >
-            EXPLORE QUANTUM GRAPHS ↓
-          </a>
+          </div>
+
+          {/* Headline */}
+          <h1 className="font-display text-[clamp(2.8rem,5.8vw,5.8rem)] font-bold leading-[0.96] tracking-tight mb-6 text-white">
+            <span className="block">
+              <span className="hero__title-word inline-block">Decode</span>{' '}
+              <span className="hero__title-word inline-block">The</span>{' '}
+              <span className="hero__title-word inline-block bg-gradient-to-br from-white via-[#c084fc] to-[#f472b6] bg-clip-text text-transparent drop-shadow-[0_0_28px_rgba(168,85,247,0.45)]">Future</span>
+            </span>
+            <span className="block">
+              <span className="hero__title-word inline-block">Of</span>{' '}
+              <span className="hero__title-word inline-block bg-gradient-to-r from-[#c084fc] via-[#e879f9] to-[#38bdf8] bg-clip-text text-transparent drop-shadow-[0_0_28px_rgba(217,70,239,0.35)]">Quantum</span>
+            </span>
+          </h1>
+
+          {/* Description */}
+          <p className="hero__description font-body text-base sm:text-lg leading-relaxed text-slate-300 max-w-[58ch] mb-8">
+            Symbiosis Quantum Club is an experiential launchpad for student researchers, hardware builders, and algorithm pioneers. Explore quantum linear algebra, transmon physics, and molecular Hamiltonian simulation with IBM Qiskit.
+          </p>
+
+          {/* Live Scientific & Hardware Telemetry Badges */}
+          <div className="hero__stats flex flex-wrap items-center gap-2.5 sm:gap-3 mb-9">
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#120d1c]/90 border border-[#a855f7]/30 backdrop-blur-md">
+              <span className="w-2 h-2 rounded-full bg-[#c084fc] animate-pulse" />
+              <span className="font-mono text-xs font-semibold text-slate-200">500+ Qubits Simulated</span>
+            </div>
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#120d1c]/90 border border-cyan-500/30 backdrop-blur-md">
+              <span className="w-2 h-2 rounded-full bg-cyan-400" />
+              <span className="font-mono text-xs font-semibold text-cyan-200">15 mK Dilution Stage</span>
+            </div>
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#120d1c]/90 border border-white/15 backdrop-blur-md">
+              <span className="font-mono text-xs font-semibold text-[#c084fc]">✦ IBM Qiskit Partner</span>
+            </div>
+          </div>
+
+          {/* Actions */}
+          <div className="hero__actions flex flex-wrap items-center gap-4">
+            <Link 
+              to="/fallfest" 
+              className="inline-flex items-center gap-3 font-mono text-xs sm:text-sm font-bold uppercase tracking-wider px-7 py-3.5 rounded-full bg-gradient-to-r from-[#a855f7] to-[#d946ef] text-white shadow-[0_0_28px_rgba(168,85,247,0.45)] hover:from-[#c084fc] hover:to-[#ec4899] hover:shadow-[0_0_36px_rgba(236,72,153,0.65)] hover:-translate-y-0.5 active:scale-[0.97] transition-all duration-200 group"
+            >
+              <span>REGISTER FOR FALL FEST</span>
+              <span className="w-5.5 h-5.5 bg-white/20 rounded-full flex items-center justify-center transition-transform duration-200 group-hover:scale-110 group-hover:translate-x-0.5 group-hover:bg-white/30">
+                <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </span>
+            </Link>
+            <Link 
+              to="/events" 
+              className="inline-flex items-center gap-3 font-mono text-xs sm:text-sm font-semibold uppercase tracking-wider px-7 py-3.5 rounded-full border border-[#a855f7]/35 text-white bg-[#a855f7]/[0.06] backdrop-blur-md hover:border-[#c084fc] hover:text-[#c084fc] hover:bg-[#a855f7]/15 hover:shadow-[0_0_20px_rgba(168,85,247,0.3)] hover:-translate-y-0.5 active:scale-[0.97] transition-all duration-200"
+            >
+              EXPLORE EVENTS
+            </Link>
+          </div>
         </div>
+
+        {/* Right Side: Floating Scientific Quantum HUD Cards */}
+        <div className="relative w-full max-w-[540px] mx-auto lg:mx-0 lg:ml-auto flex flex-col gap-4" ref={floatGroupRef}>
+          
+          {/* Card 1: Physics & Wave Interference (Top) */}
+          <div className="hero__floating-card float-card-1 p-5 rounded-2xl bg-[#0f0b1a]/85 border border-purple-500/25 shadow-[0_12px_36px_rgba(0,0,0,0.6)] backdrop-blur-xl relative overflow-hidden">
+            <div className="flex items-center justify-between border-b border-white/10 pb-2.5 mb-3">
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
+                <span className="font-mono text-[11px] font-bold text-cyan-300 uppercase tracking-wider">
+                  PHYSICS ▪ RAMSEY OSCILLATION & DECOHERENCE
+                </span>
+              </div>
+              <span className="font-mono text-[10px] text-slate-400">T₁ = 85 μs</span>
+            </div>
+
+            {/* Live Oscillating Wave SVG */}
+            <div className="w-full h-20 bg-black/40 rounded-xl border border-white/[0.06] p-2 relative overflow-hidden mb-3">
+              <svg className="w-full h-full" viewBox="0 0 300 60" preserveAspectRatio="none">
+                <line x1="0" y1="30" x2="300" y2="30" stroke="#ffffff" strokeOpacity="0.1" strokeDasharray="3 3" />
+                {(() => {
+                  const points = []
+                  for (let x = 0; x <= 300; x += 3) {
+                    const t = x / 300
+                    const env = Math.exp(-t * 2.2)
+                    const y = 30 - env * 22 * Math.cos((x * 0.08) + wavePhase)
+                    points.push(`${x},${y}`)
+                  }
+                  return (
+                    <path
+                      d={`M ${points.join(' L ')}`}
+                      fill="none"
+                      stroke="#06b6d4"
+                      strokeWidth="2"
+                    />
+                  )
+                })()}
+              </svg>
+              <span className="absolute bottom-1 right-2 font-mono text-[9px] text-cyan-400/80">
+                ⟨σ_z(t)⟩ = e^(-t/T₂) cos(ωt)
+              </span>
+            </div>
+
+            <div className="flex items-center justify-between font-mono text-[11px] text-slate-300">
+              <span>State: <strong className="text-purple-300 font-normal">|ψ⟩ = 1/√2 (|0⟩ + |1⟩)</strong></span>
+              <span className="text-emerald-400 font-bold">Fidelity: 99.82%</span>
+            </div>
+          </div>
+
+          {/* Card 2: Mathematics & Grover Search Multiplier (Middle Left Overlapping) */}
+          <div className="hero__floating-card float-card-2 p-5 rounded-2xl bg-[#0f0b1a]/85 border border-pink-500/25 shadow-[0_12px_36px_rgba(0,0,0,0.6)] backdrop-blur-xl relative overflow-hidden">
+            <div className="flex items-center justify-between border-b border-white/10 pb-2.5 mb-3">
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-pink-400 animate-pulse" />
+                <span className="font-mono text-[11px] font-bold text-pink-300 uppercase tracking-wider">
+                  MATHEMATICS ▪ COMPLEXITY ADVANTAGE
+                </span>
+              </div>
+              <span className="font-mono text-[10px] text-pink-400 font-bold">O(√N) Speedup</span>
+            </div>
+
+            <div className="grid grid-cols-[1.2fr_1fr] gap-3 items-center">
+              {/* Mini Complexity SVG Curve */}
+              <div className="h-16 bg-black/40 rounded-xl border border-white/[0.06] p-1 relative overflow-hidden">
+                <svg className="w-full h-full" viewBox="0 0 160 50" preserveAspectRatio="none">
+                  {/* Classical O(N) */}
+                  <path d="M 10 42 Q 70 35, 150 6" fill="none" stroke="#f43f5e" strokeWidth="2" />
+                  {/* Quantum Grover O(sqrt(N)) */}
+                  <path d="M 10 42 Q 60 40, 150 28" fill="none" stroke="#c084fc" strokeWidth="2.5" />
+                  <circle cx="150" cy="28" r="3.5" fill="#c084fc" className="animate-ping" />
+                  <circle cx="150" cy="28" r="2.5" fill="#e879f9" />
+                </svg>
+                <span className="absolute top-1 left-2 font-mono text-[8px] text-rose-400">Classical O(N)</span>
+                <span className="absolute bottom-1 right-2 font-mono text-[8px] text-purple-300">Grover O(√N)</span>
+              </div>
+
+              {/* Speedup Metric */}
+              <div className="flex flex-col items-start">
+                <span className="font-display text-2xl font-black text-white leading-none">886x</span>
+                <span className="font-mono text-[10px] text-slate-400 mt-1">Faster Search at N = 10⁶</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Card 3: Chemistry & VQE Molecular Ground Energy (Bottom) */}
+          <div className="hero__floating-card float-card-3 p-4 rounded-2xl bg-[#0f0b1a]/85 border border-emerald-500/25 shadow-[0_12px_36px_rgba(0,0,0,0.6)] backdrop-blur-xl flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded-lg bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center font-mono text-xs font-bold text-emerald-300">
+                H₂
+              </div>
+              <div className="flex flex-col">
+                <span className="font-mono text-[10px] font-bold text-emerald-300 uppercase tracking-wider">
+                  CHEMISTRY ▪ VQE MOLECULAR GROUND STATE
+                </span>
+                <span className="font-mono text-xs text-white">
+                  E(R = 0.741 Å) = <strong className="text-emerald-400 font-bold">-1.1744 Ha</strong>
+                </span>
+              </div>
+            </div>
+            <span className="font-mono text-[10px] px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">
+              Jordan-Wigner
+            </span>
+          </div>
+
+          {/* Floating Subtle Physics Badges */}
+          <div className="flex items-center justify-between px-2 pt-1 font-mono text-[10px] text-slate-500">
+            <span>iℏ ∂/∂t |ψ⟩ = Ĥ|ψ⟩</span>
+            <span>Tr(ρ²) = 1.0 (Pure)</span>
+          </div>
+
+        </div>
+
       </div>
 
-      {/* Multi-Layered Progressive Gradient Overlay at Bottom */}
-      <div className="absolute bottom-0 left-0 right-0 h-40 pointer-events-none z-[5] bg-gradient-to-b from-transparent via-[#07040d]/70 to-[#07040d]" aria-hidden="true" />
+      {/* Progressive Gradient Overlay at Bottom */}
+      <div className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none z-[5] bg-gradient-to-b from-transparent via-[#07040d]/70 to-[#07040d]" aria-hidden="true" />
     </section>
   )
 }
