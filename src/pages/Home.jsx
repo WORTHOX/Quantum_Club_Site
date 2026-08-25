@@ -12,7 +12,7 @@ import JourneyCTA from '../components/home/JourneyCTA'
 
 export default function Home() {
   useEffect(() => {
-    document.title = 'Symbiosis Quantum Club — Decode the Future of Quantum'
+    document.title = 'Symbiosis Quantum Club'
     window.scrollTo(0, 0)
   }, [])
 
