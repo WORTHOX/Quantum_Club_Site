@@ -3,18 +3,18 @@ import './LogoWithCircularText.css'
 
 export default function LogoWithCircularText({
   size = 'md', // 'sm' | 'md' | 'lg'
-  spinDuration = 12,
+  spinDuration = 10,
   className = '',
   showTitleText = true,
   customLogoSize,
   customRadius,
   customFontSize
 }) {
-  // Dimension presets — Tighter circular text ring overlapping further inside the logo perimeter
+  // Dimension presets — Clean separation so circular text orbits visibly outside the enlarged central emblem
   const sizeMap = {
-    sm: { radius: 22, logoSize: 56, fontSize: '0.46rem', text: 'SYMBIOSIS QUANTUM CLUB • ' },
-    md: { radius: 29, logoSize: 74, fontSize: '0.54rem', text: 'SYMBIOSIS QUANTUM CLUB • ' },
-    lg: { radius: 43, logoSize: 108, fontSize: '0.72rem', text: 'SYMBIOSIS QUANTUM CLUB • ' }
+    sm: { radius: 30, logoSize: 42, fontSize: '0.48rem', text: 'SYMBIOSIS QUANTUM CLUB • ' },
+    md: { radius: 40, logoSize: 56, fontSize: '0.56rem', text: 'SYMBIOSIS QUANTUM CLUB • ' },
+    lg: { radius: 54, logoSize: 76, fontSize: '0.74rem', text: 'SYMBIOSIS QUANTUM CLUB • ' }
   }
 
   const baseConfig = sizeMap[size] || sizeMap.md
@@ -32,7 +32,7 @@ export default function LogoWithCircularText({
         spinDuration={spinDuration}
         radius={config.radius}
         fontSize={config.fontSize}
-        letterSpacing="0.10em"
+        letterSpacing="0.12em"
       >
         <div
           className="logo-circular-img-wrap"
