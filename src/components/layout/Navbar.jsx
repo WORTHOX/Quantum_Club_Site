@@ -116,10 +116,10 @@ export default function Navbar() {
             <LogoWithCircularText size="md" showTitleText={true} />
           </Link>
 
-          {/* Desktop Navigation Links — Center Glassmorphic Capsule with Fluid Gliding Beam */}
+          {/* Desktop Navigation Links — Transparent Container with Fluid Gliding Beam */}
           <LayoutGroup id="navbar-links">
             <nav
-              className="hidden min-[820px]:flex items-center gap-1 px-3 py-1.5 rounded-full bg-white/[0.03] backdrop-blur-md"
+              className="hidden min-[820px]:flex items-center gap-7 lg:gap-9 bg-transparent"
               aria-label="Main navigation"
             >
               {navLinks.map((link) => {
@@ -130,29 +130,15 @@ export default function Navbar() {
                   <Link
                     key={link.to}
                     to={link.to}
-                    className={`relative px-4 py-2 rounded-full font-mono text-[0.75rem] tracking-[0.14em] font-semibold uppercase transition-colors duration-200 no-underline inline-flex items-center justify-center select-none active:scale-[0.97] ${
-                      isActive ? 'text-white' : 'text-slate-400 hover:text-white hover:bg-white/[0.04]'
+                    className={`relative py-1.5 font-mono text-[0.8rem] tracking-[0.16em] font-semibold uppercase transition-colors duration-200 no-underline inline-flex items-center justify-center select-none active:scale-[0.97] ${
+                      isActive ? 'text-white' : 'text-slate-400 hover:text-white'
                     }`}
                   >
-                    {/* Fluid Gliding Background Capsule */}
-                    {isActive && (
-                      <motion.div
-                        layoutId="navbar-active-pill"
-                        className="absolute inset-0 rounded-full bg-white/[0.06]"
-                        transition={{
-                          type: 'spring',
-                          stiffness: 380,
-                          damping: 30,
-                          mass: 0.8,
-                        }}
-                      />
-                    )}
-
                     {/* Fluid Gliding Volumetric Glow */}
                     {isActive && (
                       <motion.div
                         layoutId="navbar-active-glow"
-                        className="absolute -bottom-1 left-2.5 right-2.5 h-3 rounded-full blur-[5px] opacity-75 pointer-events-none"
+                        className="absolute -bottom-1.5 left-0 right-0 h-3 rounded-full blur-[6px] opacity-80 pointer-events-none"
                         style={{ background: theme.gradient }}
                         transition={{
                           type: 'spring',
@@ -167,7 +153,7 @@ export default function Navbar() {
                     {isActive && (
                       <motion.div
                         layoutId="navbar-active-beam"
-                        className="absolute bottom-0 left-2.5 right-2.5 h-[2.5px] rounded-full pointer-events-none z-10"
+                        className="absolute -bottom-0.5 left-0 right-0 h-[2px] rounded-full pointer-events-none z-10"
                         style={{
                           background: theme.gradient,
                           boxShadow: theme.shadow,
