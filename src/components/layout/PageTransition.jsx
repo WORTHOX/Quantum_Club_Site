@@ -1,83 +1,192 @@
 import { useLocation } from 'react-router-dom'
-import { motion, AnimatePresence } from 'framer-motion'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import gsap from 'gsap'
 
-// Page-specific accent spectrums for the top sweep beam
-const PAGE_THEMES = {
-  '/': 'linear-gradient(90deg, #c084fc 0%, #e879f9 50%, #ec4899 100%)',
-  '/events': 'linear-gradient(90deg, #ef4444 0%, #f97316 50%, #f59e0b 100%)',
-  '/blog': 'linear-gradient(90deg, #34d399 0%, #10b981 50%, #059669 100%)',
-  '/team': 'linear-gradient(90deg, #06b6d4 0%, #38bdf8 50%, #60a5fa 100%)',
-  '/fallfest': 'linear-gradient(90deg, #a855f7 0%, #d946ef 50%, #ec4899 100%)',
-}
-
-const pageVariants = {
-  initial: {
-    opacity: 0,
-    y: 12,
-    filter: 'blur(3px)',
-  },
-  animate: {
-    opacity: 1,
-    y: 0,
-    filter: 'blur(0px)',
-    transition: {
-      duration: 0.32,
-      ease: [0.23, 1, 0.32, 1], // Emil Kowalski custom ease-out curve
-    },
-  },
-  exit: {
-    opacity: 0,
-    y: -8,
-    filter: 'blur(3px)',
-    transition: {
-      duration: 0.18,
-      ease: [0.77, 0, 0.175, 1],
-    },
-  },
+// Page identity mapping
+const PAGE_DATA = {
+  '/': { name: 'HOME', color: '#c084fc', gradient: 'linear-gradient(90deg, #c084fc, #ec4899)' },
+  '/events': { name: 'EVENTS', color: '#f97316', gradient: 'linear-gradient(90deg, #ef4444, #f59e0b)' },
+  '/blog': { name: 'BLOG', color: '#34d399', gradient: 'linear-gradient(90deg, #34d399, #10b981)' },
+  '/team': { name: 'TEAM', color: '#06b6d4', gradient: 'linear-gradient(90deg, #06b6d4, #38bdf8)' },
+  '/fallfest': { name: 'FALL FEST 2026', color: '#a855f7', gradient: 'linear-gradient(90deg, #a855f7, #d946ef)' },
 }
 
 export default function PageTransition({ children }) {
   const location = useLocation()
-  const [isTransitioning, setIsTransitioning] = useState(false)
+  const prevPathRef = useRef(location.pathname)
+  const isFirstMount = useRef(true)
 
-  const activeTheme = PAGE_THEMES[location.pathname] || PAGE_THEMES['/']
+  const columnsRef = useRef([])
+  const overlayRef = useRef(null)
+  const hudRef = useRef(null)
+  const contentRef = useRef(null)
+
+  const [displayChildren, setDisplayChildren] = useState(children)
+
+  const pageInfo = PAGE_DATA[location.pathname] || {
+    name: location.pathname.replace('/', '').toUpperCase() || 'QUANTUM',
+    color: '#c084fc',
+    gradient: 'linear-gradient(90deg, #c084fc, #38bdf8)',
+  }
 
   useEffect(() => {
-    setIsTransitioning(true)
-    const timeout = setTimeout(() => setIsTransitioning(false), 450)
-    return () => clearTimeout(timeout)
-  }, [location.pathname])
+    // Skip animation on initial page load (preloader handles initial entrance)
+    if (isFirstMount.current) {
+      isFirstMount.current = false
+      prevPathRef.current = location.pathname
+      setDisplayChildren(children)
+      return
+    }
+
+    if (prevPathRef.current === location.pathname) {
+      setDisplayChildren(children)
+      return
+    }
+
+    prevPathRef.current = location.pathname
+
+    const cols = columnsRef.current.filter(Boolean)
+    const overlay = overlayRef.current
+    const hud = hudRef.current
+    const content = contentRef.current
+
+    if (!overlay || cols.length === 0) {
+      setDisplayChildren(children)
+      window.scrollTo(0, 0)
+      return
+    }
+
+    // Master Quantum Shutter GSAP Timeline
+    const tl = gsap.timeline({
+      onStart: () => {
+        gsap.set(overlay, { display: 'flex', pointerEvents: 'auto' })
+      },
+    })
+
+    // Step 1: Staggered drop of 5 vertical quantum shutter blades from top
+    tl.set(cols, { yPercent: -100 })
+      .to(cols, {
+        yPercent: 0,
+        duration: 0.32,
+        stagger: 0.04,
+        ease: 'power3.inOut',
+      })
+      // Step 2: Flash the Quantum State Telemetry Badge in the center
+      .fromTo(
+        hud,
+        { opacity: 0, scale: 0.9, filter: 'blur(4px)' },
+        {
+          opacity: 1,
+          scale: 1,
+          filter: 'blur(0px)',
+          duration: 0.2,
+          ease: 'power2.out',
+          onStart: () => {
+            // Swap child route content while behind shutter curtain
+            setDisplayChildren(children)
+            window.scrollTo(0, 0)
+          },
+        },
+        '-=0.1'
+      )
+      .to(hud, {
+        opacity: 0,
+        scale: 1.05,
+        filter: 'blur(4px)',
+        duration: 0.16,
+        delay: 0.1,
+        ease: 'power2.in',
+      })
+      // Step 3: Staggered exit of 5 shutter blades sliding down & off screen
+      .to(
+        cols,
+        {
+          yPercent: 100,
+          duration: 0.36,
+          stagger: 0.04,
+          ease: 'power3.inOut',
+          onComplete: () => {
+            gsap.set(overlay, { display: 'none', pointerEvents: 'none' })
+            gsap.set(cols, { yPercent: -100 })
+          },
+        },
+        '-=0.08'
+      )
+      // Step 4: Gentle spring entrance for the newly mounted page content
+      .fromTo(
+        content,
+        { opacity: 0.7, y: 16, scale: 0.995 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.35, ease: 'power2.out' },
+        '-=0.25'
+      )
+
+    return () => {
+      tl.kill()
+    }
+  }, [location.pathname, children])
 
   return (
     <>
-      {/* Top Spectral Quantum Route Sweep Beam */}
-      <AnimatePresence>
-        {isTransitioning && (
-          <motion.div
-            initial={{ scaleX: 0, opacity: 1 }}
-            animate={{ scaleX: 1, opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.42, ease: [0.23, 1, 0.32, 1] }}
-            className="fixed top-0 left-0 right-0 h-[2.5px] z-[100] origin-left pointer-events-none shadow-[0_0_12px_rgba(168,85,247,0.8)]"
-            style={{ background: activeTheme }}
-          />
-        )}
-      </AnimatePresence>
+      {/* Interactive 5-Column Quantum Shutter Overlay */}
+      <div
+        ref={overlayRef}
+        style={{ display: 'none' }}
+        className="fixed inset-0 z-[9999] flex flex-row pointer-events-none select-none overflow-hidden"
+        aria-hidden="true"
+      >
+        {/* 5 Vertical Obsidian Shutter Columns */}
+        {[...Array(5)].map((_, i) => (
+          <div
+            key={`col-${i}`}
+            ref={(el) => (columnsRef.current[i] = el)}
+            className="w-1/5 h-full bg-[#080511] relative border-r border-white/[0.04] flex flex-col justify-end"
+          >
+            {/* Glowing Neon Leading Edge at Bottom of each blade */}
+            <div
+              className="w-full h-[3px] shadow-[0_0_15px_rgba(168,85,247,0.9)]"
+              style={{ background: pageInfo.gradient }}
+            />
+          </div>
+        ))}
 
-      {/* Main Page Fluid Transition with AnimatePresence */}
-      <AnimatePresence mode="wait" initial={false}>
-        <motion.div
-          key={location.pathname}
-          variants={pageVariants}
-          initial="initial"
-          animate="animate"
-          exit="exit"
-          className="w-full min-h-screen"
-        >
-          {children}
-        </motion.div>
-      </AnimatePresence>
+        {/* Central Quantum State HUD Badge */}
+        <div className="absolute inset-0 flex items-center justify-center p-6 pointer-events-none">
+          <div
+            ref={hudRef}
+            className="flex flex-col items-center gap-3 p-6 sm:p-8 rounded-2xl bg-[#100b1e]/95 border border-white/15 shadow-[0_0_40px_rgba(0,0,0,0.8)] backdrop-blur-2xl text-center"
+          >
+            <div className="flex items-center gap-2">
+              <span
+                className="w-2 h-2 rounded-full animate-ping"
+                style={{ background: pageInfo.color }}
+              />
+              <span className="font-mono text-xs font-bold tracking-[0.25em] text-slate-300 uppercase">
+                ✦ QUANTUM STATE COLLAPSE ✦
+              </span>
+            </div>
+
+            <div className="font-display text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+              <span>ENTERING: </span>
+              <span
+                className="bg-clip-text text-transparent"
+                style={{ backgroundImage: pageInfo.gradient }}
+              >
+                |{pageInfo.name}⟩
+              </span>
+            </div>
+
+            <div className="flex items-center gap-4 font-mono text-[10px] sm:text-xs text-slate-400 border-t border-white/10 pt-3">
+              <span>|ψ(t)⟩ = e^(-iHt/ℏ)|ψ(0)⟩</span>
+              <span className="text-emerald-400 font-semibold">T₁ Coherence: OK</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Main Page Mounted Content */}
+      <div ref={contentRef} className="w-full min-h-screen">
+        {displayChildren}
+      </div>
     </>
   )
 }
