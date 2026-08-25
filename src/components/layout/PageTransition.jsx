@@ -56,7 +56,7 @@ export default function PageTransition({ children }) {
       return
     }
 
-    // Master Quantum Shutter GSAP Timeline with deliberate cinematic timing
+    // Master Quantum Shutter GSAP Timeline with extended cinematic delay & presence
     const tl = gsap.timeline({
       onStart: () => {
         gsap.set(overlay, { display: 'flex', pointerEvents: 'auto' })
@@ -67,19 +67,19 @@ export default function PageTransition({ children }) {
     tl.set(cols, { yPercent: -100 })
       .to(cols, {
         yPercent: 0,
-        duration: 0.48,
-        stagger: 0.055,
+        duration: 0.55,
+        stagger: 0.065,
         ease: 'power3.inOut',
       })
-      // Step 2: Show the Quantum State Telemetry Badge in center with deliberate readable hold
+      // Step 2: Show the Quantum State Telemetry Badge in center with extended readable hold
       .fromTo(
         hud,
-        { opacity: 0, scale: 0.88, filter: 'blur(6px)' },
+        { opacity: 0, scale: 0.86, filter: 'blur(8px)' },
         {
           opacity: 1,
           scale: 1,
           filter: 'blur(0px)',
-          duration: 0.32,
+          duration: 0.38,
           ease: 'power2.out',
           onStart: () => {
             // Swap child route content while behind shutter curtain
@@ -91,10 +91,10 @@ export default function PageTransition({ children }) {
       )
       .to(hud, {
         opacity: 0,
-        scale: 1.06,
-        filter: 'blur(6px)',
-        duration: 0.24,
-        delay: 0.38, // Deliberate satisfying hold time
+        scale: 1.08,
+        filter: 'blur(8px)',
+        duration: 0.28,
+        delay: 0.75, // Extended comfortable hold delay
         ease: 'power2.in',
       })
       // Step 3: Staggered exit of 5 shutter blades sliding down & off screen
@@ -102,22 +102,22 @@ export default function PageTransition({ children }) {
         cols,
         {
           yPercent: 100,
-          duration: 0.52,
-          stagger: 0.055,
+          duration: 0.58,
+          stagger: 0.065,
           ease: 'power3.inOut',
           onComplete: () => {
             gsap.set(overlay, { display: 'none', pointerEvents: 'none' })
             gsap.set(cols, { yPercent: -100 })
           },
         },
-        '-=0.1'
+        '-=0.12'
       )
       // Step 4: Smooth entrance for the newly mounted page content
       .fromTo(
         content,
-        { opacity: 0.6, y: 20, scale: 0.99 },
-        { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: 'power2.out' },
-        '-=0.3'
+        { opacity: 0.5, y: 24, scale: 0.985 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: 'power2.out' },
+        '-=0.35'
       )
 
     return () => {
