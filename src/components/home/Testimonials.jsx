@@ -42,22 +42,19 @@ export default function Testimonials() {
   const current = testimonials[active]
 
   return (
-    <section className="py-24 sm:py-32 bg-[#07040d] min-h-[60dvh] flex items-center justify-center text-white relative overflow-hidden" id="testimonials">
-      {/* Subtle background glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60vw] h-[60vw] bg-purple-600/5 rounded-full blur-[140px] pointer-events-none" aria-hidden="true" />
-
+    <section className="py-24 sm:py-32 bg-transparent min-h-[60dvh] flex items-center justify-center text-white relative overflow-hidden" id="testimonials">
       <div className="w-full max-w-4xl mx-auto px-5 sm:px-8 flex flex-col items-center gap-10 sm:gap-12 relative z-10">
         
         {/* Section Tag */}
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#120d1c] border border-[#a855f7]/30">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#c084fc]" />
-          <span className="font-mono text-xs font-semibold text-[#c084fc] tracking-widest uppercase">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-transparent border border-purple-500/30">
+          <span className="w-1.5 h-1.5 rounded-full bg-purple-400" />
+          <span className="font-pixel text-[11px] font-semibold text-purple-300 tracking-widest uppercase">
             COMMUNITY VOICES
           </span>
         </div>
 
         {/* Testimonial Quote Box */}
-        <div className="w-full max-w-[780px] p-8 sm:p-12 rounded-3xl bg-[#120d1c]/90 border border-white/10 shadow-2xl backdrop-blur-xl relative">
+        <div className="w-full max-w-[780px] p-8 sm:p-12 rounded-2xl bg-transparent border border-purple-500/25 shadow-2xl relative">
           <blockquote className="animate-fadeIn flex flex-col items-center text-center gap-8" key={active}>
             <p className="font-display text-[clamp(1.25rem,2.4vw,1.9rem)] font-normal leading-relaxed text-slate-100 italic tracking-tight m-0">
               &ldquo;{current.quote}&rdquo;
@@ -68,7 +65,7 @@ export default function Testimonials() {
                 {current.name}
               </cite>
               <div className="flex items-center gap-2 font-mono text-xs text-slate-400">
-                <span className="text-[#c084fc] font-medium">{current.role}</span>
+                <span className="text-purple-300 font-medium">{current.role}</span>
                 <span>•</span>
                 <span>{current.year}</span>
               </div>
@@ -83,7 +80,7 @@ export default function Testimonials() {
               key={i}
               className={`h-2.5 rounded-full transition-all duration-300 cursor-pointer ${
                 i === active 
-                  ? 'w-8 bg-[#d946ef] shadow-[0_0_12px_#d946ef]' 
+                  ? 'w-8 bg-purple-400 shadow-[0_0_12px_#a855f7]' 
                   : 'w-2.5 bg-white/20 hover:bg-white/40'
               }`}
               onClick={() => setActive(i)}

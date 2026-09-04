@@ -46,6 +46,7 @@
   --font-display:    'Space Grotesk', system-ui, sans-serif;
   --font-body:       'DM Sans', system-ui, sans-serif;
   --font-mono:       'IBM Plex Mono', 'Menlo', monospace;
+  --font-pixel:      'Departure Mono', 'IBM Plex Mono', 'Menlo', monospace;
 
   --type-xs:    clamp(0.694rem, 0.65rem + 0.22vw, 0.8rem);
   --type-sm:    clamp(0.833rem, 0.77rem + 0.32vw, 1rem);

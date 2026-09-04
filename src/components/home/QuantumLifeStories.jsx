@@ -25,11 +25,11 @@ export default function QuantumLifeStories() {
   }
 
   return (
-    <section className="py-24 sm:py-32 bg-[#07040d] text-white relative overflow-hidden" id="quantum-life">
+    <section className="py-24 sm:py-32 bg-transparent text-white relative overflow-hidden" id="quantum-life">
       <div className="w-full max-w-[1440px] mx-auto px-5 sm:px-8 md:px-12 lg:px-16 mb-10">
         <div className="flex items-center gap-3 mb-3">
-          <div className="w-8 h-[2px] bg-gradient-to-r from-[#a855f7] to-[#ec4899]" />
-          <span className="font-mono text-xs font-bold tracking-widest text-[#c084fc] uppercase">
+          <div className="w-8 h-[2px] bg-gradient-to-r from-purple-500 to-violet-400" />
+          <span className="font-pixel text-[11px] font-bold tracking-widest text-purple-300 uppercase">
             LIFE AT SQC
           </span>
         </div>
@@ -49,7 +49,7 @@ export default function QuantumLifeStories() {
             return (
               <button
                 key={story.id}
-                className="shrink-0 w-[290px] sm:w-[340px] text-left rounded-2xl overflow-hidden bg-[#120d1c]/90 border border-white/10 shadow-xl transition-all duration-300 cursor-pointer group/slider:hover:opacity-70 hover:!opacity-100 hover:scale-[1.03] hover:border-[#a855f7]/50 group"
+                className="shrink-0 w-[290px] sm:w-[340px] text-left rounded-2xl overflow-hidden bg-[#0e0720]/25 border border-purple-500/25 shadow-xl backdrop-blur-[2px] transition-all duration-300 cursor-pointer group/slider:hover:opacity-70 hover:!opacity-100 hover:scale-[1.03] hover:border-purple-400/50 group"
                 onClick={() => openStory(story)}
                 aria-label={`View ${story.title} story`}
               >
@@ -61,7 +61,7 @@ export default function QuantumLifeStories() {
                     loading="lazy"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#120d1c] via-transparent to-transparent opacity-80" />
-                  <span className="absolute top-3 right-3 px-2.5 py-1 rounded-full font-mono text-[0.65rem] font-bold uppercase tracking-wider bg-[#07040d]/80 text-[#c084fc] border border-[#a855f7]/30 backdrop-blur-md">
+                  <span className="absolute top-3 right-3 px-2.5 py-1 rounded-full font-pixel text-[11px] font-bold uppercase tracking-wider bg-[#07040d]/80 text-[#c084fc] border border-[#a855f7]/30 backdrop-blur-md">
                     {story.title}
                   </span>
                 </div>
@@ -108,7 +108,7 @@ export default function QuantumLifeStories() {
               <div className="absolute inset-0 bg-gradient-to-t from-[#120d1c] to-transparent opacity-60" />
             </div>
             <div className="p-6 sm:p-8 flex flex-col gap-3">
-              <div className="flex items-center gap-2 font-mono text-xs text-[#c084fc] uppercase tracking-wider font-semibold">
+              <div className="flex items-center gap-2 font-pixel text-[11px] text-[#c084fc] uppercase tracking-wider font-semibold">
                 <span>✦ SQC INITIATIVE</span>
               </div>
               <h3 className="font-display text-2xl font-bold text-white m-0">

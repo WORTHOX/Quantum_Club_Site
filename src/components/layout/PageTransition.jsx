@@ -2,35 +2,35 @@ import { useLocation } from 'react-router-dom'
 import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 
-// Page identity mapping
+// Page identity mapping — color is the wipe panel bg, label is bottom-right text
 const PAGE_DATA = {
-  '/': { name: 'HOME', color: '#c084fc', gradient: 'linear-gradient(90deg, #c084fc, #ec4899)' },
-  '/events': { name: 'EVENTS', color: '#f97316', gradient: 'linear-gradient(90deg, #ef4444, #f59e0b)' },
-  '/blog': { name: 'BLOG', color: '#34d399', gradient: 'linear-gradient(90deg, #34d399, #10b981)' },
-  '/team': { name: 'TEAM', color: '#06b6d4', gradient: 'linear-gradient(90deg, #06b6d4, #38bdf8)' },
-  '/fallfest': { name: 'FALL FEST 2026', color: '#a855f7', gradient: 'linear-gradient(90deg, #a855f7, #d946ef)' },
+  '/':         { label: 'HOME',         bg: '#0d0b1a', accent: '#c084fc' },
+  '/events':   { label: 'QUANT EVENTS', bg: '#0f0a04', accent: '#f97316' },
+  '/blog':     { label: 'QUANT BLOGS',  bg: '#040f0a', accent: '#34d399' },
+  '/team':     { label: 'OUR TEAM',     bg: '#040b0f', accent: '#06b6d4' },
+  '/fallfest': { label: 'FALL FEST',    bg: '#0d0718', accent: '#a855f7' },
 }
 
 export default function PageTransition({ children }) {
   const location = useLocation()
-  const prevPathRef = useRef(location.pathname)
-  const isFirstMount = useRef(true)
+  const prevPathRef   = useRef(location.pathname)
+  const isFirstMount  = useRef(true)
 
-  const columnsRef = useRef([])
+  const wipeRef    = useRef(null)
   const overlayRef = useRef(null)
-  const hudRef = useRef(null)
+  const labelRef   = useRef(null)
   const contentRef = useRef(null)
 
   const [displayChildren, setDisplayChildren] = useState(children)
 
+  // Derive page info from the pathname we're navigating TO
   const pageInfo = PAGE_DATA[location.pathname] || {
-    name: location.pathname.replace('/', '').toUpperCase() || 'QUANTUM',
-    color: '#c084fc',
-    gradient: 'linear-gradient(90deg, #c084fc, #38bdf8)',
+    label: location.pathname.replace('/', '').toUpperCase() || 'QUANTUM',
+    bg: '#07040d',
+    accent: '#c084fc',
   }
 
   useEffect(() => {
-    // Skip animation on initial page load (preloader handles initial entrance)
     if (isFirstMount.current) {
       isFirstMount.current = false
       prevPathRef.current = location.pathname
@@ -45,145 +45,142 @@ export default function PageTransition({ children }) {
 
     prevPathRef.current = location.pathname
 
-    const cols = columnsRef.current.filter(Boolean)
+    const wipe    = wipeRef.current
     const overlay = overlayRef.current
-    const hud = hudRef.current
+    const label   = labelRef.current
     const content = contentRef.current
 
-    if (!overlay || cols.length === 0) {
+    if (!overlay || !wipe) {
       setDisplayChildren(children)
       window.scrollTo(0, 0)
       return
     }
 
-    // Master Quantum Shutter GSAP Timeline with extended cinematic delay & presence
     const tl = gsap.timeline({
       onStart: () => {
         gsap.set(overlay, { display: 'flex', pointerEvents: 'auto' })
       },
     })
 
-    // Step 1: Staggered drop of 5 vertical quantum shutter blades from top
-    tl.set(cols, { yPercent: -100 })
-      .to(cols, {
-        yPercent: 0,
-        duration: 0.55,
-        stagger: 0.065,
+    // Step 1: Wipe slides in from left
+    tl.set(wipe,  { xPercent: -100 })
+      .set(label, { opacity: 0, x: 40 })
+      .to(wipe, {
+        xPercent: 0,
+        duration: 0.5,
         ease: 'power3.inOut',
       })
-      // Step 2: Show the Quantum State Telemetry Badge in center with extended readable hold
-      .fromTo(
-        hud,
-        { opacity: 0, scale: 0.86, filter: 'blur(8px)' },
+      // Step 2: Label fades + slides in from right edge
+      .to(
+        label,
         {
           opacity: 1,
-          scale: 1,
-          filter: 'blur(0px)',
-          duration: 0.38,
+          x: 0,
+          duration: 0.35,
           ease: 'power2.out',
           onStart: () => {
-            // Swap child route content while behind shutter curtain
             setDisplayChildren(children)
             window.scrollTo(0, 0)
           },
         },
-        '-=0.15'
+        '-=0.05'
       )
-      .to(hud, {
-        opacity: 0,
-        scale: 1.08,
-        filter: 'blur(8px)',
-        duration: 0.28,
-        delay: 0.75, // Extended comfortable hold delay
-        ease: 'power2.in',
-      })
-      // Step 3: Staggered exit of 5 shutter blades sliding down & off screen
+      // Step 3: Hold briefly, then exit wipe to the right
+      .to(label, { opacity: 0, x: -30, duration: 0.22, ease: 'power2.in' }, '+=0.55')
       .to(
-        cols,
+        wipe,
         {
-          yPercent: 100,
-          duration: 0.58,
-          stagger: 0.065,
+          xPercent: 100,
+          duration: 0.5,
           ease: 'power3.inOut',
           onComplete: () => {
             gsap.set(overlay, { display: 'none', pointerEvents: 'none' })
-            gsap.set(cols, { yPercent: -100 })
+            gsap.set(wipe,    { xPercent: -100 })
           },
         },
-        '-=0.12'
+        '-=0.08'
       )
-      // Step 4: Smooth entrance for the newly mounted page content
+      // Step 4: Soft entrance for new page content
       .fromTo(
         content,
-        { opacity: 0.5, y: 24, scale: 0.985 },
-        { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: 'power2.out' },
-        '-=0.35'
+        { opacity: 0.6, y: 16 },
+        { opacity: 1,   y: 0, duration: 0.42, ease: 'power2.out' },
+        '-=0.3'
       )
 
-    return () => {
-      tl.kill()
-    }
+    return () => { tl.kill() }
   }, [location.pathname, children])
 
   return (
     <>
-      {/* Interactive 5-Column Quantum Shutter Overlay */}
+      {/* Full-screen left-to-right wipe overlay */}
       <div
         ref={overlayRef}
         style={{ display: 'none' }}
-        className="fixed inset-0 z-[9999] flex flex-row pointer-events-none select-none overflow-hidden"
+        className="fixed inset-0 z-[9999] pointer-events-none select-none overflow-hidden"
         aria-hidden="true"
       >
-        {/* 5 Vertical Obsidian Shutter Columns */}
-        {[...Array(5)].map((_, i) => (
+        {/* Wipe panel — colour matches destination page */}
+        <div
+          ref={wipeRef}
+          className="absolute inset-0"
+          style={{ background: pageInfo.bg }}
+        >
+          {/* Glowing right-edge leading line */}
           <div
-            key={`col-${i}`}
-            ref={(el) => (columnsRef.current[i] = el)}
-            className="w-1/5 h-full bg-[#080511] relative border-r border-white/[0.04] flex flex-col justify-end"
+            className="absolute top-0 right-0 w-[2px] h-full"
+            style={{
+              background: pageInfo.accent,
+              boxShadow: `0 0 20px 4px ${pageInfo.accent}88`,
+            }}
+          />
+        </div>
+
+        {/* Bottom-right destination label */}
+        <div
+          ref={labelRef}
+          className="absolute bottom-8 right-10 flex flex-col items-end select-none"
+          style={{ opacity: 0 }}
+        >
+          {/* Layer 1 — large hollow outline text (behind) */}
+          <span
+            className="font-display font-black italic uppercase leading-none pointer-events-none"
+            style={{
+              fontSize: 'clamp(6rem, 12vw, 11rem)',
+              color: 'transparent',
+              WebkitTextStroke: `2.5px ${pageInfo.accent}55`,
+              lineHeight: 1,
+              userSelect: 'none',
+              transform: 'scaleX(0.72)',
+              transformOrigin: 'right center',
+              display: 'block',
+            }}
           >
-            {/* Glowing Neon Leading Edge at Bottom of each blade */}
-            <div
-              className="w-full h-[3px] shadow-[0_0_15px_rgba(168,85,247,0.9)]"
-              style={{ background: pageInfo.gradient }}
-            />
-          </div>
-        ))}
+            {pageInfo.label}
+          </span>
 
-        {/* Central Quantum State HUD Badge */}
-        <div className="absolute inset-0 flex items-center justify-center p-6 pointer-events-none">
-          <div
-            ref={hudRef}
-            className="flex flex-col items-center gap-3 p-6 sm:p-8 rounded-2xl bg-[#100b1e]/95 border border-white/15 shadow-[0_0_40px_rgba(0,0,0,0.8)] backdrop-blur-2xl text-center"
+          {/* Layer 2 — filled text shifted up to overlap the outline */}
+          <span
+            className="font-display font-black italic uppercase leading-none pointer-events-none"
+            style={{
+              fontSize: 'clamp(6rem, 12vw, 11rem)',
+              color: pageInfo.accent,
+              WebkitTextStroke: `7px ${pageInfo.accent}`,
+              marginTop: 'clamp(-5.5rem, -11vw, -10rem)',
+              paddingRight: 'clamp(1.2rem, 2.5vw, 2.2rem)',
+              lineHeight: 1,
+              userSelect: 'none',
+              transform: 'scaleX(0.72)',
+              transformOrigin: 'right center',
+              display: 'block',
+            }}
           >
-            <div className="flex items-center gap-2">
-              <span
-                className="w-2 h-2 rounded-full animate-ping"
-                style={{ background: pageInfo.color }}
-              />
-              <span className="font-mono text-xs font-bold tracking-[0.25em] text-slate-300 uppercase">
-                ✦ QUANTUM STATE COLLAPSE ✦
-              </span>
-            </div>
-
-            <div className="font-display text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
-              <span>ENTERING: </span>
-              <span
-                className="bg-clip-text text-transparent"
-                style={{ backgroundImage: pageInfo.gradient }}
-              >
-                |{pageInfo.name}⟩
-              </span>
-            </div>
-
-            <div className="flex items-center gap-4 font-mono text-[10px] sm:text-xs text-slate-400 border-t border-white/10 pt-3">
-              <span>|ψ(t)⟩ = e^(-iHt/ℏ)|ψ(0)⟩</span>
-              <span className="text-emerald-400 font-semibold">T₁ Coherence: OK</span>
-            </div>
-          </div>
+            {pageInfo.label}
+          </span>
         </div>
       </div>
 
-      {/* Main Page Mounted Content */}
+      {/* Main page content */}
       <div ref={contentRef} className="w-full min-h-screen">
         {displayChildren}
       </div>

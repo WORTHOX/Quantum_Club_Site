@@ -17,7 +17,7 @@ export default function WhyQuantumMarquee() {
   ]
 
   return (
-    <section className="py-7 overflow-hidden bg-[#07040d] border-y border-white/[0.08] relative z-10" aria-label="Quantum Club Highlights">
+    <section className="py-7 overflow-hidden bg-transparent border-y border-purple-900/30 relative z-10" aria-label="Quantum Club Highlights">
       <div className="overflow-hidden relative flex group">
         <div 
           className="flex w-max motion-reduce:animate-none shrink-0 group-hover:[animation-play-state:paused]" 
@@ -25,7 +25,7 @@ export default function WhyQuantumMarquee() {
         >
           {[...items, ...items, ...items, ...items].map((item, idx) => (
             <div key={idx} className="flex items-center gap-4 sm:gap-6 px-6 sm:px-8 whitespace-nowrap shrink-0">
-              <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full font-mono text-[0.68rem] font-bold tracking-wider uppercase border ${BADGE_STYLES[item.accent] || BADGE_STYLES.violet}`}>
+              <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full font-pixel text-[11px] font-bold tracking-wider uppercase border ${BADGE_STYLES[item.accent] || BADGE_STYLES.violet}`}>
                 <span className="w-1.5 h-1.5 rounded-full bg-currentColor shadow-[0_0_6px_currentColor]" />
                 {item.tag}
               </span>

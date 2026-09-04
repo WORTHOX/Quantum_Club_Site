@@ -48,7 +48,7 @@ export default function QuantumScienceTriad() {
         <div className="flex flex-col items-start gap-4 mb-14">
           <div className="flex items-center gap-3">
             <div className="w-10 h-[2px] bg-gradient-to-r from-[#a855f7] via-[#06b6d4] to-[#10b981]" />
-            <span className="font-mono text-xs font-bold tracking-[0.2em] text-[#38bdf8] uppercase">
+            <span className="font-pixel text-[11px] font-bold tracking-[0.2em] text-[#38bdf8] uppercase">
               THE TRIAD OF QUANTUM SCIENCE
             </span>
           </div>
@@ -68,7 +68,7 @@ export default function QuantumScienceTriad() {
           <div className="flex flex-wrap gap-2.5 p-1.5 rounded-2xl bg-white/[0.04] border border-white/[0.08] backdrop-blur-xl mt-4">
             <button
               onClick={() => setActiveDomain('math')}
-              className={`flex items-center gap-2.5 px-5 py-3 rounded-xl font-mono text-xs font-bold tracking-wider uppercase transition-all duration-300 cursor-pointer ${
+              className={`flex items-center gap-2.5 px-5 py-3 rounded-xl font-pixel text-[11px] font-bold tracking-wider uppercase transition-all duration-300 cursor-pointer ${
                 activeDomain === 'math'
                   ? 'bg-purple-600/80 text-white shadow-[0_0_20px_rgba(168,85,247,0.45)] border border-purple-400/40'
                   : 'text-slate-400 hover:text-white hover:bg-white/[0.04]'
@@ -80,7 +80,7 @@ export default function QuantumScienceTriad() {
 
             <button
               onClick={() => setActiveDomain('physics')}
-              className={`flex items-center gap-2.5 px-5 py-3 rounded-xl font-mono text-xs font-bold tracking-wider uppercase transition-all duration-300 cursor-pointer ${
+              className={`flex items-center gap-2.5 px-5 py-3 rounded-xl font-pixel text-[11px] font-bold tracking-wider uppercase transition-all duration-300 cursor-pointer ${
                 activeDomain === 'physics'
                   ? 'bg-cyan-600/80 text-white shadow-[0_0_20px_rgba(6,182,212,0.45)] border border-cyan-400/40'
                   : 'text-slate-400 hover:text-white hover:bg-white/[0.04]'
@@ -92,7 +92,7 @@ export default function QuantumScienceTriad() {
 
             <button
               onClick={() => setActiveDomain('chemistry')}
-              className={`flex items-center gap-2.5 px-5 py-3 rounded-xl font-mono text-xs font-bold tracking-wider uppercase transition-all duration-300 cursor-pointer ${
+              className={`flex items-center gap-2.5 px-5 py-3 rounded-xl font-pixel text-[11px] font-bold tracking-wider uppercase transition-all duration-300 cursor-pointer ${
                 activeDomain === 'chemistry'
                   ? 'bg-emerald-600/80 text-white shadow-[0_0_20px_rgba(16,185,129,0.45)] border border-emerald-400/40'
                   : 'text-slate-400 hover:text-white hover:bg-white/[0.04]'
@@ -115,13 +115,13 @@ export default function QuantumScienceTriad() {
               {/* Left: SVG Computational Complexity Curve Graph */}
               <div className="flex flex-col gap-4">
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3 font-mono text-xs text-purple-300">
+                  <div className="flex items-center gap-3 font-pixel text-[11px] text-purple-300">
                     <span className="px-2.5 py-1 rounded-md bg-purple-500/20 border border-purple-500/30">
                       GRAPH: O(N) vs O(√N)
                     </span>
                     <span className="text-slate-400 hidden sm:inline">Search Space Complexity</span>
                   </div>
-                  <span className="font-mono text-xs text-slate-400">
+                  <span className="font-pixel text-[11px] text-slate-400">
                     Database Size N = 10^{problemScale}
                   </span>
                 </div>
@@ -194,7 +194,7 @@ export default function QuantumScienceTriad() {
                   </svg>
 
                   {/* Graph Legends */}
-                  <div className="absolute top-4 left-6 flex flex-wrap gap-4 font-mono text-[11px] pointer-events-none">
+                  <div className="absolute top-4 left-6 flex flex-wrap gap-4 font-pixel text-[11px] pointer-events-none">
                     <div className="flex items-center gap-2">
                       <span className="w-3 h-1 bg-rose-500 rounded-full" />
                       <span className="text-rose-300">Classical Search: O(N)</span>
@@ -205,14 +205,14 @@ export default function QuantumScienceTriad() {
                     </div>
                   </div>
 
-                  <div className="absolute bottom-2 right-4 font-mono text-[10px] text-slate-500">
+                  <div className="absolute bottom-2 right-4 font-pixel text-[11px] text-slate-500">
                     X-Axis: Items (N) ▪ Y-Axis: Execution Time (Steps)
                   </div>
                 </div>
 
                 {/* Interactive Scale Slider */}
                 <div className="flex flex-col gap-2 p-4 rounded-xl bg-white/[0.02] border border-white/[0.06]">
-                  <div className="flex items-center justify-between font-mono text-xs">
+                  <div className="flex items-center justify-between font-pixel text-[11px]">
                     <label htmlFor={mathSliderId} className="text-slate-300 font-semibold cursor-pointer">Adjust Problem Dimension (N = 10^{problemScale})</label>
                     <span className="text-purple-400 font-bold">{N.toLocaleString()} elements</span>
                   </div>
@@ -226,7 +226,7 @@ export default function QuantumScienceTriad() {
                     onChange={(e) => setProblemScale(Number(e.target.value))}
                     className="w-full accent-purple-500 cursor-pointer h-2 bg-slate-800 rounded-lg"
                   />
-                  <div className="flex justify-between font-mono text-[10px] text-slate-500">
+                  <div className="flex justify-between font-pixel text-[11px] text-slate-500">
                     <span>10² (100)</span>
                     <span>10⁶ (1 Million)</span>
                     <span>10¹⁰ (10 Billion)</span>
@@ -237,14 +237,14 @@ export default function QuantumScienceTriad() {
               {/* Right: Mathematical Metrics & Equations */}
               <div className="flex flex-col gap-5">
                 <div className="p-5 rounded-2xl bg-purple-950/30 border border-purple-500/20 flex flex-col gap-3">
-                  <span className="font-mono text-xs text-purple-300 uppercase tracking-wider font-semibold">
+                  <span className="font-pixel text-[11px] text-purple-300 uppercase tracking-wider font-semibold">
                     ✦ QUANTUM ADVANTAGE MULTIPLIER
                   </span>
                   <div className="flex items-baseline gap-2">
-                    <span className="font-display text-4xl sm:text-5xl font-black text-white tracking-tight">
+                    <span className="font-pixel text-[33px] sm:text-[44px] font-black text-white tracking-tight">
                       {speedupRatio}x
                     </span>
-                    <span className="font-mono text-xs text-purple-300">faster operations</span>
+                    <span className="font-pixel text-[11px] text-purple-300">faster operations</span>
                   </div>
                   <p className="font-body text-xs text-slate-300 leading-relaxed">
                     While classical computing requires evaluating each element sequentially (<span className="text-rose-400 font-mono font-bold">{classicalOperations.toLocaleString()} steps</span>), Grover's amplitude amplification solves it in just <span className="text-purple-300 font-mono font-bold">{groverOperations.toLocaleString()} steps</span>.
@@ -253,16 +253,16 @@ export default function QuantumScienceTriad() {
 
                 {/* Mathematical Dirac & Hilbert Notation Box */}
                 <div className="p-5 rounded-2xl bg-black/40 border border-white/10 flex flex-col gap-3">
-                  <span className="font-mono text-xs text-slate-400 uppercase tracking-widest font-semibold">
+                  <span className="font-pixel text-[11px] text-slate-400 uppercase tracking-widest font-semibold">
                     Hilbert Space Operator Matrix
                   </span>
-                  <div className="p-3 rounded-lg bg-black/60 font-mono text-xs text-purple-300 border border-purple-500/20 overflow-x-auto">
+                  <div className="p-3 rounded-lg bg-black/60 font-pixel text-[11px] text-purple-300 border border-purple-500/20 overflow-x-auto">
                     <code>
                       |ψ⟩ = cos(θ/2)|0⟩ + e^(iφ)sin(θ/2)|1⟩<br />
                       G = (2|s⟩⟨s| - I) · O_f
                     </code>
                   </div>
-                  <span className="font-mono text-[11px] text-slate-400">
+                  <span className="font-pixel text-[11px] text-slate-400">
                     Unitary rotation transforms probability amplitudes in 2^N dimensional complex projective Hilbert space.
                   </span>
                 </div>
@@ -278,12 +278,12 @@ export default function QuantumScienceTriad() {
               {/* Left: Physics Oscillating Wave & T1/T2 Decay Graph */}
               <div className="flex flex-col gap-4">
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3 font-mono text-xs text-cyan-300">
+                  <div className="flex items-center gap-3 font-pixel text-[11px] text-cyan-300">
                     <span className="px-2.5 py-1 rounded-md bg-cyan-500/20 border border-cyan-500/30">
                       GRAPH: T₁ RELAXATION & T₂* RAMSEY OSCILLATION
                     </span>
                   </div>
-                  <span className="font-mono text-xs text-slate-400">
+                  <span className="font-pixel text-[11px] text-slate-400">
                     Cryo T = {cryoTemp} mK
                   </span>
                 </div>
@@ -327,7 +327,7 @@ export default function QuantumScienceTriad() {
                   </svg>
 
                   {/* Physics Legends */}
-                  <div className="absolute top-4 left-6 flex flex-wrap gap-4 font-mono text-[11px] pointer-events-none">
+                  <div className="absolute top-4 left-6 flex flex-wrap gap-4 font-pixel text-[11px] pointer-events-none">
                     <div className="flex items-center gap-2">
                       <span className="w-3 h-1 bg-cyan-400 rounded-full shadow-[0_0_8px_#06b6d4]" />
                       <span className="text-cyan-300 font-bold">Ramsey Fringe ⟨σ_z(t)⟩ = e^(-t/T₂) cos(ωt)</span>
@@ -338,7 +338,7 @@ export default function QuantumScienceTriad() {
                     </div>
                   </div>
 
-                  <div className="absolute bottom-2 right-4 font-mono text-[10px] text-slate-500">
+                  <div className="absolute bottom-2 right-4 font-pixel text-[11px] text-slate-500">
                     X-Axis: Time (μs) ▪ Y-Axis: State Amplitudes & Polarization
                   </div>
                 </div>
@@ -346,7 +346,7 @@ export default function QuantumScienceTriad() {
                 {/* Physics Sliders */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div className="p-3.5 rounded-xl bg-white/[0.02] border border-white/[0.06] flex flex-col gap-1.5">
-                    <div className="flex justify-between font-mono text-xs">
+                    <div className="flex justify-between font-pixel text-[11px]">
                       <label htmlFor={cryoTempSliderId} className="text-slate-300 font-semibold cursor-pointer">Cryogenic Temp (mK)</label>
                       <span className="text-cyan-400 font-bold">{cryoTemp} mK</span>
                     </div>
@@ -363,7 +363,7 @@ export default function QuantumScienceTriad() {
                   </div>
 
                   <div className="p-3.5 rounded-xl bg-white/[0.02] border border-white/[0.06] flex flex-col gap-1.5">
-                    <div className="flex justify-between font-mono text-xs">
+                    <div className="flex justify-between font-pixel text-[11px]">
                       <label htmlFor={coherenceSliderId} className="text-slate-300 font-semibold cursor-pointer">Coherence Baseline (T₁)</label>
                       <span className="text-sky-400 font-bold">{coherenceT1} μs</span>
                     </div>
@@ -384,41 +384,41 @@ export default function QuantumScienceTriad() {
               {/* Right: Physics Physical Parameters & Transmon Hardware */}
               <div className="flex flex-col gap-5">
                 <div className="p-5 rounded-2xl bg-cyan-950/30 border border-cyan-500/20 flex flex-col gap-3">
-                  <span className="font-mono text-xs text-cyan-300 uppercase tracking-wider font-semibold">
+                  <span className="font-pixel text-[11px] text-cyan-300 uppercase tracking-wider font-semibold">
                     ✦ SUPERCONDUCTING TRANSMON TELEMETRY
                   </span>
                   <div className="grid grid-cols-2 gap-3 pt-1">
                     <div>
-                      <span className="font-mono text-[11px] text-slate-400 block">Qubit Frequency ω₀₁</span>
-                      <span className="font-display text-xl font-bold text-white">5.024 GHz</span>
+                      <span className="font-pixel text-[11px] text-slate-400 block">Qubit Frequency ω₀₁</span>
+                      <span className="font-pixel text-[22px] font-bold text-white">5.024 GHz</span>
                     </div>
                     <div>
-                      <span className="font-mono text-[11px] text-slate-400 block">Anharmonicity α</span>
-                      <span className="font-display text-xl font-bold text-cyan-400">-340 MHz</span>
+                      <span className="font-pixel text-[11px] text-slate-400 block">Anharmonicity α</span>
+                      <span className="font-pixel text-[22px] font-bold text-cyan-400">-340 MHz</span>
                     </div>
                     <div>
-                      <span className="font-mono text-[11px] text-slate-400 block">Josephson Energy E_J</span>
-                      <span className="font-display text-xl font-bold text-white">18.4 GHz</span>
+                      <span className="font-pixel text-[11px] text-slate-400 block">Josephson Energy E_J</span>
+                      <span className="font-pixel text-[22px] font-bold text-white">18.4 GHz</span>
                     </div>
                     <div>
-                      <span className="font-mono text-[11px] text-slate-400 block">Readout Fidelity</span>
-                      <span className="font-display text-xl font-bold text-emerald-400">99.82%</span>
+                      <span className="font-pixel text-[11px] text-slate-400 block">Readout Fidelity</span>
+                      <span className="font-pixel text-[22px] font-bold text-emerald-400">99.82%</span>
                     </div>
                   </div>
                 </div>
 
                 {/* Physics Schrödinger & Wavefunction Principle Box */}
                 <div className="p-5 rounded-2xl bg-black/40 border border-white/10 flex flex-col gap-3">
-                  <span className="font-mono text-xs text-slate-400 uppercase tracking-widest font-semibold">
+                  <span className="font-pixel text-[11px] text-slate-400 uppercase tracking-widest font-semibold">
                     Schrödinger Equation & Hamiltonian
                   </span>
-                  <div className="p-3 rounded-lg bg-black/60 font-mono text-xs text-cyan-300 border border-cyan-500/20">
+                  <div className="p-3 rounded-lg bg-black/60 font-pixel text-[11px] text-cyan-300 border border-cyan-500/20">
                     <code>
                       iℏ ∂/∂t |ψ(t)⟩ = Ĥ |ψ(t)⟩<br />
                       Ĥ = 4E_C(n̂ - n_g)² - E_J cos(φ̂)
                     </code>
                   </div>
-                  <span className="font-mono text-[11px] text-slate-400">
+                  <span className="font-pixel text-[11px] text-slate-400">
                     Cooper-pair tunneling across sub-micron Al/AlOₓ/Al Josephson junctions enables non-linear macroscopic quantum energy levels.
                   </span>
                 </div>
@@ -434,12 +434,12 @@ export default function QuantumScienceTriad() {
               {/* Left: SVG Molecular Potential Energy Surface Curve */}
               <div className="flex flex-col gap-4">
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3 font-mono text-xs text-emerald-300">
+                  <div className="flex items-center gap-3 font-pixel text-[11px] text-emerald-300">
                     <span className="px-2.5 py-1 rounded-md bg-emerald-500/20 border border-emerald-500/30">
                       GRAPH: H₂ MOLECULAR POTENTIAL ENERGY SURFACE E(R)
                     </span>
                   </div>
-                  <span className="font-mono text-xs text-slate-400">
+                  <span className="font-pixel text-[11px] text-slate-400">
                     R = {bondLength} Å
                   </span>
                 </div>
@@ -495,7 +495,7 @@ export default function QuantumScienceTriad() {
                   </svg>
 
                   {/* Chemistry Legends */}
-                  <div className="absolute top-4 left-6 flex flex-wrap gap-4 font-mono text-[11px] pointer-events-none">
+                  <div className="absolute top-4 left-6 flex flex-wrap gap-4 font-pixel text-[11px] pointer-events-none">
                     <div className="flex items-center gap-2">
                       <span className="w-3 h-1 bg-emerald-400 rounded-full shadow-[0_0_8px_#10b981]" />
                       <span className="text-emerald-300 font-bold">VQE Quantum Full CI Energy: E(R)</span>
@@ -506,14 +506,14 @@ export default function QuantumScienceTriad() {
                     </div>
                   </div>
 
-                  <div className="absolute bottom-2 right-4 font-mono text-[10px] text-slate-500">
+                  <div className="absolute bottom-2 right-4 font-pixel text-[11px] text-slate-500">
                     X-Axis: Interatomic Distance R (Å) ▪ Y-Axis: Ground Energy (Hartree)
                   </div>
                 </div>
 
                 {/* Chemistry Bond Slider */}
                 <div className="flex flex-col gap-2 p-4 rounded-xl bg-white/[0.02] border border-white/[0.06]">
-                  <div className="flex items-center justify-between font-mono text-xs">
+                  <div className="flex items-center justify-between font-pixel text-[11px]">
                     <label htmlFor={bondLengthSliderId} className="text-slate-300 font-semibold cursor-pointer">Nuclear Separation Distance (R in Ångströms)</label>
                     <span className="text-emerald-400 font-bold">{bondLength} Å (Equilibrium = 0.741 Å)</span>
                   </div>
@@ -527,7 +527,7 @@ export default function QuantumScienceTriad() {
                     onChange={(e) => setBondLength(Number(e.target.value))}
                     className="w-full accent-emerald-500 cursor-pointer h-2 bg-slate-800 rounded-lg"
                   />
-                  <div className="flex justify-between font-mono text-[10px] text-slate-500">
+                  <div className="flex justify-between font-pixel text-[11px] text-slate-500">
                     <span>0.30 Å (Repulsion)</span>
                     <span className="text-emerald-400 font-semibold">0.74 Å (Equilibrium Bond)</span>
                     <span>2.50 Å (Dissociation)</span>
@@ -538,16 +538,16 @@ export default function QuantumScienceTriad() {
               {/* Right: Chemistry VQE Algorithm Metrics */}
               <div className="flex flex-col gap-5">
                 <div className="p-5 rounded-2xl bg-emerald-950/30 border border-emerald-500/20 flex flex-col gap-3">
-                  <span className="font-mono text-xs text-emerald-300 uppercase tracking-wider font-semibold">
+                  <span className="font-pixel text-[11px] text-emerald-300 uppercase tracking-wider font-semibold">
                     ✦ VQE GROUND STATE CALCULATION
                   </span>
                   <div className="flex items-baseline gap-2">
-                    <span className="font-display text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+                    <span className="font-pixel text-[33px] sm:text-[44px] font-extrabold text-white tracking-tight">
                       {currentEnergy} Ha
                     </span>
-                    <span className="font-mono text-xs text-emerald-400">Total Ground Energy</span>
+                    <span className="font-pixel text-[11px] text-emerald-400">Total Ground Energy</span>
                   </div>
-                  <div className="flex justify-between font-mono text-xs border-t border-white/10 pt-3">
+                  <div className="flex justify-between font-pixel text-[11px] border-t border-white/10 pt-3">
                     <span className="text-slate-400">Classical HF Error:</span>
                     <span className="text-rose-400 font-bold">+{(Math.abs(Number(currentEnergy) - Number(hartreeFockEnergy))).toFixed(4)} Ha</span>
                   </div>
@@ -558,16 +558,16 @@ export default function QuantumScienceTriad() {
 
                 {/* Electronic Hamiltonian Formula Box */}
                 <div className="p-5 rounded-2xl bg-black/40 border border-white/10 flex flex-col gap-3">
-                  <span className="font-mono text-xs text-slate-400 uppercase tracking-widest font-semibold">
+                  <span className="font-pixel text-[11px] text-slate-400 uppercase tracking-widest font-semibold">
                     Fermionic Second-Quantized Hamiltonian
                   </span>
-                  <div className="p-3 rounded-lg bg-black/60 font-mono text-xs text-emerald-300 border border-emerald-500/20 overflow-x-auto">
+                  <div className="p-3 rounded-lg bg-black/60 font-pixel text-[11px] text-emerald-300 border border-emerald-500/20 overflow-x-auto">
                     <code>
                       Ĥ = ∑ h_pq a†_p a_q + 1/2 ∑ h_pqrs a†_p a†_q a_s a_r<br />
                       Jordan-Wigner / Bravyi-Kitaev ⟶ ∑ c_j P_j
                     </code>
                   </div>
-                  <span className="font-mono text-[11px] text-slate-400">
+                  <span className="font-pixel text-[11px] text-slate-400">
                     Maps complex molecular electron orbits to quantum circuits for catalysts, lithium batteries, and enzyme simulation.
                   </span>
                 </div>

@@ -108,22 +108,18 @@ export default function PioneersParallax() {
   }, [])
 
   return (
-    <section className="py-24 sm:py-32 bg-[#07040d] min-h-[90dvh] flex items-center relative overflow-hidden text-white" ref={sectionRef} id="pioneers">
-      {/* Background ambient lighting */}
-      <div className="absolute top-1/3 right-1/4 w-[50vw] h-[50vw] bg-purple-600/10 rounded-full blur-[140px] pointer-events-none" aria-hidden="true" />
-      <div className="absolute bottom-10 left-10 w-[40vw] h-[40vw] bg-pink-600/10 rounded-full blur-[140px] pointer-events-none" aria-hidden="true" />
-
+    <section className="py-24 sm:py-32 bg-transparent min-h-[90dvh] flex items-center relative overflow-hidden text-white" ref={sectionRef} id="pioneers">
       <div className="w-full max-w-[1440px] mx-auto px-5 sm:px-8 md:px-12 lg:px-16 relative">
         {/* Winchester pattern large overlay watermark */}
-        <h2 className="pioneers__overlay-text absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-display text-[clamp(2.5rem,8vw,8rem)] font-extrabold text-white/[0.04] whitespace-nowrap pointer-events-none z-0 tracking-[-0.04em] uppercase" aria-hidden="true">
+        <h2 className="pioneers__overlay-text absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-display text-[clamp(2.5rem,8vw,8rem)] font-extrabold text-white/[0.03] whitespace-nowrap pointer-events-none z-0 tracking-[-0.04em] uppercase" aria-hidden="true">
           Original Thinkers
         </h2>
 
         {/* Section Header */}
         <div className="text-center mb-16 relative z-10">
-          <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-[#120d1c] border border-[#a855f7]/30 mb-4">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#c084fc]" />
-            <span className="font-mono text-xs font-semibold text-[#c084fc] uppercase tracking-wider">FOUNDATIONAL GIANTS</span>
+          <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-transparent border border-purple-500/30 mb-4">
+            <span className="w-1.5 h-1.5 rounded-full bg-purple-400" />
+            <span className="font-pixel text-[11px] font-semibold text-purple-300 uppercase tracking-wider">FOUNDATIONAL GIANTS</span>
           </div>
           <h2 className="font-display text-[clamp(2rem,3.5vw,3rem)] font-bold text-white tracking-tight m-0">
             Pioneers of the Quantum Realm
@@ -137,29 +133,29 @@ export default function PioneersParallax() {
             return (
               <div
                 key={pioneer.id}
-                className="pioneers__card p-7 rounded-2xl bg-[#120d1c]/90 border border-white/10 shadow-xl hover:border-[#a855f7]/50 hover:shadow-[0_16px_40px_rgba(168,85,247,0.2)] hover:-translate-y-1 transition-all duration-300 group flex flex-col justify-between"
+                className="pioneers__card p-7 rounded-2xl bg-transparent border border-purple-500/25 shadow-xl hover:border-purple-400/50 hover:shadow-[0_16px_40px_rgba(168,85,247,0.15)] hover:-translate-y-1 transition-all duration-300 group flex flex-col justify-between"
               >
                 <div className="flex flex-col gap-4">
                   {/* Top Meta Bar */}
                   <div className="flex items-center justify-between">
-                    <span className="font-mono text-xs font-bold text-[#c084fc] px-2.5 py-1 rounded-md bg-[#a855f7]/15 border border-[#a855f7]/30">
+                    <span className="font-pixel text-[11px] font-bold text-[#c084fc] px-2.5 py-1 rounded-md bg-[#a855f7]/15 border border-[#a855f7]/30">
                       {pioneer.year}
                     </span>
-                    <span className="font-mono text-[0.68rem] text-slate-400 font-semibold tracking-wider uppercase">
+                    <span className="font-pixel text-[11px] text-slate-400 font-semibold tracking-wider uppercase">
                       {meta.badge}
                     </span>
                   </div>
 
                   {/* Icon & Title */}
                   <div className="flex items-start gap-4 pt-2">
-                    <div className="p-3 rounded-xl bg-[#07040d] border border-white/10 group-hover:border-[#a855f7]/40 transition-colors shrink-0">
+                    <div className="p-3 rounded-xl bg-[#06040a] border border-purple-500/30 group-hover:border-purple-400/60 transition-colors shrink-0">
                       {meta.icon}
                     </div>
                     <div>
                       <h3 className="font-display text-xl sm:text-2xl font-bold text-white group-hover:text-[#c084fc] transition-colors m-0">
                         {pioneer.name}
                       </h3>
-                      <span className="font-mono text-xs text-[#f472b6] font-medium tracking-wide block mt-0.5">
+                      <span className="font-pixel text-[11px] text-[#f472b6] font-medium tracking-wide block mt-0.5">
                         {pioneer.role}
                       </span>
                     </div>

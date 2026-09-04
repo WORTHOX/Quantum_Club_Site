@@ -7,9 +7,9 @@ import LogoWithCircularText from '../shared/LogoWithCircularText'
 // Page-specific accent spectrums
 const PAGE_THEMES = {
   '/': {
-    gradient: 'linear-gradient(90deg, #c084fc 0%, #e879f9 50%, #ec4899 100%)',
-    shadow: '0 0 16px rgba(232, 121, 249, 0.9), 0 0 4px #ec4899',
-    accentColor: '#e879f9',
+    gradient: 'linear-gradient(90deg, #a855f7 0%, #c084fc 50%, #818cf8 100%)',
+    shadow: '0 0 16px rgba(168, 85, 247, 0.7), 0 0 4px #a855f7',
+    accentColor: '#a855f7',
   },
   '/events': {
     gradient: 'linear-gradient(90deg, #ef4444 0%, #f97316 50%, #f59e0b 100%)',
@@ -180,7 +180,7 @@ export default function Navbar() {
               href="https://www.instagram.com/quantumclub.sit/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-purple-400 hover:text-fuchsia-400 hover:-translate-y-0.5 p-1.5 transition-all duration-200 grid place-items-center active:scale-[0.95]"
+              className="text-slate-400 hover:text-purple-400 hover:-translate-y-0.5 p-1.5 transition-all duration-200 grid place-items-center active:scale-[0.95]"
               aria-label="Instagram"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
@@ -193,7 +193,7 @@ export default function Navbar() {
               href="https://www.linkedin.com/company/symbiosis-quantum-club/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-purple-400 hover:text-fuchsia-400 hover:-translate-y-0.5 p-1.5 transition-all duration-200 grid place-items-center active:scale-[0.95]"
+              className="text-slate-400 hover:text-purple-400 hover:-translate-y-0.5 p-1.5 transition-all duration-200 grid place-items-center active:scale-[0.95]"
               aria-label="LinkedIn"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
@@ -202,17 +202,7 @@ export default function Navbar() {
                 <circle cx="4" cy="4" r="2" />
               </svg>
             </a>
-            <Link
-              to="/fallfest"
-              className="group inline-flex items-center gap-2 font-mono text-[0.72rem] font-bold uppercase tracking-[0.1em] px-4 sm:px-5 py-2.5 rounded-full text-white bg-gradient-to-r from-purple-600 to-fuchsia-600 shadow-[0_0_24px_rgba(168,85,247,0.45)] hover:from-purple-500 hover:to-pink-500 hover:shadow-[0_0_32px_rgba(236,72,153,0.6)] hover:-translate-y-0.5 active:scale-[0.96] transition-all duration-200"
-            >
-              <span>JOIN CLUB</span>
-              <span className="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center group-hover:scale-110 group-hover:bg-white/30 transition-all duration-200">
-                <svg width="12" height="12" viewBox="0 0 16 16" fill="none">
-                  <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </span>
-            </Link>
+
 
             {/* Mobile Hamburger Button */}
             <button
@@ -267,13 +257,7 @@ export default function Navbar() {
           ref={(el) => (mobileItemsRef.current[navLinks.length] = el)}
           className="mt-6 flex flex-col gap-4 w-full max-w-xs"
         >
-          <Link
-            to="/fallfest"
-            className="inline-flex items-center justify-center gap-2 font-mono text-xs font-bold uppercase tracking-widest px-6 py-3.5 rounded-full text-white bg-gradient-to-r from-purple-600 to-fuchsia-600 shadow-[0_0_25px_rgba(168,85,247,0.4)] active:scale-[0.97] transition-all duration-200"
-            onClick={() => setMenuOpen(false)}
-          >
-            Join Fall Fest 2026 →
-          </Link>
+
           <div className="flex items-center gap-4 pt-1">
             <a href="https://www.instagram.com/quantumclub.sit/" target="_blank" rel="noopener noreferrer" className="text-white/50 hover:text-fuchsia-400 transition-colors font-mono text-[10px] tracking-widest uppercase">Instagram</a>
             <span className="text-white/20">·</span>

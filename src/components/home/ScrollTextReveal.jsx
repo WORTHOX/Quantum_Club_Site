@@ -29,8 +29,8 @@ export default function ScrollTextReveal() {
           word,
           {
             opacity: 1,
-            color: word.classList.contains('scroll-text__word--accent') ? '#e879f9' : '#ffffff',
-            textShadow: word.classList.contains('scroll-text__word--accent') ? '0 0 24px rgba(217, 70, 239, 0.6)' : 'none',
+            color: word.classList.contains('scroll-text__word--accent') ? '#c084fc' : '#ffffff',
+            textShadow: word.classList.contains('scroll-text__word--accent') ? '0 0 24px rgba(192, 132, 252, 0.6)' : 'none',
             duration: 0.5,
             ease: 'none',
           },
@@ -76,12 +76,12 @@ export default function ScrollTextReveal() {
   ]
 
   return (
-    <section className="relative h-[140vh] md:h-[180vh] bg-[#07040d] text-white" ref={containerRef} id="welcome">
+    <section className="relative h-[140vh] md:h-[180vh] bg-transparent text-white" ref={containerRef} id="welcome">
       <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden">
         <div className="w-full max-w-[1280px] mx-auto px-5 sm:px-8 md:px-12 lg:px-16 flex flex-col items-start">
           <div className="flex items-center gap-3 mb-6">
-            <div className="w-6 h-[2px] bg-gradient-to-r from-[#a855f7] to-[#ec4899]" />
-            <span className="font-mono text-xs sm:text-sm font-semibold tracking-[0.14em] text-[#c084fc] uppercase">
+            <div className="w-6 h-[2px] bg-gradient-to-r from-purple-500 to-violet-400" />
+            <span className="font-pixel text-[11px] sm:text-xs font-semibold tracking-[0.14em] text-purple-300 uppercase">
               WELCOME TO QUANTUM CLUB
             </span>
           </div>

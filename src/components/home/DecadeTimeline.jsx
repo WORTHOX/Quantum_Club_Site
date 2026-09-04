@@ -66,15 +66,12 @@ export default function DecadeTimeline() {
   }, [])
 
   return (
-    <section className="py-24 sm:py-32 bg-[#07040d] text-white relative overflow-hidden" ref={sectionRef} id="timeline">
-      {/* Background ambient lighting */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[70vw] h-[70vw] bg-purple-600/5 rounded-full blur-[160px] pointer-events-none" aria-hidden="true" />
-
+    <section className="py-24 sm:py-32 bg-transparent text-white relative overflow-hidden" ref={sectionRef} id="timeline">
       <div className="w-full max-w-4xl mx-auto px-5 sm:px-8 relative z-10">
         {/* Header */}
         <div className="text-center mb-16 sm:mb-20">
-          <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-[#120d1c] border border-[#a855f7]/30 mb-4">
-            <span className="font-mono text-xs font-semibold text-[#c084fc] tracking-widest uppercase">
+          <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-[#0e0720]/35 border border-purple-500/30 mb-4 backdrop-blur-[2px]">
+            <span className="font-pixel text-[11px] font-semibold text-purple-300 tracking-widest uppercase">
               2016 ✦ 2026
             </span>
           </div>
@@ -90,7 +87,7 @@ export default function DecadeTimeline() {
         <div className="relative max-w-3xl mx-auto">
           {/* Vertical central laser line */}
           <div className="timeline__line absolute left-4 md:left-1/2 top-0 bottom-0 w-[2px] bg-white/10 -translate-x-1/2" aria-hidden="true">
-            <div className="timeline__line-fill w-full h-full bg-gradient-to-b from-[#a855f7] via-[#d946ef] to-[#38bdf8] opacity-80 shadow-[0_0_12px_#d946ef]" />
+            <div className="timeline__line-fill w-full h-full bg-gradient-to-b from-purple-500 via-violet-400 to-indigo-500 opacity-85 shadow-[0_0_12px_#a855f7]" />
           </div>
 
           {timeline.map((item, i) => {
@@ -111,12 +108,12 @@ export default function DecadeTimeline() {
                   }`}
                   aria-hidden="true"
                 >
-                  <div className="w-3 h-3 rounded-full bg-[#d946ef] shadow-[0_0_14px_3px_rgba(217,70,239,0.6)] border-2 border-[#07040d]" />
+                  <div className="w-3 h-3 rounded-full bg-purple-400 shadow-[0_0_14px_3px_rgba(168,85,247,0.6)] border-2 border-[#06040a]" />
                 </div>
 
                 {/* Content Card */}
-                <div className="p-5 sm:p-6 rounded-2xl bg-[#120d1c]/90 border border-white/10 shadow-lg hover:border-[#a855f7]/40 transition-all duration-300 w-full">
-                  <span className="inline-block font-mono text-xs font-bold text-[#c084fc] px-2.5 py-0.5 rounded bg-[#a855f7]/15 border border-[#a855f7]/30 tracking-wider mb-2">
+                <div className="p-5 sm:p-6 rounded-2xl bg-[#0e0720]/25 border border-purple-500/25 shadow-lg hover:border-purple-400/50 backdrop-blur-[2px] transition-all duration-300 w-full">
+                  <span className="inline-block font-pixel text-[11px] font-bold text-purple-300 px-2.5 py-0.5 rounded bg-purple-500/15 border border-purple-500/30 tracking-wider mb-2">
                     {item.year}
                   </span>
                   <h3 className="font-display text-lg sm:text-xl font-bold text-white mb-1.5">

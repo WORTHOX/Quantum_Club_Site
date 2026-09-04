@@ -4,6 +4,15 @@
 @import './styles/global.css';
 @import './styles/animations.css';
 
+/* Departure Mono — lo-fi pixel monospace for HUD/numeric accents */
+@font-face {
+  font-family: 'Departure Mono';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2409-1@1.0/DepartureMono-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

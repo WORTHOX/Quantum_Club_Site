@@ -292,54 +292,56 @@ export default function BlogDetail() {
         </div>
 
         {/* ── Related Articles Recommendation Section ── */}
-        <section className="mt-28 pt-16 border-t border-white/10 flex flex-col gap-10">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-[2px] bg-gradient-to-r from-[#34d399] to-[#10b981]" />
-              <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-white tracking-tight uppercase m-0">
-                MORE DISPATCHES FROM QUANTUM JOURNAL
-              </h2>
-            </div>
-            
-            <Link 
-              to="/blog" 
-              className="hidden sm:inline-flex items-center gap-2 text-xs font-mono font-bold text-[#34d399] hover:underline"
-            >
-              <span>VIEW ALL PAPERS</span>
-              <span>➔</span>
-            </Link>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {relatedPosts.map((relPost) => (
+        {relatedPosts.length > 0 && (
+          <section className="mt-28 pt-16 border-t border-white/10 flex flex-col gap-10">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-[2px] bg-gradient-to-r from-[#34d399] to-[#10b981]" />
+                <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-white tracking-tight uppercase m-0">
+                  MORE DISPATCHES FROM QUANTUM JOURNAL
+                </h2>
+              </div>
+              
               <Link 
-                key={relPost.id} 
-                to={`/blog/${relPost.id}`}
-                className="group flex flex-col bg-[#121513] border border-white/10 rounded-2xl overflow-hidden hover:border-[#10b981]/50 hover:shadow-[0_12px_32px_rgba(16,185,129,0.18)] transition-all duration-300"
+                to="/blog" 
+                className="hidden sm:inline-flex items-center gap-2 text-xs font-mono font-bold text-[#34d399] hover:underline"
               >
-                <div className="w-full aspect-[16/10] overflow-hidden relative bg-[#070a08]">
-                  <img 
-                    src={relPost.image} 
-                    alt={relPost.title} 
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
-                  />
-                </div>
-                <div className="p-6 flex flex-col gap-3">
-                  <div className="flex items-center justify-between text-xs font-mono">
-                    <span className="text-[#34d399] font-semibold">{formatDate(relPost.date)}</span>
-                    <span className="text-slate-400">{relPost.readTime}</span>
-                  </div>
-                  <h3 className="font-display text-base font-bold text-white group-hover:text-[#34d399] transition-colors leading-snug m-0">
-                    {relPost.title}
-                  </h3>
-                  <p className="font-body text-xs text-slate-400 line-clamp-2 leading-relaxed m-0">
-                    {relPost.excerpt}
-                  </p>
-                </div>
+                <span>VIEW ALL PAPERS</span>
+                <span>➔</span>
               </Link>
-            ))}
-          </div>
-        </section>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {relatedPosts.map((relPost) => (
+                <Link 
+                  key={relPost.id} 
+                  to={`/blog/${relPost.id}`}
+                  className="group flex flex-col bg-[#121513] border border-white/10 rounded-2xl overflow-hidden hover:border-[#10b981]/50 hover:shadow-[0_12px_32px_rgba(16,185,129,0.18)] transition-all duration-300"
+                >
+                  <div className="w-full aspect-[16/10] overflow-hidden relative bg-[#070a08]">
+                    <img 
+                      src={relPost.image} 
+                      alt={relPost.title} 
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                    />
+                  </div>
+                  <div className="p-6 flex flex-col gap-3">
+                    <div className="flex items-center justify-between text-xs font-mono">
+                      <span className="text-[#34d399] font-semibold">{formatDate(relPost.date)}</span>
+                      <span className="text-slate-400">{relPost.readTime}</span>
+                    </div>
+                    <h3 className="font-display text-base font-bold text-white group-hover:text-[#34d399] transition-colors leading-snug m-0">
+                      {relPost.title}
+                    </h3>
+                    <p className="font-body text-xs text-slate-400 line-clamp-2 leading-relaxed m-0">
+                      {relPost.excerpt}
+                    </p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
 
       </div>
     </main>

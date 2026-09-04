@@ -39,6 +39,7 @@ export default {
         display: ['Space Grotesk', 'system-ui', 'sans-serif'],
         body: ['DM Sans', 'system-ui', 'sans-serif'],
         mono: ['IBM Plex Mono', 'Menlo', 'monospace'],
+        pixel: ['"Departure Mono"', 'IBM Plex Mono', 'Menlo', 'monospace'],
       },
       fontSize: {
         xs: "clamp(0.694rem, 0.65rem + 0.22vw, 0.8rem)",
