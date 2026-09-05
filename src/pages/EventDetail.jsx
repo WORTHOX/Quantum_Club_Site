@@ -12,7 +12,7 @@ export default function EventDetail() {
     const found = events.find(e => e.id === id)
     if (found) {
       setEvent(found)
-      document.title = `${found.title} — SQC Events`
+      document.title = `${found.title} — Symbiosis Quantum Club Events`
       window.scrollTo(0, 0)
     } else {
       setEvent(null)

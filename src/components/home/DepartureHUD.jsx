@@ -50,7 +50,7 @@ function HUDReticle() {
           .hud-vector {
             animation: hud-spin 4.5s linear infinite;
             transform-origin: 0px 0px;
-            transform-box: fill-box;
+            transform-box: view-box;
           }
         `}</style>
       </defs>
@@ -102,7 +102,7 @@ function HUDReticle() {
       })}
 
       {/* CSS-animated state vector — browser handles at 60fps, zero JS */}
-      <g className="hud-vector">
+      <g className="hud-vector" style={{ transformOrigin: '0px 0px', transformBox: 'view-box' }}>
         <line x1={0} y1={0} x2={0} y2={-r * 0.8} stroke="#34d399" strokeWidth={1.8} strokeOpacity={0.9}
           style={{ filter: 'drop-shadow(0 0 4px #34d399)' }} />
         <circle cx={0} cy={-r * 0.8} r={4} fill="#34d399" opacity={0.9}

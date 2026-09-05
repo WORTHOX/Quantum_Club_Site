@@ -11,6 +11,7 @@ import EventDetail from './pages/EventDetail'
 import Blog from './pages/Blog'
 import BlogDetail from './pages/BlogDetail'
 import Team from './pages/Team'
+import FallFest from './pages/FallFest'
 
 /* Helper for legacy Qiskit archive links */
 function QiskitRedirect() {
@@ -36,15 +37,26 @@ function AnimatedRoutes() {
            Instead, we pass `location` so React Router matches the right route
            while PageTransition controls what's visible. */}
       <Routes location={location}>
-        <Route path="/"           element={<Home />} />
-        <Route path="/events"     element={<Events />} />
-        <Route path="/events/:id" element={<EventDetail />} />
-        <Route path="/fallfest"   element={<Navigate to="/events?category=fall-fest" replace />} />
-        <Route path="/blog"       element={<Blog />} />
-        <Route path="/blog/:id"   element={<BlogDetail />} />
-        <Route path="/team"       element={<Team />} />
-        <Route path="/qiskit/:year" element={<QiskitRedirect />} />
-        <Route path="*"           element={<Home />} />
+        <Route path="/"              element={<Home />} />
+        <Route path="/events"        element={<Events />} />
+        <Route path="/events/:id"    element={<EventDetail />} />
+
+        {/*
+          ⚠️ IMPORTANT — IBM LINK PRESERVATION:
+          /fallfest is published on IBM's official Qiskit Global Partner page.
+          This URL MUST resolve to a real page (not a redirect) with proper
+          SEO metadata. IBM will NOT update the link — it must always work.
+          - /fallfest          → Fall Fest 2025 (IBM-linked canonical URL)
+          - /fallfest_:year    → Future annual editions (2026, 2027, …)
+        */}
+        <Route path="/fallfest"      element={<FallFest />} />
+        <Route path="/fallfest_:year" element={<FallFest />} />
+
+        <Route path="/blog"          element={<Blog />} />
+        <Route path="/blog/:id"      element={<BlogDetail />} />
+        <Route path="/team"          element={<Team />} />
+        <Route path="/qiskit/:year"  element={<QiskitRedirect />} />
+        <Route path="*"              element={<Home />} />
       </Routes>
     </PageTransition>
   )

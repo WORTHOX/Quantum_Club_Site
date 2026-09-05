@@ -33,7 +33,7 @@ export default function BlogDetail() {
   }, [post])
 
   useEffect(() => {
-    document.title = `${post.title} — Symbiosis Quantum Club`
+    document.title = `${post.title} — Symbiosis Quantum Club Blog`
     window.scrollTo(0, 0)
   }, [post])
 
@@ -296,7 +296,6 @@ export default function BlogDetail() {
           <section className="mt-28 pt-16 border-t border-white/10 flex flex-col gap-10">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="w-8 h-[2px] bg-gradient-to-r from-[#34d399] to-[#10b981]" />
                 <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-white tracking-tight uppercase m-0">
                   MORE DISPATCHES FROM QUANTUM JOURNAL
                 </h2>

@@ -8,7 +8,7 @@ export default function Blog() {
   const [subscribed, setSubscribed] = useState(false)
 
   useEffect(() => {
-    document.title = 'Quantum Insights — Symbiosis Quantum Club'
+    document.title = 'Quantum Insights & Research Blog — Symbiosis Quantum Club'
     window.scrollTo(0, 0)
   }, [])
 
@@ -59,7 +59,6 @@ export default function Blog() {
           <aside className="flex flex-col gap-6 lg:sticky lg:top-[145px] lg:self-start lg:h-fit lg:z-10 pt-6 lg:pt-10">
             {/* Header Lockup: Line Accent + Monospace Eyebrow */}
             <div className="flex items-center gap-3">
-              <div className="w-8 h-[2px] bg-gradient-to-r from-[#34d399] to-[#10b981] shadow-[0_0_10px_rgba(16,185,129,0.6)]" />
               <span className="font-mono text-[0.675rem] font-bold tracking-widest text-[#34d399] uppercase">
                 SYMBIOSIS QUANTUM CLUB ✦ JOURNAL 2026
               </span>

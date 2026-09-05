@@ -124,7 +124,6 @@ export default function VideoHero() {
         <div className="flex flex-col items-start" ref={textRef}>
           {/* Eyebrow Lockup */}
           <div className="flex items-center gap-4 mb-6">
-            <div className="hero__divider w-10 h-[2px] bg-gradient-to-r from-purple-500 to-violet-400 origin-left" />
             <span className="hero__eyebrow font-pixel text-[11px] sm:text-xs font-semibold tracking-widest text-purple-300 uppercase">
               SYMBIOSIS QUANTUM CLUB ✦ IBM QISKIT FALL FEST 2026
             </span>

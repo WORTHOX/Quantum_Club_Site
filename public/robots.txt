@@ -1,0 +1,9 @@
+# Symbiosis Quantum Club — symbiosisquantumclub.vercel.app
+User-agent: *
+Allow: /
+
+# Key pages for crawlers
+Sitemap: https://symbiosisquantumclub.vercel.app/sitemap.xml
+
+# Important: /fallfest is the IBM Qiskit Fall Fest official partner link
+# This URL must remain crawlable and never return a redirect

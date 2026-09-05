@@ -22,7 +22,7 @@ const SectionPlaceholder = ({ minH = '24rem' }) => (
 
 export default function Home() {
   useEffect(() => {
-    document.title = 'Symbiosis Quantum Club'
+    document.title = 'Symbiosis Quantum Club — IBM Qiskit Fall Fest | Quantum Computing India'
     window.scrollTo(0, 0)
   }, [])
 
@@ -47,7 +47,6 @@ export default function Home() {
         <Suspense fallback={<SectionPlaceholder minH="32rem" />}>
           <div className="w-full max-w-[1280px] mx-auto px-5 sm:px-8 md:px-12 lg:px-16 py-16 sm:py-24">
             <div className="flex items-center gap-3 mb-8">
-              <div className="w-8 h-[2px] bg-gradient-to-r from-emerald-500 to-cyan-400" />
               <span className="font-pixel text-[11px] font-bold tracking-widest text-emerald-400 uppercase">
                 LIVE QPU TELEMETRY
               </span>

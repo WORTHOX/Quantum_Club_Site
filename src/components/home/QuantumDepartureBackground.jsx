@@ -420,10 +420,10 @@ export default function QuantumDepartureBackground() {
       ctx.restore()
     }
 
-    const drawQuantumCircuitLarge = (wx, wy) => {
+    const drawQuantumCircuitLarge = (wx, wy, scale = 0.78) => {
       const scrollY = window.scrollY || 0
       const vx = wx, vy = wy - scrollY
-      ctx.save(); ctx.translate(vx, vy)
+      ctx.save(); ctx.translate(vx, vy); ctx.scale(scale, scale)
 
       const numQubits = 5
       const qSpacing = 52
@@ -511,7 +511,6 @@ export default function QuantumDepartureBackground() {
       { worldY: 3000, side: 'left',   marginX: 220, fn: (wx, wy) => drawDensityMatrix(wx, wy, 5) },
       { worldY: 3900, side: 'right',  marginX: 200, fn: drawCryoLadder },
       { worldY: 4800, side: 'center', marginX: 0,   fn: drawOscilloscope },
-      { worldY: 5700, side: 'center', marginX: 0,   fn: drawQuantumCircuitLarge },
     ]
 
     // ─── RENDER LOOP ────────────────────────────────────────────────────────────
@@ -640,6 +639,23 @@ export default function QuantumDepartureBackground() {
 
         fn(wx, worldY)
       })
+
+      // ── QUANTUM CIRCUIT GROVER ORACLE ──
+      // Pushed down to the right-side area of "A Decade of Quantum Acceleration" (#timeline),
+      // positioned parallel to the 2016 "IBM puts quantum on the cloud" box.
+      const item2016 = document.querySelector('#timeline .timeline__item')
+      if (W > 860) {
+        let circuitWorldY = 6400
+        if (item2016) {
+          const rect = item2016.getBoundingClientRect()
+          circuitWorldY = rect.top + scrollY + rect.height / 2
+        }
+        if (circuitWorldY >= viewTop - pad && circuitWorldY <= viewBottom + pad && circuitWorldY <= footerTop) {
+          // Center in the right-hand area parallel to the 2016 timeline item (which sits on the left)
+          const circuitWX = (W / 2) + Math.min(240, Math.max(185, (W - 860) * 0.25 + 195))
+          drawQuantumCircuitLarge(circuitWX, circuitWorldY, 0.78)
+        }
+      }
 
       // ── MOUSE RETICLE ──
       if (mx.x > 0 && mx.y > 0 && mx.x < W && mx.y < H) {

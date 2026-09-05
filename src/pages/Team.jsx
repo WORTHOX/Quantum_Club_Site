@@ -235,7 +235,7 @@ function EvasiveCard({ number, label, badge, index = 0 }) {
 
 export default function Team() {
   useEffect(() => {
-    document.title = 'Our Team — Symbiosis Quantum Club'
+    document.title = 'Meet the Team — Symbiosis Quantum Club | Quantum Computing India'
   }, [])
 
   return (
@@ -298,7 +298,6 @@ export default function Team() {
             <div className="lg:col-span-7 flex flex-col items-start">
               {/* Header Lockup: Divider + Monospace Eyebrow */}
               <div className="flex items-center gap-4 mb-5">
-                <div className="w-10 h-0.5 bg-gradient-to-r from-cyan-400 to-blue-500 shadow-[0_0_10px_#06b6d4]" />
                 <span className="font-mono text-xs sm:text-sm font-semibold tracking-widest text-cyan-400 uppercase">
                   SYMBIOSIS QUANTUM CLUB ✦ TEAM DIRECTORY 2026
                 </span>

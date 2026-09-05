@@ -36,7 +36,7 @@ const EVENTS = [
     participants: '250+',
     duration: '6 weeks',
     sessions: 14,
-    coverImage: '/assets/events/badge-dark.png',
+    coverImage: '/assets/events/fall-fest-2026-cover.jpg',
     excerpt: 'Our second year as an official IBM Qiskit Fall Fest partner. Celebrating a decade of quantum computing on the cloud with workshops, industry panels, and the biggest SQC programme yet.',
     description: [
       'The Symbiosis Quantum Club returns as an official IBM Qiskit Fall Fest 2026 partner for the second consecutive year. This edition marks a historic milestone — 10 years of quantum computing on the cloud.',
@@ -258,7 +258,7 @@ const EVENTS = [
     participants: '127+',
     duration: '4 weeks',
     sessions: 8,
-    coverImage: '/assets/events/fall-fest-2025/photo-1.jpg',
+    coverImage: '/assets/events/badge-dark.png',
     excerpt: 'SQC\'s inaugural IBM Qiskit Fall Fest — 4 weeks of quantum workshops, hands-on labs on real IBM hardware, and an 8-hour mini challenge that launched SQC onto the global quantum stage.',
     description: [
       'The Symbiosis Quantum Club became an official IBM Qiskit Fall Fest partner in 2025 — our first year on the global quantum stage. Over four weeks, 127+ students experienced quantum computing from the ground up using IBM Quantum Cloud.',

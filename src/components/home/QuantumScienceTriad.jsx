@@ -47,7 +47,6 @@ export default function QuantumScienceTriad() {
         {/* Section Header */}
         <div className="flex flex-col items-start gap-4 mb-14">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-[2px] bg-gradient-to-r from-[#a855f7] via-[#06b6d4] to-[#10b981]" />
             <span className="font-pixel text-[11px] font-bold tracking-[0.2em] text-[#38bdf8] uppercase">
               THE TRIAD OF QUANTUM SCIENCE
             </span>

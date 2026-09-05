@@ -28,7 +28,6 @@ export default function QuantumLifeStories() {
     <section className="py-24 sm:py-32 bg-transparent text-white relative overflow-hidden" id="quantum-life">
       <div className="w-full max-w-[1440px] mx-auto px-5 sm:px-8 md:px-12 lg:px-16 mb-10">
         <div className="flex items-center gap-3 mb-3">
-          <div className="w-8 h-[2px] bg-gradient-to-r from-purple-500 to-violet-400" />
           <span className="font-pixel text-[11px] font-bold tracking-widest text-purple-300 uppercase">
             LIFE AT SQC
           </span>

@@ -28,7 +28,7 @@ export default function AboutDoubleImage() {
             {/* Secondary Overlapping Image */}
             <div className="aspect-[3/4] bg-transparent border border-purple-500/30 rounded-2xl overflow-hidden shadow-2xl relative -translate-y-[15%] group">
               <img
-                src="/assets/events/iiser-visit/photo-5.jpg"
+                src="/assets/events/fall-fest-2025/photo-4.jpg"
                 alt="Quantum computing hardware and circuit demonstration"
                 className="w-full h-full object-cover brightness-90 contrast-105 group-hover:scale-105 group-hover:brightness-100 transition-all duration-700 ease-out"
                 loading="lazy"
@@ -44,7 +44,6 @@ export default function AboutDoubleImage() {
           {/* Right Side: Editorial Content & Bento Stat Grid */}
           <div className="flex flex-col gap-6">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-[2px] bg-gradient-to-r from-purple-500 to-violet-400" />
               <span className="font-pixel text-[11px] font-bold tracking-widest text-purple-300 uppercase">
                 OUR MISSION & ROOTS
               </span>

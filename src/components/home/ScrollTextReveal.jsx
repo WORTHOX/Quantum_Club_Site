@@ -80,7 +80,6 @@ export default function ScrollTextReveal() {
       <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden">
         <div className="w-full max-w-[1280px] mx-auto px-5 sm:px-8 md:px-12 lg:px-16 flex flex-col items-start">
           <div className="flex items-center gap-3 mb-6">
-            <div className="w-6 h-[2px] bg-gradient-to-r from-purple-500 to-violet-400" />
             <span className="font-pixel text-[11px] sm:text-xs font-semibold tracking-[0.14em] text-purple-300 uppercase">
               WELCOME TO QUANTUM CLUB
             </span>

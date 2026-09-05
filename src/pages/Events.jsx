@@ -114,8 +114,8 @@ export default function Events() {
 
   useEffect(() => {
     document.title = selectedCategory === 'Hub'
-      ? 'Quantum Events & Initiatives — Symbiosis Quantum Club'
-      : `${selectedCategory} Events — Symbiosis Quantum Club`
+      ? 'Quantum Events & Workshops — Symbiosis Quantum Club'
+      : `${selectedCategory} Events — Symbiosis Quantum Club | Qiskit & Quantum`
     window.scrollTo(0, 0)
   }, [selectedCategory])
 
@@ -257,7 +257,6 @@ export default function Events() {
             <div className={`flex flex-col gap-6 ${selectedCategory !== 'Hub' ? 'mt-24 lg:mt-44' : ''}`}>
               {/* Header Lockup: Sunrise Red & Yellow Line Accent + Monospace Eyebrow */}
               <div className="flex items-center gap-3 transition-opacity duration-300">
-                <div className="w-8 h-[2px] bg-gradient-to-r from-[#ef4444] via-[#f97316] to-[#eab308] shadow-[0_0_12px_rgba(249,115,22,0.6)]" />
                 <span className="font-mono text-[0.675rem] font-bold tracking-widest text-[#f59e0b] uppercase">
                   {selectedCategory === 'Hub' 
                     ? 'SYMBIOSIS QUANTUM CLUB ✦ EVENTS 2026'
