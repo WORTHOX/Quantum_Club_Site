@@ -30,14 +30,9 @@ function HUDBar({ label, value, max, unit = '', color = '#34d399', width = 120 }
   )
 }
 
-// ── Animated reticle SVG ─────────────────────────────────────────────────────
-function HUDReticle({ angle }) {
+// ── Animated reticle SVG — state vector rotated via CSS, zero JS re-renders ──
+function HUDReticle() {
   const r = 120
-  // Bloch angles from prop
-  const theta = (angle * Math.PI) / 180
-  const phi = (angle * 1.7 * Math.PI) / 180
-  const sx = r * 0.8 * Math.sin(theta) * Math.cos(phi)
-  const sy = -r * 0.8 * Math.cos(theta)
 
   return (
     <svg
@@ -45,6 +40,21 @@ function HUDReticle({ angle }) {
       className="w-full h-full"
       style={{ maxWidth: 320, maxHeight: 320 }}
     >
+      {/* Inject keyframe once inside SVG (works cross-browser) */}
+      <defs>
+        <style>{`
+          @keyframes hud-spin {
+            from { transform: rotate(0deg); }
+            to   { transform: rotate(360deg); }
+          }
+          .hud-vector {
+            animation: hud-spin 4.5s linear infinite;
+            transform-origin: 0px 0px;
+            transform-box: fill-box;
+          }
+        `}</style>
+      </defs>
+
       {/* Outer ring */}
       <circle cx={0} cy={0} r={r + 30} stroke="#34d399" strokeWidth={0.8} strokeOpacity={0.2} fill="none" />
       {/* Main circle */}
@@ -91,28 +101,28 @@ function HUDReticle({ angle }) {
         )
       })}
 
-      {/* Rotating state vector */}
-      <line x1={0} y1={0} x2={sx} y2={sy} stroke="#34d399" strokeWidth={1.8} strokeOpacity={0.9}
-        style={{ filter: 'drop-shadow(0 0 4px #34d399)' }} />
-      <circle cx={sx} cy={sy} r={4} fill="#34d399" opacity={0.9}
-        style={{ filter: 'drop-shadow(0 0 6px #34d399)' }} />
+      {/* CSS-animated state vector — browser handles at 60fps, zero JS */}
+      <g className="hud-vector">
+        <line x1={0} y1={0} x2={0} y2={-r * 0.8} stroke="#34d399" strokeWidth={1.8} strokeOpacity={0.9}
+          style={{ filter: 'drop-shadow(0 0 4px #34d399)' }} />
+        <circle cx={0} cy={-r * 0.8} r={4} fill="#34d399" opacity={0.9}
+          style={{ filter: 'drop-shadow(0 0 6px #34d399)' }} />
+        {/* Projection lines (static-ish, attached to vector) */}
+        <line x1={0} y1={-r * 0.8} x2={0} y2={0} stroke="#34d399" strokeWidth={0.6} strokeOpacity={0.3} strokeDasharray="3 4" />
+      </g>
       <circle cx={0} cy={0} r={3} fill="#06b6d4" opacity={0.8} />
 
-      {/* Projection lines */}
-      <line x1={sx} y1={sy} x2={sx} y2={0} stroke="#34d399" strokeWidth={0.6} strokeOpacity={0.3} strokeDasharray="3 4" />
-      <line x1={sx} y1={sy} x2={0} y2={sy} stroke="#34d399" strokeWidth={0.6} strokeOpacity={0.3} strokeDasharray="3 4" />
-
-      {/* Center telemetry box */}
+      {/* Center telemetry box — static display */}
       <rect x={-38} y={-30} width={76} height={60} rx={2}
         stroke="#34d399" strokeWidth={0.8} strokeOpacity={0.45} fill="#070a08" fillOpacity={0.85} />
       <text x={0} y={-14} textAnchor="middle" fontSize={7} fill="#34d399" opacity={0.7} fontFamily="'Departure Mono',monospace">
-        R {String(Math.round(angle % 360)).padStart(3, '0')}
+        R 042
       </text>
       <text x={0} y={-2} textAnchor="middle" fontSize={7} fill="#34d399" opacity={0.7} fontFamily="'Departure Mono',monospace">
-        P {String(Math.round(theta * 180 / Math.PI) % 180).padStart(3, '0')}
+        P 045
       </text>
       <text x={0} y={10} textAnchor="middle" fontSize={7} fill="#34d399" opacity={0.7} fontFamily="'Departure Mono',monospace">
-        Y {String(Math.round(phi * 180 / Math.PI) % 360).padStart(3, '0')}
+        Y 090
       </text>
 
       {/* LOCK indicator */}
@@ -172,20 +182,13 @@ function GaugeArc({ value, max, label, color = '#34d399', size = 56 }) {
 // ── Main Component ───────────────────────────────────────────────────────────
 export default function DepartureHUD() {
   const time = useClock()
-  const [angle, setAngle] = useState(0)
   const [metrics, setMetrics] = useState({
     t1: 220, t2: 85, fidelity: 99.82, errorRate: 0.18,
     activeQubits: 127, circuitDepth: 42, shotCount: 8192, gateCount: 237,
     heP: 3480, h2P: 3540, masterVol: 72,
   })
 
-  // Animate angle
-  useEffect(() => {
-    const id = setInterval(() => setAngle(a => (a + 0.8) % 360), 50)
-    return () => clearInterval(id)
-  }, [])
-
-  // Subtle metric drift
+  // Subtle metric drift (1.8s interval — acceptable, one re-render/1.8s)
   useEffect(() => {
     const id = setInterval(() => {
       setMetrics(m => ({
@@ -294,7 +297,7 @@ export default function DepartureHUD() {
 
             {/* Reticle */}
             <div className="relative" style={{ width: 'min(300px, 50vw)', height: 'min(300px, 50vw)' }}>
-              <HUDReticle angle={angle} />
+              <HUDReticle />
             </div>
 
             {/* Glyph column (right side) */}

@@ -10,14 +10,18 @@ export default function QuantumDepartureBackground() {
     const ctx = canvas.getContext('2d')
     if (!ctx) return
 
+    // Respect prefers-reduced-motion — skip the RAF loop entirely; only paint the base fill once
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
     let raf
     let W = 0, H = 0
 
-    // Resize: canvas covers full scroll height so background is visible everywhere
+    // Resize: canvas covers ONLY the viewport (position: fixed).
+    // All diagram functions already translate by -scrollY, so they draw correctly.
     const handleResize = () => {
       const dpr = Math.min(window.devicePixelRatio || 1, 2)
       W = window.innerWidth
-      H = Math.max(window.innerHeight, document.body.scrollHeight)
+      H = window.innerHeight           // ← viewport only, not full scroll height
       canvas.width  = W * dpr
       canvas.height = H * dpr
       canvas.style.width  = `${W}px`
@@ -441,7 +445,7 @@ export default function QuantumDepartureBackground() {
         ctx.fillText(`|q${q}⟩`, startX - 6, y + 4)
       }
 
-      // Gates — row 1: H gates
+      // Gate helper
       const gate = (x, y, label, color) => {
         ctx.strokeStyle = color || 'rgba(168,85,247,0.45)'; ctx.fillStyle = 'rgba(14,7,32,0.85)'
         ctx.lineWidth = 1.2
@@ -456,7 +460,7 @@ export default function QuantumDepartureBackground() {
         gate(-180, startY + q * qSpacing, 'H')
       }
 
-      // Oracle box (CNOT cascade visual)
+      // Oracle box
       ctx.strokeStyle = 'rgba(56,189,248,0.35)'; ctx.fillStyle = 'rgba(6,182,212,0.06)'
       ctx.lineWidth = 1.5
       const oracleX = -80, oracleY = startY - 14, oracleH = (numQubits - 1) * qSpacing + 28
@@ -475,7 +479,7 @@ export default function QuantumDepartureBackground() {
       ctx.fillText('DIFFUSER', diffX, startY + (numQubits - 1) * qSpacing / 2 + 4)
       ctx.fillText('2|ψ⟩⟨ψ|-I', diffX, startY + (numQubits - 1) * qSpacing / 2 + 16)
 
-      // H gates (column 3, after diffuser)
+      // H gates (column 3)
       for (let q = 0; q < numQubits; q++) {
         gate(160, startY + q * qSpacing, 'H')
       }
@@ -499,9 +503,8 @@ export default function QuantumDepartureBackground() {
       ctx.restore()
     }
 
-    // ─── DIAGRAM SCHEDULE (7 unique, no repeats) ─────────────────────────────────
+    // ─── DIAGRAM SCHEDULE ─────────────────────────────────────────────────────
     const DIAGRAMS = [
-      // worldY = absolute page Y where diagram center appears
       { worldY: 400,  side: 'right',  marginX: 220, fn: (wx, wy) => drawBlochSphere(wx, wy, 240) },
       { worldY: 1200, side: 'left',   marginX: 220, fn: drawBellCircuit },
       { worldY: 2100, side: 'right',  marginX: 200, fn: drawMachZehnder },
@@ -518,34 +521,35 @@ export default function QuantumDepartureBackground() {
       mx.x += (mx.targetX - mx.x) * 0.1
       mx.y += (mx.targetY - mx.y) * 0.1
 
+      // Canvas is now viewport-sized (position: fixed), so clear/fill only the viewport
       ctx.clearRect(0, 0, W, H)
 
-      // Full-page base fill — covers entire scroll height
+      // Base fill
       ctx.fillStyle = '#06040a'
       ctx.fillRect(0, 0, W, H)
 
-      // Radial glow near top of page (fades as you scroll into it from doc-top)
+      // Radial glow near top of page
       {
         const opacity = Math.max(0, 1 - scrollY / 1200)
         if (opacity > 0) {
-          const glow = ctx.createRadialGradient(W * 0.5, scrollY, 0, W * 0.5, scrollY, W * 0.55)
+          const glow = ctx.createRadialGradient(W * 0.5, H * 0.3, 0, W * 0.5, H * 0.3, W * 0.55)
           glow.addColorStop(0, `rgba(168,85,247,${0.08 * opacity})`)
           glow.addColorStop(1, 'rgba(0,0,0,0)')
           ctx.fillStyle = glow
-          ctx.fillRect(0, scrollY, W, window.innerHeight)
+          ctx.fillRect(0, 0, W, H)
         }
       }
 
       // ── FOOTER BOUNDARY ──
       const footerEl = document.querySelector('footer')
-      const footerTop = footerEl ? footerEl.getBoundingClientRect().top + scrollY : H
+      const footerTop = footerEl ? footerEl.getBoundingClientRect().top + scrollY : 1e9
 
       // ── MARGIN RULER SCALES ──
       {
         const leftX = 18, rx = W - 24
         const hasRight = W > 860
         const viewTop = scrollY
-        const viewBottom = scrollY + window.innerHeight
+        const viewBottom = scrollY + H
         const scaleStart = Math.max(0, viewTop)
         const scaleEnd = Math.min(footerTop, viewBottom)
 
@@ -553,7 +557,7 @@ export default function QuantumDepartureBackground() {
         ctx.font = '8px "Departure Mono",monospace'
 
         if (scaleEnd > scaleStart) {
-          // Convert world coords to canvas coords for drawing
+          // Convert world coords to canvas (viewport) coords
           const toCanvas = (worldY) => worldY - scrollY
 
           ctx.strokeStyle = 'rgba(168,85,247,0.22)'; ctx.lineWidth = 1
@@ -571,7 +575,7 @@ export default function QuantumDepartureBackground() {
 
           // Footer cap
           const footerVY = footerTop - scrollY
-          if (footerVY >= 0 && footerVY <= window.innerHeight) {
+          if (footerVY >= 0 && footerVY <= H) {
             ctx.strokeStyle = 'rgba(168,85,247,0.6)'; ctx.lineWidth = 1.5
             ctx.beginPath(); ctx.moveTo(leftX - 8, footerVY); ctx.lineTo(leftX + 8, footerVY); ctx.stroke()
             if (hasRight) { ctx.beginPath(); ctx.moveTo(rx - 8, footerVY); ctx.lineTo(rx + 8, footerVY); ctx.stroke() }
@@ -587,7 +591,7 @@ export default function QuantumDepartureBackground() {
 
           for (let worldY = startWorld; worldY <= endWorld; worldY += stepMinor) {
             const vy = worldY - scrollY
-            if (vy < -10 || vy > window.innerHeight + 2) continue
+            if (vy < -10 || vy > H + 2) continue
 
             const isMajor = worldY % stepMajor === 0
             if (isMajor) {
@@ -614,34 +618,31 @@ export default function QuantumDepartureBackground() {
       ctx.save()
       ctx.strokeStyle = 'rgba(168,85,247,0.28)'; ctx.lineWidth = 1.1
       const b = 13, p = 11
-      const VH = window.innerHeight
       ctx.beginPath(); ctx.moveTo(p, p+b); ctx.lineTo(p, p); ctx.lineTo(p+b, p); ctx.stroke()
       ctx.beginPath(); ctx.moveTo(W-p-b, p); ctx.lineTo(W-p, p); ctx.lineTo(W-p, p+b); ctx.stroke()
-      ctx.beginPath(); ctx.moveTo(p, VH-p-b); ctx.lineTo(p, VH-p); ctx.lineTo(p+b, VH-p); ctx.stroke()
-      ctx.beginPath(); ctx.moveTo(W-p-b, VH-p); ctx.lineTo(W-p, VH-p); ctx.lineTo(W-p, VH-p-b); ctx.stroke()
+      ctx.beginPath(); ctx.moveTo(p, H-p-b); ctx.lineTo(p, H-p); ctx.lineTo(p+b, H-p); ctx.stroke()
+      ctx.beginPath(); ctx.moveTo(W-p-b, H-p); ctx.lineTo(W-p, H-p); ctx.lineTo(W-p, H-p-b); ctx.stroke()
       ctx.restore()
 
-      // ── DIAGRAMS — draw those whose world-Y is within ±600px of current viewport ──
+      // ── DIAGRAMS — draw those within ±600px of viewport ──
       const viewTop = scrollY
-      const viewBottom = scrollY + window.innerHeight
+      const viewBottom = scrollY + H
       const pad = 600
 
       DIAGRAMS.forEach(({ worldY, side, marginX, fn }) => {
         if (worldY < viewTop - pad || worldY > viewBottom + pad) return
-        if (worldY > footerTop) return // don't draw into footer
+        if (worldY > footerTop) return
 
         let wx
         if (side === 'center') wx = W / 2
         else if (side === 'left')  wx = marginX
         else                       wx = W - marginX
 
-        ctx.globalAlpha = 1
         fn(wx, worldY)
-        ctx.globalAlpha = 1
       })
 
       // ── MOUSE RETICLE ──
-      if (mx.x > 0 && mx.y > 0 && mx.x < W && mx.y < window.innerHeight) {
+      if (mx.x > 0 && mx.y > 0 && mx.x < W && mx.y < H) {
         ctx.save()
         ctx.strokeStyle = 'rgba(168,85,247,0.18)'; ctx.lineWidth = 0.8
         ctx.setLineDash([2, 4])
@@ -659,20 +660,29 @@ export default function QuantumDepartureBackground() {
       raf = requestAnimationFrame(render)
     }
 
-    raf = requestAnimationFrame(render)
-
-    // Refresh canvas size on scroll (page may reflow)
-    const onScroll = () => {
-      const newH = Math.max(window.innerHeight, document.body.scrollHeight)
-      if (newH !== H) handleResize()
+    if (prefersReduced) {
+      // Reduced motion: just paint the background once, no animation
+      ctx.fillStyle = '#06040a'
+      ctx.fillRect(0, 0, W, H)
+    } else {
+      raf = requestAnimationFrame(render)
     }
-    window.addEventListener('scroll', onScroll, { passive: true })
+
+    // Pause RAF when tab is hidden — saves CPU/battery
+    const onVisibilityChange = () => {
+      if (document.hidden) {
+        cancelAnimationFrame(raf)
+      } else if (!prefersReduced) {
+        raf = requestAnimationFrame(render)
+      }
+    }
+    document.addEventListener('visibilitychange', onVisibilityChange)
 
     return () => {
       window.removeEventListener('resize', handleResize)
-      window.removeEventListener('scroll', onScroll)
       window.removeEventListener('mousemove', onMove)
       document.removeEventListener('mouseleave', onLeave)
+      document.removeEventListener('visibilitychange', onVisibilityChange)
       cancelAnimationFrame(raf)
     }
   }, [])
@@ -680,8 +690,7 @@ export default function QuantumDepartureBackground() {
   return (
     <canvas
       ref={canvasRef}
-      className="absolute inset-0 w-full pointer-events-none z-0"
-      style={{ height: '100%', minHeight: '100vh' }}
+      className="fixed inset-0 w-full h-full pointer-events-none z-0"
       aria-hidden="true"
     />
   )

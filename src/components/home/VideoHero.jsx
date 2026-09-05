@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import gsap from 'gsap'
 
@@ -7,14 +7,32 @@ export default function VideoHero() {
   const textRef = useRef(null)
   const floatGroupRef = useRef(null)
 
-  // Interactive wave phase for physics card
-  const [wavePhase, setWavePhase] = useState(0)
+  // Imperative wave animation — no React state, no re-renders
+  const wavePathRef = useRef(null)
+  const waveRafRef = useRef(null)
+  const wavePhaseRef = useRef(0)
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setWavePhase((prev) => (prev + 0.15) % (Math.PI * 2))
-    }, 50)
-    return () => clearInterval(interval)
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (prefersReduced) return // leave the static initial path
+
+    const animate = () => {
+      wavePhaseRef.current = (wavePhaseRef.current + 0.15) % (Math.PI * 2)
+      const path = wavePathRef.current
+      if (path) {
+        const pts = []
+        for (let x = 0; x <= 300; x += 3) {
+          const t = x / 300
+          const env = Math.exp(-t * 2.2)
+          const y = 30 - env * 22 * Math.cos((x * 0.08) + wavePhaseRef.current)
+          pts.push(`${x},${y}`)
+        }
+        path.setAttribute('d', `M ${pts.join(' L ')}`)
+      }
+      waveRafRef.current = requestAnimationFrame(animate)
+    }
+    waveRafRef.current = requestAnimationFrame(animate)
+    return () => cancelAnimationFrame(waveRafRef.current)
   }, [])
 
   useEffect(() => {
@@ -148,7 +166,7 @@ export default function VideoHero() {
           {/* Actions */}
           <div className="hero__actions flex flex-wrap items-center gap-4">
             <Link 
-              to="/fallfest" 
+              to="/events?category=fall-fest" 
               className="inline-flex items-center gap-3 font-mono text-xs sm:text-sm font-bold uppercase tracking-wider px-7 py-3.5 rounded-full bg-gradient-to-r from-purple-600 via-violet-600 to-indigo-600 text-white shadow-[0_0_24px_rgba(168,85,247,0.35)] hover:from-purple-500 hover:to-indigo-500 hover:shadow-[0_0_32px_rgba(168,85,247,0.5)] hover:-translate-y-0.5 active:scale-[0.97] transition-all duration-200 group"
             >
               <span>REGISTER FOR FALL FEST</span>
@@ -182,27 +200,17 @@ export default function VideoHero() {
               <span className="font-pixel text-[11px] text-purple-300/80">T₁ = 85 μs</span>
             </div>
 
-            {/* Live Oscillating Wave SVG */}
+            {/* Live Oscillating Wave SVG — animated imperatively via rAF ref */}
             <div className="w-full h-20 bg-black/40 rounded-xl border border-white/[0.06] p-2 relative overflow-hidden mb-3">
               <svg className="w-full h-full" viewBox="0 0 300 60" preserveAspectRatio="none">
                 <line x1="0" y1="30" x2="300" y2="30" stroke="#ffffff" strokeOpacity="0.1" strokeDasharray="3 3" />
-                {(() => {
-                  const points = []
-                  for (let x = 0; x <= 300; x += 3) {
-                    const t = x / 300
-                    const env = Math.exp(-t * 2.2)
-                    const y = 30 - env * 22 * Math.cos((x * 0.08) + wavePhase)
-                    points.push(`${x},${y}`)
-                  }
-                  return (
-                    <path
-                      d={`M ${points.join(' L ')}`}
-                      fill="none"
-                      stroke="#06b6d4"
-                      strokeWidth="2"
-                    />
-                  )
-                })()}
+                <path
+                  ref={wavePathRef}
+                  d="M 0,30 L 300,30"
+                  fill="none"
+                  stroke="#06b6d4"
+                  strokeWidth="2"
+                />
               </svg>
               <span className="absolute bottom-1 right-2 font-pixel text-[11px] text-cyan-400/80">
                 ⟨σ_z(t)⟩ = e^(-t/T₂) cos(ωt)

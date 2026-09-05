@@ -414,6 +414,7 @@ export default function Events() {
             {selectedCategory !== 'Hub' && (
               <div className="flex flex-col gap-8 w-full max-w-[850px] ml-auto">
                 
+
                 {/* Timeline Filter Pills Bar */}
                 <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-[#121513] via-[#090d0a] to-[#121513] border border-[#f59e0b]/30 flex items-center justify-between gap-4 flex-wrap shadow-lg">
                   <div className="flex items-center gap-2">
@@ -427,7 +428,7 @@ export default function Events() {
                       <button
                         key={st}
                         onClick={() => setStatusFilter(st)}
-                        className={`px-3.5 py-1.5 rounded-full font-mono text-[0.725rem] uppercase tracking-wider transition-all ${
+                        className={`px-3.5 py-1.5 rounded-full font-mono text-[0.725rem] uppercase tracking-wider transition-all cursor-pointer ${
                           statusFilter === st
                             ? 'bg-gradient-to-r from-[#ef4444] via-[#f97316] to-[#eab308] text-slate-950 font-bold shadow-[0_2px_10px_rgba(245,158,11,0.3)]'
                             : 'bg-white/5 text-slate-400 hover:text-white hover:bg-white/10'
@@ -492,12 +493,13 @@ export default function Events() {
                         setSearchQuery('')
                         setStatusFilter('All')
                       }}
-                      className="px-5 py-2.5 rounded-full bg-gradient-to-r from-[#ef4444] via-[#f97316] to-[#eab308] text-[#070a08] font-display text-xs font-bold transition-transform hover:scale-105"
+                      className="px-5 py-2.5 rounded-full bg-gradient-to-r from-[#ef4444] via-[#f97316] to-[#eab308] text-[#070a08] font-display text-xs font-bold transition-transform hover:scale-105 cursor-pointer"
                     >
                       Clear Filters
                     </button>
                   </div>
                 )}
+
 
               </div>
             )}
@@ -677,3 +679,4 @@ function EventCardRow({ event, formatDate, isUpcoming }) {
     </article>
   )
 }
+

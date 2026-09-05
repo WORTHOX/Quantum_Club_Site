@@ -173,6 +173,82 @@ export default function EventDetail() {
           </div>
         )}
 
+        {/* ── Program Tracks (Fall Fest) ── */}
+        {event.programTracks && event.programTracks.length > 0 && (
+          <section className="px-4 max-w-5xl mx-auto mb-14">
+            <div className="mb-6 flex items-center justify-between flex-wrap gap-3">
+              <div>
+                <span className="font-mono text-[0.675rem] font-bold uppercase tracking-widest text-cyan-400">
+                  ✦ 3-DAY PROGRAM TRACKS
+                </span>
+                <h2 className="font-display text-2xl font-bold text-white mt-1 tracking-tight">
+                  Fall Fest Schedule & Curriculum
+                </h2>
+              </div>
+              {event.registrationUrl && event.status === 'upcoming' && (
+                <a
+                  href={event.registrationUrl}
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white font-mono text-xs font-semibold uppercase tracking-wider transition-all shadow-md"
+                >
+                  Register Now →
+                </a>
+              )}
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              {event.programTracks.map((t) => (
+                <div
+                  key={t.day}
+                  className="p-5 rounded-2xl bg-slate-900/60 border border-slate-700/60 hover:border-cyan-500/50 hover:-translate-y-1 transition-all duration-300 flex flex-col gap-3"
+                >
+                  <span className="px-2.5 py-1 self-start rounded-full font-mono text-[0.625rem] font-bold tracking-wider uppercase border bg-cyan-500/10 text-cyan-400 border-cyan-500/30">
+                    {t.day} · {t.badge}
+                  </span>
+                  <h3 className="font-display text-base font-bold text-white m-0">{t.title}</h3>
+                  <p className="font-mono text-xs text-slate-400 leading-relaxed m-0">{t.desc}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* ── Highlights & Achievements (Fall Fest) ── */}
+        {(event.highlights || event.achievements) && (
+          <section className="px-4 max-w-5xl mx-auto mb-14">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              {event.highlights && (
+                <div className="p-6 rounded-2xl bg-slate-900/50 border border-cyan-500/20">
+                  <span className="font-mono text-xs font-bold uppercase tracking-widest text-cyan-400 block mb-3">
+                    ✦ Key Technical Tracks
+                  </span>
+                  <ul className="flex flex-col gap-2 m-0 p-0 list-none">
+                    {event.highlights.map((h, i) => (
+                      <li key={i} className="flex items-start gap-2 text-sm text-slate-300">
+                        <span className="text-cyan-400 font-mono shrink-0">✦</span>
+                        {h}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+              {event.achievements && (
+                <div className="p-6 rounded-2xl bg-slate-900/50 border border-amber-500/20">
+                  <span className="font-mono text-xs font-bold uppercase tracking-widest text-amber-400 block mb-3">
+                    ✓ Milestones & Recognition
+                  </span>
+                  <ul className="flex flex-col gap-2 m-0 p-0 list-none">
+                    {event.achievements.map((a, i) => (
+                      <li key={i} className="flex items-start gap-2 text-sm text-slate-300">
+                        <span className="text-amber-400 font-mono shrink-0">✓</span>
+                        {a}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+          </section>
+        )}
+
         {/* ── Related Events ── */}
         {relatedEvents.length > 0 && (
           <section className="px-4 max-w-5xl mx-auto mb-16">

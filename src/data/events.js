@@ -48,6 +48,40 @@ const EVENTS = [
     registrationUrl: '#register',
     ibmBadge: '/assets/events/badge-dark.png',
     qiskitLogo: '/assets/events/qiskit-logo.svg',
+    programTracks: [
+      {
+        day: 'DAY 1',
+        badge: 'FOUNDATIONS',
+        title: 'The Quantum Basics',
+        desc: 'Intro to linear algebra, qubit superposition, entanglement, and how to access IBM Cloud Quantum systems. Zero prerequisites needed.',
+      },
+      {
+        day: 'DAY 2',
+        badge: 'LAB WORKSHOPS',
+        title: 'Qiskit Circuit Lab',
+        desc: 'Hands-on programming. Build quantum algorithms, execute pulse calibrations, and run jobs directly on IBM Eagle & Osprey QPUs.',
+      },
+      {
+        day: 'DAY 3',
+        badge: '48-HR HACKATHON',
+        title: 'Flagship Hackathon',
+        desc: 'Form teams to solve real-world problems in QML, chemistry, and cryptography. Evaluated by IBM quantum researchers with prizes.',
+      },
+    ],
+    highlights: [
+      'Variational Quantum Eigensolver (VQE) for molecular chemistry',
+      'Quantum Machine Learning (QML) practical advantage',
+      'Direct cloud access to IBM Eagle & Osprey QPUs',
+      'Collaborative research exchange with IISER Pune',
+      'PowerBI × Quantum data visualisation workshop',
+      'Industry panel on quantum computing careers',
+    ],
+    achievements: [
+      'Returning IBM Qiskit Fall Fest Global Partner',
+      '250+ student participants across institutions',
+      '12 student teams competing in 48-hour challenge',
+      'Second consecutive year as official IBM partner',
+    ],
   },
 
   {
@@ -238,6 +272,20 @@ const EVENTS = [
     tags: ['IBM Quantum', 'Qiskit', 'Circuits', 'Hardware', 'QAOA', 'VQE'],
     ibmBadge: '/assets/events/badge-dark.png',
     qiskitLogo: '/assets/events/qiskit-logo.svg',
+    highlights: [
+      'Hands-on quantum circuits with Qiskit SDK',
+      'Qubit superposition and entanglement labs',
+      'Bell states exploration with statevector simulation',
+      '8-hour quantum optimization mini hackathon',
+      'Live circuit execution on real IBM quantum hardware',
+      'Introduction to QAOA and VQE variational algorithms',
+    ],
+    achievements: [
+      'Official IBM Qiskit Fall Fest Partner — Year One',
+      '127+ students introduced to quantum computing',
+      'Top 3 finishing among Indian university participants',
+      '4 student projects submitted to IBM Quantum review',
+    ],
   },
 
   {
