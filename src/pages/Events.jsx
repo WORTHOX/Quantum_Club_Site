@@ -42,7 +42,7 @@ const CATEGORY_HUB_DATA = {
   'Fall Fest': {
     title: 'FALL FEST',
     subtitle: 'IBM Qiskit Global Partner Flagship',
-    description: 'Our annual multi-week quantum festival celebrating cloud quantum computing with IBM hardware access, workshops, and hackathons.',
+    description: 'Our annual multi-week quantum festival celebrating cloud quantum computing with IBM hardware access and hands-on workshops.',
     gradient: 'from-cyan-500/20 via-sky-500/10 to-[#121513]',
     accentColor: '#38bdf8',
     borderHover: 'group-hover:border-[#f97316]/60',
@@ -259,7 +259,7 @@ export default function Events() {
               <div className="flex items-center gap-3 transition-opacity duration-300">
                 <span className="font-mono text-[0.675rem] font-bold tracking-widest text-[#f59e0b] uppercase">
                   {selectedCategory === 'Hub' 
-                    ? 'SYMBIOSIS QUANTUM CLUB ✦ EVENTS 2026'
+                    ? 'SYMBIOSIS QUANTUM CLUB ✦ OFFICIAL EVENTS'
                     : `SYMBIOSIS QUANTUM CLUB ✦ ${selectedCategory.toUpperCase()}`}
                 </span>
               </div>
@@ -289,7 +289,7 @@ export default function Events() {
               {/* Subtitle Paragraph */}
               <p key={`sub-${selectedCategory}`} className="font-body text-base sm:text-lg text-gray-300 max-w-[52ch] leading-relaxed m-0 transition-opacity duration-300">
                 {selectedCategory === 'Hub'
-                  ? 'Immersive hands-on workshops, official IBM Qiskit Fall Fests, 48-hour algorithm hackathons, club inductions, and research lab visits hosted by Symbiosis Quantum Club.'
+                  ? 'Immersive hands-on workshops, official IBM Qiskit Fall Fest, club inductions, quantum arcade gaming, and research lab visits hosted by Symbiosis Quantum Club.'
                   : (activeCategoryInfo?.description || `Explore all official ${selectedCategory} events organized chronologically.`)}
               </p>
             </div>
@@ -613,7 +613,7 @@ function EventCardRow({ event, formatDate, isUpcoming }) {
           </h3>
         </Link>
 
-        <div>
+        <div className="flex items-center gap-3 flex-wrap">
           <Link
             to={`/events/${event.id}`}
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#121513] border border-[#f59e0b]/30 text-white font-display text-xs font-semibold tracking-wide transition-all duration-200 group-hover:bg-gradient-to-r group-hover:from-[#ef4444] group-hover:via-[#f97316] group-hover:to-[#eab308] group-hover:border-[#eab308] group-hover:text-slate-950 group-hover:shadow-[0_4px_18px_rgba(245,158,11,0.35)] cursor-pointer"
@@ -634,6 +634,12 @@ function EventCardRow({ event, formatDate, isUpcoming }) {
               />
             </svg>
           </Link>
+          {event.applicationAlert && (
+            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full font-mono text-[0.675rem] font-bold tracking-wider uppercase bg-amber-500/10 text-amber-300 border border-amber-500/30">
+              <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
+              {event.applicationAlert}
+            </span>
+          )}
         </div>
 
         <p className="font-body text-[0.9rem] text-slate-400 leading-relaxed m-0 max-w-[60ch]">
@@ -653,13 +659,27 @@ function EventCardRow({ event, formatDate, isUpcoming }) {
           {event.participants && (
             <>
               <span>•</span>
-              <span>{event.participants} Participants</span>
+              <span>
+                {event.participants.toLowerCase().includes('participants') || event.participants.toLowerCase().includes('community')
+                  ? event.participants
+                  : `${event.participants} Participants`}
+              </span>
             </>
           )}
           {event.duration && (
             <>
               <span>•</span>
               <span>{event.duration}</span>
+            </>
+          )}
+          {event.sessions && (
+            <>
+              <span>•</span>
+              <span>
+                {typeof event.sessions === 'number'
+                  ? `${event.sessions} ${event.sessions === 1 ? 'Session' : 'Sessions'}`
+                  : event.sessions}
+              </span>
             </>
           )}
         </div>

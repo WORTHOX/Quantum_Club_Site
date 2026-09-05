@@ -95,7 +95,7 @@ export default function EventDetail() {
                     <svg className="w-3.5 h-3.5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
                     </svg>
-                    {event.participants} Participants
+                    {event.participants}
                   </span>
                 )}
                 {event.duration && (
@@ -111,21 +111,28 @@ export default function EventDetail() {
                     <svg className="w-3.5 h-3.5 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                     </svg>
-                    {event.sessions} {event.sessions === 1 ? 'Session' : 'Sessions'}
+                    {event.sessions}
                   </span>
                 )}
               </div>
             )}
 
-            {/* Register button (upcoming only) */}
-            {event.status === 'upcoming' && event.registrationUrl && (
-              <div className="mt-4">
-                <a
-                  href={event.registrationUrl}
-                  className="inline-flex items-center gap-2 px-8 py-3.5 bg-emerald-600 hover:bg-emerald-500 text-white font-mono text-xs font-semibold uppercase tracking-wider rounded-lg transition-all shadow-lg shadow-emerald-500/25"
-                >
-                  Register Now →
-                </a>
+            {/* Registration button or Application Alert */}
+            {event.status === 'upcoming' && (
+              <div className="mt-3">
+                {event.registrationUrl ? (
+                  <a
+                    href={event.registrationUrl}
+                    className="inline-flex items-center gap-2 px-8 py-3.5 bg-emerald-600 hover:bg-emerald-500 text-white font-mono text-xs font-semibold uppercase tracking-wider rounded-lg transition-all shadow-lg shadow-emerald-500/25"
+                  >
+                    Register Now →
+                  </a>
+                ) : (
+                  <div className="inline-flex items-center gap-2.5 px-6 py-2.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 font-mono text-xs font-semibold uppercase tracking-wider shadow-lg shadow-amber-500/10">
+                    <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+                    {event.applicationAlert || 'Applications Opening Soon'}
+                  </div>
+                )}
               </div>
             )}
           </div>
@@ -134,7 +141,7 @@ export default function EventDetail() {
         {/* ── Cover Image ── */}
         {event.coverImage && (
           <div className="px-4 max-w-5xl mx-auto mb-14">
-            <div className="w-full aspect-[21/9] rounded-2xl overflow-hidden bg-[#0e1210] border border-emerald-900/30 shadow-2xl">
+            <div className="w-full aspect-[21/9] rounded-2xl overflow-hidden bg-[#0a0f14] border border-cyan-900/30 shadow-2xl">
               <img src={event.coverImage} alt={event.title} className="w-full h-full object-cover" />
             </div>
           </div>
@@ -173,13 +180,13 @@ export default function EventDetail() {
           </div>
         )}
 
-        {/* ── Program Tracks (Fall Fest) ── */}
+        {/* ── Tentative Schedule (Fall Fest) ── */}
         {event.programTracks && event.programTracks.length > 0 && (
           <section className="px-4 max-w-5xl mx-auto mb-14">
             <div className="mb-6 flex items-center justify-between flex-wrap gap-3">
               <div>
                 <span className="font-mono text-[0.675rem] font-bold uppercase tracking-widest text-cyan-400">
-                  ✦ 3-DAY PROGRAM TRACKS
+                  Tentative Schedule
                 </span>
                 <h2 className="font-display text-2xl font-bold text-white mt-1 tracking-tight">
                   Fall Fest Schedule & Curriculum
@@ -188,63 +195,86 @@ export default function EventDetail() {
               {event.registrationUrl && event.status === 'upcoming' && (
                 <a
                   href={event.registrationUrl}
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white font-mono text-xs font-semibold uppercase tracking-wider transition-all shadow-md"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-cyan-600 hover:bg-cyan-500 text-white font-mono text-xs font-semibold uppercase tracking-wider transition-all shadow-md"
                 >
                   Register Now →
                 </a>
               )}
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              {event.programTracks.map((t) => (
+              {event.programTracks.map((t, idx) => (
                 <div
-                  key={t.day}
-                  className="p-5 rounded-2xl bg-slate-900/60 border border-slate-700/60 hover:border-cyan-500/50 hover:-translate-y-1 transition-all duration-300 flex flex-col gap-3"
+                  key={t.stage || t.day || idx}
+                  className="relative p-6 rounded-2xl bg-gradient-to-b from-[#0b131a] via-[#080d12] to-[#05070a] border border-cyan-900/40 hover:border-cyan-500/50 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between overflow-hidden group shadow-xl"
                 >
-                  <span className="px-2.5 py-1 self-start rounded-full font-mono text-[0.625rem] font-bold tracking-wider uppercase border bg-cyan-500/10 text-cyan-400 border-cyan-500/30">
-                    {t.day} · {t.badge}
+                  {/* Subtle step watermark */}
+                  <span className="absolute -right-2 -bottom-4 text-7xl font-bold font-mono text-cyan-500/[0.04] select-none pointer-events-none group-hover:text-cyan-500/[0.09] transition-colors">
+                    {`0${idx + 1}`}
                   </span>
-                  <h3 className="font-display text-base font-bold text-white m-0">{t.title}</h3>
-                  <p className="font-mono text-xs text-slate-400 leading-relaxed m-0">{t.desc}</p>
+
+                  <div>
+                    <div className="flex items-center justify-between gap-2 mb-3">
+                      <span className="px-2.5 py-1 rounded-full font-mono text-[0.625rem] font-bold tracking-wider uppercase border bg-cyan-500/10 text-cyan-400 border-cyan-500/30">
+                        {t.stage ? `${t.stage} · ${t.badge}` : `${t.day} · ${t.badge}`}
+                      </span>
+                    </div>
+                    <h3 className="font-display text-lg font-bold text-white mb-2 leading-snug">{t.title}</h3>
+                    <p className="font-mono text-xs text-slate-300/90 leading-relaxed">{t.desc}</p>
+                  </div>
+
+                  {t.footnote && (
+                    <div className="mt-4 pt-3 border-t border-cyan-900/40 flex items-center gap-2 font-mono text-[11px] text-amber-400 font-medium">
+                      <span>⏱</span>
+                      <span>{t.footnote}</span>
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
           </section>
         )}
 
-        {/* ── Highlights & Achievements (Fall Fest) ── */}
-        {(event.highlights || event.achievements) && (
+        {/* ── Key Details Box ── */}
+        {event.keyDetails && event.keyDetails.length > 0 && (
           <section className="px-4 max-w-5xl mx-auto mb-14">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              {event.highlights && (
-                <div className="p-6 rounded-2xl bg-slate-900/50 border border-cyan-500/20">
-                  <span className="font-mono text-xs font-bold uppercase tracking-widest text-cyan-400 block mb-3">
-                    ✦ Key Technical Tracks
+            <div className="mb-6 flex items-center gap-3">
+              <span className="font-mono text-[0.675rem] font-bold uppercase tracking-widest text-cyan-400">
+                ✦ Key Details
+              </span>
+            </div>
+            <div className="rounded-2xl border border-cyan-500/25 bg-[#080d12]/90 backdrop-blur-xl overflow-hidden divide-y divide-cyan-500/15 shadow-2xl">
+              {event.keyDetails.map((row, i) => (
+                <div
+                  key={i}
+                  className="flex flex-col sm:flex-row sm:items-start gap-1.5 sm:gap-6 px-6 py-4 hover:bg-cyan-500/[0.04] transition-colors"
+                >
+                  <span className="font-mono text-xs font-bold uppercase tracking-widest text-cyan-400 shrink-0 sm:w-60 pt-0.5">
+                    {row.label}
                   </span>
-                  <ul className="flex flex-col gap-2 m-0 p-0 list-none">
-                    {event.highlights.map((h, i) => (
-                      <li key={i} className="flex items-start gap-2 text-sm text-slate-300">
-                        <span className="text-cyan-400 font-mono shrink-0">✦</span>
-                        {h}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-              {event.achievements && (
-                <div className="p-6 rounded-2xl bg-slate-900/50 border border-amber-500/20">
-                  <span className="font-mono text-xs font-bold uppercase tracking-widest text-amber-400 block mb-3">
-                    ✓ Milestones & Recognition
+                  <span className="text-sm text-slate-200 font-body leading-relaxed">
+                    {row.value}
                   </span>
-                  <ul className="flex flex-col gap-2 m-0 p-0 list-none">
-                    {event.achievements.map((a, i) => (
-                      <li key={i} className="flex items-start gap-2 text-sm text-slate-300">
-                        <span className="text-amber-400 font-mono shrink-0">✓</span>
-                        {a}
-                      </li>
-                    ))}
-                  </ul>
                 </div>
-              )}
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* ── Highlights / Key Technical Tracks ── */}
+        {event.highlights && event.highlights.length > 0 && (
+          <section className="px-4 max-w-5xl mx-auto mb-14">
+            <div className="p-6 sm:p-7 rounded-2xl bg-[#080d12]/80 border border-cyan-500/20 shadow-xl">
+              <span className="font-mono text-xs font-bold uppercase tracking-widest text-cyan-400 block mb-4">
+                ✦ Key Technical Tracks
+              </span>
+              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 m-0 p-0 list-none">
+                {event.highlights.map((h, i) => (
+                  <li key={i} className="flex items-start gap-2.5 text-sm text-slate-300">
+                    <span className="text-cyan-400 font-mono shrink-0">✦</span>
+                    <span>{h}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
           </section>
         )}

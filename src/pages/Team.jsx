@@ -647,27 +647,6 @@ export default function Team() {
           </div>
         </div>
       </section>
-
-      {/* Join CTA */}
-      <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-[#050507] text-center">
-        <div className="max-w-2xl mx-auto">
-          <span className="inline-block font-mono text-xs uppercase tracking-[0.15em] text-cyan-400 mb-3 font-medium">Recruitment</span>
-          <h2 className="font-display text-2xl sm:text-4xl font-bold text-white tracking-tight leading-tight mb-4">Want to join the team?</h2>
-          <p className="font-body text-sm sm:text-base text-gray-400 leading-relaxed mb-8">
-            We recruit new members at the start of every academic year. If you're passionate
-            about quantum computing and want to help build the community at SIT, we'd love
-            to hear from you.
-          </p>
-          <a
-            href="https://www.instagram.com/quantumclub.sit/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-8 py-3.5 bg-cyan-500 hover:bg-cyan-400 text-black font-display font-semibold text-sm rounded-full transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(6,182,212,0.4)] active:translate-y-0"
-          >
-            Follow for updates &rarr;
-          </a>
-        </div>
-      </section>
     </main>
   )
 }

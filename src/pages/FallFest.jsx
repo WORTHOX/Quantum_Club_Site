@@ -41,20 +41,85 @@ const FALL_FEST_EDITIONS = {
     gradientFrom: '#0ea5e9',
     gradientTo: '#8b5cf6',
     status: 'past',
+    scheduleLabel: null,
+    schedule: null,
+    applicationAlert: null,
   },
-  // Add future editions here as needed:
-  // '2026': { ...edition data..., canonicalUrl: 'https://symbiosisquantumclub.vercel.app/fallfest_2026' }
+  '2026': {
+    year: '2026',
+    title: 'IBM Qiskit Fall Fest 2026',
+    subtitle: 'October 2026',
+    tagline: 'IBM PLUS',
+    description: [
+      "For the second year running, the Symbiosis Quantum Club is an official partner for IBM Qiskit Fall Fest.",
+      "Qiskit Fall Fest is a part of IBM's global push to bring quantum computing to more students through the open-source Qiskit framework, now marking a decade since IBM first put quantum computers on the cloud.",
+      "This year's edition centers on a flagship Ideathon: teams pitch an original idea at the problem statement stage, then bring it to life over two days on campus. Alongside that, a curated line-up of speaker sessions will bring in voices from quantum research, industry, and IBM itself — giving participants a rare window into where the field is actually heading.",
+    ],
+    highlights: [
+      'Flagship Ideathon — pitch, build, and present your quantum idea',
+      'Curated speaker sessions from quantum researchers and IBM',
+      'Second consecutive year as official IBM Qiskit Fall Fest partner',
+      'Open to all students — zero prerequisites for speaker sessions',
+      'IBM certification for participants',
+      'Quantum community of 250+ across institutions',
+    ],
+    stats: [
+      { label: 'Team Size', value: '1–3' },
+      { label: 'Format', value: 'Ideathon' },
+      { label: 'Sessions', value: 'Speaker' },
+      { label: 'Quantum Community', value: '250+' },
+    ],
+    canonicalUrl: 'https://symbiosisquantumclub.vercel.app/fallfest_2026',
+    eventId: 'qiskit-fall-fest-2026',
+    accentColor: '#38bdf8',
+    gradientFrom: '#0ea5e9',
+    gradientTo: '#06b6d4',
+    status: 'upcoming',
+    scheduleLabel: 'Tentative Fallfest Schedule',
+    schedule: [
+      {
+        stage: 'STAGE 1',
+        badge: 'IDEATHON KICKOFF',
+        title: 'Team Formation & Pitch Submission',
+        desc: 'Form a team of 1–3 and submit your project pitch deck via Google Form. This is your entry into the Ideathon — shortlisted teams move on to the on-campus rounds.',
+        footnote: 'Submission deadline: TBD',
+      },
+      {
+        stage: 'DAY 1',
+        badge: 'FOUNDATIONS',
+        title: 'Speaker Sessions + Workshop',
+        desc: 'Four talks — two external quantum experts and two from the club — on current trends and applications in quantum computing, followed immediately by a hands-on workshop to prep teams for Day 2.',
+        footnote: null,
+      },
+      {
+        stage: 'DAY 2',
+        badge: 'ROUND TWO',
+        title: 'Build, Refine & Results',
+        desc: 'Shortlisted teams get guidance and mentorship, work time to finalize their submission, and pitch their final version — with results announced at the end of the day.',
+        footnote: null,
+      },
+    ],
+    keyDetails: [
+      { label: 'Format', value: 'In-person Ideathon, 2 days on campus (plus remote pitch submission stage)' },
+      { label: 'Team size', value: '1–3 members' },
+      { label: 'Dates', value: '9th and 10th October' },
+      { label: 'Timing', value: '9:00 AM – 4:00 PM, both days' },
+      { label: 'Venue', value: 'SIT Campus, 5th Floor Seminar Hall & Labs — exact room details shared on registration' },
+      { label: 'Speaker Session Registration', value: 'Via Google Form (opening soon)' },
+      { label: 'Ideathon Registration', value: 'Via Unstop (link opening soon)' },
+      { label: 'Pitch deck submission', value: 'Via Google Form (deadline TBD)' },
+    ],
+    applicationAlert: 'Applications Opening Soon',
+  },
 }
 
 const DEFAULT_YEAR = '2025'
 
 export default function FallFest() {
-  // useParams gives `year` from /fallfest_:year route; undefined for /fallfest
   const { year } = useParams()
   const resolvedYear = year || DEFAULT_YEAR
   const edition = FALL_FEST_EDITIONS[resolvedYear] || FALL_FEST_EDITIONS[DEFAULT_YEAR]
 
-  // Find the matching detail event in our events data (if it exists)
   const linkedEvent = events.find(
     (e) => e.id === edition.eventId || e.category === 'Fall Fest'
   )
@@ -62,11 +127,9 @@ export default function FallFest() {
   useEffect(() => {
     document.title = `${edition.title} — Symbiosis Quantum Club`
 
-    // Update canonical URL for this specific edition
     const canonEl = document.querySelector('link[rel="canonical"]')
     if (canonEl) canonEl.setAttribute('href', edition.canonicalUrl)
 
-    // Update OG tags for social sharing
     const setMeta = (attr, attrVal, content) => {
       let el = document.querySelector(`meta[${attr}="${attrVal}"]`)
       if (!el) {
@@ -87,10 +150,8 @@ export default function FallFest() {
     window.scrollTo(0, 0)
 
     return () => {
-      // Reset canonical back to root on unmount
       const canon = document.querySelector('link[rel="canonical"]')
       if (canon) canon.setAttribute('href', 'https://symbiosisquantumclub.vercel.app/')
-      // Reset description
       const desc = document.querySelector('meta[name="description"]')
       if (desc) desc.setAttribute('content',
         "Symbiosis Quantum Club (SQC) — India's premier student quantum computing community at Symbiosis Institute of Technology. Official host of IBM Qiskit Fall Fest. Workshops, hackathons, research, and quantum education.")
@@ -100,9 +161,7 @@ export default function FallFest() {
   return (
     <main className="bg-[#060409] min-h-dvh text-slate-200 pt-[calc(72px+2rem)] pb-20">
 
-      {/* ── Hero ─────────────────────────────────────────────────────────── */}
       <section className="relative px-4 pb-20 overflow-hidden">
-        {/* Ambient glow */}
         <div
           className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] rounded-full opacity-20 pointer-events-none blur-3xl"
           style={{ background: `radial-gradient(ellipse, ${edition.gradientFrom} 0%, ${edition.gradientTo} 60%, transparent 100%)` }}
@@ -110,7 +169,6 @@ export default function FallFest() {
 
         <div className="relative max-w-5xl mx-auto flex flex-col items-center text-center gap-6 z-10">
 
-          {/* IBM Badge */}
           <div
             className="inline-flex items-center gap-2 px-5 py-2 rounded-full border backdrop-blur-md"
             style={{ borderColor: `${edition.accentColor}50`, backgroundColor: `${edition.accentColor}12` }}
@@ -121,7 +179,6 @@ export default function FallFest() {
             </span>
           </div>
 
-          {/* Title */}
           <h1
             className="text-5xl sm:text-7xl font-black uppercase tracking-tight text-white leading-none m-0"
             style={{ textShadow: `0 0 60px ${edition.accentColor}50` }}
@@ -144,11 +201,16 @@ export default function FallFest() {
             {edition.subtitle}
           </p>
 
+          {resolvedYear === '2026' && (
+            <p className="font-mono text-xs uppercase tracking-widest text-slate-400">
+              Quantum Community of 250+ &nbsp;|&nbsp; Ideathon &nbsp;|&nbsp; Speaker Session
+            </p>
+          )}
+
           <p className="max-w-2xl text-base sm:text-lg text-slate-300 leading-relaxed">
             {edition.description[0]}
           </p>
 
-          {/* Stats */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 w-full max-w-2xl mt-4">
             {edition.stats.map((stat) => (
               <div
@@ -156,25 +218,38 @@ export default function FallFest() {
                 className="flex flex-col items-center gap-1 p-4 rounded-2xl border"
                 style={{ borderColor: `${edition.accentColor}30`, backgroundColor: `${edition.accentColor}08` }}
               >
-                <span className="font-mono text-2xl font-black" style={{ color: edition.accentColor }}>{stat.value}</span>
+                <span className="font-mono text-2xl font-black" style={{ color: edition.accentColor }}>{edition.stats.find(s => s.label === stat.label).value}</span>
                 <span className="font-mono text-[10px] uppercase tracking-widest text-slate-400">{stat.label}</span>
               </div>
             ))}
           </div>
 
-          {/* CTA Buttons */}
           <div className="flex flex-wrap gap-3 justify-center mt-2">
-            {linkedEvent && (
-              <Link
-                to={`/events/${linkedEvent.id}`}
-                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-mono text-xs font-bold uppercase tracking-wider text-white transition-all duration-300 hover:scale-105"
+            {edition.applicationAlert ? (
+              <div
+                className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full border font-mono text-xs font-bold uppercase tracking-wider"
                 style={{
-                  background: `linear-gradient(135deg, ${edition.gradientFrom}, ${edition.gradientTo})`,
-                  boxShadow: `0 0 32px ${edition.accentColor}40`,
+                  borderColor: `${edition.accentColor}60`,
+                  backgroundColor: `${edition.accentColor}12`,
+                  color: edition.accentColor,
                 }}
               >
-                View Full Event Details →
-              </Link>
+                <span className="w-2 h-2 rounded-full animate-pulse" style={{ backgroundColor: edition.accentColor }} />
+                {edition.applicationAlert}
+              </div>
+            ) : (
+              linkedEvent && (
+                <Link
+                  to={`/events/${linkedEvent.id}`}
+                  className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-mono text-xs font-bold uppercase tracking-wider text-white transition-all duration-300 hover:scale-105"
+                  style={{
+                    background: `linear-gradient(135deg, ${edition.gradientFrom}, ${edition.gradientTo})`,
+                    boxShadow: `0 0 32px ${edition.accentColor}40`,
+                  }}
+                >
+                  View Full Event Details →
+                </Link>
+              )
             )}
             <Link
               to="/events?category=fall-fest"
@@ -187,12 +262,95 @@ export default function FallFest() {
         </div>
       </section>
 
-      {/* ── About ─────────────────────────────────────────────────────────── */}
-      <section className="px-4 max-w-3xl mx-auto mb-16">
-        <p className="text-base sm:text-lg text-slate-300 leading-relaxed">{edition.description[1]}</p>
+      <section className="px-4 max-w-3xl mx-auto mb-16 flex flex-col gap-5">
+        {edition.description.slice(1).map((para, i) => (
+          <p key={i} className="text-base sm:text-lg text-slate-300 leading-relaxed">{para}</p>
+        ))}
       </section>
 
-      {/* ── Highlights ────────────────────────────────────────────────────── */}
+      {edition.schedule && (
+        <section className="px-4 max-w-5xl mx-auto mb-16">
+          <div className="mb-8 flex items-center gap-3">
+            <span className="font-mono text-[11px] font-bold tracking-widest uppercase" style={{ color: edition.accentColor }}>
+              {edition.scheduleLabel}
+            </span>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+            {edition.schedule.map((item, i) => (
+              <div
+                key={i}
+                className="relative flex flex-col gap-4 p-6 rounded-2xl border overflow-hidden"
+                style={{ borderColor: `${edition.accentColor}25`, backgroundColor: `${edition.accentColor}06` }}
+              >
+                {/* Step number accent */}
+                <span
+                  className="absolute top-4 right-5 font-mono text-5xl font-black leading-none select-none pointer-events-none"
+                  style={{ color: `${edition.accentColor}10` }}
+                >
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                {/* Stage + badge row */}
+                <div className="flex flex-col gap-1.5">
+                  <span
+                    className="font-mono text-[10px] font-bold tracking-widest uppercase"
+                    style={{ color: edition.accentColor }}
+                  >
+                    {item.stage}
+                  </span>
+                  <span
+                    className="inline-self-start font-mono text-[9px] font-semibold uppercase tracking-widest px-2 py-0.5 rounded border w-fit"
+                    style={{ color: `${edition.accentColor}cc`, borderColor: `${edition.accentColor}30`, backgroundColor: `${edition.accentColor}10` }}
+                  >
+                    {item.badge}
+                  </span>
+                </div>
+                {/* Title */}
+                <p className="font-bold text-white text-[0.95rem] leading-snug">{item.title}</p>
+                {/* Description */}
+                <p className="text-[0.8rem] text-slate-400 leading-relaxed flex-1">{item.desc}</p>
+                {/* Footnote */}
+                {item.footnote && (
+                  <p className="font-mono text-[9px] uppercase tracking-wider mt-1" style={{ color: `${edition.accentColor}90` }}>
+                    ⏱ {item.footnote}
+                  </p>
+                )}
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* ── Key Details ───────────────────────────────────────────────────── */}
+      {edition.keyDetails && (
+        <section className="px-4 max-w-5xl mx-auto mb-16">
+          <div className="mb-6 flex items-center gap-3">
+            <span className="font-mono text-[11px] font-bold tracking-widest uppercase" style={{ color: edition.accentColor }}>
+              Key Details
+            </span>
+          </div>
+          <div
+            className="rounded-2xl border divide-y"
+            style={{ borderColor: `${edition.accentColor}20`, backgroundColor: `${edition.accentColor}05` }}
+          >
+            {edition.keyDetails.map((row, i) => (
+              <div
+                key={i}
+                className="flex flex-col sm:flex-row sm:items-start gap-1 sm:gap-6 px-5 py-3.5"
+                style={{ borderColor: `${edition.accentColor}12` }}
+              >
+                <span
+                  className="font-mono text-[10px] font-bold uppercase tracking-widest shrink-0 sm:w-52 pt-0.5"
+                  style={{ color: edition.accentColor }}
+                >
+                  {row.label}
+                </span>
+                <span className="text-sm text-slate-300">{row.value}</span>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
       <section className="px-4 max-w-5xl mx-auto mb-16">
         <div className="mb-6 flex items-center gap-3">
           <span className="font-mono text-[11px] font-bold tracking-widest uppercase" style={{ color: edition.accentColor }}>
@@ -213,7 +371,6 @@ export default function FallFest() {
         </div>
       </section>
 
-      {/* ── Footer Attribution ────────────────────────────────────────────── */}
       <section className="px-4 max-w-5xl mx-auto mb-12 pt-10 border-t border-slate-800/60">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
