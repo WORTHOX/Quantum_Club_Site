@@ -16,7 +16,7 @@ import FallFest from './pages/FallFest'
 /* Helper for legacy Qiskit archive links */
 function QiskitRedirect() {
   const { year } = useParams()
-  if (year === '2025') return <Navigate to="/events/qiskit-fall-fest-2025" replace />
+  if (year === '2025') return <Navigate to="/fallfest" replace />
   if (year === '2026') return <Navigate to="/events/qiskit-fall-fest-2026" replace />
   return <Navigate to="/events?category=fall-fest" replace />
 }
@@ -39,6 +39,7 @@ function AnimatedRoutes() {
       <Routes location={location}>
         <Route path="/"              element={<Home />} />
         <Route path="/events"        element={<Events />} />
+        <Route path="/events/qiskit-fall-fest-2025" element={<Navigate to="/fallfest" replace />} />
         <Route path="/events/:id"    element={<EventDetail />} />
 
         {/*

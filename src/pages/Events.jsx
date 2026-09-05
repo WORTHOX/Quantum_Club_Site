@@ -558,6 +558,7 @@ export default function Events() {
 // Sub-component for individual Event rows inside active categories
 function EventCardRow({ event, formatDate, isUpcoming }) {
   const catTheme = CATEGORY_COLORS[event.category] || { bg: 'bg-amber-500/12', text: 'text-amber-400', border: 'border-amber-500/30' }
+  const eventUrl = event.id === 'qiskit-fall-fest-2025' ? '/fallfest' : `/events/${event.id}`
 
   return (
     <article
@@ -565,7 +566,7 @@ function EventCardRow({ event, formatDate, isUpcoming }) {
     >
       {/* 3:4 Aspect Ratio Image Frame */}
       <Link
-        to={`/events/${event.id}`}
+        to={eventUrl}
         className="w-full aspect-[3/4] rounded-xl overflow-hidden relative bg-[#121513] border border-white/10 shadow-lg group-hover:border-[#f59e0b]/40 group-hover:shadow-[0_12px_32px_rgba(245,158,11,0.18)] transition-all duration-300 flex items-center justify-center group/img"
       >
         {event.coverImage ? (
@@ -607,7 +608,7 @@ function EventCardRow({ event, formatDate, isUpcoming }) {
           </span>
         </div>
 
-        <Link to={`/events/${event.id}`}>
+        <Link to={eventUrl}>
           <h3 className="font-display text-[clamp(1.2rem,2vw,1.5rem)] font-bold text-white leading-snug m-0 group-hover:text-[#f59e0b] transition-colors duration-200">
             {event.title}
           </h3>
@@ -615,7 +616,7 @@ function EventCardRow({ event, formatDate, isUpcoming }) {
 
         <div className="flex items-center gap-3 flex-wrap">
           <Link
-            to={`/events/${event.id}`}
+            to={eventUrl}
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#121513] border border-[#f59e0b]/30 text-white font-display text-xs font-semibold tracking-wide transition-all duration-200 group-hover:bg-gradient-to-r group-hover:from-[#ef4444] group-hover:via-[#f97316] group-hover:to-[#eab308] group-hover:border-[#eab308] group-hover:text-slate-950 group-hover:shadow-[0_4px_18px_rgba(245,158,11,0.35)] cursor-pointer"
           >
             Discover Event

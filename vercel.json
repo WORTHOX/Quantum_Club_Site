@@ -1,4 +1,11 @@
 {
+  "redirects": [
+    {
+      "source": "/events/qiskit-fall-fest-2025",
+      "destination": "/fallfest",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
       "source": "/(.*)",

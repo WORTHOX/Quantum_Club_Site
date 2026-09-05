@@ -9,6 +9,10 @@ export default function EventDetail() {
   const [lightboxImg, setLightboxImg] = useState(null)
 
   useEffect(() => {
+    if (id === 'qiskit-fall-fest-2025') {
+      navigate('/fallfest', { replace: true })
+      return
+    }
     const found = events.find(e => e.id === id)
     if (found) {
       setEvent(found)
@@ -17,7 +21,7 @@ export default function EventDetail() {
     } else {
       setEvent(null)
     }
-  }, [id])
+  }, [id, navigate])
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -289,7 +293,7 @@ export default function EventDetail() {
               {relatedEvents.map(rel => (
                 <Link
                   key={rel.id}
-                  to={`/events/${rel.id}`}
+                  to={rel.id === 'qiskit-fall-fest-2025' ? '/fallfest' : `/events/${rel.id}`}
                   className="group p-5 rounded-xl border border-slate-800 bg-slate-900/30 hover:border-emerald-700/50 hover:bg-slate-900/60 transition-all duration-300 flex flex-col gap-2"
                 >
                   {rel.coverImage && (
