@@ -20,7 +20,7 @@ export default function ScrollTextReveal() {
           trigger: containerRef.current,
           start: 'top top',
           end: 'bottom bottom',
-          scrub: 0.8,
+          scrub: 0.5,
         },
       })
 
@@ -76,13 +76,19 @@ export default function ScrollTextReveal() {
   ]
 
   return (
-    <section className="relative h-[140vh] md:h-[180vh] bg-transparent text-white" ref={containerRef} id="welcome">
+    <section className="relative h-[120vh] md:h-[140vh] bg-transparent text-white" ref={containerRef} id="welcome">
       <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden">
         <div className="w-full max-w-[1280px] mx-auto px-5 sm:px-8 md:px-12 lg:px-16 flex flex-col items-start">
-          <div className="flex items-center gap-3 mb-6">
-            <span className="font-pixel text-[11px] sm:text-xs font-semibold tracking-[0.14em] text-purple-300 uppercase">
-              WELCOME TO QUANTUM CLUB
-            </span>
+          <div className="flex flex-col items-start gap-3 mb-6 sm:mb-10">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-purple-500/30 bg-[#0e0720]/60 backdrop-blur-md">
+              <span className="w-2 h-2 rounded-full bg-purple-400 animate-pulse shadow-[0_0_8px_#c084fc]" />
+              <span className="font-pixel text-[10px] sm:text-xs font-semibold tracking-widest text-purple-300 uppercase">
+                CHAPTER MANIFESTO
+              </span>
+            </div>
+            <h2 className="font-pixel text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black tracking-wider text-white uppercase leading-tight drop-shadow-[0_0_24px_rgba(168,85,247,0.35)]">
+              WELCOME TO <span className="bg-gradient-to-r from-purple-300 via-violet-200 to-cyan-300 bg-clip-text text-transparent">QUANTUM CLUB</span>
+            </h2>
           </div>
           
           <div className="w-full" ref={textWrapRef}>

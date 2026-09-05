@@ -51,7 +51,8 @@ function AnimatedRoutes() {
           - /fallfest_:year    → Future annual editions (2026, 2027, …)
         */}
         <Route path="/fallfest"      element={<FallFest />} />
-        <Route path="/fallfest_:year" element={<FallFest />} />
+        <Route path="/fallfest_2026" element={<FallFest />} />
+        <Route path="/fallfest/:year" element={<FallFest />} />
 
         <Route path="/blog"          element={<Blog />} />
         <Route path="/blog/:id"      element={<BlogDetail />} />

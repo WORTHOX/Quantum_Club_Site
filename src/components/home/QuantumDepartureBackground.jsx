@@ -17,6 +17,33 @@ export default function QuantumDepartureBackground() {
     let W = 0, H = 0
 
     // Resize: canvas covers ONLY the viewport (position: fixed).
+    // Layout Cache: stores world Y positions to eliminate getBoundingClientRect() layout thrashing in RAF
+    const layoutCache = {
+      footerTop: 1e9,
+      blochWorldY: 2700,
+      circuitWorldY: 6400,
+    }
+
+    const updateLayoutCache = () => {
+      const scrollY = window.scrollY || 0
+      const footerEl = document.querySelector('footer')
+      if (footerEl) {
+        layoutCache.footerTop = footerEl.getBoundingClientRect().top + scrollY
+      }
+      const pioneersEl = document.querySelector('#pioneers')
+      const aboutEl = document.querySelector('#about')
+      if (pioneersEl) {
+        layoutCache.blochWorldY = pioneersEl.getBoundingClientRect().top + scrollY - 60
+      } else if (aboutEl) {
+        layoutCache.blochWorldY = aboutEl.getBoundingClientRect().bottom + scrollY + 100
+      }
+      const item2016 = document.querySelector('#timeline .timeline__item')
+      if (item2016) {
+        const rect = item2016.getBoundingClientRect()
+        layoutCache.circuitWorldY = rect.top + scrollY + rect.height / 2
+      }
+    }
+
     // All diagram functions already translate by -scrollY, so they draw correctly.
     const handleResize = () => {
       const dpr = Math.min(window.devicePixelRatio || 1, 2)
@@ -27,9 +54,14 @@ export default function QuantumDepartureBackground() {
       canvas.style.width  = `${W}px`
       canvas.style.height = `${H}px`
       ctx.scale(dpr, dpr)
+      updateLayoutCache()
     }
     handleResize()
     window.addEventListener('resize', handleResize)
+
+    // Settle layout cache once fonts and DOM stabilize
+    const t1 = setTimeout(updateLayoutCache, 300)
+    const t2 = setTimeout(updateLayoutCache, 1200)
 
     // Mouse tracking (viewport coords)
     const onMove  = (e) => { mouseRef.current.targetX = e.clientX; mouseRef.current.targetY = e.clientY }
@@ -130,11 +162,17 @@ export default function QuantumDepartureBackground() {
       ctx.textAlign = 'right'
       ctx.fillText('|−⟩', -(r + 14), 5)
 
-      // State label
-      ctx.font = `11px "Departure Mono",monospace`
-      ctx.fillStyle = 'rgba(192,132,252,0.55)'
+      // State label & scientific header
+      ctx.font = `9px "Departure Mono",monospace`
+      ctx.fillStyle = 'rgba(192,132,252,0.65)'
       ctx.textAlign = 'center'
-      ctx.fillText(`|ψ⟩  θ=${Math.round(45)}°  φ=${Math.round((t * 180 / Math.PI) % 360)}°`, 0, r + 70)
+      ctx.fillText('BLOCH SPHERE // |ψ⟩ STATE SPACE', 0, -(r + 52))
+      ctx.font = `11px "Departure Mono",monospace`
+      ctx.fillStyle = 'rgba(192,132,252,0.75)'
+      ctx.fillText(`|ψ⟩ = cos(θ/2)|0⟩ + e^(iφ)sin(θ/2)|1⟩`, 0, r + 68)
+      ctx.font = `10px "Departure Mono",monospace`
+      ctx.fillStyle = 'rgba(56,189,248,0.7)'
+      ctx.fillText(`θ = 45.0°   φ = ${Math.round((t * 180 / Math.PI) % 360)}°   |⟨0|ψ⟩|² = 0.50`, 0, r + 84)
 
       ctx.restore()
     }
@@ -503,14 +541,13 @@ export default function QuantumDepartureBackground() {
       ctx.restore()
     }
 
-    // ─── DIAGRAM SCHEDULE ─────────────────────────────────────────────────────
+    // ─── DIAGRAM SCHEDULE (Elegantly distributed across homepage sections) ───
     const DIAGRAMS = [
-      { worldY: 400,  side: 'right',  marginX: 220, fn: (wx, wy) => drawBlochSphere(wx, wy, 240) },
-      { worldY: 1200, side: 'left',   marginX: 220, fn: drawBellCircuit },
-      { worldY: 2100, side: 'right',  marginX: 200, fn: drawMachZehnder },
-      { worldY: 3000, side: 'left',   marginX: 220, fn: (wx, wy) => drawDensityMatrix(wx, wy, 5) },
-      { worldY: 3900, side: 'right',  marginX: 200, fn: drawCryoLadder },
-      { worldY: 4800, side: 'center', marginX: 0,   fn: drawOscilloscope },
+      { worldY: 1100, side: 'left',   marginX: 220, fn: drawBellCircuit },
+      { worldY: 1950, side: 'right',  marginX: 200, fn: drawMachZehnder },
+      { worldY: 3400, side: 'right',  marginX: 200, fn: (wx, wy) => drawDensityMatrix(wx, wy, 5) },
+      { worldY: 4400, side: 'left',   marginX: 220, fn: drawCryoLadder },
+      { worldY: 5400, side: 'center', marginX: 0,   fn: drawOscilloscope },
     ]
 
     // ─── RENDER LOOP ────────────────────────────────────────────────────────────
@@ -539,9 +576,8 @@ export default function QuantumDepartureBackground() {
         }
       }
 
-      // ── FOOTER BOUNDARY ──
-      const footerEl = document.querySelector('footer')
-      const footerTop = footerEl ? footerEl.getBoundingClientRect().top + scrollY : 1e9
+      // ── FOOTER BOUNDARY (read from zero-reflow layoutCache) ──
+      const footerTop = layoutCache.footerTop
 
       // ── MARGIN RULER SCALES ──
       {
@@ -640,16 +676,22 @@ export default function QuantumDepartureBackground() {
         fn(wx, worldY)
       })
 
+      // ── BLOCH SPHERE (CIRCLE DIAGRAM) ──
+      // Positioned below "We make quantum computing accessible to everyone" (#about)
+      // at left side portion just above "Pioneers of the Quantum Realm" (#pioneers)
+      const blochWorldY = layoutCache.blochWorldY
+
+      if (blochWorldY >= viewTop - pad && blochWorldY <= viewBottom + pad && blochWorldY <= footerTop) {
+        const blochR = W < 640 ? 115 : (W < 1024 ? 150 : 190)
+        const blochMarginX = W < 640 ? Math.max(90, W * 0.22) : (W < 1024 ? 150 : Math.max(180, Math.min(235, W * 0.15)))
+        drawBlochSphere(blochMarginX, blochWorldY, blochR)
+      }
+
       // ── QUANTUM CIRCUIT GROVER ORACLE ──
       // Pushed down to the right-side area of "A Decade of Quantum Acceleration" (#timeline),
       // positioned parallel to the 2016 "IBM puts quantum on the cloud" box.
-      const item2016 = document.querySelector('#timeline .timeline__item')
       if (W > 860) {
-        let circuitWorldY = 6400
-        if (item2016) {
-          const rect = item2016.getBoundingClientRect()
-          circuitWorldY = rect.top + scrollY + rect.height / 2
-        }
+        const circuitWorldY = layoutCache.circuitWorldY
         if (circuitWorldY >= viewTop - pad && circuitWorldY <= viewBottom + pad && circuitWorldY <= footerTop) {
           // Center in the right-hand area parallel to the 2016 timeline item (which sits on the left)
           const circuitWX = (W / 2) + Math.min(240, Math.max(185, (W - 860) * 0.25 + 195))
@@ -695,6 +737,8 @@ export default function QuantumDepartureBackground() {
     document.addEventListener('visibilitychange', onVisibilityChange)
 
     return () => {
+      clearTimeout(t1)
+      clearTimeout(t2)
       window.removeEventListener('resize', handleResize)
       window.removeEventListener('mousemove', onMove)
       document.removeEventListener('mouseleave', onLeave)

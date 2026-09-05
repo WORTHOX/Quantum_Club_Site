@@ -7,6 +7,7 @@ export default function EventDetail() {
   const navigate = useNavigate()
   const [event, setEvent] = useState(null)
   const [lightboxImg, setLightboxImg] = useState(null)
+  const [activeSticker, setActiveSticker] = useState(null)
 
   useEffect(() => {
     if (id === 'qiskit-fall-fest-2025') {
@@ -83,10 +84,26 @@ export default function EventDetail() {
               )}
             </div>
 
-            {/* Title */}
-            <h1 className="text-4xl sm:text-6xl font-bold font-display text-white tracking-tight mt-1 mb-1">
-              {event.title}
-            </h1>
+            {/* Title & Official Badges */}
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-2 mb-1">
+              {event.ibmBadge && (
+                <div className="w-16 h-16 shrink-0 relative group">
+                  <img
+                    src={event.ibmBadge}
+                    alt="Official IBM Qiskit Badge"
+                    className="w-full h-full object-contain filter drop-shadow-[0_0_15px_rgba(255,126,182,0.5)] transition-transform duration-500 group-hover:scale-110"
+                  />
+                </div>
+              )}
+              <h1 className="text-4xl sm:text-6xl font-bold font-display text-white tracking-tight text-center">
+                {event.title}
+              </h1>
+              {event.qiskitLogo && (
+                <div className="w-12 h-12 shrink-0 p-1 rounded-xl bg-white/5 border border-white/10 hidden sm:flex items-center justify-center">
+                  <img src={event.qiskitLogo} alt="Qiskit Logo" className="w-full h-full object-contain" />
+                </div>
+              )}
+            </div>
             {event.subtitle && (
               <p className="font-mono text-sm text-slate-400 uppercase tracking-widest">{event.subtitle}</p>
             )}
@@ -142,32 +159,60 @@ export default function EventDetail() {
           </div>
         </header>
 
-        {/* ── Cover Image ── */}
-        {event.coverImage && (
+        {/* ── Cover Image / Official Hero Artwork ── */}
+        {(event.heroSvg || event.coverImage) && (
           <div className="px-4 max-w-5xl mx-auto mb-14">
-            <div className="w-full aspect-[21/9] rounded-2xl overflow-hidden bg-[#0a0f14] border border-cyan-900/30 shadow-2xl">
-              <img src={event.coverImage} alt={event.title} className="w-full h-full object-cover" />
+            <div className="w-full aspect-[21/9] rounded-2xl overflow-hidden bg-[#070a08] border border-cyan-900/30 shadow-2xl relative group p-2 flex items-center justify-center">
+              <img
+                src={event.heroSvg || event.coverImage}
+                alt={event.title}
+                className="w-full h-full object-contain group-hover:scale-[1.02] transition-transform duration-700"
+              />
+              {event.heroSvg && (
+                <div className="absolute top-3 left-4 bg-black/60 backdrop-blur-md px-3 py-1 rounded-md border border-white/10 font-mono text-[11px] text-cyan-300 hidden sm:block">
+                  IBM Quantum Heron Architecture • Fall Fest 2026
+                </div>
+              )}
             </div>
           </div>
         )}
 
-        {/* ── Description ── */}
-        <div className="px-4 max-w-3xl mx-auto mb-14">
-          {Array.isArray(event.description) && event.description.length > 0 ? (
+        {/* ── Description & Hardware Spotlight ── */}
+        <div className="px-4 max-w-4xl mx-auto mb-14">
+          <div className={`grid grid-cols-1 ${event.coverImage && event.heroSvg ? 'md:grid-cols-[1fr_280px]' : ''} gap-8 items-start`}>
             <div className="flex flex-col gap-5">
-              {event.description.map((para, i) => (
-                <p key={i} className="text-base sm:text-lg text-slate-300 leading-relaxed">
-                  {para}
-                </p>
-              ))}
+              {Array.isArray(event.description) && event.description.length > 0 ? (
+                event.description.map((para, i) => (
+                  <p key={i} className="text-base sm:text-lg text-slate-300 leading-relaxed">
+                    {para}
+                  </p>
+                ))
+              ) : event.description ? (
+                <p className="text-base sm:text-lg text-slate-300 leading-relaxed">{event.description}</p>
+              ) : (
+                <div className="text-center py-12 border-y border-slate-800">
+                  <p className="font-mono text-xs text-slate-500 uppercase tracking-widest">Detailed recap coming soon.</p>
+                </div>
+              )}
             </div>
-          ) : event.description ? (
-            <p className="text-base sm:text-lg text-slate-300 leading-relaxed">{event.description}</p>
-          ) : (
-            <div className="text-center py-12 border-y border-slate-800">
-              <p className="font-mono text-xs text-slate-500 uppercase tracking-widest">Detailed recap coming soon.</p>
-            </div>
-          )}
+
+            {event.coverImage && event.heroSvg && (
+              <div className="flex flex-col gap-2.5 rounded-2xl bg-[#090d12]/90 border border-cyan-500/20 p-3.5 shadow-2xl backdrop-blur-md group">
+                <div className="aspect-[3/4] rounded-xl overflow-hidden bg-black relative">
+                  <img src={event.coverImage} alt="Quantum Processor Hardware" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
+                </div>
+                <div className="px-1 pt-1">
+                  <span className="font-mono text-[11px] uppercase tracking-wider text-cyan-400 font-bold block">
+                    Cryogenic Quantum Hardware
+                  </span>
+                  <span className="font-mono text-[10px] text-slate-400 block mt-0.5">
+                    Superconducting Dilution Array
+                  </span>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
 
         {/* ── Tags ── */}
@@ -221,6 +266,11 @@ export default function EventDetail() {
                       <span className="px-2.5 py-1 rounded-full font-mono text-[0.625rem] font-bold tracking-wider uppercase border bg-cyan-500/10 text-cyan-400 border-cyan-500/30">
                         {t.stage ? `${t.stage} · ${t.badge}` : `${t.day} · ${t.badge}`}
                       </span>
+                      {t.sticker && (
+                        <div className="w-10 h-10 p-1 rounded-xl bg-white/5 border border-white/10 group-hover:scale-110 transition-transform">
+                          <img src={t.sticker} alt={t.badge} className="w-full h-full object-contain" />
+                        </div>
+                      )}
                     </div>
                     <h3 className="font-display text-lg font-bold text-white mb-2 leading-snug">{t.title}</h3>
                     <p className="font-mono text-xs text-slate-300/90 leading-relaxed">{t.desc}</p>
@@ -305,6 +355,58 @@ export default function EventDetail() {
                   <h3 className="font-display font-semibold text-white text-sm leading-snug group-hover:text-emerald-300 transition-colors">{rel.title}</h3>
                   {rel.excerpt && <p className="font-mono text-xs text-slate-400 line-clamp-2 leading-relaxed">{rel.excerpt}</p>}
                 </Link>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* ── Official Qiskit Fall Fest 2026 Digital Stickers & Visual Kit ── */}
+        {event.id === 'qiskit-fall-fest-2026' && (
+          <section className="px-4 max-w-5xl mx-auto mb-16">
+            <div className="mb-6 flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-slate-800 pb-4">
+              <div>
+                <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#FF7EB6] block mb-1">
+                  ✦ Official Deliverables & Swag
+                </span>
+                <h2 className="font-display text-2xl font-bold text-white tracking-tight">
+                  IBM Qiskit Fall Fest 2026 Digital Stickers
+                </h2>
+              </div>
+              <p className="font-mono text-xs text-slate-400">
+                Official vector assets from the Qiskit Fall Fest repository • Physical stickers available on campus
+              </p>
+            </div>
+
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3.5">
+              {[
+                { name: 'Entanglement', file: '/assets/fallfest/2026/svg/sticker_01.svg', lore: 'Bell State |Φ⁺⟩' },
+                { name: 'Superposition', file: '/assets/fallfest/2026/svg/sticker_02.svg', lore: 'Coherent State Bloom' },
+                { name: 'Circuit Matrix', file: '/assets/fallfest/2026/svg/sticker_03.svg', lore: 'Gate Routing Array' },
+                { name: 'Phase Crystal', file: '/assets/fallfest/2026/svg/sticker_04.svg', lore: 'Parametric Rotation' },
+                { name: 'Wavepacket', file: '/assets/fallfest/2026/svg/sticker_05.svg', lore: 'Tunneling Barrier' },
+                { name: 'Transmon Loop', file: '/assets/fallfest/2026/svg/sticker_06.svg', lore: 'Cryogenic Cavity' },
+                { name: 'Interference', file: '/assets/fallfest/2026/svg/sticker_07.svg', lore: 'Wave Lattice' },
+                { name: 'Pulse Control', file: '/assets/fallfest/2026/svg/sticker_08.svg', lore: 'DRAG Microwave Envelope' },
+                { name: 'Transition', file: '/assets/fallfest/2026/svg/sticker_09.svg', lore: 'Ground to Excited State' },
+                { name: '2026 Seal', file: '/assets/fallfest/2026/svg/badge-pink.svg', lore: 'Official Event Seal' },
+              ].map((stk, idx) => (
+                <div
+                  key={idx}
+                  className="p-4 rounded-xl bg-[#080d12]/90 border border-white/10 hover:border-[#FF7EB6]/60 transition-all flex flex-col items-center text-center justify-between aspect-square group cursor-pointer"
+                  onClick={() => setActiveSticker(stk)}
+                >
+                  <div className="w-16 h-16 p-1 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                    <img src={stk.file} alt={stk.name} className="w-full h-full object-contain" />
+                  </div>
+                  <div>
+                    <span className="font-mono text-xs font-bold text-white block group-hover:text-cyan-300 transition-colors">
+                      {stk.name}
+                    </span>
+                    <span className="font-mono text-[10px] text-slate-400 block truncate">
+                      {stk.lore}
+                    </span>
+                  </div>
+                </div>
               ))}
             </div>
           </section>
@@ -406,6 +508,32 @@ export default function EventDetail() {
               {event.gallery[lightboxImg].caption}
             </p>
           )}
+        </div>
+      )}
+
+      {/* ── Active Sticker Modal ── */}
+      {activeSticker && (
+        <div
+          className="fixed inset-0 z-50 bg-black/92 backdrop-blur-md flex items-center justify-center p-4"
+          onClick={() => setActiveSticker(null)}
+        >
+          <div
+            className="bg-[#090d12] border border-[#FF7EB6]/40 p-6 sm:p-8 rounded-2xl max-w-sm w-full flex flex-col items-center text-center relative shadow-[0_0_50px_rgba(255,126,182,0.25)]"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              className="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors"
+              onClick={() => setActiveSticker(null)}
+            >
+              ✕
+            </button>
+            <div className="w-32 h-32 p-3 my-4 flex items-center justify-center filter drop-shadow-[0_0_20px_rgba(255,126,182,0.5)]">
+              <img src={activeSticker.file} alt={activeSticker.name} className="w-full h-full object-contain" />
+            </div>
+            <span className="font-display font-bold text-xl text-white mb-1">{activeSticker.name}</span>
+            <span className="font-mono text-xs text-cyan-400 mb-3">{activeSticker.lore}</span>
+            <p className="font-mono text-[11px] text-slate-400">Official IBM Qiskit Fall Fest 2026 Deliverable</p>
+          </div>
         </div>
       )}
     </main>

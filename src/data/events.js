@@ -43,6 +43,8 @@ const EVENTS = [
     sessions: 'Speaker Sessions',
     applicationAlert: 'Applications Opening Soon',
     coverImage: '/assets/events/fall-fest-2026-cover.jpg',
+    heroSvg: '/assets/fallfest/2026/svg/hero_2_with_tile.svg',
+    bannerImage: '/assets/fallfest/2026/illustrations/fall_fest_banner_2560.webp',
     excerpt: 'For the second year running, the Symbiosis Quantum Club is an official partner for IBM Qiskit Fall Fest — a flagship Ideathon and speaker series celebrating a decade of quantum on the cloud.',
     description: [
       'For the second year running, the Symbiosis Quantum Club is an official partner for IBM Qiskit Fall Fest.',
@@ -52,8 +54,8 @@ const EVENTS = [
     gallery: [],
     tags: ['IBM PLUS', 'Qiskit', 'Ideathon', 'Speaker Sessions', 'Flagship'],
     registrationUrl: null,
-    ibmBadge: '/assets/events/badge-dark.png',
-    qiskitLogo: '/assets/events/qiskit-logo.svg',
+    ibmBadge: '/assets/fallfest/2026/svg/badge-pink.svg',
+    qiskitLogo: '/assets/fallfest/2026/svg/sticker_qiskit-purple.svg',
     programTracks: [
       {
         stage: 'STAGE 1',
@@ -61,6 +63,7 @@ const EVENTS = [
         title: 'Team Formation & Pitch Submission',
         desc: 'Form a team of 1–3 and submit your project pitch deck via Google Form. This is your entry into the Ideathon — shortlisted teams move on to the on-campus rounds.',
         footnote: 'Submission deadline: TBD',
+        sticker: '/assets/fallfest/2026/svg/sticker_01.svg',
       },
       {
         stage: 'DAY 1',
@@ -68,6 +71,7 @@ const EVENTS = [
         title: 'Speaker Sessions + Workshop',
         desc: 'Four talks — two external quantum experts and two from the club — on current trends and applications in quantum computing, followed immediately by a hands-on workshop to prep teams for Day 2.',
         footnote: null,
+        sticker: '/assets/fallfest/2026/svg/sticker_03.svg',
       },
       {
         stage: 'DAY 2',
@@ -75,6 +79,7 @@ const EVENTS = [
         title: 'Build, Refine & Results',
         desc: 'Shortlisted teams get guidance and mentorship, work time to finalize their submission, and pitch their final version — with results announced at the end of the day.',
         footnote: null,
+        sticker: '/assets/fallfest/2026/svg/sticker_06.svg',
       },
     ],
     keyDetails: [

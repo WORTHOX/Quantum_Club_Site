@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useParams, useLocation } from 'react-router-dom'
 import events from '../data/events'
 
 /**
@@ -50,6 +50,8 @@ const FALL_FEST_EDITIONS = {
     title: 'IBM Qiskit Fall Fest 2026',
     subtitle: 'October 2026',
     tagline: 'IBM PLUS',
+    badgeSvg: '/assets/fallfest/2026/svg/badge-pink.svg',
+    heroSvg: '/assets/fallfest/2026/svg/hero_2_with_tile.svg',
     description: [
       "For the second year running, the Symbiosis Quantum Club is an official partner for IBM Qiskit Fall Fest.",
       "Qiskit Fall Fest is a part of IBM's global push to bring quantum computing to more students through the open-source Qiskit framework, now marking a decade since IBM first put quantum computers on the cloud.",
@@ -83,6 +85,7 @@ const FALL_FEST_EDITIONS = {
         title: 'Team Formation & Pitch Submission',
         desc: 'Form a team of 1–3 and submit your project pitch deck via Google Form. This is your entry into the Ideathon — shortlisted teams move on to the on-campus rounds.',
         footnote: 'Submission deadline: TBD',
+        sticker: '/assets/fallfest/2026/svg/sticker_01.svg',
       },
       {
         stage: 'DAY 1',
@@ -90,6 +93,7 @@ const FALL_FEST_EDITIONS = {
         title: 'Speaker Sessions + Workshop',
         desc: 'Four talks — two external quantum experts and two from the club — on current trends and applications in quantum computing, followed immediately by a hands-on workshop to prep teams for Day 2.',
         footnote: null,
+        sticker: '/assets/fallfest/2026/svg/sticker_03.svg',
       },
       {
         stage: 'DAY 2',
@@ -97,6 +101,7 @@ const FALL_FEST_EDITIONS = {
         title: 'Build, Refine & Results',
         desc: 'Shortlisted teams get guidance and mentorship, work time to finalize their submission, and pitch their final version — with results announced at the end of the day.',
         footnote: null,
+        sticker: '/assets/fallfest/2026/svg/sticker_06.svg',
       },
     ],
     keyDetails: [
@@ -117,7 +122,8 @@ const DEFAULT_YEAR = '2025'
 
 export default function FallFest() {
   const { year } = useParams()
-  const resolvedYear = year || DEFAULT_YEAR
+  const location = useLocation()
+  const resolvedYear = year || (location.pathname.includes('2026') ? '2026' : DEFAULT_YEAR)
   const edition = FALL_FEST_EDITIONS[resolvedYear] || FALL_FEST_EDITIONS[DEFAULT_YEAR]
 
   const linkedEvent = events.find(
@@ -169,6 +175,37 @@ export default function FallFest() {
 
         <div className="relative max-w-5xl mx-auto flex flex-col items-center text-center gap-6 z-10">
 
+          {/* Edition Switcher Bar */}
+          <div className="flex items-center gap-2.5 p-1.5 px-4 rounded-full bg-white/5 border border-white/10 backdrop-blur-md">
+            {resolvedYear === '2026' ? (
+              <>
+                <Link
+                  to="/fallfest"
+                  className="font-mono text-[11px] text-slate-400 hover:text-cyan-300 transition-colors"
+                >
+                  ← Fall Fest 2025 Archive
+                </Link>
+                <span className="text-slate-600 font-mono text-xs">|</span>
+                <span className="font-mono text-[11px] text-cyan-300 font-bold">
+                  ✦ Fall Fest 2026 Active Edition
+                </span>
+              </>
+            ) : (
+              <>
+                <span className="font-mono text-[11px] text-slate-400">
+                  Viewing Fall Fest 2025 Archive
+                </span>
+                <span className="text-slate-600 font-mono text-xs">•</span>
+                <Link
+                  to="/fallfest_2026"
+                  className="font-mono text-[11px] font-bold text-cyan-400 hover:text-cyan-300 underline underline-offset-4"
+                >
+                  View Upcoming Fall Fest 2026 →
+                </Link>
+              </>
+            )}
+          </div>
+
           <div
             className="inline-flex items-center gap-2 px-5 py-2 rounded-full border backdrop-blur-md"
             style={{ borderColor: `${edition.accentColor}50`, backgroundColor: `${edition.accentColor}12` }}
@@ -178,6 +215,16 @@ export default function FallFest() {
               {edition.tagline}
             </span>
           </div>
+
+          {edition.badgeSvg && (
+            <div className="w-20 h-20 relative mb-1 group">
+              <img
+                src={edition.badgeSvg}
+                alt="Official IBM Qiskit Fall Fest Badge"
+                className="w-full h-full object-contain filter drop-shadow-[0_0_20px_rgba(255,126,182,0.5)] transition-transform duration-500 group-hover:scale-110 animate-[spin_24s_linear_infinite] hover:animate-none"
+              />
+            </div>
+          )}
 
           <h1
             className="text-5xl sm:text-7xl font-black uppercase tracking-tight text-white leading-none m-0"
@@ -225,6 +272,18 @@ export default function FallFest() {
           </div>
 
           <div className="flex flex-wrap gap-3 justify-center mt-2">
+            {resolvedYear === '2026' && (
+              <Link
+                to="/events/qiskit-fall-fest-2026"
+                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-mono text-xs font-bold uppercase tracking-wider text-white transition-all duration-300 hover:scale-105"
+                style={{
+                  background: `linear-gradient(135deg, ${edition.gradientFrom}, ${edition.gradientTo})`,
+                  boxShadow: `0 0 32px ${edition.accentColor}40`,
+                }}
+              >
+                Interactive Event Portal →
+              </Link>
+            )}
             {edition.applicationAlert ? (
               <div
                 className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full border font-mono text-xs font-bold uppercase tracking-wider"
@@ -259,6 +318,15 @@ export default function FallFest() {
               All Fall Fest Editions
             </Link>
           </div>
+
+          {edition.heroSvg && (
+            <div className="w-full max-w-4xl mx-auto mt-6 rounded-2xl overflow-hidden border border-cyan-900/40 bg-[#070a08] p-2 sm:p-3 shadow-2xl relative group">
+              <img src={edition.heroSvg} alt={edition.title} className="w-full h-auto object-contain" />
+              <div className="absolute top-4 left-5 bg-black/60 backdrop-blur-md px-3 py-1 rounded-md border border-white/10 font-mono text-[11px] text-cyan-300 hidden sm:block">
+                IBM Quantum Heron Architecture • Fall Fest 2026 Key Artwork
+              </div>
+            </div>
+          )}
         </div>
       </section>
 
@@ -289,20 +357,27 @@ export default function FallFest() {
                 >
                   {String(i + 1).padStart(2, '0')}
                 </span>
-                {/* Stage + badge row */}
-                <div className="flex flex-col gap-1.5">
-                  <span
-                    className="font-mono text-[10px] font-bold tracking-widest uppercase"
-                    style={{ color: edition.accentColor }}
-                  >
-                    {item.stage}
-                  </span>
-                  <span
-                    className="inline-self-start font-mono text-[9px] font-semibold uppercase tracking-widest px-2 py-0.5 rounded border w-fit"
-                    style={{ color: `${edition.accentColor}cc`, borderColor: `${edition.accentColor}30`, backgroundColor: `${edition.accentColor}10` }}
-                  >
-                    {item.badge}
-                  </span>
+                {/* Stage + badge + sticker row */}
+                <div className="flex items-center justify-between gap-2">
+                  <div className="flex flex-col gap-1.5">
+                    <span
+                      className="font-mono text-[10px] font-bold tracking-widest uppercase"
+                      style={{ color: edition.accentColor }}
+                    >
+                      {item.stage}
+                    </span>
+                    <span
+                      className="inline-self-start font-mono text-[9px] font-semibold uppercase tracking-widest px-2 py-0.5 rounded border w-fit"
+                      style={{ color: `${edition.accentColor}cc`, borderColor: `${edition.accentColor}30`, backgroundColor: `${edition.accentColor}10` }}
+                    >
+                      {item.badge}
+                    </span>
+                  </div>
+                  {item.sticker && (
+                    <div className="w-11 h-11 p-1 rounded-xl bg-white/5 border border-white/10 shrink-0">
+                      <img src={item.sticker} alt={item.badge} className="w-full h-full object-contain" />
+                    </div>
+                  )}
                 </div>
                 {/* Title */}
                 <p className="font-bold text-white text-[0.95rem] leading-snug">{item.title}</p>
@@ -370,6 +445,56 @@ export default function FallFest() {
           ))}
         </div>
       </section>
+
+      {resolvedYear === '2026' && (
+        <section className="px-4 max-w-5xl mx-auto mb-16">
+          <div className="mb-6 flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-slate-800 pb-4">
+            <div>
+              <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#FF7EB6] block mb-1">
+                ✦ Official Deliverables & Swag
+              </span>
+              <h2 className="font-display text-2xl font-bold text-white tracking-tight">
+                IBM Qiskit Fall Fest 2026 Digital Stickers
+              </h2>
+            </div>
+            <p className="font-mono text-xs text-slate-400">
+              Official vector deliverables provided by the IBM Qiskit organizers
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3.5">
+            {[
+              { name: 'Entanglement', file: '/assets/fallfest/2026/svg/sticker_01.svg', lore: 'Bell State |Φ⁺⟩' },
+              { name: 'Superposition', file: '/assets/fallfest/2026/svg/sticker_02.svg', lore: 'Coherent State Bloom' },
+              { name: 'Circuit Matrix', file: '/assets/fallfest/2026/svg/sticker_03.svg', lore: 'Gate Routing Array' },
+              { name: 'Phase Crystal', file: '/assets/fallfest/2026/svg/sticker_04.svg', lore: 'Parametric Rotation' },
+              { name: 'Wavepacket', file: '/assets/fallfest/2026/svg/sticker_05.svg', lore: 'Tunneling Barrier' },
+              { name: 'Transmon Loop', file: '/assets/fallfest/2026/svg/sticker_06.svg', lore: 'Cryogenic Cavity' },
+              { name: 'Interference', file: '/assets/fallfest/2026/svg/sticker_07.svg', lore: 'Wave Lattice' },
+              { name: 'Pulse Control', file: '/assets/fallfest/2026/svg/sticker_08.svg', lore: 'DRAG Microwave Envelope' },
+              { name: 'Transition', file: '/assets/fallfest/2026/svg/sticker_09.svg', lore: 'Ground to Excited State' },
+              { name: '2026 Seal', file: '/assets/fallfest/2026/svg/badge-pink.svg', lore: 'Official Event Seal' },
+            ].map((stk, idx) => (
+              <div
+                key={idx}
+                className="p-4 rounded-xl bg-[#080d12]/90 border border-white/10 hover:border-[#FF7EB6]/60 transition-all flex flex-col items-center text-center justify-between aspect-square group"
+              >
+                <div className="w-16 h-16 p-1 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                  <img src={stk.file} alt={stk.name} className="w-full h-full object-contain" />
+                </div>
+                <div>
+                  <span className="font-mono text-xs font-bold text-white block group-hover:text-cyan-300 transition-colors">
+                    {stk.name}
+                  </span>
+                  <span className="font-mono text-[10px] text-slate-400 block truncate">
+                    {stk.lore}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
 
       <section className="px-4 max-w-5xl mx-auto mb-12 pt-10 border-t border-slate-800/60">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
