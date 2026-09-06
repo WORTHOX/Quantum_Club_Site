@@ -26,5 +26,5 @@ dist-ssr
 old_team_*.txt
 public1
 sqc-site
-fallfest
-fallfest_resources
+/fallfest
+/fallfest_resources
