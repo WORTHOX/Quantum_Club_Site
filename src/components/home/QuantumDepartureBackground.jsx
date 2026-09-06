@@ -16,31 +16,63 @@ export default function QuantumDepartureBackground() {
     let raf
     let W = 0, H = 0
 
-    // Resize: canvas covers ONLY the viewport (position: fixed).
+    // Helpers to get full document height reliably
+    const getDocHeight = () => {
+      if (typeof document === 'undefined') return 14000
+      return Math.max(
+        document.documentElement ? document.documentElement.scrollHeight : 0,
+        document.body ? document.body.scrollHeight : 0,
+        document.documentElement ? document.documentElement.offsetHeight : 0,
+        document.body ? document.body.offsetHeight : 0,
+        window.innerHeight || 0
+      )
+    }
+
     // Layout Cache: stores world Y positions to eliminate getBoundingClientRect() layout thrashing in RAF
     const layoutCache = {
       footerTop: 1e9,
+      footerBottom: 1e9,
+      docHeight: typeof window !== 'undefined' ? Math.max(getDocHeight(), 14000) : 14000,
       blochWorldY: 2700,
       circuitWorldY: 6400,
     }
 
     const updateLayoutCache = () => {
       const scrollY = window.scrollY || 0
+      const docH = getDocHeight()
+
       const footerEl = document.querySelector('footer')
       if (footerEl) {
-        layoutCache.footerTop = footerEl.getBoundingClientRect().top + scrollY
+        const fRect = footerEl.getBoundingClientRect()
+        const measuredTop = fRect.top + scrollY
+        const measuredBottom = fRect.bottom + scrollY
+        // Only accept footer measurements if the page has laid out (top > 2000px)
+        if (measuredTop > 2000) {
+          layoutCache.footerTop = measuredTop
+          layoutCache.footerBottom = Math.max(docH, measuredBottom)
+        }
       }
+
+      const effectiveBottom = Math.max(docH, layoutCache.footerBottom < 1e8 ? layoutCache.footerBottom : 0)
+      if (effectiveBottom > 2000) {
+        layoutCache.docHeight = effectiveBottom
+      }
+
       const pioneersEl = document.querySelector('#pioneers')
       const aboutEl = document.querySelector('#about')
       if (pioneersEl) {
-        layoutCache.blochWorldY = pioneersEl.getBoundingClientRect().top + scrollY - 60
+        const pTop = pioneersEl.getBoundingClientRect().top + scrollY
+        if (pTop > 1000) layoutCache.blochWorldY = pTop - 60
       } else if (aboutEl) {
-        layoutCache.blochWorldY = aboutEl.getBoundingClientRect().bottom + scrollY + 100
+        const aBottom = aboutEl.getBoundingClientRect().bottom + scrollY
+        if (aBottom > 1000) layoutCache.blochWorldY = aBottom + 100
       }
+
       const item2016 = document.querySelector('#timeline .timeline__item')
       if (item2016) {
         const rect = item2016.getBoundingClientRect()
-        layoutCache.circuitWorldY = rect.top + scrollY + rect.height / 2
+        const cY = rect.top + scrollY + rect.height / 2
+        if (cY > 2000) layoutCache.circuitWorldY = cY
       }
     }
 
@@ -59,9 +91,32 @@ export default function QuantumDepartureBackground() {
     handleResize()
     window.addEventListener('resize', handleResize)
 
-    // Settle layout cache once fonts and DOM stabilize
-    const t1 = setTimeout(updateLayoutCache, 300)
-    const t2 = setTimeout(updateLayoutCache, 1200)
+    // ResizeObserver tracks dynamic reflows as images, fonts, and preloader complete
+    let ro = null
+    if (typeof ResizeObserver !== 'undefined') {
+      ro = new ResizeObserver(() => {
+        updateLayoutCache()
+      })
+      if (document.body) ro.observe(document.body)
+      if (document.documentElement) ro.observe(document.documentElement)
+    }
+
+    // Settle layout cache across initial load, preloader finish, and font loading
+    const t1 = setTimeout(updateLayoutCache, 500)
+    const t2 = setTimeout(updateLayoutCache, 1500)
+    const t3 = setTimeout(updateLayoutCache, 3200) // triggers right after preloader curtain reveal
+    const t4 = setTimeout(updateLayoutCache, 5000)
+
+    // Passive scroll check: if scroll advances significantly, ensure layoutCache is synced
+    let lastScrollY = 0
+    const onScroll = () => {
+      const sy = window.scrollY || 0
+      if (Math.abs(sy - lastScrollY) > 1000) {
+        lastScrollY = sy
+        updateLayoutCache()
+      }
+    }
+    window.addEventListener('scroll', onScroll, { passive: true })
 
     // Mouse tracking (viewport coords)
     const onMove  = (e) => { mouseRef.current.targetX = e.clientX; mouseRef.current.targetY = e.clientY }
@@ -576,7 +631,8 @@ export default function QuantumDepartureBackground() {
         }
       }
 
-      // ── FOOTER BOUNDARY (read from zero-reflow layoutCache) ──
+      // ── BOTTOM OF PAGE BOUNDARY (read from zero-reflow layoutCache) ──
+      const bottomLimit = Math.max(layoutCache.docHeight, layoutCache.footerBottom < 1e8 ? layoutCache.footerBottom : 0, H)
       const footerTop = layoutCache.footerTop
 
       // ── MARGIN RULER SCALES ──
@@ -586,7 +642,7 @@ export default function QuantumDepartureBackground() {
         const viewTop = scrollY
         const viewBottom = scrollY + H
         const scaleStart = Math.max(0, viewTop)
-        const scaleEnd = Math.min(footerTop, viewBottom)
+        const scaleEnd = Math.min(bottomLimit, viewBottom)
 
         ctx.save()
         ctx.font = '8px "Departure Mono",monospace'
@@ -608,23 +664,24 @@ export default function QuantumDepartureBackground() {
             if (hasRight) { ctx.beginPath(); ctx.moveTo(rx - 6, 0); ctx.lineTo(rx + 6, 0); ctx.stroke() }
           }
 
-          // Footer cap
-          const footerVY = footerTop - scrollY
-          if (footerVY >= 0 && footerVY <= H) {
+          // Bottom of page cap (END_SCALE) — appears at the bottom of the page
+          const endVY = bottomLimit - scrollY
+          if (endVY >= 0 && endVY <= H) {
             ctx.strokeStyle = 'rgba(168,85,247,0.6)'; ctx.lineWidth = 1.5
-            ctx.beginPath(); ctx.moveTo(leftX - 8, footerVY); ctx.lineTo(leftX + 8, footerVY); ctx.stroke()
-            if (hasRight) { ctx.beginPath(); ctx.moveTo(rx - 8, footerVY); ctx.lineTo(rx + 8, footerVY); ctx.stroke() }
+            ctx.beginPath(); ctx.moveTo(leftX - 8, endVY); ctx.lineTo(leftX + 8, endVY); ctx.stroke()
+            if (hasRight) { ctx.beginPath(); ctx.moveTo(rx - 8, endVY); ctx.lineTo(rx + 8, endVY); ctx.stroke() }
             ctx.fillStyle = 'rgba(192,132,252,0.5)'; ctx.textAlign = 'left'
-            ctx.fillText('END_SCALE', leftX + 11, footerVY - 4)
-            if (hasRight) { ctx.textAlign = 'right'; ctx.fillText('0xFOOTER', rx - 11, footerVY - 4) }
+            ctx.fillText('END_SCALE', leftX + 11, endVY - 4)
+            if (hasRight) { ctx.textAlign = 'right'; ctx.fillText('0xFOOTER', rx - 11, endVY - 4) }
           }
 
           // Major/minor ticks
           const stepMinor = 24, stepMajor = 120
           const startWorld = Math.floor(viewTop / stepMinor) * stepMinor
-          const endWorld = Math.min(viewBottom, footerTop) + stepMinor
+          const endWorld = Math.min(viewBottom, bottomLimit)
 
           for (let worldY = startWorld; worldY <= endWorld; worldY += stepMinor) {
+            if (worldY < 0 || worldY > bottomLimit) continue
             const vy = worldY - scrollY
             if (vy < -10 || vy > H + 2) continue
 
@@ -666,7 +723,7 @@ export default function QuantumDepartureBackground() {
 
       DIAGRAMS.forEach(({ worldY, side, marginX, fn }) => {
         if (worldY < viewTop - pad || worldY > viewBottom + pad) return
-        if (worldY > footerTop) return
+        if (worldY > footerTop && footerTop > 2000) return
 
         let wx
         if (side === 'center') wx = W / 2
@@ -681,7 +738,7 @@ export default function QuantumDepartureBackground() {
       // at left side portion just above "Pioneers of the Quantum Realm" (#pioneers)
       const blochWorldY = layoutCache.blochWorldY
 
-      if (blochWorldY >= viewTop - pad && blochWorldY <= viewBottom + pad && blochWorldY <= footerTop) {
+      if (blochWorldY >= viewTop - pad && blochWorldY <= viewBottom + pad && (footerTop <= 2000 || blochWorldY <= footerTop)) {
         const blochR = W < 640 ? 115 : (W < 1024 ? 150 : 190)
         const blochMarginX = W < 640 ? Math.max(90, W * 0.22) : (W < 1024 ? 150 : Math.max(180, Math.min(235, W * 0.15)))
         drawBlochSphere(blochMarginX, blochWorldY, blochR)
@@ -692,7 +749,7 @@ export default function QuantumDepartureBackground() {
       // positioned parallel to the 2016 "IBM puts quantum on the cloud" box.
       if (W > 860) {
         const circuitWorldY = layoutCache.circuitWorldY
-        if (circuitWorldY >= viewTop - pad && circuitWorldY <= viewBottom + pad && circuitWorldY <= footerTop) {
+        if (circuitWorldY >= viewTop - pad && circuitWorldY <= viewBottom + pad && (footerTop <= 2000 || circuitWorldY <= footerTop)) {
           // Center in the right-hand area parallel to the 2016 timeline item (which sits on the left)
           const circuitWX = (W / 2) + Math.min(240, Math.max(185, (W - 860) * 0.25 + 195))
           drawQuantumCircuitLarge(circuitWX, circuitWorldY, 0.78)
@@ -739,7 +796,11 @@ export default function QuantumDepartureBackground() {
     return () => {
       clearTimeout(t1)
       clearTimeout(t2)
+      clearTimeout(t3)
+      clearTimeout(t4)
+      if (ro) ro.disconnect()
       window.removeEventListener('resize', handleResize)
+      window.removeEventListener('scroll', onScroll)
       window.removeEventListener('mousemove', onMove)
       document.removeEventListener('mouseleave', onLeave)
       document.removeEventListener('visibilitychange', onVisibilityChange)

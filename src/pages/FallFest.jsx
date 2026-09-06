@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { Link, useParams, useLocation } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import events from '../data/events'
 
 /**
@@ -43,90 +43,12 @@ const FALL_FEST_EDITIONS = {
     status: 'past',
     scheduleLabel: null,
     schedule: null,
-    applicationAlert: null,
-  },
-  '2026': {
-    year: '2026',
-    title: 'IBM Qiskit Fall Fest 2026',
-    subtitle: 'October 2026',
-    tagline: 'IBM PLUS',
-    badgeSvg: '/assets/fallfest/2026/svg/badge-pink.svg',
-    heroSvg: '/assets/fallfest/2026/svg/hero_2_with_tile.svg',
-    bannerImage: '/assets/fallfest/2026/illustrations/hero_2_with_tile.webp',
-    description: [
-      "For the second year running, the Symbiosis Quantum Club is an official partner for IBM Qiskit Fall Fest.",
-      "Qiskit Fall Fest is a part of IBM's global push to bring quantum computing to more students through the open-source Qiskit framework, now marking a decade since IBM first put quantum computers on the cloud.",
-      "This year's edition centers on a flagship Ideathon: teams pitch an original idea at the problem statement stage, then bring it to life over two days on campus. Alongside that, a curated line-up of speaker sessions will bring in voices from quantum research, industry, and IBM itself — giving participants a rare window into where the field is actually heading.",
-    ],
-    highlights: [
-      'Flagship Ideathon — pitch, build, and present your quantum idea',
-      'Curated speaker sessions from quantum researchers and IBM',
-      'Second consecutive year as official IBM Qiskit Fall Fest partner',
-      'Open to all students — zero prerequisites for speaker sessions',
-      'IBM certification for participants',
-      'Quantum community of 250+ across institutions',
-    ],
-    stats: [
-      { label: 'Team Size', value: '1–3' },
-      { label: 'Format', value: 'Ideathon' },
-      { label: 'Sessions', value: 'Speaker' },
-      { label: 'Quantum Community', value: '250+' },
-    ],
-    canonicalUrl: 'https://symbiosisquantumclub.vercel.app/fallfest_2026',
-    eventId: 'qiskit-fall-fest-2026',
-    accentColor: '#38bdf8',
-    gradientFrom: '#0ea5e9',
-    gradientTo: '#06b6d4',
-    status: 'upcoming',
-    scheduleLabel: 'Tentative Fallfest Schedule',
-    schedule: [
-      {
-        stage: 'STAGE 1',
-        badge: 'IDEATHON KICKOFF',
-        title: 'Team Formation & Pitch Submission',
-        desc: 'Form a team of 1–3 and submit your project pitch deck via Google Form. This is your entry into the Ideathon — shortlisted teams move on to the on-campus rounds.',
-        footnote: 'Submission deadline: TBD',
-        sticker: '/assets/fallfest/2026/svg/sticker_01.svg',
-      },
-      {
-        stage: 'DAY 1',
-        badge: 'FOUNDATIONS',
-        title: 'Speaker Sessions + Workshop',
-        desc: 'Four talks — two external quantum experts and two from the club — on current trends and applications in quantum computing, followed immediately by a hands-on workshop to prep teams for Day 2.',
-        footnote: null,
-        sticker: '/assets/fallfest/2026/svg/sticker_03.svg',
-      },
-      {
-        stage: 'DAY 2',
-        badge: 'ROUND TWO',
-        title: 'Build, Refine & Results',
-        desc: 'Shortlisted teams get guidance and mentorship, work time to finalize their submission, and pitch their final version — with results announced at the end of the day.',
-        footnote: null,
-        sticker: '/assets/fallfest/2026/svg/sticker_06.svg',
-      },
-    ],
-    keyDetails: [
-      { label: 'Format', value: 'In-person Ideathon, 2 days on campus (plus remote pitch submission stage)' },
-      { label: 'Team size', value: '1–3 members' },
-      { label: 'Dates', value: '9th and 10th October' },
-      { label: 'Timing', value: '9:00 AM – 4:00 PM, both days' },
-      { label: 'Venue', value: 'SIT Campus, 5th Floor Seminar Hall & Labs — exact room details shared on registration' },
-      { label: 'Speaker Session Registration', value: 'Via Google Form (opening soon)' },
-      { label: 'Ideathon Registration', value: 'Via Unstop (link opening soon)' },
-      { label: 'Pitch deck submission', value: 'Via Google Form (deadline TBD)' },
-    ],
-    applicationAlert: 'Applications Opening Soon',
   },
 }
 
-const DEFAULT_YEAR = '2025'
+const edition = FALL_FEST_EDITIONS['2025']
 
 export default function FallFest() {
-  const { year } = useParams()
-  const location = useLocation()
-  const resolvedYear = year || (location.pathname.includes('2026') ? '2026' : DEFAULT_YEAR)
-  const edition = FALL_FEST_EDITIONS[resolvedYear] || FALL_FEST_EDITIONS[DEFAULT_YEAR]
-
   const linkedEvent = events.find(
     (e) => e.id === edition.eventId || e.category === 'Fall Fest'
   )
@@ -176,35 +98,18 @@ export default function FallFest() {
 
         <div className="relative max-w-5xl mx-auto flex flex-col items-center text-center gap-6 z-10">
 
-          {/* Edition Switcher Bar */}
-          <div className="flex items-center gap-2.5 p-1.5 px-4 rounded-full bg-white/5 border border-white/10 backdrop-blur-md">
-            {resolvedYear === '2026' ? (
-              <>
-                <Link
-                  to="/fallfest"
-                  className="font-mono text-[11px] text-slate-400 hover:text-cyan-300 transition-colors"
-                >
-                  ← Fall Fest 2025 Archive
-                </Link>
-                <span className="text-slate-600 font-mono text-xs">|</span>
-                <span className="font-mono text-[11px] text-cyan-300 font-bold">
-                  ✦ Fall Fest 2026 Active Edition
-                </span>
-              </>
-            ) : (
-              <>
-                <span className="font-mono text-[11px] text-slate-400">
-                  Viewing Fall Fest 2025 Archive
-                </span>
-                <span className="text-slate-600 font-mono text-xs">•</span>
-                <Link
-                  to="/fallfest_2026"
-                  className="font-mono text-[11px] font-bold text-cyan-400 hover:text-cyan-300 underline underline-offset-4"
-                >
-                  View Upcoming Fall Fest 2026 →
-                </Link>
-              </>
-            )}
+          {/* Edition Reference Bar */}
+          <div className="flex flex-wrap items-center justify-center gap-2.5 p-1.5 px-4 rounded-full bg-white/5 border border-white/10 backdrop-blur-md">
+            <span className="font-mono text-[11px] text-slate-400">
+              Viewing Fall Fest 2025 Archive (Official IBM Partner Link)
+            </span>
+            <span className="text-slate-600 font-mono text-xs">•</span>
+            <Link
+              to="/events/qiskit-fall-fest-2026"
+              className="font-mono text-[11px] font-bold text-cyan-400 hover:text-cyan-300 underline underline-offset-4"
+            >
+              View Upcoming Fall Fest 2026 →
+            </Link>
           </div>
 
           <div
@@ -249,12 +154,6 @@ export default function FallFest() {
             {edition.subtitle}
           </p>
 
-          {resolvedYear === '2026' && (
-            <p className="font-mono text-xs uppercase tracking-widest text-slate-400">
-              Quantum Community of 250+ &nbsp;|&nbsp; Ideathon &nbsp;|&nbsp; Speaker Session
-            </p>
-          )}
-
           <p className="max-w-2xl text-base sm:text-lg text-slate-300 leading-relaxed">
             {edition.description[0]}
           </p>
@@ -273,18 +172,6 @@ export default function FallFest() {
           </div>
 
           <div className="flex flex-wrap gap-3 justify-center mt-2">
-            {resolvedYear === '2026' && (
-              <Link
-                to="/events/qiskit-fall-fest-2026"
-                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-mono text-xs font-bold uppercase tracking-wider text-white transition-all duration-300 hover:scale-105"
-                style={{
-                  background: `linear-gradient(135deg, ${edition.gradientFrom}, ${edition.gradientTo})`,
-                  boxShadow: `0 0 32px ${edition.accentColor}40`,
-                }}
-              >
-                Interactive Event Portal →
-              </Link>
-            )}
             {edition.applicationAlert ? (
               <div
                 className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full border font-mono text-xs font-bold uppercase tracking-wider"
@@ -464,55 +351,7 @@ export default function FallFest() {
         </div>
       </section>
 
-      {resolvedYear === '2026' && (
-        <section className="px-4 max-w-5xl mx-auto mb-16">
-          <div className="mb-6 flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-slate-800 pb-4">
-            <div>
-              <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#FF7EB6] block mb-1">
-                ✦ Official Deliverables & Swag
-              </span>
-              <h2 className="font-display text-2xl font-bold text-white tracking-tight">
-                IBM Qiskit Fall Fest 2026 Digital Stickers
-              </h2>
-            </div>
-            <p className="font-mono text-xs text-slate-400">
-              Official vector deliverables provided by the IBM Qiskit organizers
-            </p>
-          </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3.5">
-            {[
-              { name: 'Entanglement', file: '/assets/fallfest/2026/svg/sticker_01.svg', lore: 'Bell State |Φ⁺⟩' },
-              { name: 'Superposition', file: '/assets/fallfest/2026/svg/sticker_02.svg', lore: 'Coherent State Bloom' },
-              { name: 'Circuit Matrix', file: '/assets/fallfest/2026/svg/sticker_03.svg', lore: 'Gate Routing Array' },
-              { name: 'Phase Crystal', file: '/assets/fallfest/2026/svg/sticker_04.svg', lore: 'Parametric Rotation' },
-              { name: 'Wavepacket', file: '/assets/fallfest/2026/svg/sticker_05.svg', lore: 'Tunneling Barrier' },
-              { name: 'Transmon Loop', file: '/assets/fallfest/2026/svg/sticker_06.svg', lore: 'Cryogenic Cavity' },
-              { name: 'Interference', file: '/assets/fallfest/2026/svg/sticker_07.svg', lore: 'Wave Lattice' },
-              { name: 'Pulse Control', file: '/assets/fallfest/2026/svg/sticker_08.svg', lore: 'DRAG Microwave Envelope' },
-              { name: 'Transition', file: '/assets/fallfest/2026/svg/sticker_09.svg', lore: 'Ground to Excited State' },
-              { name: '2026 Seal', file: '/assets/fallfest/2026/svg/badge-pink.svg', lore: 'Official Event Seal' },
-            ].map((stk, idx) => (
-              <div
-                key={idx}
-                className="p-4 rounded-xl bg-[#080d12]/90 border border-white/10 hover:border-[#FF7EB6]/60 transition-all flex flex-col items-center text-center justify-between aspect-square group"
-              >
-                <div className="w-16 h-16 p-1 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                  <img src={stk.file} alt={stk.name} className="w-full h-full object-contain" />
-                </div>
-                <div>
-                  <span className="font-mono text-xs font-bold text-white block group-hover:text-cyan-300 transition-colors">
-                    {stk.name}
-                  </span>
-                  <span className="font-mono text-[10px] text-slate-400 block truncate">
-                    {stk.lore}
-                  </span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-      )}
 
       <section className="px-4 max-w-5xl mx-auto mb-12 pt-10 border-t border-slate-800/60">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">

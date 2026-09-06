@@ -5,7 +5,7 @@ export default function Footer() {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="bg-[#070a08] border-t border-white/10 text-gray-400 py-16 px-5 sm:px-8 lg:px-12 relative overflow-hidden" role="contentinfo">
+    <footer className="bg-[#070a08]/90 backdrop-blur-xl border-t border-white/10 text-gray-400 py-16 px-5 sm:px-8 lg:px-12 relative overflow-hidden" role="contentinfo">
       {/* Subtle top glow line */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 max-w-4xl h-[1px] bg-gradient-to-r from-transparent via-purple-500/30 to-transparent" />
 

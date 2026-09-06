@@ -47,12 +47,9 @@ function AnimatedRoutes() {
           /fallfest is published on IBM's official Qiskit Global Partner page.
           This URL MUST resolve to a real page (not a redirect) with proper
           SEO metadata. IBM will NOT update the link — it must always work.
-          - /fallfest          → Fall Fest 2025 (IBM-linked canonical URL)
-          - /fallfest_:year    → Future annual editions (2026, 2027, …)
+          - /fallfest → Fall Fest 2025 (IBM-linked canonical URL)
         */}
         <Route path="/fallfest"      element={<FallFest />} />
-        <Route path="/fallfest_2026" element={<FallFest />} />
-        <Route path="/fallfest/:year" element={<FallFest />} />
 
         <Route path="/blog"          element={<Blog />} />
         <Route path="/blog/:id"      element={<BlogDetail />} />
