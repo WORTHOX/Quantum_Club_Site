@@ -42,9 +42,11 @@ const EVENTS = [
     duration: 'Ideathon',
     sessions: 'Speaker Sessions',
     applicationAlert: 'Applications Opening Soon',
-    coverImage: '/assets/events/fall-fest-2026-cover.jpg',
+    coverImage: '/assets/fallfest/2026/illustrations/hero_2_with_tile.webp',
     heroSvg: '/assets/fallfest/2026/svg/hero_2_with_tile.svg',
-    bannerImage: '/assets/fallfest/2026/illustrations/fall_fest_banner_2560.webp',
+    bannerImage: '/assets/fallfest/2026/illustrations/hero_2_with_tile.webp',
+    hardware: '133-Qubit IBM Heron Cloud',
+    cryoStage: '15 mK Superconducting Dilution Cluster',
     excerpt: 'For the second year running, the Symbiosis Quantum Club is an official partner for IBM Qiskit Fall Fest — a flagship Ideathon and speaker series celebrating a decade of quantum on the cloud.',
     description: [
       'For the second year running, the Symbiosis Quantum Club is an official partner for IBM Qiskit Fall Fest.',

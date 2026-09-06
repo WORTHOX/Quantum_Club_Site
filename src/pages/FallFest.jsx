@@ -52,6 +52,7 @@ const FALL_FEST_EDITIONS = {
     tagline: 'IBM PLUS',
     badgeSvg: '/assets/fallfest/2026/svg/badge-pink.svg',
     heroSvg: '/assets/fallfest/2026/svg/hero_2_with_tile.svg',
+    bannerImage: '/assets/fallfest/2026/illustrations/hero_2_with_tile.webp',
     description: [
       "For the second year running, the Symbiosis Quantum Club is an official partner for IBM Qiskit Fall Fest.",
       "Qiskit Fall Fest is a part of IBM's global push to bring quantum computing to more students through the open-source Qiskit framework, now marking a decade since IBM first put quantum computers on the cloud.",
@@ -227,8 +228,8 @@ export default function FallFest() {
           )}
 
           <h1
-            className="text-5xl sm:text-7xl font-black uppercase tracking-tight text-white leading-none m-0"
-            style={{ textShadow: `0 0 60px ${edition.accentColor}50` }}
+            className="text-3xl sm:text-4xl md:text-5xl font-extrabold font-display uppercase tracking-tight text-white leading-tight m-0"
+            style={{ textShadow: `0 0 40px ${edition.accentColor}40` }}
           >
             QISKIT FALL FEST
             <span
@@ -244,7 +245,7 @@ export default function FallFest() {
             </span>
           </h1>
 
-          <p className="font-mono text-sm uppercase tracking-[0.18em]" style={{ color: edition.accentColor }}>
+          <p className="font-mono text-xs sm:text-sm uppercase tracking-[0.18em]" style={{ color: edition.accentColor }}>
             {edition.subtitle}
           </p>
 
@@ -319,11 +320,28 @@ export default function FallFest() {
             </Link>
           </div>
 
-          {edition.heroSvg && (
+          {edition.bannerImage ? (
+            <div className="w-full max-w-4xl mx-auto mt-6 rounded-2xl overflow-hidden border border-white/[0.12] bg-[#070a08] p-2 sm:p-2.5 shadow-2xl relative group">
+              <div className="relative rounded-xl overflow-hidden border border-white/[0.06]">
+                <img
+                  src={edition.bannerImage}
+                  alt={edition.title}
+                  className="w-full h-auto object-cover max-h-[460px]"
+                />
+                <div className="absolute top-3 left-3 bg-black/75 backdrop-blur-md px-3 py-1 rounded-md border border-white/10 font-mono text-[10px] text-cyan-300 hidden sm:flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
+                  IBM Quantum Heron Architecture • Fall Fest 2026 Key Visual
+                </div>
+                <div className="absolute bottom-3 right-3 bg-black/75 backdrop-blur-md px-2.5 py-1 rounded-md border border-white/10 font-mono text-[9px] text-slate-300 hidden sm:block">
+                  CANONICAL RES: 2560×1440
+                </div>
+              </div>
+            </div>
+          ) : edition.heroSvg && (
             <div className="w-full max-w-4xl mx-auto mt-6 rounded-2xl overflow-hidden border border-cyan-900/40 bg-[#070a08] p-2 sm:p-3 shadow-2xl relative group">
               <img src={edition.heroSvg} alt={edition.title} className="w-full h-auto object-contain" />
               <div className="absolute top-4 left-5 bg-black/60 backdrop-blur-md px-3 py-1 rounded-md border border-white/10 font-mono text-[11px] text-cyan-300 hidden sm:block">
-                IBM Quantum Heron Architecture • Fall Fest 2026 Key Artwork
+                IBM Quantum Heron Architecture • Key Artwork
               </div>
             </div>
           )}
