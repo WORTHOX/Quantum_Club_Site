@@ -45,10 +45,9 @@ export default function AboutDoubleImage() {
           {/* ── Right: Editorial Content formatted cleanly ── */}
           <div className="flex flex-col gap-5">
 
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#0e0720]/50 border border-purple-500/30 backdrop-blur-md self-start">
-              <span className="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse shadow-[0_0_8px_#c084fc]" />
+            <div className="inline-flex items-center px-3.5 py-1.5 rounded-full bg-[#0e0720]/50 border border-purple-500/30 backdrop-blur-md self-start">
               <span className="font-pixel text-[11px] font-bold tracking-widest text-purple-300 uppercase">
-                OUR MISSION & ROOTS
+                OUR MISSION &amp; ROOTS
               </span>
             </div>
 

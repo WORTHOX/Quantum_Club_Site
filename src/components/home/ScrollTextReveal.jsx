@@ -81,7 +81,6 @@ export default function ScrollTextReveal() {
         <div className="w-full max-w-[1280px] mx-auto px-5 sm:px-8 md:px-12 lg:px-16 flex flex-col items-start">
           <div className="flex flex-col items-start gap-3 mb-6 sm:mb-10">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-purple-500/30 bg-[#0e0720]/60 backdrop-blur-md">
-              <span className="w-2 h-2 rounded-full bg-purple-400 animate-pulse shadow-[0_0_8px_#c084fc]" />
               <span className="font-pixel text-[10px] sm:text-xs font-semibold tracking-widest text-purple-300 uppercase">
                 CHAPTER MANIFESTO
               </span>

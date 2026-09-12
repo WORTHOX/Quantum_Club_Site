@@ -49,6 +49,8 @@ export default function Navbar() {
     return location.pathname.startsWith(to)
   }
 
+  const isFallFestActive = location.pathname === '/fallfest' || location.pathname.startsWith('/events/qiskit-fall-fest')
+
   // Close menu on route change
   useEffect(() => {
     setMenuOpen(false)
@@ -171,6 +173,20 @@ export default function Navbar() {
                   </Link>
                 )
               })}
+
+              {/* Fall Fest 2026 — special highlighted button (no beacon dot) */}
+              <Link
+                to="/events/qiskit-fall-fest-2026"
+                className={`relative inline-flex items-center gap-2 px-4 py-1.5 rounded-full font-mono text-[0.75rem] font-bold tracking-wider uppercase transition-all duration-300 select-none active:scale-[0.97] group overflow-hidden ${
+                  isFallFestActive
+                    ? 'bg-gradient-to-r from-[#FF7EB6] via-[#a78bfa] to-[#38bdf8] text-[#06040a] shadow-[0_0_24px_rgba(255,126,182,0.6)] font-extrabold'
+                    : 'bg-gradient-to-r from-[#FF7EB6]/20 via-[#a78bfa]/15 to-[#38bdf8]/15 text-white border border-[#FF7EB6]/50 hover:border-[#FF7EB6] shadow-[0_0_15px_rgba(255,126,182,0.25)] hover:shadow-[0_0_25px_rgba(255,126,182,0.45)]'
+                }`}
+              >
+                {/* Ambient shimmer sweep */}
+                <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out pointer-events-none" />
+                <span className="relative z-10 tracking-wider">Fall Fest 2026</span>
+              </Link>
             </nav>
           </LayoutGroup>
 

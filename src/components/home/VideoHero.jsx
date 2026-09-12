@@ -118,9 +118,10 @@ export default function VideoHero() {
 
           {/* Eyebrow */}
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-purple-500/30 bg-[#0e0720]/50 backdrop-blur-md mb-6 max-w-full">
-            <span className="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse shrink-0" />
             <span className="hero__eyebrow font-pixel text-[10px] sm:text-[11px] font-semibold tracking-widest text-purple-200 uppercase truncate">
-              IBM Qiskit Fall Fest 2026 · Official Host
+              IBM Qiskit Fall Fest 2026
+              <span className="mx-1.5 text-purple-400/50 font-light">/</span>
+              Official Host
             </span>
           </div>
 
@@ -224,9 +225,10 @@ export default function VideoHero() {
 
             {/* Little playful polaroid pin badge */}
             <div className="absolute -bottom-3 right-2 sm:right-6 max-w-[calc(100%-1rem)] z-40 px-3 py-1.5 rounded-full bg-[#121513]/90 border border-emerald-500/40 backdrop-blur-md shadow-lg flex items-center gap-2 pointer-events-none">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0" />
               <span className="font-mono text-[9.5px] sm:text-[10px] font-semibold text-emerald-300 tracking-wide uppercase truncate">
-                SQC Team &amp; Crew · SIT Pune
+                SQC Team &amp; Crew
+                <span className="mx-1 text-emerald-400/40 font-light">/</span>
+                SIT Pune
               </span>
             </div>
           </div>

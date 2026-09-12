@@ -317,9 +317,8 @@ export default function PioneersParallax() {
         {/* Section Header: Swiss Archival Specimen Standard */}
         <div className="pioneers__title-block text-center mb-16 relative z-10">
           <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-[#0e0720]/60 border border-purple-500/30 mb-4 backdrop-blur-md shadow-[0_0_20px_rgba(168,85,247,0.15)]">
-            <span className="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse shadow-[0_0_8px_#c084fc]" />
             <span className="font-pixel text-[11px] font-semibold text-purple-300 uppercase tracking-widest">
-              ARCHIVE SPECIMENS // 1981 — 2026
+              ARCHIVE SPECIMENS &nbsp;·&nbsp; 1981 — 2026
             </span>
           </div>
           <h2 className="font-display text-[clamp(2.2rem,4vw,3.4rem)] font-extrabold text-white tracking-tight m-0">
@@ -366,10 +365,10 @@ export default function PioneersParallax() {
 
               {/* Scientific Orbital Annotation */}
               <text x="-540" y="-12" fill="rgba(192, 132, 252, 0.35)" fontFamily='"Departure Mono", monospace' fontSize="9" letterSpacing="0.1em">
-                ORBITAL_APOAPSIS // θ = 180°
+                ORBITAL_APOAPSIS  θ = 180°
               </text>
               <text x="400" y="-12" fill="rgba(56, 189, 248, 0.35)" fontFamily='"Departure Mono", monospace' fontSize="9" letterSpacing="0.1em">
-                PERIAPSIS // θ = 000°
+                PERIAPSIS  θ = 000°
               </text>
               <text x="-120" y="325" fill="rgba(192, 132, 252, 0.25)" fontFamily='"Departure Mono", monospace' fontSize="8" letterSpacing="0.15em">
                 SHARED FOCAL SINGULARITY • r(θ) = ae^(-kθ) • 4-ARM VORTEX
@@ -397,7 +396,7 @@ export default function PioneersParallax() {
                   <div className="flex items-center justify-between border-b border-white/[0.08] pb-3">
                     <div className="flex items-center gap-2 font-pixel text-[10px] sm:text-[11px] text-white/60">
                       <span className="font-bold tracking-wider text-slate-300">
-                        SPECIMEN_{spec.index} // 04
+                        SPECIMEN_{spec.index}
                       </span>
                       <span className="text-white/20">•</span>
                       <span 
