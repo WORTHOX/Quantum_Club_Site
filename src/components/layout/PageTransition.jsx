@@ -348,6 +348,7 @@ export default function PageTransition({ children }) {
 
       return () => {
         tl.kill()
+        if (pixelOverlay) gsap.set(pixelOverlay, { display: 'none', pointerEvents: 'none' })
       }
     }
 
@@ -421,6 +422,7 @@ export default function PageTransition({ children }) {
 
     return () => {
       tl.kill()
+      if (wipeOverlay) gsap.set(wipeOverlay, { display: 'none', pointerEvents: 'none' })
     }
   }, [location.pathname, location.search])
 

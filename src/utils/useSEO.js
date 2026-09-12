@@ -116,9 +116,6 @@ export function useSEO({
       scriptEl.remove()
     }
 
-    // Scroll to top upon page navigation
-    window.scrollTo(0, 0)
-
     // Cleanup when component unmounts: remove dynamic JSON-LD
     return () => {
       const dynamicScript = document.getElementById(scriptId)

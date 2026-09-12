@@ -39,6 +39,26 @@ export default function BlogDetail() {
   const authorDepartment = typeof post.author === 'object' && post.author.department ? post.author.department : 'Quantum Optics & Research'
   const authorLinkedin = typeof post.author === 'object' ? post.author.linkedin : `https://www.linkedin.com/search/results/all/?keywords=${encodeURIComponent(authorName + ' Symbiosis Quantum Club')}`
 
+  // Memoized JSON-LD structured data to avoid unnecessary hook re-evaluations
+  const structuredData = useMemo(() => ({
+    '@context': 'https://schema.org',
+    '@type': 'ScholarlyArticle',
+    'headline': post.title,
+    'description': details.leadSummary,
+    'image': post.image,
+    'datePublished': post.date,
+    'author': {
+      '@type': 'Person',
+      'name': authorName,
+      'jobTitle': authorRole
+    },
+    'publisher': {
+      '@type': 'Organization',
+      'name': 'Symbiosis Quantum Club',
+      'url': 'https://symbiosisquantumclub.vercel.app'
+    }
+  }), [post, details.leadSummary, authorName, authorRole])
+
   // Comprehensive SEO hook
   useSEO({
     title: `${post.title} — Symbiosis Quantum Club Journal`,
@@ -49,24 +69,7 @@ export default function BlogDetail() {
     type: 'article',
     author: authorName,
     publishedTime: post.date,
-    structuredData: {
-      '@context': 'https://schema.org',
-      '@type': 'ScholarlyArticle',
-      'headline': post.title,
-      'description': details.leadSummary,
-      'image': post.image,
-      'datePublished': post.date,
-      'author': {
-        '@type': 'Person',
-        'name': authorName,
-        'jobTitle': authorRole
-      },
-      'publisher': {
-        '@type': 'Organization',
-        'name': 'Symbiosis Quantum Club',
-        'url': 'https://symbiosisquantumclub.vercel.app'
-      }
-    }
+    structuredData
   })
 
   // ── Reading states ──
@@ -89,18 +92,33 @@ export default function BlogDetail() {
     return text.trim().split(/\s+/).length
   }, [post, details])
 
+  // Guarantee body scrollability on mount and unmount
+  useEffect(() => {
+    document.body.style.overflow = ''
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [])
+
   // Scroll to top on post switch
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [post])
 
-  // Track reading progress along page
+  // Track reading progress along page (rAF throttled for 120fps performance)
   useEffect(() => {
+    let ticking = false
     const handleScroll = () => {
-      const totalHeight = document.documentElement.scrollHeight - window.innerHeight
-      if (totalHeight > 0) {
-        const progress = Math.min(100, Math.max(0, (window.scrollY / totalHeight) * 100))
-        setScrollProgress(progress)
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const totalHeight = document.documentElement.scrollHeight - window.innerHeight
+          if (totalHeight > 0) {
+            const progress = Math.min(100, Math.max(0, (window.scrollY / totalHeight) * 100))
+            setScrollProgress(progress)
+          }
+          ticking = false
+        })
+        ticking = true
       }
     }
 
@@ -109,7 +127,7 @@ export default function BlogDetail() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  // Lock scroll during lightbox
+  // Lock scroll during lightbox only
   useEffect(() => {
     if (lightboxOpen) {
       document.body.style.overflow = 'hidden'
@@ -218,7 +236,7 @@ export default function BlogDetail() {
   }, [post])
 
   return (
-    <main className="bg-[#070a08] min-h-screen text-slate-200 relative selection:bg-[#34d399]/30 selection:text-white pb-32">
+    <main className="bg-[#070a08] min-h-screen text-slate-200 relative selection:bg-[#34d399]/30 selection:text-white pb-32 overflow-x-clip">
       
       {/* ── 1. Top Reading Progress Bar (Apple-style subtle glow beam) ── */}
       <div 
