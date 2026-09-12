@@ -228,6 +228,47 @@ function useEdition() {
   return EDITION_2025
 }
 
+// Sticker assets — shared between both editions
+const STICKERS = [
+  '/assets/fallfest/2026/svg/sticker_01.svg',
+  '/assets/fallfest/2026/svg/sticker_02.svg',
+  '/assets/fallfest/2026/svg/sticker_03.svg',
+  '/assets/fallfest/2026/svg/sticker_04.svg',
+  '/assets/fallfest/2026/svg/sticker_05.svg',
+  '/assets/fallfest/2026/svg/sticker_06.svg',
+  '/assets/fallfest/2026/svg/sticker_07.svg',
+  '/assets/fallfest/2026/svg/sticker_08.svg',
+  '/assets/fallfest/2026/svg/sticker_09.svg',
+  '/assets/fallfest/2026/svg/badge-pink.svg',
+]
+
+// Vertical marquee: renders a scrolling column of stickers
+function VerticalMarquee({ stickers, direction = 'up', speed = 40 }) {
+  const items = [...stickers, ...stickers]
+  return (
+    <div className="flex flex-col gap-6 overflow-hidden h-full">
+      <div
+        className="flex flex-col gap-6"
+        style={{ animation: `${direction === 'up' ? 'marqueeUp' : 'marqueeDown'} ${speed}s linear infinite` }}
+      >
+        {items.map((src, i) => (
+          <div
+            key={i}
+            className="w-20 h-20 lg:w-24 lg:h-24 xl:w-28 xl:h-28 shrink-0 p-3 lg:p-3.5 rounded-2xl bg-white/[0.06] border border-white/[0.14] hover:border-[#FF7EB6]/60 hover:bg-white/[0.1] shadow-[0_4px_16px_rgba(0,0,0,0.4)] backdrop-blur-sm transition-all duration-300 hover:scale-105 pointer-events-auto cursor-pointer flex items-center justify-center"
+          >
+            <img
+              src={src}
+              alt=""
+              aria-hidden="true"
+              className="w-full h-full object-contain opacity-90 hover:opacity-100 transition-opacity"
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
 export default function FallFest() {
   const edition = useEdition()
   const is2026 = edition.year === '2026'
@@ -257,8 +298,31 @@ export default function FallFest() {
   }, [edition])
 
   return (
-    <main className="bg-[#060409] min-h-dvh text-slate-200 pt-[calc(72px+2rem)] pb-20">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+    <main className="bg-[#060409] min-h-dvh text-slate-200 overflow-x-clip">
+
+      {/* ── Fixed flanking sticker marquee columns (lg+) ── */}
+      <div className="fixed inset-y-0 left-1 xl:left-3 2xl:left-6 w-20 sm:w-24 lg:w-28 xl:w-32 h-screen z-0 pointer-events-none hidden lg:flex flex-col items-center overflow-hidden py-4">
+        <VerticalMarquee stickers={STICKERS} direction="up" speed={45} />
+      </div>
+      <div className="fixed inset-y-0 right-1 xl:right-3 2xl:right-6 w-20 sm:w-24 lg:w-28 xl:w-32 h-screen z-0 pointer-events-none hidden lg:flex flex-col items-center overflow-hidden py-4">
+        <VerticalMarquee stickers={[...STICKERS].reverse()} direction="down" speed={38} />
+      </div>
+
+      {/* ── Ambient scattered stickers (md+, purely decorative) ── */}
+      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden hidden md:block" aria-hidden="true">
+        <img src={STICKERS[0]} alt="" className="absolute top-24 left-24 w-24 h-24 opacity-[0.12] rotate-[-15deg] filter drop-shadow-[0_0_24px_rgba(255,126,182,0.25)]" />
+        <img src={STICKERS[5]} alt="" className="absolute top-56 left-12 w-16 h-16 opacity-[0.1] rotate-[20deg] filter drop-shadow-[0_0_20px_rgba(56,189,248,0.2)]" />
+        <img src={STICKERS[2]} alt="" className="absolute top-28 right-24 w-20 h-20 opacity-[0.12] rotate-[12deg] filter drop-shadow-[0_0_24px_rgba(167,139,250,0.25)]" />
+        <img src={STICKERS[8]} alt="" className="absolute top-64 right-12 w-16 h-16 opacity-[0.1] rotate-[-8deg] filter drop-shadow-[0_0_20px_rgba(255,126,182,0.2)]" />
+        <img src={STICKERS[4]} alt="" className="absolute top-[46%] left-16 w-18 h-18 opacity-[0.1] rotate-[6deg] filter drop-shadow-[0_0_20px_rgba(56,189,248,0.2)]" />
+        <img src={STICKERS[6]} alt="" className="absolute top-[42%] right-16 w-18 h-18 opacity-[0.1] rotate-[-10deg] filter drop-shadow-[0_0_20px_rgba(167,139,250,0.2)]" />
+        <img src={STICKERS[3]} alt="" className="absolute bottom-40 left-28 w-18 h-18 opacity-[0.12] rotate-[16deg] filter drop-shadow-[0_0_24px_rgba(56,189,248,0.25)]" />
+        <img src={STICKERS[9]} alt="" className="absolute bottom-28 right-28 w-20 h-20 opacity-[0.12] rotate-[-12deg] filter drop-shadow-[0_0_28px_rgba(255,126,182,0.25)]" />
+        <img src={STICKERS[7]} alt="" className="absolute bottom-16 left-1/2 -translate-x-1/2 w-16 h-16 opacity-[0.09] rotate-[4deg]" />
+      </div>
+
+      {/* ── Main content — padded so flanking columns don't overlap ── */}
+      <div className="relative z-10 pt-[calc(72px+2rem)] pb-20 px-4 sm:px-6 lg:px-32 xl:px-40 w-full max-w-[1440px] mx-auto">
 
         {/* ── Edition Reference Bar ── */}
         <div className="flex flex-wrap items-center justify-center gap-2.5 p-1.5 px-4 rounded-full bg-white/[0.04] border border-white/10 backdrop-blur-md mb-8">
@@ -709,7 +773,19 @@ export default function FallFest() {
           </div>
         </section>
 
-      </div>
+      </div>{/* end main content */}
+
+      {/* Marquee keyframes */}
+      <style>{`
+        @keyframes marqueeUp {
+          0%   { transform: translateY(0); }
+          100% { transform: translateY(-50%); }
+        }
+        @keyframes marqueeDown {
+          0%   { transform: translateY(-50%); }
+          100% { transform: translateY(0); }
+        }
+      `}</style>
     </main>
   )
 }
