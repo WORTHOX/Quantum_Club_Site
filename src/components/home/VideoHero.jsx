@@ -117,7 +117,7 @@ export default function VideoHero() {
         <div className="col-span-12 lg:col-span-6 flex flex-col items-start min-w-0 w-full">
 
           {/* Eyebrow */}
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-purple-500/30 bg-[#0e0720]/50 backdrop-blur-md mb-6 max-w-full">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#0e0720]/50 backdrop-blur-md mb-6 max-w-full">
             <span className="hero__eyebrow font-pixel text-[10px] sm:text-[11px] font-semibold tracking-widest text-purple-200 uppercase truncate">
               IBM Qiskit Fall Fest 2026
               <span className="mx-1.5 text-purple-400/50 font-light">/</span>

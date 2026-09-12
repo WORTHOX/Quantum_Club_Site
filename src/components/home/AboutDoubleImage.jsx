@@ -45,7 +45,7 @@ export default function AboutDoubleImage() {
           {/* ── Right: Editorial Content formatted cleanly ── */}
           <div className="flex flex-col gap-5">
 
-            <div className="inline-flex items-center px-3.5 py-1.5 rounded-full bg-[#0e0720]/50 border border-purple-500/30 backdrop-blur-md self-start">
+            <div className="inline-flex items-center px-3.5 py-1.5 rounded-full bg-[#0e0720]/50 backdrop-blur-md self-start">
               <span className="font-pixel text-[11px] font-bold tracking-widest text-purple-300 uppercase">
                 OUR MISSION &amp; ROOTS
               </span>

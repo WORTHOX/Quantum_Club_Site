@@ -316,7 +316,7 @@ export default function PioneersParallax() {
 
         {/* Section Header: Swiss Archival Specimen Standard */}
         <div className="pioneers__title-block text-center mb-16 relative z-10">
-          <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-[#0e0720]/60 border border-purple-500/30 mb-4 backdrop-blur-md shadow-[0_0_20px_rgba(168,85,247,0.15)]">
+          <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-[#0e0720]/60 backdrop-blur-md mb-4">
             <span className="font-pixel text-[11px] font-semibold text-purple-300 uppercase tracking-widest">
               ARCHIVE SPECIMENS &nbsp;·&nbsp; 1981 — 2026
             </span>
