@@ -862,61 +862,57 @@ export default function BlogDetail() {
 
       </div>
 
-      {/* ── 8. Fullscreen Lightbox Modal (Portaled Directly to Body to Clear All Stacking Contexts) ── */}
+      {/* ── 8. Fullscreen Lightbox Modal (Exact Same Looking Card Just Expanded) ── */}
       {lightboxOpen && typeof document !== 'undefined' && createPortal(
         <div
-          className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/90 backdrop-blur-md px-4 pt-24 pb-8 sm:px-6 sm:pt-28 sm:pb-10 overflow-y-auto animate-fadeIn"
+          className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/85 backdrop-blur-md px-4 pt-20 pb-8 sm:px-6 sm:pt-24 sm:pb-10 overflow-y-auto animate-fadeIn"
           onClick={() => setLightboxOpen(false)}
           role="dialog"
           aria-modal="true"
           aria-label={post.title}
         >
-          {/* Top-Right Fixed Close Button */}
-          <button
-            onClick={() => setLightboxOpen(false)}
-            className="fixed top-4 right-4 sm:top-5 sm:right-6 z-[10000] inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#121513]/90 hover:bg-rose-600 text-white border border-white/20 text-xs font-mono font-medium tracking-wider uppercase backdrop-blur-md shadow-2xl transition-all duration-200 cursor-pointer hover:scale-105 active:scale-95"
-            aria-label="Close photo preview"
-          >
-            <span>Close</span>
-            <span className="text-sm font-bold leading-none">✕</span>
-          </button>
-
-          {/* Lightbox Modal Card */}
+          {/* Exact Same Looking Card Just Expanded */}
           <div
-            className="relative w-auto max-w-[92vw] sm:max-w-2xl md:max-w-3xl lg:max-w-4xl max-h-[calc(100vh-8.5rem)] bg-[#121513] p-3 sm:p-4 rounded-xl shadow-[0_25px_70px_rgba(0,0,0,0.9),0_0_40px_rgba(16,185,129,0.15)] border border-white/20 flex flex-col my-auto transition-all"
+            className="relative w-auto max-w-[94vw] sm:max-w-3xl md:max-w-4xl lg:max-w-5xl max-h-[calc(100dvh-6.5rem)] rounded-2xl sm:rounded-3xl overflow-hidden bg-[#121513] border border-white/20 shadow-[0_30px_90px_rgba(0,0,0,0.95),0_0_60px_rgba(16,185,129,0.25)] flex flex-col justify-end my-auto transition-all select-none"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Card Internal Close Button */}
+            {/* Single Unified Close Button — Pinned directly to the card's top-right corner */}
             <button
               onClick={() => setLightboxOpen(false)}
-              className="absolute top-2.5 right-2.5 sm:top-3 sm:right-3 w-8 h-8 rounded-full bg-black/80 hover:bg-rose-600 text-white border border-white/20 text-xs sm:text-sm flex items-center justify-center transition-all duration-200 shadow-xl z-20 cursor-pointer hover:scale-105 active:scale-95"
-              aria-label="Close preview"
+              className="absolute top-3 right-3 sm:top-4 sm:right-4 z-30 inline-flex items-center gap-2 px-3 sm:px-3.5 py-1.5 rounded-full bg-[#070a08]/85 hover:bg-rose-600 text-slate-200 hover:text-white border border-white/20 text-xs font-mono font-medium tracking-wider uppercase backdrop-blur-md shadow-2xl transition-all duration-200 cursor-pointer hover:scale-105 active:scale-95"
+              aria-label="Close photo preview"
               title="Close (Esc)"
             >
-              ✕
+              <span>Close</span>
+              <span className="text-xs font-bold leading-none">✕</span>
             </button>
 
-            {/* Photo Container */}
-            <div className="overflow-hidden bg-neutral-950 relative shadow-inner rounded-lg max-h-[58vh] sm:max-h-[66vh] flex items-center justify-center">
+            {/* Photo Container with Same Gradient Overlay */}
+            <div
+              className="w-full overflow-hidden bg-neutral-950 relative flex items-center justify-center"
+              style={{ maxHeight: 'calc(100dvh - 12rem)' }}
+            >
               <img
                 src={post.image}
                 alt={post.title}
-                className="max-h-[58vh] sm:max-h-[66vh] max-w-full w-auto h-auto object-contain filter contrast-[1.02] block select-none"
+                className="w-full h-auto max-h-[calc(100dvh-12rem)] object-contain filter contrast-[1.02] brightness-[0.98] select-none block"
               />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#070a08]/85 via-transparent to-black/20 pointer-events-none" />
             </div>
 
-            {/* Caption Row */}
-            <div className="pt-3 px-1 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
-              <div className="min-w-0">
-                <span className="font-mono text-xs text-[#34d399] font-medium block">
-                  {post.imageCaption || `FIGURE 1.0 — ${post.category.toUpperCase()}`}
+            {/* Bottom Figure Caption Bar — Matching Exact Hero Card */}
+            <div className="absolute bottom-3 left-4 right-4 sm:bottom-4 sm:left-6 sm:right-6 flex items-center justify-between pointer-events-none">
+              <div className="flex items-center gap-2 max-w-[80%]">
+                <span className="font-mono text-[10px] sm:text-xs text-slate-200 bg-[#070a08]/85 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/15 truncate shadow-lg">
+                  {post.imageCaption || `FIGURE 1.0 — ${post.category.toUpperCase()} RESEARCH APPARATUS`}
                 </span>
-                <span className="font-display text-sm font-semibold text-white truncate block">
-                  {post.title}
+                <span className="hidden sm:inline-block font-mono text-[10px] text-[#34d399] bg-[#121513]/90 backdrop-blur-md px-3 py-1.5 rounded-full border border-[#34d399]/30">
+                  Enlarged Figure View
                 </span>
               </div>
-              <span className="font-mono text-xs text-slate-400 shrink-0">
-                {authorName} • {formatDate(post.date)}
+
+              <span className="font-mono text-[10px] text-slate-400 bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/10 hidden md:inline-block">
+                Esc to close
               </span>
             </div>
           </div>

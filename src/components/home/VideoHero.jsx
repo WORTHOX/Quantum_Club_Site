@@ -249,62 +249,64 @@ export default function VideoHero() {
 
       </div>
 
-      {/* Lightbox Modal for Full Uncropped View — Portaled directly to body to escape parent stacking contexts */}
+      {/* Lightbox Modal for Full Uncropped View — Exact Same Looking Polaroid Card Just Expanded */}
       {activePhoto && typeof document !== 'undefined' && createPortal(
         <div
-          className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/90 backdrop-blur-md px-4 pt-24 pb-8 sm:px-6 sm:pt-28 sm:pb-10 overflow-y-auto animate-fadeIn"
+          className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/85 backdrop-blur-md px-4 pt-20 pb-8 sm:px-6 sm:pt-24 sm:pb-10 overflow-y-auto animate-fadeIn"
           onClick={() => setActivePhoto(null)}
           role="dialog"
           aria-modal="true"
           aria-label={activePhoto.caption}
         >
-          {/* Top-Right Floating Viewport Close Button (always accessible & completely above all page elements) */}
-          <button
-            onClick={() => setActivePhoto(null)}
-            className="fixed top-4 right-4 sm:top-5 sm:right-6 z-[10000] inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#121513]/90 hover:bg-rose-600 text-white/90 hover:text-white border border-white/20 text-xs font-mono font-medium tracking-wider uppercase backdrop-blur-md shadow-2xl transition-all duration-200 cursor-pointer hover:scale-105 active:scale-95"
-            aria-label="Close photo preview"
-          >
-            <span>Close</span>
-            <span className="text-sm font-bold leading-none">✕</span>
-          </button>
-
-          {/* Polaroid Preview Card — Scaled to comfortably fit below navbar without overflow */}
+          {/* Exact Same Looking Polaroid Card Just Expanded */}
           <div
-            className="relative w-auto max-w-[92vw] sm:max-w-xl md:max-w-2xl lg:max-w-3xl max-h-[calc(100vh-8.5rem)] bg-[#faf8f5] p-3 sm:p-4 pb-3.5 sm:pb-4 rounded-sm shadow-[0_25px_70px_rgba(0,0,0,0.9),0_0_40px_rgba(168,85,247,0.15)] border border-stone-300/80 flex flex-col my-auto transition-all"
+            className="relative w-auto max-w-[92vw] sm:max-w-xl md:max-w-2xl lg:max-w-3xl max-h-[calc(100dvh-6.5rem)] p-3.5 sm:p-5 pb-5 sm:pb-6 rounded-md sm:rounded-lg bg-[#faf8f5] border border-stone-200/95 shadow-[0_30px_90px_rgba(0,0,0,0.95),0_0_50px_rgba(168,85,247,0.25)] flex flex-col my-auto transition-all select-none"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Card-level Close Button */}
+            {/* Washi Tape Strip — Exactly like the hero card, scaled up */}
+            <div
+              className={`absolute -top-3.5 sm:-top-4 left-1/2 -translate-x-1/2 w-16 sm:w-20 h-4 sm:h-5 ${activePhoto.tapeColor} backdrop-blur-sm z-30 shadow-sm border pointer-events-none opacity-95 -rotate-1`}
+            />
+
+            {/* Single Unified Close Button — Pinned directly to the card's top-right corner */}
             <button
               onClick={() => setActivePhoto(null)}
-              className="absolute top-2.5 right-2.5 sm:top-3 sm:right-3 w-8 h-8 rounded-full bg-[#121513]/90 hover:bg-rose-600 text-white border border-white/20 text-xs sm:text-sm flex items-center justify-center transition-all duration-200 shadow-xl z-20 cursor-pointer hover:scale-105 active:scale-95"
+              className="absolute -top-3 -right-3 sm:-top-3.5 sm:-right-3.5 z-40 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#121513] hover:bg-rose-600 text-white border border-white/20 shadow-2xl flex items-center justify-center transition-all duration-200 cursor-pointer hover:scale-110 active:scale-95"
               aria-label="Close photo preview"
               title="Close (Esc)"
             >
-              ✕
+              <span className="text-xs sm:text-sm font-bold leading-none">✕</span>
             </button>
 
-            {/* Photo Box — Constrained height so portrait photos fit comfortably */}
-            <div className="overflow-hidden bg-neutral-950 relative shadow-inner rounded-sm max-h-[52vh] sm:max-h-[58vh] flex items-center justify-center">
+            {/* Polaroid Photo Box — Matching exact styling and natural aspect ratio */}
+            <div
+              className="w-full overflow-hidden bg-neutral-900 relative shadow-[inset_0_0_10px_rgba(0,0,0,0.45)] rounded-[2px] flex items-center justify-center"
+              style={{
+                aspectRatio: activePhoto.aspectRatio,
+                maxHeight: 'calc(100dvh - 14rem)',
+              }}
+            >
               <img
                 src={activePhoto.image}
                 alt={activePhoto.caption}
-                className="max-h-[52vh] sm:max-h-[58vh] max-w-full w-auto h-auto object-contain filter contrast-[1.02] block select-none"
+                className="w-full h-full object-contain filter contrast-[1.03] brightness-[0.98] select-none block"
               />
+              <div className="absolute inset-0 bg-gradient-to-tr from-black/15 via-transparent to-white/15 pointer-events-none" />
             </div>
 
-            {/* Polaroid Bottom Caption Row */}
-            <div className="pt-2.5 sm:pt-3 px-1 flex items-baseline justify-between gap-4">
-              <div className="min-w-0">
-                <h3 className="font-sans text-sm sm:text-base font-bold text-slate-900 m-0 truncate">
+            {/* Polaroid Bottom Caption Row — Matching exact font hierarchy and alignment */}
+            <div className="pt-3 sm:pt-4 px-1">
+              <div className="flex items-baseline justify-between gap-3">
+                <h3 className="font-sans text-sm sm:text-base md:text-lg font-bold text-slate-800 tracking-tight leading-snug truncate m-0">
                   {activePhoto.caption}
                 </h3>
-                <p className="font-mono text-xs text-slate-600 m-0 mt-0.5 truncate">
-                  {activePhoto.subtitle}
-                </p>
+                <span className="font-mono text-[10px] sm:text-xs text-slate-500 shrink-0 font-semibold">
+                  {activePhoto.date}
+                </span>
               </div>
-              <span className="font-mono text-xs text-slate-500 font-semibold shrink-0">
-                {activePhoto.date}
-              </span>
+              <p className="block font-mono text-[10px] sm:text-xs text-slate-500/90 tracking-wide mt-1 m-0 truncate">
+                {activePhoto.subtitle}
+              </p>
             </div>
           </div>
         </div>,
