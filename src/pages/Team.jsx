@@ -453,7 +453,7 @@ export default function Team() {
             <span className="block font-mono text-xs uppercase tracking-[0.15em] text-cyan-400 mb-2 font-medium">ADVISORY COUNCIL</span>
             <h2 id="advisors-heading" className="font-display text-2xl sm:text-3xl font-bold text-white tracking-tight leading-tight">Advisors</h2>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
             {teamData.advisors.map((advisor, idx) => {
               const linkedinUrl = getLinkedinUrl(advisor.linkedin, advisor.name)
               return (
@@ -478,11 +478,14 @@ export default function Team() {
                   <div className="p-4 sm:p-5 flex-1 flex flex-col justify-center relative overflow-hidden">
                     <div className="relative z-10">
                       <span className="block font-mono text-xs uppercase tracking-wider text-cyan-400/90 mb-1 font-medium">{advisor.role}</span>
-                      <h3 className="font-display text-base sm:text-lg font-semibold text-white tracking-tight">
+                      <h3 className="font-display text-base sm:text-lg font-semibold text-white tracking-tight mb-1">
                         <a href={linkedinUrl} target="_blank" rel="noopener noreferrer" className="hover:text-cyan-400 transition-colors">
                           {advisor.name}
                         </a>
                       </h3>
+                      {advisor.bio && (
+                        <p className="font-body text-xs text-gray-400 leading-relaxed">{advisor.bio}</p>
+                      )}
                     </div>
 
                     {/* Group Style 2: Advisors Signature Watermark */}
