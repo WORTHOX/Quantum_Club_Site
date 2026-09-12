@@ -2,31 +2,25 @@
   {
     "id": "workshops",
     "title": "Workshops",
-    "description": "Hands-on sessions with Qiskit, quantum circuits, and real IBM hardware.",
-    "image": "/assets/images/story-workshops.jpg"
-  },
-  {
-    "id": "hackathon",
-    "title": "Hackathons",
-    "description": "48-hour sprints building quantum applications that solve real problems.",
-    "image": "/assets/images/story-hackathon.jpg"
+    "description": "Hands-on sessions with Qiskit, quantum circuits, and cloud IBM Quantum access.",
+    "image": "/assets/events/iiser-visit-extra/photo-6.jpg"
   },
   {
     "id": "speakers",
     "title": "Guest Lectures",
     "description": "Talks from IBM researchers, quantum startups, and academic leaders.",
-    "image": "/assets/images/story-speakers.jpg"
+    "image": "/assets/events/fall-fest-2025/photo-5.jpg"
   },
   {
-    "id": "lab",
-    "title": "Lab Sessions",
-    "description": "Running circuits on IBM quantum processors and analyzing results.",
-    "image": "/assets/images/story-lab.jpg"
+    "id": "research",
+    "title": "Research Visits",
+    "description": "Field visits to premier research institutes like IISER Pune and collaborative study groups.",
+    "image": "/assets/events/iiser-visit/photo-8.jpg"
   },
   {
     "id": "community",
     "title": "Community",
     "description": "Building connections across colleges, companies, and countries.",
-    "image": "/assets/images/story-community.jpg"
+    "image": "/assets/events/ice-breaker-2026/photo-5.jpg"
   }
 ]

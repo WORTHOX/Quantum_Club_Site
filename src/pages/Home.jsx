@@ -8,9 +8,8 @@ import WhyQuantumMarquee from '../components/home/WhyQuantumMarquee'
 import AboutDoubleImage from '../components/home/AboutDoubleImage'
 import PioneersParallax from '../components/home/PioneersParallax'
 import DepartureHUD from '../components/home/DepartureHUD'
-import DecadeTimeline from '../components/home/DecadeTimeline'
 import QuantumLifeStories from '../components/home/QuantumLifeStories'
-import VideoRecap from '../components/home/VideoRecap'
+import DecadeTimeline from '../components/home/DecadeTimeline'
 import Testimonials from '../components/home/Testimonials'
 
 export default function Home() {
@@ -57,9 +56,8 @@ export default function Home() {
           </div>
         </section>
 
-        <DecadeTimeline />
         <QuantumLifeStories />
-        <VideoRecap />
+        <DecadeTimeline />
         <Testimonials />
       </div>
     </main>

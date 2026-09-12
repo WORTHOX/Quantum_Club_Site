@@ -448,35 +448,35 @@ export default function PageTransition({ children }) {
             }}
           />
 
-          {/* Bottom-right destination label — thin white border stroke, gradient fill inside text */}
+          {/* Bottom-right destination label — site font-display (Space Grotesk) */}
           <div
             ref={wipeHudRef}
-            className="absolute bottom-8 right-8 sm:bottom-12 sm:right-12 lg:bottom-16 lg:right-16 flex flex-col items-end select-none pointer-events-none text-right"
+            className="absolute bottom-8 right-8 sm:bottom-12 sm:right-12 lg:bottom-16 lg:right-16 flex flex-col items-end gap-3 select-none pointer-events-none text-right"
             style={{ opacity: 0 }}
           >
-            {/* Gradient-filled text with thinner white stroke border */}
+            {/* Pixel eyebrow — matches site HUD badge style */}
             <span
-              className="italic uppercase font-black leading-none pointer-events-none select-none"
+              className="font-pixel text-[11px] font-bold tracking-[0.22em] uppercase"
+              style={{ color: wipeMeta.accent }}
+            >
+              SYMBIOSIS QUANTUM CLUB ✦ NAVIGATING
+            </span>
+
+            {/* Big display label — Space Grotesk, same as all hero/section headings */}
+            <span
+              className="font-display font-extrabold uppercase leading-none select-none"
               style={{
-                fontFamily: "'Lilita One', 'Dela Gothic One', 'Space Grotesk', Impact, sans-serif",
-                fontSize: 'clamp(5.8rem, 13vw, 12rem)',
-                // Gradient clipped to text interior
+                fontSize: 'clamp(4.5rem, 11vw, 10rem)',
                 backgroundImage: wipeMeta.textGradient,
                 WebkitBackgroundClip: 'text',
                 backgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
                 color: 'transparent',
-                // Thinner pure white border stroke around each letter
-                WebkitTextStroke: '1.5px #ffffff',
+                WebkitTextStroke: '1px rgba(255,255,255,0.4)',
                 paintOrder: 'stroke fill',
-                lineHeight: 0.95,
-                userSelect: 'none',
-                transform: 'scaleX(0.82)',
-                transformOrigin: 'right center',
-                display: 'block',
-                letterSpacing: '-0.02em',
-                paddingRight: 'clamp(0.8rem, 1.8vw, 1.8rem)',
-                filter: 'drop-shadow(0 6px 30px rgba(0,0,0,0.5))',
+                letterSpacing: '-0.03em',
+                lineHeight: 0.92,
+                filter: 'drop-shadow(0 4px 24px rgba(0,0,0,0.4))',
               }}
             >
               {wipeMeta.label}
@@ -516,58 +516,60 @@ export default function PageTransition({ children }) {
           ))}
         </div>
 
-        {/* Center HUD for Card Title in Lilita One font */}
+        {/* Center HUD for Card Title — site font system */}
         <div
           ref={pixelHudRef}
           className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center z-10"
         >
-          {/* Eyebrow badge */}
+          {/* Eyebrow badge — font-pixel (Departure Mono), matches site HUD badge style */}
           <div
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-4 border backdrop-blur-md"
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-5 border backdrop-blur-md"
             style={{
-              backgroundColor: `${pixelMeta.accent}18`,
-              borderColor: `${pixelMeta.accent}50`,
-              boxShadow: `0 0 20px ${pixelMeta.accent}25`,
+              backgroundColor: `${pixelMeta.accent}15`,
+              borderColor: `${pixelMeta.accent}45`,
+              boxShadow: `0 0 20px ${pixelMeta.accent}20`,
             }}
           >
-            <span className="w-2 h-2 rounded-full animate-pulse" style={{ backgroundColor: pixelMeta.accent }} />
-            <span className="font-mono text-[0.68rem] font-bold tracking-[0.22em] uppercase" style={{ color: pixelMeta.accent }}>
+            <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ backgroundColor: pixelMeta.accent }} />
+            <span
+              className="font-pixel text-[11px] font-bold tracking-[0.2em] uppercase"
+              style={{ color: pixelMeta.accent }}
+            >
               SYMBIOSIS QUANTUM CLUB ✦ {pixelMeta.type}
             </span>
           </div>
 
-          {/* Detail Title */}
+          {/* Detail Title — font-display (Space Grotesk), same as all hero/section headings */}
           <h2
-            className="m-0 uppercase leading-tight max-w-[950px] px-4"
+            className="font-display font-extrabold uppercase leading-[1.0] tracking-tight m-0 max-w-[900px] px-4 text-white"
             style={{
-              fontFamily: "'Lilita One', 'Dela Gothic One', 'Rubik Mono One', Impact, sans-serif",
-              fontSize: 'clamp(2.2rem, 5.5vw, 4.8rem)',
-              color: '#ffffff',
-              letterSpacing: '-0.01em',
-              textShadow: `3px 3px 0 ${pixelMeta.accent}, 7px 7px 0 #030504, 0 0 60px ${pixelMeta.accent}70`,
-              WebkitTextStroke: '1px rgba(255, 255, 255, 0.15)',
+              fontSize: 'clamp(2rem, 5vw, 4.5rem)',
+              textShadow: `0 0 60px ${pixelMeta.accent}55`,
             }}
           >
             {pixelMeta.title}
           </h2>
 
-          {/* Subtitle */}
-          <p className="mt-3 m-0 font-mono text-xs font-semibold uppercase tracking-[0.18em] text-slate-400 max-w-[70ch] px-4">
+          {/* Subtitle — font-pixel, matches HUD telemetry labels throughout the site */}
+          <p
+            className="font-pixel text-[11px] uppercase tracking-[0.18em] mt-4 m-0 max-w-[60ch] px-4"
+            style={{ color: `${pixelMeta.accent}aa` }}
+          >
             {pixelMeta.subtitle}
           </p>
 
-          {/* Pixel bar indicator */}
-          <div className="mt-6 flex items-center gap-2">
+          {/* Segmented bar — matches progress bar style used in Preloader & HUD */}
+          <div className="mt-7 flex items-center gap-2">
             {[32, 20, 14, 8].map((w, i) => (
               <div
                 key={i}
                 className="rounded-sm"
                 style={{
                   width: w,
-                  height: 6,
+                  height: 3,
                   backgroundColor: pixelMeta.accent,
-                  opacity: [1, 0.75, 0.5, 0.25][i],
-                  boxShadow: `0 0 10px ${pixelMeta.accent}`,
+                  opacity: [1, 0.6, 0.35, 0.18][i],
+                  boxShadow: i === 0 ? `0 0 8px ${pixelMeta.accent}` : 'none',
                 }}
               />
             ))}

@@ -1,376 +1,287 @@
-import { useState, useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import gsap from 'gsap'
 
+const POLAROIDS = [
+  {
+    id: 1,
+    image: '/team-brainstorm.jpeg',
+    caption: 'Core Brainstorm',
+    subtitle: 'Roadmap & ideation',
+    date: 'AY 2025–26',
+    aspectRatio: '1280 / 960',
+    rotation: '-rotate-6',
+    position: 'top-1 left-0 sm:left-2',
+    zIndex: 'z-10',
+    tapePosition: '-top-3.5 left-7 -rotate-6',
+    tapeColor: 'bg-white/65 border-white/40',
+    width: 'w-36 xs:w-40 sm:w-56 lg:w-64',
+  },
+  {
+    id: 2,
+    image: '/feedback-wall.jpeg',
+    caption: 'Student Voices',
+    subtitle: 'Quantum is the future ✦',
+    date: 'Feedback Wall',
+    aspectRatio: '960 / 1280',
+    rotation: 'rotate-6',
+    position: 'top-2 right-0 sm:right-2',
+    zIndex: 'z-15',
+    tapePosition: '-top-3.5 right-7 rotate-6',
+    tapeColor: 'bg-pink-300/60 border-pink-200/50',
+    width: 'w-28 xs:w-32 sm:w-46 lg:w-52',
+  },
+  {
+    id: 3,
+    image: '/club-induction.jpeg',
+    caption: 'Quantum Ice Breaker',
+    subtitle: 'Auditorium launch @ SIT',
+    date: 'Jul 2025',
+    aspectRatio: '1280 / 720',
+    rotation: '-rotate-2',
+    position: 'top-24 sm:top-36 lg:top-40 left-1/2 -translate-x-1/2',
+    zIndex: 'z-25',
+    tapePosition: '-top-3.5 left-1/2 -translate-x-1/2 -rotate-1',
+    tapeColor: 'bg-cyan-200/60 border-cyan-100/50',
+    width: 'w-40 xs:w-48 sm:w-68 lg:w-76 xl:w-80',
+  },
+  {
+    id: 4,
+    image: '/classroom-session.jpg',
+    caption: 'Classroom Sessions',
+    subtitle: 'Foundations & math @ SIT',
+    date: 'AY 2025–26',
+    aspectRatio: '3840 / 2160',
+    rotation: 'rotate-3',
+    position: 'bottom-2 left-0 sm:left-2',
+    zIndex: 'z-20',
+    tapePosition: '-top-3.5 left-7 rotate-3',
+    tapeColor: 'bg-amber-200/60 border-amber-100/50',
+    width: 'w-36 xs:w-42 sm:w-60 lg:w-68 xl:w-72',
+  },
+  {
+    id: 5,
+    image: '/team-night-sync.jpeg',
+    caption: 'Late Night Sync',
+    subtitle: 'Qiscade build sprint ☕',
+    date: 'Sep 2025',
+    aspectRatio: '720 / 1280',
+    rotation: '-rotate-4',
+    position: 'bottom-1 right-0 sm:right-2',
+    zIndex: 'z-30',
+    tapePosition: '-top-3.5 right-7 -rotate-4',
+    tapeColor: 'bg-purple-300/60 border-purple-200/50',
+    width: 'w-24 xs:w-28 sm:w-40 lg:w-46',
+  },
+]
+
 export default function VideoHero() {
   const heroRef = useRef(null)
-  const textRef = useRef(null)
-  const consoleRef = useRef(null)
-
-  // Interactive instrument tab state
-  const [activeTab, setActiveTab] = useState('physics')
-
-  // Imperative wave animation — no React state, no re-renders
-  const wavePathRef = useRef(null)
-  const waveRafRef = useRef(null)
-  const wavePhaseRef = useRef(0)
+  const [activePhoto, setActivePhoto] = useState(null)
 
   useEffect(() => {
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    if (prefersReduced) return
-
-    const animate = () => {
-      wavePhaseRef.current = (wavePhaseRef.current + 0.15) % (Math.PI * 2)
-      const path = wavePathRef.current
-      if (path) {
-        const pts = []
-        for (let x = 0; x <= 320; x += 3) {
-          const t = x / 320
-          const env = Math.exp(-t * 2.2)
-          const y = 32 - env * 24 * Math.cos((x * 0.08) + wavePhaseRef.current)
-          pts.push(`${x},${y}`)
-        }
-        path.setAttribute('d', `M ${pts.join(' L ')}`)
-      }
-      waveRafRef.current = requestAnimationFrame(animate)
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') setActivePhoto(null)
     }
-    waveRafRef.current = requestAnimationFrame(animate)
-    return () => cancelAnimationFrame(waveRafRef.current)
-  }, [activeTab])
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [])
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ delay: 0.15 })
-
-      tl.from('.hero__eyebrow', {
-        y: 16,
-        opacity: 0,
-        duration: 0.6,
-        ease: 'power3.out',
-      })
-      .from('.hero__title-word', {
-        y: 45,
-        opacity: 0,
-        duration: 0.7,
-        stagger: 0.08,
-        ease: 'power3.out',
-      }, '-=0.4')
-      .from('.hero__description', {
-        y: 20,
-        opacity: 0,
-        duration: 0.6,
-        ease: 'power3.out',
-      }, '-=0.3')
-      .from('.hero__stats', {
-        y: 20,
-        opacity: 0,
-        duration: 0.6,
-        ease: 'power3.out',
-      }, '-=0.25')
-      .from('.hero__actions', {
-        y: 20,
-        opacity: 0,
-        duration: 0.6,
-        ease: 'power3.out',
-      }, '-=0.2')
-      .from('.hero__console', {
-        y: 35,
-        opacity: 0,
-        duration: 0.8,
-        ease: 'power3.out',
-        clearProps: 'opacity',
-        onComplete: () => {
-          gsap.to('.hero__console', {
-            y: -8,
-            duration: 4.2,
-            repeat: -1,
-            yoyo: true,
-            ease: 'sine.inOut',
-          })
-        },
-      }, '-=0.5')
+      const tl = gsap.timeline({ delay: 0.1 })
+      tl.from('.hero__eyebrow', { y: 16, opacity: 0, duration: 0.55, ease: 'power3.out' })
+        .from('.hero__title-word', { y: 40, opacity: 0, duration: 0.65, stagger: 0.07, ease: 'power3.out' }, '-=0.35')
+        .from('.hero__description', { y: 18, opacity: 0, duration: 0.55, ease: 'power3.out' }, '-=0.3')
+        .from('.hero__actions', { y: 18, opacity: 0, duration: 0.55, ease: 'power3.out' }, '-=0.25')
+        .from('.hero__polaroid', {
+          y: 40, opacity: 0, scale: 0.85, stagger: 0.08, duration: 0.7, ease: 'back.out(1.4)',
+          clearProps: 'all'
+        }, '-=0.3')
+        .to('.hero__polaroid-cluster', {
+          y: -8, duration: 4.5, repeat: -1, yoyo: true, ease: 'sine.inOut'
+        })
     }, heroRef)
-
     return () => ctx.revert()
   }, [])
 
   return (
-    <section className="relative min-h-screen flex flex-col justify-center pt-28 pb-16 overflow-hidden bg-transparent text-white" ref={heroRef} id="hero">
-      {/* Main Grid: Left Hero Copy + Right Interactive Quantum Laboratory Console */}
-      <div className="relative z-10 w-full max-w-[1440px] mx-auto px-5 sm:px-8 md:px-12 lg:px-16 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
-        
-        {/* Left Side: Editorial Content */}
-        <div className="col-span-12 lg:col-span-7 flex flex-col items-start" ref={textRef}>
-          {/* Eyebrow Lockup with Luminous Pulse Dot */}
-          <div className="flex items-center gap-4 mb-6">
-            <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full border border-purple-500/30 bg-[#0e0720]/50 backdrop-blur-md shadow-[0_0_20px_rgba(168,85,247,0.15)]">
-              <span className="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse shadow-[0_0_8px_#c084fc]" />
-              <span className="hero__eyebrow font-pixel text-[11px] sm:text-xs font-semibold tracking-widest text-purple-200 uppercase">
-                SYMBIOSIS QUANTUM CLUB ✦ IBM QISKIT FALL FEST 2026
-              </span>
-            </div>
+    <section
+      className="relative min-h-screen flex flex-col justify-center pt-24 pb-16 overflow-hidden bg-transparent text-white"
+      ref={heroRef}
+      id="hero"
+    >
+      <div className="relative z-10 w-full max-w-[1440px] mx-auto px-4 sm:px-8 md:px-12 lg:px-16 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+
+        {/* ── Left: Hero copy ── */}
+        <div className="col-span-12 lg:col-span-6 flex flex-col items-start min-w-0 w-full">
+
+          {/* Eyebrow */}
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-purple-500/30 bg-[#0e0720]/50 backdrop-blur-md mb-6 max-w-full">
+            <span className="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse shrink-0" />
+            <span className="hero__eyebrow font-pixel text-[10px] sm:text-[11px] font-semibold tracking-widest text-purple-200 uppercase truncate">
+              IBM Qiskit Fall Fest 2026 · Official Host
+            </span>
           </div>
 
-          {/* Headline with High-Fidelity Gradient Finish (Strict 3 Lines) */}
-          <h1 className="font-display text-[clamp(2.8rem,5.8vw,5.8rem)] font-bold leading-[0.98] tracking-tight mb-6 text-white">
+          {/* Headline */}
+          <h1 className="font-display text-[clamp(2.05rem,6.2vw,5.5rem)] font-bold leading-[0.98] tracking-tight mb-5 text-white break-words">
             <span className="block">
               <span className="hero__title-word inline-block">Decode</span>
             </span>
             <span className="block">
-              <span className="hero__title-word inline-block bg-gradient-to-r from-white via-slate-100 to-slate-300 bg-clip-text text-transparent">The Future</span>
+              <span className="hero__title-word inline-block bg-gradient-to-r from-white via-slate-100 to-slate-300 bg-clip-text text-transparent">the Future</span>
             </span>
             <span className="block">
-              <span className="hero__title-word inline-block bg-gradient-to-r from-purple-300 via-violet-200 to-cyan-300 bg-clip-text text-transparent">Of Quantum</span>
+              <span className="hero__title-word inline-block bg-gradient-to-r from-purple-300 via-violet-200 to-cyan-300 bg-clip-text text-transparent">of Quantum</span>
             </span>
           </h1>
 
-          {/* Description */}
-          <p className="hero__description font-body text-base sm:text-lg leading-relaxed text-slate-300 max-w-[58ch] mb-8">
-            Symbiosis Quantum Club is an experiential launchpad for student researchers, hardware builders, and algorithm pioneers. Explore quantum linear algebra, transmon physics, and molecular Hamiltonian simulation with IBM Qiskit.
+          {/* Description — concise, readable */}
+          <p className="hero__description font-body text-base sm:text-[1.05rem] leading-[1.7] text-slate-300 max-w-[46ch] mb-8">
+            Symbiosis Quantum Club is a student-led community at SIT Pune — running workshops, hackathons, and cloud quantum computing sessions with Qiskit.
           </p>
 
-          {/* Live Scientific & Hardware Telemetry Badges */}
-          <div className="hero__stats flex flex-wrap items-center gap-2.5 sm:gap-3 mb-9">
-            <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#0a0715]/75 border border-purple-500/30 backdrop-blur-md shadow-[0_4px_16px_rgba(168,85,247,0.15)] hover:border-purple-400/50 hover:-translate-y-0.5 transition-all">
-              <span className="w-2 h-2 rounded-full bg-purple-400 animate-pulse shadow-[0_0_8px_#c084fc]" />
-              <span className="font-pixel text-[11px] font-semibold text-purple-200">500+ Qubits Simulated</span>
-            </div>
-            <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#0a0715]/75 border border-cyan-500/30 backdrop-blur-md shadow-[0_4px_16px_rgba(6,182,212,0.15)] hover:border-cyan-400/50 hover:-translate-y-0.5 transition-all">
-              <span className="w-2 h-2 rounded-full bg-cyan-400 shadow-[0_0_8px_#38bdf8]" />
-              <span className="font-pixel text-[11px] font-semibold text-cyan-200">Student Quantum Community</span>
-            </div>
-            <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#0a0715]/75 border border-emerald-500/30 backdrop-blur-md shadow-[0_4px_16px_rgba(16,185,129,0.15)] hover:border-emerald-400/50 hover:-translate-y-0.5 transition-all">
-              <span className="font-pixel text-[11px] font-semibold text-emerald-300">✦ IBM Qiskit Partner</span>
-            </div>
-          </div>
-
-          {/* Actions with Apple-Grade Precision Lighting & Inner Highlight */}
-          <div className="hero__actions flex flex-wrap items-center gap-4">
-            <Link 
-              to="/events?category=fall-fest" 
-              className="inline-flex items-center gap-3 font-mono text-xs sm:text-sm font-bold uppercase tracking-wider px-7 py-3.5 rounded-full bg-gradient-to-r from-purple-600 via-violet-600 to-indigo-600 text-white shadow-[0_0_24px_rgba(168,85,247,0.35),inset_0_1px_0_rgba(255,255,255,0.25)] hover:from-purple-500 hover:to-indigo-500 hover:shadow-[0_0_36px_rgba(168,85,247,0.55)] hover:-translate-y-0.5 active:scale-[0.97] transition-all duration-200 group"
+          {/* CTAs */}
+          <div className="hero__actions flex flex-wrap items-center gap-3 sm:gap-4 w-full sm:w-auto">
+            <Link
+              to="/events?category=fall-fest"
+              className="inline-flex items-center gap-2.5 font-mono text-xs sm:text-sm font-bold uppercase tracking-wider px-6 py-3 rounded-full bg-gradient-to-r from-purple-600 via-violet-600 to-indigo-600 text-white shadow-[0_0_22px_rgba(168,85,247,0.3),inset_0_1px_0_rgba(255,255,255,0.2)] hover:shadow-[0_0_32px_rgba(168,85,247,0.5)] hover:-translate-y-0.5 active:scale-[0.97] transition-all duration-200 group"
             >
-              <span>REGISTER FOR FALL FEST</span>
-              <span className="w-5.5 h-5.5 bg-white/20 rounded-full flex items-center justify-center transition-transform duration-200 group-hover:scale-110 group-hover:translate-x-0.5 group-hover:bg-white/30">
-                <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                  <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </span>
+              <span>Register for Fall Fest</span>
+              <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true" className="group-hover:translate-x-0.5 transition-transform duration-200">
+                <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
             </Link>
-            <Link 
-              to="/events" 
-              className="inline-flex items-center gap-3 font-mono text-xs sm:text-sm font-semibold uppercase tracking-wider px-7 py-3.5 rounded-full border border-white/15 text-purple-200 bg-[#0e0720]/40 backdrop-blur-md hover:border-cyan-400/60 hover:text-white hover:bg-cyan-500/15 hover:shadow-[0_0_20px_rgba(6,182,212,0.2)] hover:-translate-y-0.5 active:scale-[0.97] transition-all duration-200"
+            <Link
+              to="/events"
+              className="inline-flex items-center gap-2 font-mono text-xs sm:text-sm font-semibold uppercase tracking-wider px-6 py-3 rounded-full border border-white/15 text-slate-300 bg-white/[0.04] hover:border-purple-400/50 hover:text-white hover:bg-white/[0.07] active:scale-[0.97] transition-all duration-200"
             >
-              EXPLORE EVENTS
+              Explore Events
             </Link>
           </div>
         </div>
 
-        {/* Right Side: Interactive Quantum Laboratory Console (Elevated Presentation) */}
-        <div className="col-span-12 lg:col-span-5 relative w-full max-w-[560px] mx-auto lg:mx-0 lg:ml-auto z-20" ref={consoleRef}>
-          <div className="hero__console w-full rounded-3xl bg-[#090714]/95 border border-white/[0.12] backdrop-blur-2xl shadow-[0_25px_60px_rgba(0,0,0,0.85)] p-5 sm:p-7 relative overflow-hidden transition-all duration-300 hover:border-purple-500/50 opacity-100 z-20">
-            
-            {/* Top Console Chassis Bar */}
-            <div className="flex items-center justify-between border-b border-white/[0.08] pb-4 mb-5">
-              <div className="flex items-center gap-2.5">
-                <span className="w-2.5 h-2.5 rounded-full bg-cyan-400 shadow-[0_0_10px_#06b6d4] animate-pulse" />
-                <span className="font-pixel text-[11px] font-bold text-cyan-300 uppercase tracking-wider">
-                  SQC_LAB_TELEMETRY // RACK_04
-                </span>
-              </div>
-              <div className="flex items-center gap-2 font-pixel text-[10px] text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-full border border-emerald-500/20">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                <span>FIDELITY: 99.82%</span>
-              </div>
-            </div>
+        {/* ── Right: Candid Team Polaroids Stack ── */}
+        <div className="col-span-12 lg:col-span-6 flex justify-center lg:justify-end items-center mt-6 lg:mt-0 w-full min-w-0">
+          <div className="hero__polaroid-cluster relative w-full max-w-[320px] xs:max-w-[370px] sm:max-w-[560px] lg:max-w-[640px] xl:max-w-[680px] h-[460px] xs:h-[500px] sm:h-[600px] lg:h-[660px] select-none mx-auto lg:ml-auto">
+            {/* Ambient soft glow backdrop */}
+            <div className="absolute -inset-4 sm:-inset-6 rounded-full bg-gradient-to-tr from-purple-600/20 via-pink-500/15 to-cyan-500/20 blur-3xl pointer-events-none" />
 
-            {/* Interactive Domain Mode Switcher Tabs */}
-            <div className="grid grid-cols-4 gap-1.5 p-1 bg-[#05030a]/80 rounded-xl border border-white/[0.06] mb-5">
-              {[
-                { id: 'physics', label: 'PHYSICS', icon: '⚛' },
-                { id: 'math', label: 'MATH', icon: '∑' },
-                { id: 'chemistry', label: 'CHEM', icon: '🔬' },
-                { id: 'hardware', label: 'QPU', icon: '🌐' },
-              ].map((tab) => {
-                const isActive = activeTab === tab.id
-                return (
-                  <button
-                    key={tab.id}
-                    onClick={() => setActiveTab(tab.id)}
-                    className={`py-2 px-1 text-center rounded-lg font-pixel text-[10px] sm:text-[11px] font-bold tracking-wider transition-all duration-200 flex items-center justify-center gap-1.5 ${
-                      isActive
-                        ? 'bg-gradient-to-r from-purple-600/40 to-cyan-600/30 text-white border border-purple-400/40 shadow-[0_0_15px_rgba(168,85,247,0.3)]'
-                        : 'text-slate-400 hover:text-white hover:bg-white/[0.04]'
-                    }`}
+            {POLAROIDS.map((item) => (
+              <div
+                key={item.id}
+                className={`hero__polaroid absolute ${item.position} ${item.zIndex} ${item.rotation} transition-all duration-300 ease-out hover:z-50 hover:scale-105 hover:rotate-0 hover:shadow-[0_28px_60px_rgba(0,0,0,0.85),0_0_40px_rgba(168,85,247,0.35)] cursor-pointer`}
+                onClick={() => setActivePhoto(item)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault()
+                    setActivePhoto(item)
+                  }
+                }}
+                aria-label={`View photo: ${item.caption}`}
+              >
+                {/* Washi Tape Strip */}
+                <div
+                  className={`absolute ${item.tapePosition} w-11 sm:w-14 h-3.5 sm:h-4 ${item.tapeColor} backdrop-blur-sm z-20 shadow-sm border pointer-events-none opacity-90`}
+                />
+
+                {/* Polaroid Frame with uncropped natural photo aspect ratio */}
+                <div
+                  className={`${item.width} p-2.5 sm:p-3 pb-4 sm:pb-5 rounded-md bg-[#faf8f5] border border-stone-200/95 shadow-[0_16px_36px_rgba(0,0,0,0.65),0_4px_12px_rgba(0,0,0,0.3)]`}
+                >
+                  <div
+                    className="w-full overflow-hidden bg-neutral-900 relative shadow-[inset_0_0_8px_rgba(0,0,0,0.4)] rounded-[2px]"
+                    style={{ aspectRatio: item.aspectRatio }}
                   >
-                    <span className="opacity-70">{tab.icon}</span>
-                    <span>{tab.label}</span>
-                  </button>
-                )
-              })}
-            </div>
-
-            {/* Active Display Chamber based on selected Domain */}
-            {activeTab === 'physics' && (
-              <div className="space-y-4 animate-in fade-in duration-300">
-                <div className="flex items-center justify-between text-xs">
-                  <span className="font-pixel text-[11px] text-cyan-300 font-semibold uppercase tracking-wider">
-                    Ramsey Oscillation & Decoherence
-                  </span>
-                  <span className="font-pixel text-[11px] text-cyan-400/90 px-2 py-0.5 rounded bg-cyan-500/10 border border-cyan-500/20">
-                    T₁ = 85 μs
-                  </span>
-                </div>
-
-                {/* Live Oscillating Wave SVG */}
-                <div className="w-full h-24 bg-[#05030a]/90 rounded-2xl border border-white/[0.06] p-2 relative overflow-hidden shadow-inner">
-                  <svg className="w-full h-full" viewBox="0 0 320 64" preserveAspectRatio="none">
-                    <line x1="0" y1="32" x2="320" y2="32" stroke="#ffffff" strokeOpacity="0.08" strokeDasharray="4 4" />
-                    <path
-                      ref={wavePathRef}
-                      d="M 0,32 L 320,32"
-                      fill="none"
-                      stroke="#06b6d4"
-                      strokeWidth="2.2"
-                      style={{ filter: 'drop-shadow(0 0 6px rgba(6, 182, 212, 0.7))' }}
+                    <img
+                      src={item.image}
+                      alt={item.caption}
+                      className="w-full h-full object-contain filter contrast-[1.03] brightness-[0.98] transition-transform duration-500 hover:scale-105"
+                      loading="lazy"
                     />
-                  </svg>
-                  <span className="absolute bottom-1.5 right-2.5 font-pixel text-[10px] text-cyan-400/80">
-                    ⟨σ_z(t)⟩ = e^(-t/T₂) cos(ωt)
-                  </span>
-                </div>
-
-                <div className="grid grid-cols-2 gap-3 pt-1">
-                  <div className="p-3 rounded-xl bg-white/[0.02] border border-white/[0.05]">
-                    <span className="block font-pixel text-[10px] text-slate-400 uppercase">State Vector</span>
-                    <span className="font-pixel text-[11px] text-purple-300 font-bold">|ψ⟩ = 1/√2 (|0⟩ + |1⟩)</span>
-                  </div>
-                  <div className="p-3 rounded-xl bg-white/[0.02] border border-white/[0.05]">
-                    <span className="block font-pixel text-[10px] text-slate-400 uppercase">Superposition Phase</span>
-                    <span className="font-pixel text-[11px] text-cyan-300 font-bold">Δϕ = ω_01 · Δt</span>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {activeTab === 'math' && (
-              <div className="space-y-4 animate-in fade-in duration-300">
-                <div className="flex items-center justify-between text-xs">
-                  <span className="font-pixel text-[11px] text-purple-300 font-semibold uppercase tracking-wider">
-                    Grover Complexity Advantage
-                  </span>
-                  <span className="font-pixel text-[11px] text-purple-300 font-bold px-2 py-0.5 rounded bg-purple-500/10 border border-purple-500/20">
-                    O(√N) Speedup
-                  </span>
-                </div>
-
-                <div className="grid grid-cols-[1.3fr_1fr] gap-3 items-center">
-                  <div className="h-24 bg-[#05030a]/90 rounded-2xl border border-white/[0.06] p-2 relative overflow-hidden shadow-inner flex items-center">
-                    <svg className="w-full h-full" viewBox="0 0 160 50" preserveAspectRatio="none">
-                      <path d="M 10 44 Q 70 35, 150 6" fill="none" stroke="#f43f5e" strokeWidth="2" strokeOpacity="0.8" />
-                      <path d="M 10 44 Q 60 40, 150 28" fill="none" stroke="#c084fc" strokeWidth="2.5" style={{ filter: 'drop-shadow(0 0 4px #c084fc)' }} />
-                      <circle cx="150" cy="28" r="3.5" fill="#c084fc" className="animate-ping" />
-                      <circle cx="150" cy="28" r="2.5" fill="#a855f7" />
-                    </svg>
-                    <span className="absolute top-1 left-2 font-pixel text-[10px] text-rose-400">Classical O(N)</span>
-                    <span className="absolute bottom-1 right-2 font-pixel text-[10px] text-purple-300">Grover O(√N)</span>
+                    <div className="absolute inset-0 bg-gradient-to-tr from-black/15 via-transparent to-white/15 pointer-events-none" />
                   </div>
 
-                  <div className="flex flex-col items-start p-3 rounded-xl bg-purple-500/10 border border-purple-500/20">
-                    <span className="font-pixel text-[32px] font-black text-white leading-none tracking-tight">886x</span>
-                    <span className="font-pixel text-[10px] text-purple-200 mt-1">Faster at N = 10⁶</span>
-                  </div>
-                </div>
-
-                <div className="p-3 rounded-xl bg-white/[0.02] border border-white/[0.05] flex items-center justify-between">
-                  <span className="font-pixel text-[10px] text-slate-400">DIFFUSION OPERATOR:</span>
-                  <span className="font-pixel text-[11px] text-slate-200">2|ψ⟩⟨ψ| - I</span>
-                </div>
-              </div>
-            )}
-
-            {activeTab === 'chemistry' && (
-              <div className="space-y-4 animate-in fade-in duration-300">
-                <div className="flex items-center justify-between text-xs">
-                  <span className="font-pixel text-[11px] text-emerald-300 font-semibold uppercase tracking-wider">
-                    VQE Molecular Ground State
-                  </span>
-                  <span className="font-pixel text-[11px] text-emerald-300 px-2 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/20">
-                    Jordan-Wigner
-                  </span>
-                </div>
-
-                <div className="p-4 rounded-2xl bg-[#05030a]/90 border border-white/[0.06] flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center font-mono text-sm font-bold text-emerald-300 shadow-[0_0_15px_rgba(16,185,129,0.25)] shrink-0">
-                    H₂
-                  </div>
-                  <div>
-                    <span className="block font-pixel text-[11px] text-slate-300">Equilibrium Bond Length: <strong className="text-white">R = 0.741 Å</strong></span>
-                    <span className="block font-pixel text-[13px] text-emerald-300 font-bold mt-0.5">
-                      E_ground = -1.1744 Hartree
+                  <div className="pt-2.5 px-0.5">
+                    <div className="flex items-baseline justify-between gap-1.5">
+                      <span className="font-sans text-xs sm:text-sm font-bold text-slate-800 tracking-tight leading-snug truncate">
+                        {item.caption}
+                      </span>
+                      <span className="font-mono text-[9px] sm:text-[10px] text-slate-500 shrink-0 font-medium">
+                        {item.date}
+                      </span>
+                    </div>
+                    <span className="block font-mono text-[9px] sm:text-[10px] text-slate-500/90 tracking-wide mt-0.5 truncate">
+                      {item.subtitle}
                     </span>
                   </div>
                 </div>
-
-                <div className="grid grid-cols-2 gap-3">
-                  <div className="p-3 rounded-xl bg-white/[0.02] border border-white/[0.05]">
-                    <span className="block font-pixel text-[10px] text-slate-400 uppercase">Ansatz Depth</span>
-                    <span className="font-pixel text-[11px] text-white font-bold">2-Layer RyRz</span>
-                  </div>
-                  <div className="p-3 rounded-xl bg-white/[0.02] border border-white/[0.05]">
-                    <span className="block font-pixel text-[10px] text-slate-400 uppercase">Energy Error</span>
-                    <span className="font-pixel text-[11px] text-emerald-400 font-bold">&lt; 1.0 mHa (Chemical)</span>
-                  </div>
-                </div>
               </div>
-            )}
+            ))}
 
-            {activeTab === 'hardware' && (
-              <div className="space-y-4 animate-in fade-in duration-300">
-                <div className="flex items-center justify-between text-xs">
-                  <span className="font-pixel text-[11px] text-amber-300 font-semibold uppercase tracking-wider">
-                    Transmon Qubit Coherence
-                  </span>
-                  <span className="font-pixel text-[11px] text-amber-300 px-2 py-0.5 rounded bg-amber-500/10 border border-amber-500/20">
-                    133Q Heron R2
-                  </span>
-                </div>
-
-                <div className="p-4 rounded-2xl bg-[#05030a]/90 border border-white/[0.06] space-y-2">
-                  <div className="flex items-center justify-between font-pixel text-[11px]">
-                    <span className="text-slate-400">Cryostat Stage:</span>
-                    <span className="text-cyan-300 font-bold">14.2 mK (Dilution Plate)</span>
-                  </div>
-                  <div className="flex items-center justify-between font-pixel text-[11px]">
-                    <span className="text-slate-400">Dephasing Time T₂*:</span>
-                    <span className="text-amber-300 font-bold">62.4 μs</span>
-                  </div>
-                  <div className="flex items-center justify-between font-pixel text-[11px]">
-                    <span className="text-slate-400">Single-Qubit Gate Time:</span>
-                    <span className="text-purple-300 font-bold">20.0 ns</span>
-                  </div>
-                </div>
-
-                <div className="p-3 rounded-xl bg-white/[0.02] border border-white/[0.05] flex items-center justify-between">
-                  <span className="font-pixel text-[10px] text-slate-400">TWO-QUBIT CZ ERROR:</span>
-                  <span className="font-pixel text-[11px] text-emerald-400 font-bold">2.1 × 10⁻³</span>
-                </div>
-              </div>
-            )}
-
-            {/* Bottom Telemetry Dock */}
-            <div className="mt-5 pt-3.5 border-t border-white/[0.08] flex items-center justify-between font-pixel text-[10px] text-white/50">
-              <span>iℏ ∂/∂t |ψ⟩ = Ĥ|ψ⟩</span>
-              <span className="flex items-center gap-1.5 text-cyan-300">
-                <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
-                Tr(ρ²) = 1.0 (Pure)
+            {/* Little playful polaroid pin badge */}
+            <div className="absolute -bottom-3 right-2 sm:right-6 max-w-[calc(100%-1rem)] z-40 px-3 py-1.5 rounded-full bg-[#121513]/90 border border-emerald-500/40 backdrop-blur-md shadow-lg flex items-center gap-2 pointer-events-none">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0" />
+              <span className="font-mono text-[9.5px] sm:text-[10px] font-semibold text-emerald-300 tracking-wide uppercase truncate">
+                SQC Team &amp; Crew · SIT Pune
               </span>
             </div>
-
           </div>
         </div>
 
       </div>
+
+      {/* Lightbox Modal for Full Uncropped View */}
+      {activePhoto && (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/85 backdrop-blur-md p-4 sm:p-6 animate-fadeIn"
+          onClick={() => setActivePhoto(null)}
+          role="dialog"
+          aria-modal="true"
+          aria-label={activePhoto.caption}
+        >
+          <div
+            className="relative w-full max-w-4xl max-h-[92vh] bg-[#faf8f5] p-3 sm:p-4 pb-4 sm:pb-5 rounded-sm shadow-[0_25px_70px_rgba(0,0,0,0.9)] border border-stone-300/80 flex flex-col my-auto"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setActivePhoto(null)}
+              className="absolute -top-3.5 -right-3.5 w-8 h-8 rounded-full bg-[#121513] border border-white/20 text-white text-sm flex items-center justify-center hover:bg-rose-600 transition-colors shadow-xl z-10 cursor-pointer"
+              aria-label="Close photo preview"
+            >
+              ✕
+            </button>
+
+            <div
+              className="overflow-hidden bg-neutral-900 relative shadow-inner max-h-[76vh] flex items-center justify-center rounded-sm"
+              style={{ aspectRatio: activePhoto.aspectRatio }}
+            >
+              <img
+                src={activePhoto.image}
+                alt={activePhoto.caption}
+                className="w-full h-full object-contain filter contrast-[1.02]"
+              />
+            </div>
+
+            <div className="pt-3 px-1 flex items-baseline justify-between gap-4">
+              <div>
+                <h3 className="font-sans text-sm sm:text-base font-bold text-slate-900 m-0">
+                  {activePhoto.caption}
+                </h3>
+                <p className="font-mono text-xs text-slate-600 m-0 mt-0.5">
+                  {activePhoto.subtitle}
+                </p>
+              </div>
+              <span className="font-mono text-xs text-slate-500 font-semibold shrink-0">
+                {activePhoto.date}
+              </span>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   )
 }
