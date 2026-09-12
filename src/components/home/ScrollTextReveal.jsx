@@ -90,8 +90,8 @@ export default function ScrollTextReveal() {
             </h2>
           </div>
           
-          <div className="w-full max-w-4xl" ref={textWrapRef}>
-            <p className="font-display text-[clamp(1.15rem,1.8vw+0.4rem,2rem)] sm:text-xl md:text-2xl lg:text-[1.85rem] font-medium leading-[1.45] tracking-tight m-0 text-left">
+          <div className="w-full max-w-[1180px]" ref={textWrapRef}>
+            <p className="font-display text-[clamp(1.5rem,2.6vw+0.3rem,3rem)] font-semibold leading-[1.24] tracking-tight m-0 text-left">
               {statement.map((item, i) => (
                 <span
                   key={i}
