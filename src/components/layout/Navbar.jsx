@@ -9,22 +9,18 @@ import WhatsappIcon from '../ui/WhatsappIcon'
 const PAGE_THEMES = {
   '/': {
     gradient: 'linear-gradient(90deg, #a855f7 0%, #c084fc 50%, #818cf8 100%)',
-    shadow: '0 0 16px rgba(168, 85, 247, 0.7), 0 0 4px #a855f7',
     accentColor: '#a855f7',
   },
   '/events': {
     gradient: 'linear-gradient(90deg, #ef4444 0%, #f97316 50%, #f59e0b 100%)',
-    shadow: '0 0 16px rgba(249, 115, 22, 0.9), 0 0 4px #f59e0b',
     accentColor: '#f97316',
   },
   '/blog': {
     gradient: 'linear-gradient(90deg, #34d399 0%, #10b981 50%, #059669 100%)',
-    shadow: '0 0 16px rgba(52, 211, 153, 0.9), 0 0 4px #10b981',
     accentColor: '#34d399',
   },
   '/team': {
     gradient: 'linear-gradient(90deg, #06b6d4 0%, #38bdf8 50%, #60a5fa 100%)',
-    shadow: '0 0 16px rgba(6, 182, 212, 0.9), 0 0 4px #38bdf8',
     accentColor: '#06b6d4',
   },
 }
@@ -137,29 +133,13 @@ export default function Navbar() {
                       isActive ? 'text-white' : 'text-slate-400 hover:text-white'
                     }`}
                   >
-                    {/* Fluid Gliding Volumetric Glow — Cast Downwards */}
-                    {isActive && (
-                      <motion.div
-                        layoutId="navbar-active-glow"
-                        className="absolute -bottom-3 left-0 right-0 h-4 rounded-full blur-[7px] opacity-85 pointer-events-none"
-                        style={{ background: theme.gradient }}
-                        transition={{
-                          type: 'spring',
-                          stiffness: 380,
-                          damping: 30,
-                          mass: 0.8,
-                        }}
-                      />
-                    )}
-
-                    {/* Fluid Gliding Quantum Beam Underline */}
+                    {/* Fluid Gliding Quantum Beam Underline — Clean, crisp line without surrounding blur shine */}
                     {isActive && (
                       <motion.div
                         layoutId="navbar-active-beam"
                         className="absolute -bottom-1.5 left-0 right-0 h-[2px] rounded-full pointer-events-none z-10"
                         style={{
                           background: theme.gradient,
-                          boxShadow: `0 5px 15px ${theme.accentColor}bb, 0 8px 24px ${theme.accentColor}55`,
                         }}
                         transition={{
                           type: 'spring',
