@@ -118,6 +118,12 @@
   }
 }
 
+@layer utilities {
+  .font-pixel {
+    font-family: 'Departure Mono', 'DepartureMono', 'IBM Plex Mono', monospace !important;
+  }
+}
+
 /* Reduced Motion fallback */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
