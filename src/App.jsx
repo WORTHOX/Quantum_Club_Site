@@ -67,12 +67,25 @@ function AnimatedRoutes() {
 }
 
 export default function App() {
-  // Only trigger the reload preloader on the home page ('/')
+  // Trigger preloader on direct visit to any page (e.g. /events, /team, /fallfest) once per session,
+  // and always reload preloader on the home page ('/')
   const [loading, setLoading] = useState(() => {
     if (typeof window === 'undefined') return false
     const cleanPath = (window.location.pathname || '').replace(/\/+$/, '') || '/'
-    return cleanPath === '/'
+    if (cleanPath === '/') return true
+    try {
+      return !sessionStorage.getItem('sqc_preloader_seen')
+    } catch {
+      return true
+    }
   })
+
+  const handlePreloaderDone = () => {
+    setLoading(false)
+    try {
+      sessionStorage.setItem('sqc_preloader_seen', 'true')
+    } catch {}
+  }
 
   // Ensure scroll is at the top on initial mount / reload
   useEffect(() => {
@@ -84,7 +97,7 @@ export default function App() {
 
   return (
     <BrowserRouter>
-      {loading && <Preloader onDone={() => setLoading(false)} />}
+      {loading && <Preloader onDone={handlePreloaderDone} />}
       <RouteEffects />
       <Navbar />
       <div id="app-root" className="relative w-full">
