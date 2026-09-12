@@ -555,7 +555,7 @@ export default function Team() {
             <span className="block font-mono text-xs uppercase tracking-[0.15em] text-cyan-400 mb-2 font-medium">DEPARTMENT LEADERSHIP</span>
             <h2 id="heads-heading" className="font-display text-3xl sm:text-4xl font-bold text-white tracking-tight leading-tight">Department Heads</h2>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             {teamData.heads.map((head, idx) => {
               const linkedinUrl = getLinkedinUrl(head.linkedin, head.name)
               return (
@@ -605,7 +605,7 @@ export default function Team() {
             <span className="block font-mono text-xs uppercase tracking-[0.15em] text-cyan-400 mb-2 font-medium">CO-LEADERSHIP</span>
             <h2 id="coheads-heading" className="font-display text-3xl sm:text-4xl font-bold text-white tracking-tight leading-tight">Department Co-Heads</h2>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-5xl mx-auto">
             {teamData.coheads.map((cohead, idx) => {
               const linkedinUrl = getLinkedinUrl(cohead.linkedin, cohead.name)
               return (
