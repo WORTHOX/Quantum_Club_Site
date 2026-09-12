@@ -264,90 +264,80 @@ export default function PageTransition({ children }) {
     prevPathRef.current = to
     prevSearchRef.current = nextSearch
 
-    // 3. Navigating INTO a Detail Page -> PIXEL MOSAIC TRANSITION
+    // 3. Navigating INTO a Detail Page (e.g. /events -> /events/:id) -> WIPE TO PIXEL (curtains-mixed, no text)
     if (isDetailPage(to)) {
       const meta = getPageMeta(to)
       setPixelMeta(meta)
 
+      const wipeOverlay = wipeOverlayRef.current
+      const wipePanel = wipePanelRef.current
+      const wipeHud = wipeHudRef.current
       const pixelOverlay = pixelOverlayRef.current
       const pixelHud = pixelHudRef.current
       const tiles = tileRefs.current.filter(Boolean)
 
-      if (!pixelOverlay || tiles.length === 0) {
+      if (!wipeOverlay || !wipePanel || !pixelOverlay || tiles.length === 0) {
         setDisplayChildren(latestChildrenRef.current)
         window.scrollTo(0, 0)
         return
       }
 
+      // Hide all text/HUDs completely — "without anything written on it"
+      if (wipeHud) gsap.set(wipeHud, { display: 'none', opacity: 0 })
+      if (pixelHud) gsap.set(pixelHud, { display: 'none', opacity: 0 })
+
+      // Match wipe panel to pixel tiles (#070a08) for seamless handoff
+      gsap.set(wipePanel, { backgroundColor: '#070a08' })
+
       const tl = gsap.timeline({
         onStart: () => {
-          gsap.set(pixelOverlay, { display: 'block', pointerEvents: 'auto' })
-          gsap.set(tiles, { scale: 0, opacity: 0 })
-          gsap.set(pixelHud, { opacity: 0, y: 30, scale: 0.94 })
+          gsap.set(wipeOverlay, { display: 'flex', pointerEvents: 'auto' })
+          gsap.set(wipePanel, { xPercent: -100 })
+          gsap.set(pixelOverlay, { display: 'none', pointerEvents: 'none' })
+          gsap.set(tiles, { scale: 1, opacity: 1 })
         },
       })
       tlRef.current = tl
 
-      // Cascade pixel blocks in via diagonal wave
-      tl.to(tiles, {
-        scale: 1,
-        opacity: 1,
-        duration: 0.32,
-        stagger: {
-          grid: [ROWS, COLS],
-          from: 'start',
-          amount: 0.32,
+      // Phase 1: WIPE COVER — Solid curtain sweeps in from left (no text)
+      tl.to(wipePanel, {
+        xPercent: 0,
+        duration: 0.38,
+        ease: 'power3.inOut',
+        onComplete: () => {
+          // Content swaps while screen is 100% covered by the curtain
+          setDisplayChildren(latestChildrenRef.current)
+          window.scrollTo(0, 0)
+
+          // Seamless handoff from Wipe cover to Pixel tiles
+          gsap.set(wipeOverlay, { display: 'none', pointerEvents: 'none' })
+          gsap.set(pixelOverlay, { display: 'block', pointerEvents: 'none' })
+          gsap.set(tiles, { scale: 1, opacity: 1 })
         },
-        ease: 'power2.out',
       })
-      // Reveal center card HUD in Lilita One chunky font + swap page route behind curtain
-      .to(
-        pixelHud,
-        {
-          opacity: 1,
-          y: 0,
-          scale: 1,
-          duration: 0.28,
-          ease: 'back.out(1.2)',
-          onStart: () => {
-            setDisplayChildren(latestChildrenRef.current)
-            window.scrollTo(0, 0)
-          },
-        },
-        '-=0.12'
-      )
-      // Hold briefly for comfortable readability
-      .to({}, { duration: 0.38 })
-      // Fade HUD out
-      .to(pixelHud, {
-        opacity: 0,
-        y: -20,
-        scale: 1.02,
-        duration: 0.20,
-        ease: 'power2.in',
-      })
-      // Cascade pixel blocks out to bottom-right
+      // Phase 2: PIXELS REVEAL — Pixel grid matrix dissolves out to reveal destination page
       .to(
         tiles,
         {
           scale: 0,
           opacity: 0,
-          duration: 0.26,
+          duration: 0.38,
           stagger: {
             grid: [ROWS, COLS],
-            from: 'end',
-            amount: 0.28,
+            from: 'center',
+            amount: 0.40,
           },
           ease: 'power2.inOut',
           onComplete: () => {
             gsap.set(pixelOverlay, { display: 'none', pointerEvents: 'none' })
           },
         },
-        '-=0.08'
+        '+=0.04'
       )
 
       return () => {
         tl.kill()
+        if (wipeOverlay) gsap.set(wipeOverlay, { display: 'none', pointerEvents: 'none' })
         if (pixelOverlay) gsap.set(pixelOverlay, { display: 'none', pointerEvents: 'none' })
       }
     }
@@ -369,8 +359,8 @@ export default function PageTransition({ children }) {
     const tl = gsap.timeline({
       onStart: () => {
         gsap.set(wipeOverlay, { display: 'flex', pointerEvents: 'auto' })
-        gsap.set(wipePanel, { xPercent: -100 })
-        gsap.set(wipeHud, { opacity: 0, x: 50 })
+        gsap.set(wipePanel, { xPercent: -100, backgroundColor: meta.panelColor })
+        if (wipeHud) gsap.set(wipeHud, { display: 'flex', opacity: 0, x: 50 })
       },
     })
     tlRef.current = tl
