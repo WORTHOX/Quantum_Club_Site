@@ -7,7 +7,7 @@ This guide maps each event on the website to its active image folder in `src/ass
 | Website Event Title | Active Site Folder (`src/assets/events/`) | Original Master Album (`src/assets/website-photos/`) | Cover Image | Total Photos |
 | :--- | :--- | :--- | :--- | :--- |
 | **Quantum Ice Breaker 2026** | `ice-breaker-2026/` | `Quantum Ice Breaker(AY 26-27 Odd Sem)/` | `photo-3.jpg` | 10 photos |
-| **IISER Pune Lab Visit** | `iiser-visit/` | `IISER Visit(AY 25-26 Even Sem)/` | `photo-1.jpg` | 10 photos (+11 extra in `iiser-visit-extra`) |
+| **IISER Pune Lab Visit** | `iiser-visit/` | `IISER Visit(AY 25-26 Even Sem)/` | `photo-1.jpg` | 10 photos |
 | **Decoding Quantum Projects** | `decoding-quantum-2026/` | `Decoding Quantum Projects(AY 25-26 Even Sem)/` | `photo-1.jpg` | 10 photos |
 | **Agentic AI × Quantum Agents** | `agentic-ai-2025/` | `Agentic AI X Quantum Agents(AY 25-26 Odd Sem)/` | `photo-1.jpg` | 14 photos |
 | **Qiscade — Quantum Arcade** | `qiscade-2025/` | `Qiscade(AY 25-26 Odd Sem)/` | `photo-1.jpg` | 11 photos |

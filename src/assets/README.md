@@ -48,7 +48,7 @@ src/assets/
 │   ├── ice-breaker-2025/          # Quantum Ice Breaker 2025 (10 photos)
 │   ├── ice-breaker-2026/          # Quantum Ice Breaker 2026 (10 photos)
 │   ├── iiser-visit/               # IISER Pune Lab Visit (10 photos)
-│   ├── iiser-visit-extra/         # IISER Additional captures (11 photos)
+│   ├── powerbi-sis-2026/          # Workshop on National Science Day (10 photos)
 │   ├── qiscade-2025/              # Qiscade event archive (11 photos)
 │   ├── treasure-hunt-2026/        # SQC Treasure Hunt (11 photos)
 │   ├── badge-dark.png, badge.svg, entanglement.png, fall-fest-2026-cover.jpg...

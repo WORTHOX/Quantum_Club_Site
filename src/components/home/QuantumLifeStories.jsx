@@ -2,7 +2,7 @@ import { useRef, useState } from 'react'
 import stories from '../../data/stories.json'
 
 const STORY_IMAGES = {
-  workshops: '/assets/events/iiser-visit-extra/photo-6.jpg',
+  workshops: '/assets/events/decoding-quantum-2026/photo-1.jpg',
   speakers: '/assets/events/fall-fest-2025/photo-5.jpg',
   research: '/assets/events/iiser-visit/photo-8.jpg',
   community: '/assets/events/ice-breaker-2026/photo-5.jpg',
