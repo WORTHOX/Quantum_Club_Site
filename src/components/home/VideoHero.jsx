@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { Link } from 'react-router-dom'
 import gsap from 'gsap'
 
@@ -86,6 +87,18 @@ export default function VideoHero() {
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [])
+
+  // Prevent background scrolling while modal is open
+  useEffect(() => {
+    if (activePhoto) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+    }
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [activePhoto])
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -236,44 +249,56 @@ export default function VideoHero() {
 
       </div>
 
-      {/* Lightbox Modal for Full Uncropped View */}
-      {activePhoto && (
+      {/* Lightbox Modal for Full Uncropped View — Portaled directly to body to escape parent stacking contexts */}
+      {activePhoto && typeof document !== 'undefined' && createPortal(
         <div
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/85 backdrop-blur-md p-4 sm:p-6 animate-fadeIn"
+          className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/90 backdrop-blur-md px-4 pt-24 pb-8 sm:px-6 sm:pt-28 sm:pb-10 overflow-y-auto animate-fadeIn"
           onClick={() => setActivePhoto(null)}
           role="dialog"
           aria-modal="true"
           aria-label={activePhoto.caption}
         >
+          {/* Top-Right Floating Viewport Close Button (always accessible & completely above all page elements) */}
+          <button
+            onClick={() => setActivePhoto(null)}
+            className="fixed top-4 right-4 sm:top-5 sm:right-6 z-[10000] inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#121513]/90 hover:bg-rose-600 text-white/90 hover:text-white border border-white/20 text-xs font-mono font-medium tracking-wider uppercase backdrop-blur-md shadow-2xl transition-all duration-200 cursor-pointer hover:scale-105 active:scale-95"
+            aria-label="Close photo preview"
+          >
+            <span>Close</span>
+            <span className="text-sm font-bold leading-none">✕</span>
+          </button>
+
+          {/* Polaroid Preview Card — Scaled to comfortably fit below navbar without overflow */}
           <div
-            className="relative w-full max-w-4xl max-h-[92vh] bg-[#faf8f5] p-3 sm:p-4 pb-4 sm:pb-5 rounded-sm shadow-[0_25px_70px_rgba(0,0,0,0.9)] border border-stone-300/80 flex flex-col my-auto"
+            className="relative w-auto max-w-[92vw] sm:max-w-xl md:max-w-2xl lg:max-w-3xl max-h-[calc(100vh-8.5rem)] bg-[#faf8f5] p-3 sm:p-4 pb-3.5 sm:pb-4 rounded-sm shadow-[0_25px_70px_rgba(0,0,0,0.9),0_0_40px_rgba(168,85,247,0.15)] border border-stone-300/80 flex flex-col my-auto transition-all"
             onClick={(e) => e.stopPropagation()}
           >
+            {/* Card-level Close Button */}
             <button
               onClick={() => setActivePhoto(null)}
-              className="absolute -top-3.5 -right-3.5 w-8 h-8 rounded-full bg-[#121513] border border-white/20 text-white text-sm flex items-center justify-center hover:bg-rose-600 transition-colors shadow-xl z-10 cursor-pointer"
+              className="absolute top-2.5 right-2.5 sm:top-3 sm:right-3 w-8 h-8 rounded-full bg-[#121513]/90 hover:bg-rose-600 text-white border border-white/20 text-xs sm:text-sm flex items-center justify-center transition-all duration-200 shadow-xl z-20 cursor-pointer hover:scale-105 active:scale-95"
               aria-label="Close photo preview"
+              title="Close (Esc)"
             >
               ✕
             </button>
 
-            <div
-              className="overflow-hidden bg-neutral-900 relative shadow-inner max-h-[76vh] flex items-center justify-center rounded-sm"
-              style={{ aspectRatio: activePhoto.aspectRatio }}
-            >
+            {/* Photo Box — Constrained height so portrait photos fit comfortably */}
+            <div className="overflow-hidden bg-neutral-950 relative shadow-inner rounded-sm max-h-[52vh] sm:max-h-[58vh] flex items-center justify-center">
               <img
                 src={activePhoto.image}
                 alt={activePhoto.caption}
-                className="w-full h-full object-contain filter contrast-[1.02]"
+                className="max-h-[52vh] sm:max-h-[58vh] max-w-full w-auto h-auto object-contain filter contrast-[1.02] block select-none"
               />
             </div>
 
-            <div className="pt-3 px-1 flex items-baseline justify-between gap-4">
-              <div>
-                <h3 className="font-sans text-sm sm:text-base font-bold text-slate-900 m-0">
+            {/* Polaroid Bottom Caption Row */}
+            <div className="pt-2.5 sm:pt-3 px-1 flex items-baseline justify-between gap-4">
+              <div className="min-w-0">
+                <h3 className="font-sans text-sm sm:text-base font-bold text-slate-900 m-0 truncate">
                   {activePhoto.caption}
                 </h3>
-                <p className="font-mono text-xs text-slate-600 m-0 mt-0.5">
+                <p className="font-mono text-xs text-slate-600 m-0 mt-0.5 truncate">
                   {activePhoto.subtitle}
                 </p>
               </div>
@@ -282,7 +307,8 @@ export default function VideoHero() {
               </span>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </section>
   )
