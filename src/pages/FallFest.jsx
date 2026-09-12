@@ -916,6 +916,21 @@ export default function FallFest() {
           </section>
         )}
 
+        {/* ── Organized by ── */}
+        <section className="pt-6 border-t border-white/[0.08] mb-12">
+          <div>
+            <p className="font-mono text-xs uppercase tracking-widest text-slate-500 mb-1">
+              Organized by
+            </p>
+            <p className="text-white font-bold text-base sm:text-lg font-display">
+              Symbiosis Quantum Club
+            </p>
+            <p className="text-slate-400 text-xs sm:text-sm font-mono">
+              Symbiosis Institute of Technology, Pune, India
+            </p>
+          </div>
+        </section>
+
       </article>
 
       {/* ── Photo Gallery Lightbox Modal ── */}
