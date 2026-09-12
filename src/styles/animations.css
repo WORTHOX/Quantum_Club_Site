@@ -34,7 +34,13 @@
 /* ── Marquee (infinite scroll) ── */
 @keyframes marquee {
   from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
+  to   { transform: translateX(-25%); }
+}
+
+/* Alias kept for any legacy references */
+@keyframes marqueeScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-25%); }
 }
 
 /* ── Text Gradient Fill (Wesley scroll-driven) ── */
