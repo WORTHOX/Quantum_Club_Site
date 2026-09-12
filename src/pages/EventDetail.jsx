@@ -1,36 +1,162 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom'
+import useSEO from '../utils/useSEO'
 import events, { CATEGORY_COLORS } from '../data/events'
+
+// Digital collectible sticker assets utilized for ambient background decor
+const FALLFEST_STICKERS = [
+  '/assets/fallfest/2026/svg/sticker_01.svg',
+  '/assets/fallfest/2026/svg/sticker_02.svg',
+  '/assets/fallfest/2026/svg/sticker_03.svg',
+  '/assets/fallfest/2026/svg/sticker_04.svg',
+  '/assets/fallfest/2026/svg/sticker_05.svg',
+  '/assets/fallfest/2026/svg/sticker_06.svg',
+  '/assets/fallfest/2026/svg/sticker_07.svg',
+  '/assets/fallfest/2026/svg/sticker_08.svg',
+  '/assets/fallfest/2026/svg/sticker_09.svg',
+  '/assets/fallfest/2026/svg/badge-pink.svg',
+]
+
+// Vertical marquee: scrolling decorative column of stickers flanking the page
+function VerticalMarquee({ stickers, direction = 'up', speed = 40 }) {
+  const items = [...stickers, ...stickers]
+  const animClass = direction === 'up' ? 'animate-marquee-up' : 'animate-marquee-down'
+  return (
+    <div className="flex flex-col gap-6 overflow-hidden h-full">
+      <div
+        className={`flex flex-col gap-6 ${animClass}`}
+        style={{ animation: `${direction === 'up' ? 'marqueeUp' : 'marqueeDown'} ${speed}s linear infinite` }}
+      >
+        {items.map((src, i) => (
+          <div
+            key={i}
+            className="w-16 h-16 xl:w-20 xl:h-20 2xl:w-24 2xl:h-24 shrink-0 p-2.5 xl:p-3 2xl:p-3.5 rounded-2xl bg-white/[0.12] border border-white/[0.22] hover:border-[#FF7EB6]/80 hover:bg-white/[0.20] shadow-[0_8px_30px_rgba(0,0,0,0.5),0_0_24px_rgba(255,126,182,0.3)] hover:shadow-[0_8px_38px_rgba(0,0,0,0.7),0_0_36px_rgba(255,126,182,0.55)] backdrop-blur-md transition-all duration-300 hover:scale-105 pointer-events-auto cursor-pointer flex items-center justify-center"
+          >
+            <img
+              src={src}
+              alt=""
+              aria-hidden="true"
+              className="w-full h-full object-contain filter drop-shadow-[0_4px_12px_rgba(0,0,0,0.4)] opacity-95 hover:opacity-100 transition-opacity"
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
 
 export default function EventDetail() {
   const { id } = useParams()
   const navigate = useNavigate()
-  const [event, setEvent] = useState(null)
   const [lightboxImg, setLightboxImg] = useState(null)
-  const [activeSticker, setActiveSticker] = useState(null)
+
+  const event = useMemo(() => {
+    if (id === 'qiskit-fall-fest-2025') return null
+    return events.find(e => e.id === id) || null
+  }, [id])
 
   useEffect(() => {
     if (id === 'qiskit-fall-fest-2025') {
       navigate('/fallfest', { replace: true })
-      return
-    }
-    const found = events.find(e => e.id === id)
-    if (found) {
-      setEvent(found)
-      document.title = `${found.title} — Symbiosis Quantum Club Events`
-      window.scrollTo(0, 0)
-    } else {
-      setEvent(null)
     }
   }, [id, navigate])
 
   useEffect(() => {
     const handleKeyDown = (e) => {
-      if (e.key === 'Escape' && lightboxImg !== null) setLightboxImg(null)
+      if (e.key === 'Escape') setLightboxImg(null)
     }
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [lightboxImg])
+
+  const isFallFest = Boolean(event?.id?.includes('fall-fest') || event?.category === 'Fall Fest')
+  const bannerSource = event?.bannerImage || event?.coverImage
+
+  const structuredData = useMemo(() => {
+    if (!event) return null
+    const eventUrl = `https://symbiosisquantumclub.vercel.app/events/${event.id}`
+    const desc = event.excerpt || (Array.isArray(event.description) ? event.description[0] : event.description) || event.title
+    return {
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'Event',
+          '@id': `${eventUrl}#event`,
+          'name': event.title,
+          'description': desc,
+          'startDate': event.date ? (event.date.includes('T') ? event.date : `${event.date}T09:00:00+05:30`) : undefined,
+          'endDate': event.date ? (event.date.includes('T') ? event.date : `${event.date}T17:00:00+05:30`) : undefined,
+          'eventStatus': 'https://schema.org/EventScheduled',
+          'eventAttendanceMode': 'https://schema.org/MixedEventAttendanceMode',
+          'image': bannerSource ? `https://symbiosisquantumclub.vercel.app${bannerSource}` : undefined,
+          'location': {
+            '@type': 'Place',
+            'name': event.venue || event.location || 'Symbiosis Institute of Technology',
+            'address': {
+              '@type': 'PostalAddress',
+              'streetAddress': 'SIT Pune Campus, Near Lupin Research Park, Gram Lavale, Taluka Mulshi',
+              'addressLocality': 'Pune',
+              'addressRegion': 'Maharashtra',
+              'postalCode': '412115',
+              'addressCountry': 'IN'
+            }
+          },
+          'organizer': {
+            '@type': 'Organization',
+            'name': 'Symbiosis Quantum Club',
+            'url': 'https://symbiosisquantumclub.vercel.app/'
+          },
+          'offers': {
+            '@type': 'Offer',
+            'price': '0',
+            'priceCurrency': 'INR',
+            'availability': 'https://schema.org/InStock',
+            'url': eventUrl
+          }
+        },
+        {
+          '@type': 'BreadcrumbList',
+          'itemListElement': [
+            {
+              '@type': 'ListItem',
+              'position': 1,
+              'name': 'Home',
+              'item': 'https://symbiosisquantumclub.vercel.app/'
+            },
+            {
+              '@type': 'ListItem',
+              'position': 2,
+              'name': 'Events',
+              'item': 'https://symbiosisquantumclub.vercel.app/events'
+            },
+            {
+              '@type': 'ListItem',
+              'position': 3,
+              'name': event.title,
+              'item': eventUrl
+            }
+          ]
+        }
+      ]
+    }
+  }, [event, bannerSource])
+
+  useSEO({
+    title: event
+      ? `${event.title} — ${event.subtitle || 'Symbiosis Quantum Club'}`
+      : 'Event Specimen Not Found | Symbiosis Quantum Club',
+    description: event
+      ? (event.excerpt || (Array.isArray(event.description) ? event.description[0] : event.description))
+      : 'The requested quantum event specimen does not exist in the index.',
+    keywords: event
+      ? `${event.title}, ${event.category}, quantum computing, SIT Pune, IBM Qiskit, ${event.tags ? event.tags.join(', ') : ''}`
+      : undefined,
+    canonical: event ? `/events/${event.id}` : undefined,
+    ogType: 'article',
+    ogImage: bannerSource || undefined,
+    noindex: !event,
+    structuredData,
+  })
 
   if (event === null) {
     return (
@@ -43,7 +169,7 @@ export default function EventDetail() {
           </p>
           <button
             onClick={() => navigate('/events')}
-            className="px-6 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-mono text-xs uppercase tracking-wider rounded-lg transition-colors shadow-lg shadow-emerald-500/20"
+            className="px-6 py-2.5 bg-cyan-600 hover:bg-cyan-500 text-white font-mono text-xs uppercase tracking-wider rounded-lg transition-colors shadow-lg shadow-cyan-500/20"
           >
             ← Return to Event Index
           </button>
@@ -61,30 +187,69 @@ export default function EventDetail() {
     .slice(0, 3)
 
   const hasGallery = event.gallery && event.gallery.length > 0
-  const bannerSource = event.bannerImage || event.coverImage
 
   return (
-    <main className="bg-[#070a08] min-h-dvh pt-[calc(72px+clamp(1.5rem,1rem+2.5vw,3.5rem))] pb-24 text-slate-200 relative overflow-hidden">
-      {/* Subtle Quantum Ambient Glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[450px] bg-gradient-to-b from-cyan-500/[0.04] via-emerald-500/[0.02] to-transparent pointer-events-none blur-3xl -z-10" />
+    <main className={`${isFallFest ? 'bg-[#060409]' : 'bg-[#070a08]'} min-h-dvh pt-[calc(72px+clamp(1.5rem,1rem+2.5vw,3.5rem))] pb-12 sm:pb-16 text-slate-200 relative overflow-x-clip`}>
+      {/* Dynamic Ambient Background Aura */}
+      {isFallFest ? (
+        <div className="absolute top-0 inset-x-0 h-[450px] overflow-hidden pointer-events-none -z-10 flex justify-center">
+          <div
+            className="w-[min(100vw,900px)] h-full rounded-full opacity-20 blur-3xl"
+            style={{ background: 'radial-gradient(ellipse, #0ea5e9 0%, #6366f1 60%, transparent 100%)' }}
+          />
+        </div>
+      ) : (
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[450px] bg-gradient-to-b from-cyan-500/[0.04] via-emerald-500/[0.02] to-transparent pointer-events-none blur-3xl -z-10" />
+      )}
 
-      <article className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* ── Flanking Vertical Marquees on blank margins (Enabled on xl+ screens) ── */}
+      {isFallFest && (
+        <>
+          <div className="fixed inset-y-0 left-1 xl:left-2 2xl:left-4 w-16 xl:w-20 2xl:w-24 h-screen z-0 pointer-events-none hidden xl:flex flex-col items-center overflow-hidden py-4">
+            <VerticalMarquee stickers={FALLFEST_STICKERS} direction="up" speed={45} />
+          </div>
+          <div className="fixed inset-y-0 right-1 xl:right-2 2xl:right-4 w-16 xl:w-20 2xl:w-24 h-screen z-0 pointer-events-none hidden xl:flex flex-col items-center overflow-hidden py-4">
+            <VerticalMarquee stickers={[...FALLFEST_STICKERS].reverse()} direction="down" speed={38} />
+          </div>
+
+          {/* ── Ambient background decorative stickers ── */}
+          <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden hidden xl:block" aria-hidden="true">
+            <img src={FALLFEST_STICKERS[0]} alt="" className="absolute top-24 left-24 w-24 h-24 opacity-[0.14] rotate-[-15deg] filter drop-shadow-[0_0_24px_rgba(255,126,182,0.35)]" />
+            <img src={FALLFEST_STICKERS[5]} alt="" className="absolute top-56 left-12 w-16 h-16 opacity-[0.12] rotate-[20deg] filter drop-shadow-[0_0_20px_rgba(56,189,248,0.3)]" />
+            <img src={FALLFEST_STICKERS[2]} alt="" className="absolute top-28 right-24 w-22 h-22 opacity-[0.14] rotate-[12deg] filter drop-shadow-[0_0_24px_rgba(167,139,250,0.35)]" />
+            <img src={FALLFEST_STICKERS[8]} alt="" className="absolute top-64 right-12 w-16 h-16 opacity-[0.12] rotate-[-8deg] filter drop-shadow-[0_0_20px_rgba(255,126,182,0.3)]" />
+            <img src={FALLFEST_STICKERS[4]} alt="" className="absolute top-[46%] left-16 w-18 h-18 opacity-[0.12] rotate-[6deg] filter drop-shadow-[0_0_20px_rgba(56,189,248,0.3)]" />
+            <img src={FALLFEST_STICKERS[6]} alt="" className="absolute top-[42%] right-16 w-18 h-18 opacity-[0.12] rotate-[-10deg] filter drop-shadow-[0_0_20px_rgba(167,139,250,0.3)]" />
+            <img src={FALLFEST_STICKERS[3]} alt="" className="absolute bottom-40 left-28 w-18 h-18 opacity-[0.14] rotate-[16deg] filter drop-shadow-[0_0_24px_rgba(56,189,248,0.35)]" />
+            <img src={FALLFEST_STICKERS[9]} alt="" className="absolute bottom-28 right-28 w-22 h-22 opacity-[0.14] rotate-[-12deg] filter drop-shadow-[0_0_28px_rgba(255,126,182,0.35)]" />
+            <img src={FALLFEST_STICKERS[7]} alt="" className="absolute bottom-16 left-1/2 -translate-x-1/2 w-16 h-16 opacity-[0.10] rotate-[4deg]" />
+          </div>
+        </>
+      )}
+
+      <article className={`mx-auto relative z-10 ${
+        isFallFest
+          ? 'w-full max-w-[1360px] px-3.5 sm:px-6 md:px-8 lg:px-10 xl:px-14 2xl:px-20'
+          : 'max-w-6xl px-4 sm:px-6 lg:px-8'
+      }`}>
 
         {/* ── Top Navigation & Telemetry Breadcrumb ── */}
-        <div className="flex flex-wrap items-center justify-between gap-3 mb-6 pb-4 border-b border-white/[0.06]">
+        <div className="flex flex-wrap items-center justify-between gap-2.5 sm:gap-3 mb-6 pb-4 border-b border-white/[0.06]">
           <Link
             to="/events"
-            className="inline-flex items-center gap-2 font-pixel text-[10px] tracking-widest text-emerald-400 hover:text-emerald-300 uppercase transition-colors group"
+            className={`inline-flex items-center gap-1.5 sm:gap-2 font-pixel text-[9px] sm:text-[10px] tracking-widest ${isFallFest ? 'text-cyan-400 hover:text-cyan-300' : 'text-emerald-400 hover:text-emerald-300'} uppercase transition-colors group shrink-0`}
           >
             <span className="transition-transform duration-300 group-hover:-translate-x-1">←</span>
             <span>BACK_TO_EVENTS_INDEX</span>
           </Link>
 
-          <div className="flex items-center gap-3 font-mono text-[11px] text-slate-400">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-3 font-mono text-[10px] sm:text-[11px] text-slate-400">
             <span className="hidden sm:inline text-white/30">•</span>
-            <span className="text-slate-400 font-medium">SPECIMEN // {event.id.toUpperCase()}</span>
+            <span className="text-slate-400 font-medium tracking-wide">
+              SPECIMEN // {event.id.toUpperCase()}
+            </span>
             {event.status === 'upcoming' && (
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-cyan-500/10 text-cyan-300 border border-cyan-500/30 text-[10px] font-pixel tracking-wider uppercase">
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-cyan-500/10 text-cyan-300 border border-cyan-500/30 text-[9px] sm:text-[10px] font-pixel tracking-wider uppercase shrink-0">
                 <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
                 ACTIVE_CYCLE
               </span>
@@ -93,10 +258,39 @@ export default function EventDetail() {
         </div>
 
         {/* ── Header Dossier Section ── */}
-        <header className="mb-8">
+        <header className="mb-7 sm:mb-8">
           <div className="flex flex-col gap-3">
+            {/* If Fall Fest 2026, render the prominent IBM Quantum & Qiskit Partner Banner Component */}
+            {isFallFest && (
+              <div className="mb-4 sm:mb-5 flex justify-center w-full">
+                <div className="relative group inline-flex max-w-full">
+                  <div className="absolute -inset-1 bg-gradient-to-r from-cyan-500/25 via-blue-500/20 to-purple-500/15 rounded-2xl blur-md opacity-60 group-hover:opacity-90 transition-opacity duration-500 pointer-events-none" />
+
+                  <div className="relative inline-flex flex-wrap items-center justify-center gap-2.5 sm:gap-4 md:gap-6 py-2 px-3.5 sm:py-3 sm:px-6 rounded-2xl bg-[#0b0818]/80 border border-cyan-500/30 hover:border-cyan-400/50 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.5),0_0_24px_rgba(6,182,212,0.18)] transition-all duration-300 max-w-full">
+                    <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+                      <img
+                        src="/assets/fallfest/IBM Quantum Logo.png"
+                        alt="IBM Quantum"
+                        className="h-6 xs:h-7 sm:h-9 w-auto object-contain"
+                      />
+                      <span className="h-4 sm:h-6 w-px bg-white/20 select-none" aria-hidden="true" />
+                      <img
+                        src="/assets/fallfest/Badge.png"
+                        alt="Qiskit Badge"
+                        className="h-6 xs:h-7 sm:h-9 w-auto object-contain filter drop-shadow-[0_0_10px_rgba(56,189,248,0.45)]"
+                      />
+                    </div>
+                    <div className="inline-flex items-center justify-center gap-1.5 sm:gap-2 px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full border border-cyan-500/40 bg-cyan-950/60 text-cyan-300 text-[10px] xs:text-[11px] sm:text-xs font-mono font-medium tracking-wider uppercase text-center max-w-full shadow-[0_0_15px_rgba(6,182,212,0.2)]">
+                      <span className="w-1.5 h-1.5 rounded-full animate-pulse bg-cyan-400 shrink-0" />
+                      <span>Official IBM Qiskit Global Partner Event</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
             {/* Category badge & date */}
-            <div className="flex flex-wrap items-center gap-2.5 font-mono text-xs">
+            <div className="flex flex-wrap items-center gap-2 font-mono text-xs">
               <span className={`px-2.5 py-0.5 rounded-full border text-[11px] font-semibold uppercase tracking-wider ${colorScheme.bg} ${colorScheme.text} ${colorScheme.border}`}>
                 {event.category}
               </span>
@@ -113,7 +307,10 @@ export default function EventDetail() {
             {/* Title & Official IBM Partner Badge */}
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mt-1">
               <div>
-                <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold font-display text-white tracking-tight leading-tight">
+                <h1
+                  className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold font-display text-white tracking-tight leading-tight"
+                  style={isFallFest ? { textShadow: '0 0 40px rgba(56, 189, 248, 0.4)' } : undefined}
+                >
                   {event.title}
                 </h1>
                 {event.subtitle && (
@@ -123,8 +320,8 @@ export default function EventDetail() {
                 )}
               </div>
 
-              {/* Official IBM / Partner Badges */}
-              {(event.ibmBadge || event.qiskitLogo) && (
+              {/* Official IBM / Partner Badges (for other events) */}
+              {!isFallFest && (event.ibmBadge || event.qiskitLogo) && (
                 <div className="flex items-center gap-3 shrink-0 p-2 rounded-2xl bg-[#0d1217]/80 border border-white/[0.08] shadow-lg">
                   {event.ibmBadge && (
                     <div className="w-12 h-12 relative group" title="Official IBM Qiskit Event Seal">
@@ -137,230 +334,214 @@ export default function EventDetail() {
                   )}
                   {event.qiskitLogo && (
                     <div className="w-9 h-9 p-1 rounded-xl bg-white/[0.04] border border-white/[0.06] flex items-center justify-center" title="Qiskit SDK Platform">
-                      <img src={event.qiskitLogo} alt="Qiskit Logo" className="w-full h-full object-contain" />
+                      <img
+                        src={event.qiskitLogo}
+                        alt="Qiskit Logo"
+                        className="w-full h-full object-contain filter drop-shadow-[0_0_8px_rgba(168,85,247,0.4)]"
+                      />
                     </div>
                   )}
                 </div>
               )}
             </div>
+
+            {/* Event Tags */}
+            {event.tags && event.tags.length > 0 && (
+              <div className="flex flex-wrap items-center gap-1.5 pt-1">
+                {event.tags.map(tag => (
+                  <span
+                    key={tag}
+                    className="font-mono text-[10px] sm:text-[11px] px-2.5 py-0.5 rounded-md bg-white/[0.04] border border-white/[0.08] text-slate-300"
+                  >
+                    #{tag}
+                  </span>
+                ))}
+              </div>
+            )}
           </div>
         </header>
 
-        {/* ── Hero Showcase Chassis (Banner Display) ── */}
+        {/* ── Visual Asset / Specimen Holo-Display (Full bleed cover/banner) ── */}
         {bannerSource && (
-          <div className="mb-10 rounded-2xl overflow-hidden bg-[#0a0e13] border border-white/[0.09] shadow-[0_16px_48px_rgba(0,0,0,0.6)]">
-            {/* Chassis Telemetry Bezel Bar */}
-            <div className="px-4 py-2 bg-[#06090c] border-b border-white/[0.06] flex items-center justify-between text-slate-400 font-pixel text-[9px] tracking-widest uppercase">
-              <span className="flex items-center gap-2 text-cyan-300">
-                <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
-                OFFICIAL_VISUAL_KIT // SPECIMEN_DISPLAY
-              </span>
-              <span className="hidden sm:inline text-white/40">
-                SYMBIOSIS QUANTUM CLUB • SIT PUNE CHAPTER
-              </span>
-            </div>
-
-            {/* Banner Frame */}
-            <div className="w-full relative bg-[#040608] flex items-center justify-center overflow-hidden group">
+          <div className="mb-8 sm:mb-10 w-full">
+            <div className={`relative w-full rounded-2xl sm:rounded-3xl overflow-hidden border ${isFallFest ? 'border-cyan-500/30 shadow-[0_16px_48px_rgba(0,0,0,0.6),0_0_32px_rgba(6,182,212,0.18)]' : 'border-white/[0.08] shadow-2xl'} bg-[#040206] flex items-center justify-center max-h-[360px] sm:max-h-[460px] md:max-h-[540px] group`}>
               <img
                 src={bannerSource}
-                alt={event.title}
-                className="w-full h-auto max-h-[460px] object-cover sm:object-contain transition-transform duration-700 group-hover:scale-[1.01]"
+                alt={`${event.title} Banner`}
+                className="w-full h-full object-contain sm:object-cover filter contrast-[1.03] transition-transform duration-700 group-hover:scale-[1.01]"
               />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
             </div>
           </div>
         )}
 
         {/* ── Asymmetric 2-Column Content Dossier ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-[310px_1fr] gap-8 items-start mb-16">
+        <div className="grid grid-cols-1 lg:grid-cols-[300px_1fr] xl:grid-cols-[320px_1fr] gap-6 lg:gap-8 items-start mb-10">
 
-          {/* ══ Left Column: Mission Control & Telemetry HUD (Sticky) ══ */}
-          <aside className="lg:sticky lg:top-24 flex flex-col gap-5">
-            <div className="rounded-2xl bg-[#0b1016]/90 border border-white/[0.08] p-5 shadow-xl backdrop-blur-xl flex flex-col gap-4">
+          {/* ══ Left Column: Mission Control & Event Details (Sticky on desktop) ══ */}
+          <aside className="lg:sticky lg:top-24 flex flex-col gap-4">
+            <div className="rounded-2xl sm:rounded-3xl bg-[#090d12]/90 border border-white/[0.08] shadow-xl p-5 sm:p-6 backdrop-blur-2xl flex flex-col gap-4">
 
-              {/* HUD Header */}
+              {/* Header */}
               <div className="flex items-center justify-between pb-3 border-b border-white/[0.08]">
-                <span className="font-pixel text-[10px] uppercase tracking-widest text-emerald-400 flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                  EVENT_SPECIFICATIONS
+                <div className="flex items-center gap-2">
+                  <span className={`w-2 h-2 rounded-full ${isFallFest ? 'bg-cyan-400' : 'bg-emerald-400'} animate-pulse`} />
+                  <span className={`font-mono text-xs font-bold uppercase tracking-wider ${isFallFest ? 'text-cyan-400' : 'text-emerald-400'}`}>
+                    Event Details
+                  </span>
+                </div>
+                <span className="font-mono text-[10px] text-slate-400 uppercase tracking-wider">
+                  Specs
                 </span>
-                <span className="font-mono text-[9px] text-slate-500 uppercase">SYS_TELEMETRY</span>
               </div>
 
-              {/* Specifications Matrix */}
-              <div className="flex flex-col gap-3 font-mono text-xs">
+              {/* Specifications List */}
+              <div className="flex flex-col gap-3 text-sm">
 
-                {/* Dates */}
                 {(event.dates || event.dateDisplay || event.date) && (
-                  <div className="flex flex-col gap-0.5 pb-2.5 border-b border-white/[0.04]">
-                    <span className="font-pixel text-[9px] text-white/40 uppercase tracking-wider">SCHEDULE_DATE</span>
-                    <span className="text-white font-medium">{event.dates || event.dateDisplay || event.date}</span>
+                  <div className="flex flex-col gap-0.5 pb-2.5 border-b border-white/[0.05]">
+                    <span className="font-mono text-[11px] text-slate-400 uppercase tracking-wider">Date</span>
+                    <span className="text-white font-bold font-mono text-sm sm:text-[15px] leading-snug">
+                      {event.dates || event.dateDisplay || event.date}
+                    </span>
                   </div>
                 )}
 
-                {/* Timings */}
                 {event.timing && (
-                  <div className="flex flex-col gap-0.5 pb-2.5 border-b border-white/[0.04]">
-                    <span className="font-pixel text-[9px] text-white/40 uppercase tracking-wider">TIME_WINDOW</span>
-                    <span className="text-slate-200">{event.timing}</span>
+                  <div className="flex flex-col gap-0.5 pb-2.5 border-b border-white/[0.05]">
+                    <span className="font-mono text-[11px] text-slate-400 uppercase tracking-wider">Time</span>
+                    <span className="text-slate-200 font-semibold font-mono text-sm leading-snug">
+                      {event.timing}
+                    </span>
                   </div>
                 )}
 
-                {/* Format */}
                 {(event.format || event.duration) && (
-                  <div className="flex flex-col gap-0.5 pb-2.5 border-b border-white/[0.04]">
-                    <span className="font-pixel text-[9px] text-white/40 uppercase tracking-wider">EVENT_FORMAT</span>
-                    <span className="text-slate-200">{event.format || event.duration}</span>
+                  <div className="flex flex-col gap-0.5 pb-2.5 border-b border-white/[0.05]">
+                    <span className="font-mono text-[11px] text-slate-400 uppercase tracking-wider">Format</span>
+                    <span className="text-slate-200 font-semibold font-mono text-sm leading-snug">
+                      {event.format || event.duration}
+                    </span>
                   </div>
                 )}
 
-                {/* Venue */}
                 {(event.venue || event.location) && (
-                  <div className="flex flex-col gap-0.5 pb-2.5 border-b border-white/[0.04]">
-                    <span className="font-pixel text-[9px] text-white/40 uppercase tracking-wider">VENUE_COORDINATES</span>
-                    <span className="text-slate-300 text-[11px] leading-relaxed">{event.venue || event.location}</span>
+                  <div className="flex flex-col gap-0.5 pb-2.5 border-b border-white/[0.05]">
+                    <span className="font-mono text-[11px] text-slate-400 uppercase tracking-wider">Venue</span>
+                    <span className="text-slate-200 font-semibold text-xs sm:text-sm leading-snug">
+                      {event.venue || event.location}
+                    </span>
                   </div>
                 )}
 
-                {/* Team Size */}
                 {event.teamSize && (
-                  <div className="flex flex-col gap-0.5 pb-2.5 border-b border-white/[0.04]">
-                    <span className="font-pixel text-[9px] text-white/40 uppercase tracking-wider">TEAM_STRUCTURE</span>
-                    <span className="text-slate-200">{event.teamSize}</span>
+                  <div className="flex flex-col gap-0.5 pb-2.5 border-b border-white/[0.05]">
+                    <span className="font-mono text-[11px] text-slate-400 uppercase tracking-wider">Team Size</span>
+                    <span className="text-slate-200 font-semibold font-mono text-sm leading-snug">
+                      {event.teamSize}
+                    </span>
                   </div>
                 )}
 
-                {/* Hardware Specimen */}
-                {event.hardware && (
-                  <div className="flex flex-col gap-0.5 pb-2.5 border-b border-white/[0.04]">
-                    <span className="font-pixel text-[9px] text-cyan-400 uppercase tracking-wider">QUANTUM_HARDWARE</span>
-                    <span className="text-cyan-200 font-semibold">{event.hardware}</span>
+                {event.cloudPlatform && (
+                  <div className="flex flex-col gap-0.5 pb-2.5 border-b border-white/[0.05]">
+                    <span className="font-mono text-[11px] text-slate-400 uppercase tracking-wider">Cloud Platform</span>
+                    <span className="text-cyan-300 font-semibold font-mono text-xs leading-snug flex items-center gap-1.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
+                      {event.cloudPlatform}
+                    </span>
                   </div>
                 )}
 
-                {/* Cryo Stage */}
-                {event.cryoStage && (
-                  <div className="flex flex-col gap-0.5 pb-2.5 border-b border-white/[0.04]">
-                    <span className="font-pixel text-[9px] text-purple-400 uppercase tracking-wider">CRYO_CLUSTER</span>
-                    <span className="text-purple-200">{event.cryoStage}</span>
-                  </div>
-                )}
-
-                {/* Participants */}
                 {event.participants && (
                   <div className="flex flex-col gap-0.5">
-                    <span className="font-pixel text-[9px] text-white/40 uppercase tracking-wider">COMMUNITY_SCALE</span>
-                    <span className="text-slate-200">{event.participants}</span>
+                    <span className="font-mono text-[11px] text-slate-400 uppercase tracking-wider">Participants</span>
+                    <span className="text-slate-200 font-semibold font-mono text-sm leading-snug">
+                      {event.participants}
+                    </span>
                   </div>
                 )}
               </div>
 
               {/* Action Center (Registration / Alert) */}
-              <div className="pt-2">
+              <div className="pt-2 flex flex-col gap-2">
                 {event.status === 'upcoming' ? (
                   event.registrationUrl ? (
                     <a
                       href={event.registrationUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-mono text-xs font-semibold uppercase tracking-wider transition-all duration-300 shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/40 hover:scale-[1.02]"
+                      className={`w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl ${
+                        isFallFest
+                          ? 'bg-gradient-to-r from-sky-500 via-blue-600 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 shadow-lg shadow-cyan-500/25 hover:shadow-cyan-500/40'
+                          : 'bg-emerald-600 hover:bg-emerald-500 shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/40'
+                      } text-white font-mono text-xs font-bold uppercase tracking-wider transition-all duration-300 hover:scale-[1.01]`}
                     >
                       Register Now →
                     </a>
                   ) : (
-                    <div className="w-full flex items-center justify-center gap-2 py-3 px-3.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300 font-mono text-[11px] font-semibold uppercase tracking-wider text-center shadow-lg shadow-amber-500/10">
-                      <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse shrink-0" />
-                      <span>{event.applicationAlert || 'Applications Opening Soon'}</span>
+                    <div className="flex flex-col gap-2">
+                      <div className="w-full flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300 font-mono text-xs font-semibold uppercase tracking-wider text-center">
+                        <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse shrink-0" />
+                        <span>{event.applicationAlert || 'Applications Opening Soon'}</span>
+                      </div>
+                      <p className="font-mono text-[10px] text-slate-400 text-center leading-relaxed">
+                        Official registrations opening via Unstop &amp; Google Forms
+                      </p>
                     </div>
                   )
                 ) : (
-                  <div className="w-full py-2.5 px-3 rounded-xl bg-white/[0.04] border border-white/[0.08] font-pixel text-[10px] text-slate-400 uppercase tracking-wider text-center">
+                  <div className="w-full py-2 px-3 rounded-xl bg-white/[0.04] border border-white/[0.08] font-mono text-xs text-slate-400 uppercase tracking-wider text-center">
                     COMPLETED_EVENT_ARCHIVE
                   </div>
                 )}
               </div>
-
-              {/* Tags Cloud */}
-              {event.tags && event.tags.length > 0 && (
-                <div className="pt-3 border-t border-white/[0.06] flex flex-wrap gap-1.5">
-                  {event.tags.map(tag => (
-                    <span
-                      key={tag}
-                      className="px-2 py-0.5 rounded-md font-pixel text-[8px] uppercase tracking-wider bg-white/[0.04] text-slate-400 border border-white/[0.06]"
-                    >
-                      #{tag}
-                    </span>
-                  ))}
-                </div>
-              )}
             </div>
           </aside>
 
-          {/* ══ Right Column: Executive Briefing, Tracks & Visual Media ══ */}
-          <section className="flex flex-col gap-8 min-w-0">
+          {/* ══ Right Column: Program Tracks, Highlights, Briefing ══ */}
+          <section className="flex flex-col gap-6 sm:gap-7 min-w-0">
 
-            {/* 1. Executive Briefing / Overview */}
-            <div className="p-6 sm:p-7 rounded-2xl bg-[#090d12]/80 border border-white/[0.08] backdrop-blur-md shadow-xl">
-              <div className="flex items-center gap-2 font-pixel text-[10px] uppercase tracking-widest text-cyan-400 mb-4 pb-2.5 border-b border-white/[0.06]">
-                <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
-                <span>EXECUTIVE_BRIEFING // OVERVIEW</span>
-              </div>
-
-              <div className="flex flex-col gap-4 text-slate-300 font-body text-sm sm:text-base leading-relaxed max-w-[65ch]">
-                {Array.isArray(event.description) ? (
-                  event.description.map((para, i) => (
-                    <p key={i}>{para}</p>
-                  ))
-                ) : event.description ? (
-                  <p>{event.description}</p>
-                ) : (
-                  <p className="font-mono text-xs text-slate-500 uppercase tracking-wider">
-                    Detailed event dossier in preparation.
-                  </p>
-                )}
-              </div>
-            </div>
-
-            {/* 2. Program Tracks / Curriculum Stages (When present, e.g. Fall Fest) */}
+            {/* 1. Program Tracks / Curriculum Stages */}
             {event.programTracks && event.programTracks.length > 0 && (
               <div className="flex flex-col gap-4">
                 <div className="flex items-center justify-between pb-2 border-b border-white/[0.08]">
                   <div>
-                    <span className="font-pixel text-[10px] uppercase tracking-widest text-purple-400 block mb-0.5">
+                    <span className="font-mono text-xs font-semibold uppercase tracking-widest text-purple-400 block mb-0.5">
                       CURRICULUM_MATRIX // 3_STAGES
                     </span>
                     <h2 className="font-display text-xl sm:text-2xl font-bold text-white tracking-tight">
-                      Program Tracks & Event Timeline
+                      Program Tracks &amp; Event Timeline
                     </h2>
                   </div>
-                  <span className="font-mono text-[10px] text-slate-500 hidden sm:inline uppercase">
+                  <span className="font-mono text-[10px] text-slate-400 hidden sm:inline uppercase">
                     IBM_QISKIT_CURRICULUM
                   </span>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
                   {event.programTracks.map((track, idx) => (
                     <div
                       key={track.stage || idx}
-                      className="p-5 rounded-2xl bg-[#0b1016]/90 border border-purple-500/20 hover:border-purple-400/50 transition-all duration-300 flex flex-col justify-between group shadow-lg"
+                      className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-[#090d12]/90 border border-white/[0.08] hover:border-purple-400/50 shadow-xl transition-all duration-300 flex flex-col justify-between group min-w-0"
                     >
                       <div>
                         <div className="flex items-center justify-between gap-2 mb-3">
-                          <span className="font-pixel text-[9px] uppercase px-2 py-0.5 rounded bg-purple-500/15 border border-purple-500/30 text-purple-300 font-bold tracking-wider">
+                          <span className="font-mono text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-purple-500/15 border border-purple-500/30 text-purple-300 tracking-wider">
                             {track.stage}
                           </span>
                           {track.sticker && (
-                            <div className="w-8 h-8 shrink-0 flex items-center justify-center p-0.5 rounded-lg bg-white/[0.04] border border-white/[0.08]">
-                              <img src={track.sticker} alt={track.badge} className="w-full h-full object-contain" />
+                            <div className="w-8 h-8 shrink-0 flex items-center justify-center p-1 rounded-xl bg-purple-500/10 border border-purple-500/20 group-hover:border-purple-400/40 transition-colors">
+                              <img src={track.sticker} alt={track.badge} className="w-full h-full object-contain filter drop-shadow-[0_2px_8px_rgba(168,85,247,0.3)]" />
                             </div>
                           )}
                         </div>
 
-                        <span className="font-mono text-[10px] font-bold text-cyan-400 uppercase tracking-wider block mb-1">
+                        <span className="font-mono text-[10.5px] font-bold text-cyan-400 uppercase tracking-wider block mb-1">
                           {track.badge}
                         </span>
 
-                        <h3 className="font-display text-base font-bold text-white leading-snug mb-2">
+                        <h3 className="font-display text-base font-bold text-white leading-snug mb-2 break-words">
                           {track.title}
                         </h3>
 
@@ -380,97 +561,68 @@ export default function EventDetail() {
               </div>
             )}
 
-            {/* 3. Hardware / Cryostat Spotlight (When present) */}
-            {(event.cryoStage || event.hardware) && (
-              <div className="p-5 sm:p-6 rounded-2xl bg-gradient-to-br from-[#090d14] to-[#060a0f] border border-cyan-500/20 shadow-xl flex flex-col sm:flex-row items-center gap-5">
-                <div className="w-20 h-20 sm:w-24 sm:h-24 shrink-0 rounded-xl overflow-hidden bg-black/50 border border-cyan-500/30 p-2 flex items-center justify-center">
-                  <img
-                    src="/assets/fallfest/2026/svg/sticker_06.svg"
-                    alt="Transmon Cryogenic Cavity"
-                    className="w-full h-full object-contain filter drop-shadow-[0_0_15px_rgba(56,189,248,0.35)]"
-                  />
-                </div>
-                <div className="flex flex-col text-left">
-                  <div className="flex items-center gap-2 font-pixel text-[9px] uppercase tracking-widest text-cyan-400 mb-1">
-                    <span>HARDWARE_ARCHITECTURE // CLOUD_ACCESS</span>
+            {/* 2. Flagship Highlights Showcase */}
+            {event.highlights && event.highlights.length > 0 && (
+              <div className="p-5 sm:p-7 rounded-2xl sm:rounded-3xl bg-[#090d12]/90 border border-white/[0.08] shadow-xl backdrop-blur-2xl">
+                <div className="flex items-center justify-between pb-3 mb-4 border-b border-white/[0.08]">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
+                    <h3 className="font-display text-lg sm:text-xl font-bold text-white tracking-tight">
+                      Event Highlights &amp; Flagship Features
+                    </h3>
                   </div>
-                  <h3 className="font-display text-lg font-bold text-white tracking-tight">
-                    {event.hardware || 'IBM Quantum Cloud Hardware Access'}
-                  </h3>
-                  <p className="font-body text-xs text-slate-300 mt-1 leading-relaxed">
-                    Participants gain direct access to simulate and execute quantum circuits on superconducting quantum hardware cooled to millikelvin dilution stages.
-                  </p>
-                </div>
-              </div>
-            )}
-
-            {/* 4. Official Collectibles & Swag Grid (For Fall Fest 2026) */}
-            {event.id === 'qiskit-fall-fest-2026' && (
-              <div className="flex flex-col gap-4">
-                <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 pb-2 border-b border-white/[0.08]">
-                  <div>
-                    <span className="font-pixel text-[10px] uppercase tracking-widest text-[#FF7EB6] block mb-0.5">
-                      ✦ OFFICIAL_DELIVERABLES // 10_SPECIMENS
-                    </span>
-                    <h2 className="font-display text-xl sm:text-2xl font-bold text-white tracking-tight">
-                      IBM Qiskit Fall Fest Digital Collectibles
-                    </h2>
-                  </div>
-                  <p className="font-mono text-[10px] text-slate-400">
-                    Click any sticker to view lore & full vector resolution
-                  </p>
+                  <span className="font-mono text-[10px] text-cyan-400/80 uppercase tracking-wider hidden xs:inline">
+                    KEY_PILLARS
+                  </span>
                 </div>
 
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
-                  {[
-                    { name: 'Entanglement', file: '/assets/fallfest/2026/svg/sticker_01.svg', lore: 'Bell State |Φ⁺⟩' },
-                    { name: 'Superposition', file: '/assets/fallfest/2026/svg/sticker_02.svg', lore: 'Coherent State Bloom' },
-                    { name: 'Circuit Matrix', file: '/assets/fallfest/2026/svg/sticker_03.svg', lore: 'Gate Routing Array' },
-                    { name: 'Phase Crystal', file: '/assets/fallfest/2026/svg/sticker_04.svg', lore: 'Parametric Rotation' },
-                    { name: 'Wavepacket', file: '/assets/fallfest/2026/svg/sticker_05.svg', lore: 'Tunneling Barrier' },
-                    { name: 'Transmon Loop', file: '/assets/fallfest/2026/svg/sticker_06.svg', lore: 'Cryogenic Cavity' },
-                    { name: 'Interference', file: '/assets/fallfest/2026/svg/sticker_07.svg', lore: 'Wave Lattice' },
-                    { name: 'Pulse Control', file: '/assets/fallfest/2026/svg/sticker_08.svg', lore: 'DRAG Microwave Envelope' },
-                    { name: 'Transition', file: '/assets/fallfest/2026/svg/sticker_09.svg', lore: 'Ground to Excited State' },
-                    { name: '2026 Seal', file: '/assets/fallfest/2026/svg/badge-pink.svg', lore: 'Official Event Seal' },
-                  ].map((stk, idx) => (
-                    <button
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {event.highlights.map((item, idx) => (
+                    <div
                       key={idx}
-                      type="button"
-                      className="p-3.5 rounded-xl bg-[#090d13]/90 border border-white/[0.08] hover:border-[#FF7EB6]/60 transition-all duration-300 flex flex-col items-center text-center justify-between aspect-square group cursor-pointer hover:scale-[1.03] shadow-md"
-                      onClick={() => setActiveSticker(stk)}
+                      className="flex items-start gap-2.5 p-3 sm:p-3.5 rounded-xl bg-white/[0.03] border border-white/[0.06] hover:border-cyan-500/30 transition-colors"
                     >
-                      <div className="w-14 h-14 p-1 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 filter drop-shadow-md">
-                        <img src={stk.file} alt={stk.name} className="w-full h-full object-contain" />
-                      </div>
-                      <div className="w-full">
-                        <span className="font-mono text-[11px] font-bold text-white block group-hover:text-cyan-300 transition-colors truncate">
-                          {stk.name}
-                        </span>
-                        <span className="font-mono text-[9px] text-slate-400 block truncate mt-0.5">
-                          {stk.lore}
-                        </span>
-                      </div>
-                    </button>
+                      <span className="font-mono text-cyan-400 text-xs shrink-0 mt-0.5">✦</span>
+                      <span className="font-body text-xs sm:text-[13px] text-slate-200 leading-snug">
+                        {item}
+                      </span>
+                    </div>
                   ))}
                 </div>
               </div>
             )}
 
-            {/* 5. Photo Gallery (For past events with photo archives) */}
+            {/* 3. Executive Briefing / Overview */}
+            <div className="p-6 sm:p-8 rounded-2xl sm:rounded-3xl bg-[#090d12]/90 border border-white/[0.08] shadow-xl backdrop-blur-2xl">
+              <div className="flex items-center gap-2 font-mono text-xs font-bold uppercase tracking-widest text-cyan-400 mb-4 pb-2.5 border-b border-white/[0.06]">
+                <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
+                <span>EXECUTIVE_BRIEFING // OVERVIEW</span>
+              </div>
+
+              <div className="flex flex-col gap-4 text-slate-200 font-body text-sm sm:text-base leading-relaxed max-w-[68ch]">
+                {Array.isArray(event.description) ? (
+                  event.description.map((para, i) => (
+                    <p key={i}>{para}</p>
+                  ))
+                ) : event.description ? (
+                  <p>{event.description}</p>
+                ) : (
+                  <p className="font-mono text-xs text-slate-500 uppercase tracking-wider">
+                    Detailed event dossier in preparation.
+                  </p>
+                )}
+              </div>
+            </div>
+
+            {/* Photo Gallery */}
             {hasGallery && (
-              <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-3.5">
                 <div className="flex items-center justify-between pb-2 border-b border-white/[0.08]">
-                  <div>
-                    <span className="font-pixel text-[10px] uppercase tracking-widest text-emerald-400 block mb-0.5">
-                      PHOTO_ARCHIVE // {event.gallery.length}_CAPTURES
-                    </span>
-                    <h2 className="font-display text-xl sm:text-2xl font-bold text-white tracking-tight">
-                      Event Photo Gallery
-                    </h2>
-                  </div>
-                  <span className="font-mono text-[10px] text-slate-500 uppercase">
-                    CLICK_TO_ENLARGE
+                  <h2 className="font-display text-xl sm:text-2xl font-bold text-white tracking-tight">
+                    Event Photos
+                  </h2>
+                  <span className="font-mono text-xs text-slate-400 uppercase tracking-wider">
+                    Click to enlarge
                   </span>
                 </div>
 
@@ -479,7 +631,7 @@ export default function EventDetail() {
                     <button
                       key={idx}
                       type="button"
-                      className="relative aspect-square w-full rounded-xl overflow-hidden bg-slate-900 cursor-zoom-in group border border-white/[0.08] hover:border-emerald-500/50 transition-colors"
+                      className="relative aspect-square w-full rounded-xl overflow-hidden bg-slate-900 cursor-zoom-in group border border-white/[0.08] hover:border-cyan-500/50 transition-colors"
                       onClick={() => setLightboxImg(idx)}
                     >
                       <img
@@ -504,18 +656,13 @@ export default function EventDetail() {
 
         {/* ── Related Events Dossier Footer ── */}
         {relatedEvents.length > 0 && (
-          <section className="pt-10 border-t border-white/[0.08] mb-12">
-            <div className="flex items-center justify-between mb-6">
-              <div>
-                <span className="font-pixel text-[10px] uppercase tracking-widest text-slate-400 block mb-1">
-                  PARALLEL_SPECIMENS
-                </span>
-                <h3 className="font-display text-xl font-bold text-white tracking-tight">
-                  More in {event.category}
-                </h3>
-              </div>
-              <Link to="/events" className="font-pixel text-[9px] uppercase tracking-wider text-emerald-400 hover:text-emerald-300 transition-colors">
-                VIEW_ALL →
+          <section className="pt-6 border-t border-white/[0.08] mb-6">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="font-display text-xl font-bold text-white tracking-tight">
+                More in {event.category}
+              </h3>
+              <Link to="/events" className={`font-pixel text-[9px] uppercase tracking-wider ${isFallFest ? 'text-cyan-400 hover:text-cyan-300' : 'text-emerald-400 hover:text-emerald-300'} transition-colors`}>
+                View All →
               </Link>
             </div>
 
@@ -524,7 +671,7 @@ export default function EventDetail() {
                 <Link
                   key={rel.id}
                   to={`/events/${rel.id}`}
-                  className="p-4 rounded-xl bg-[#0a0e13]/80 border border-white/[0.06] hover:border-emerald-500/40 hover:-translate-y-0.5 transition-all duration-300 flex flex-col gap-2 group shadow-md"
+                  className={`p-4 rounded-xl bg-[#0a0e13]/80 border border-white/[0.06] ${isFallFest ? 'hover:border-cyan-500/40' : 'hover:border-emerald-500/40'} hover:-translate-y-0.5 transition-all duration-300 flex flex-col gap-2 group shadow-md`}
                 >
                   {rel.coverImage && (
                     <div className="w-full aspect-[16/9] rounded-lg overflow-hidden mb-1 bg-black/40">
@@ -538,7 +685,7 @@ export default function EventDetail() {
                   <span className={`font-mono text-[10px] uppercase tracking-wider ${colorScheme.text}`}>
                     {rel.dateDisplay || rel.date}
                   </span>
-                  <h4 className="font-display font-bold text-white text-sm leading-snug group-hover:text-emerald-300 transition-colors line-clamp-1">
+                  <h4 className={`font-display font-bold text-white text-sm leading-snug ${isFallFest ? 'group-hover:text-cyan-300' : 'group-hover:text-emerald-300'} transition-colors line-clamp-1`}>
                     {rel.title}
                   </h4>
                   {rel.excerpt && (
@@ -560,9 +707,14 @@ export default function EventDetail() {
           className="fixed inset-0 z-50 bg-black/95 backdrop-blur-md flex items-center justify-center p-4"
           onClick={() => setLightboxImg(null)}
         >
+          {/* Lightbox Index Counter */}
+          <div className="absolute top-4 left-4 px-3 py-1 rounded-full bg-black/70 border border-white/20 text-slate-300 font-mono text-xs backdrop-blur-md z-20">
+            {lightboxImg + 1} / {event.gallery.length}
+          </div>
+
           <button
             type="button"
-            className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors cursor-pointer"
+            className="absolute top-4 right-4 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white/15 hover:bg-white/25 flex items-center justify-center text-white transition-colors cursor-pointer z-20"
             onClick={() => setLightboxImg(null)}
             aria-label="Close Lightbox"
           >
@@ -572,7 +724,7 @@ export default function EventDetail() {
           {lightboxImg > 0 && (
             <button
               type="button"
-              className="absolute left-4 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors cursor-pointer"
+              className="absolute left-2 sm:left-4 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-black/60 hover:bg-black/80 border border-white/20 flex items-center justify-center text-white text-lg transition-colors cursor-pointer z-20"
               onClick={(e) => { e.stopPropagation(); setLightboxImg(lightboxImg - 1) }}
               aria-label="Previous Image"
             >
@@ -582,7 +734,7 @@ export default function EventDetail() {
           {lightboxImg < event.gallery.length - 1 && (
             <button
               type="button"
-              className="absolute right-4 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors cursor-pointer"
+              className="absolute right-2 sm:right-4 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-black/60 hover:bg-black/80 border border-white/20 flex items-center justify-center text-white text-lg transition-colors cursor-pointer z-20"
               onClick={(e) => { e.stopPropagation(); setLightboxImg(lightboxImg + 1) }}
               aria-label="Next Image"
             >
@@ -593,41 +745,23 @@ export default function EventDetail() {
           <img
             src={event.gallery[lightboxImg].url}
             alt={event.gallery[lightboxImg].caption || 'Enlarged view'}
-            className="max-h-[88vh] max-w-[90vw] rounded-xl object-contain shadow-2xl border border-white/10"
+            className="max-h-[85vh] max-w-[92vw] rounded-xl object-contain shadow-2xl border border-white/10"
             onClick={(e) => e.stopPropagation()}
           />
         </div>
       )}
 
-      {/* ── Active Sticker Collectible Modal ── */}
-      {activeSticker && (
-        <div
-          className="fixed inset-0 z-50 bg-black/92 backdrop-blur-md flex items-center justify-center p-4"
-          onClick={() => setActiveSticker(null)}
-        >
-          <div
-            className="bg-[#090d14] border border-[#FF7EB6]/40 p-6 sm:p-7 rounded-2xl max-w-sm w-full flex flex-col items-center text-center relative shadow-[0_0_50px_rgba(255,126,182,0.25)]"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <button
-              type="button"
-              className="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors cursor-pointer font-mono text-sm"
-              onClick={() => setActiveSticker(null)}
-              aria-label="Close Sticker"
-            >
-              ✕
-            </button>
-            <div className="w-32 h-32 p-2 my-3 flex items-center justify-center filter drop-shadow-[0_0_20px_rgba(255,126,182,0.5)]">
-              <img src={activeSticker.file} alt={activeSticker.name} className="w-full h-full object-contain" />
-            </div>
-            <span className="font-display font-bold text-lg text-white mb-0.5">{activeSticker.name}</span>
-            <span className="font-mono text-xs text-cyan-300 font-semibold mb-2">{activeSticker.lore}</span>
-            <p className="font-mono text-[10px] text-slate-400">
-              Official IBM Qiskit Fall Fest 2026 Deliverable • Symbiosis Quantum Club
-            </p>
-          </div>
-        </div>
-      )}
+      {/* Vertical marquee keyframes injected inline for portability */}
+      <style>{`
+        @keyframes marqueeUp {
+          0%   { transform: translateY(0); }
+          100% { transform: translateY(-50%); }
+        }
+        @keyframes marqueeDown {
+          0%   { transform: translateY(-50%); }
+          100% { transform: translateY(0); }
+        }
+      `}</style>
     </main>
   )
 }

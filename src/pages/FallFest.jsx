@@ -1,20 +1,19 @@
-import { useEffect } from 'react'
+import useSEO from '../utils/useSEO'
 import { Link } from 'react-router-dom'
 import events from '../data/events'
 
 /**
  * IMPORTANT: The /fallfest URL is published on IBM's official Qiskit page.
- * It MUST remain a proper landing page — never a redirect — so that IBM's
- * link continues to resolve with correct SEO and content.
+ * It MUST remain a proper landing page — never a redirect.
  */
 
-// ── 2025 Edition data ────────────────────────────────────────────────────────
-const EDITION_2025 = {
+const edition = {
   year: '2025',
   title: 'Qiskit Fall Fest 2025',
+  institution: 'Symbiosis Institute of Technology, Pune',
+  theme: 'Fundamentals of Quantum Mechanics',
   subtitle: 'Fundamentals of Quantum Mechanics @ SIT Pune',
   tagline: 'Official IBM Qiskit Global Partner Event',
-  theme: 'Fundamentals of Quantum Mechanics',
   canonicalUrl: 'https://symbiosisquantumclub.vercel.app/fallfest',
   eventId: 'qiskit-fall-fest-2025',
   accentColor: '#38bdf8',
@@ -45,8 +44,9 @@ const EDITION_2025 = {
       day: 'Day 1',
       title: 'Foundations',
       accent: '#40c0cb',
-      borderColor: 'border-[#40c0cb]/35',
-      badgeBg: 'bg-[#40c0cb]/10 text-[#40c0cb] border-[#40c0cb]/30',
+      borderColor: 'border-[#40c0cb]/40',
+      badgeBg: 'bg-[#40c0cb]/15 text-[#40c0cb] border-[#40c0cb]/30',
+      glow: 'shadow-[0_0_30px_rgba(64,192,203,0.18)]',
       items: [
         'State vectors, measurements, single-qubit gates.',
         'Live demos in Qiskit to cement concepts.',
@@ -56,8 +56,9 @@ const EDITION_2025 = {
       day: 'Day 2',
       title: 'Circuits',
       accent: '#8b5cf6',
-      borderColor: 'border-[#8b5cf6]/35',
-      badgeBg: 'bg-purple-500/10 text-purple-300 border-purple-500/30',
+      borderColor: 'border-[#8b5cf6]/40',
+      badgeBg: 'bg-purple-500/15 text-purple-300 border-purple-500/30',
+      glow: 'shadow-[0_0_30px_rgba(139,92,246,0.18)]',
       items: [
         'Multi-qubit systems, entanglement.',
         'Compose and run simple circuits.',
@@ -67,8 +68,9 @@ const EDITION_2025 = {
       day: 'Day 3',
       title: 'Algorithms',
       accent: '#fbbf24',
-      borderColor: 'border-[#fbbf24]/35',
-      badgeBg: 'bg-amber-500/10 text-amber-300 border-amber-500/30',
+      borderColor: 'border-[#fbbf24]/40',
+      badgeBg: 'bg-amber-500/15 text-amber-300 border-amber-500/30',
+      glow: 'shadow-[0_0_30px_rgba(251,191,36,0.18)]',
       items: [
         'Intro to basic algorithms.',
         'Guided practice + assessment briefing.',
@@ -78,8 +80,9 @@ const EDITION_2025 = {
       day: 'Assessment',
       title: 'Certification',
       accent: '#ff4e50',
-      borderColor: 'border-[#ff4e50]/35',
-      badgeBg: 'bg-rose-500/10 text-rose-300 border-rose-500/30',
+      borderColor: 'border-[#ff4e50]/40',
+      badgeBg: 'bg-rose-500/15 text-rose-300 border-rose-500/30',
+      glow: 'shadow-[0_0_30px_rgba(255,78,80,0.18)]',
       items: [
         'Submission checklist and timeline.',
         'Certification eligibility criteria.',
@@ -93,7 +96,7 @@ const EDITION_2025 = {
       desc: 'An introduction to the core principles of quantum mechanics and their applications in quantum computing.',
       image: '/assets/fallfest/Cat_01.png',
       badge: 'Keynote & Foundations',
-      accent: 'border-cyan-500/30',
+      accent: 'border-cyan-500/35',
     },
     {
       title: 'Getting Started with Qiskit',
@@ -101,7 +104,7 @@ const EDITION_2025 = {
       desc: 'A beginner-friendly session on setting up Qiskit and exploring the basics of quantum programming.',
       image: '/assets/fallfest/Circuit.png',
       badge: 'Interactive Workshop',
-      accent: 'border-purple-500/30',
+      accent: 'border-purple-500/35',
     },
     {
       title: 'Hands-On Quantum Circuit Prototyping',
@@ -109,25 +112,25 @@ const EDITION_2025 = {
       desc: 'An interactive workshop where participants design and prototype their own quantum circuits using Qiskit.',
       image: '/assets/fallfest/Cat_02.png',
       badge: 'Hands-On Sprint',
-      accent: 'border-emerald-500/30',
+      accent: 'border-emerald-500/35',
     },
   ],
   organizers: [
     {
       name: 'Dr. Archana Chaudhari',
-      role: 'Faculty in-Charge',
+      role: 'Faculty Coordinator',
       advisoryRole: 'Faculty Advisor',
-      dept: 'Faculty Advisor, SQC · SIT Pune',
-      image: '/assets/team/archana-maam.jpeg',
-      linkedin: 'https://www.linkedin.com/in/archanachaudhari/',
+      dept: 'Associate Professor & Faculty Coordinator',
+      image: '/assets/team/Archana ma\'am.png',
+      linkedin: 'https://www.linkedin.com/in/dr-archana-chaudhari-396a3093/?originalSubdomain=in',
     },
     {
-      name: 'Samarth Bhadane',
+      name: 'Samarth Bura',
       role: 'President',
       advisoryRole: 'President Advisor',
       dept: 'Founding President & Research Enthusiast · Advisory Council',
       image: '/assets/team/samarth.jpeg',
-      linkedin: 'https://www.linkedin.com/in/samarthsb4real',
+      linkedin: 'https://www.linkedin.com/in/samarthsb4real?utm_source=share_via&utm_content=profile&utm_medium=member_android',
     },
     {
       name: 'Anirudh Raman',
@@ -177,195 +180,20 @@ const EDITION_2025 = {
     },
   ],
   collaborators: [
-    { name: 'IBM Quantum', logo: '/assets/fallfest/IBM Quantum Logo.png', desc: 'Official Global Event Partner' },
-    { name: 'Qiskit', logo: '/assets/fallfest/Qiskit_03.png', desc: 'Open Source Quantum SDK' },
-  ],
-  stats: [
-    { label: 'Participants', value: '200+' },
-    { label: 'IBM QPUs Used', value: '5+' },
-    { label: 'Workshops', value: '3' },
-    { label: 'Days', value: '3' },
+    {
+      name: 'IBM Quantum',
+      logo: '/assets/fallfest/IBM Quantum Logo.png',
+      desc: 'Official Global Event Partner',
+    },
+    {
+      name: 'Qiskit',
+      logo: '/assets/fallfest/Qiskit_03.png',
+      desc: 'Open Source Quantum SDK',
+    },
   ],
 }
 
-// ── 2026 Edition data ────────────────────────────────────────────────────────
-const EDITION_2026 = {
-  year: '2026',
-  title: 'IBM Qiskit Fall Fest 2026',
-  subtitle: 'A Decade of Quantum on the Cloud',
-  theme: 'Ideathon & Speaker Series',
-  institution: 'Symbiosis Institute of Technology, Pune',
-  tagline: 'Official IBM Qiskit Global Partner Event',
-  canonicalUrl: 'https://symbiosisquantumclub.vercel.app/fallfest_2026',
-  eventId: 'qiskit-fall-fest-2026',
-  accentColor: '#FF7EB6',
-  gradientFrom: '#FF7EB6',
-  gradientTo: '#38bdf8',
-  bannerImage: '/assets/fallfest/2026/illustrations/hero_2_with_tile.webp',
-  tags: [
-    'IBM Qiskit Flagship Event',
-    'Ideathon + Speaker Series',
-    'Open to All Students',
-  ],
-  leadText:
-    'For the second consecutive year, Symbiosis Quantum Club is an official IBM Qiskit Fall Fest partner — celebrating a decade of quantum on the cloud with a flagship Ideathon and curated speaker sessions.',
-  eventDetails: [
-    'Teams of 1\u20133 submit a pitch deck to enter the Ideathon and compete across two on-campus days.',
-    'Four speaker sessions \u2014 two external quantum experts and two from the club \u2014 on current trends in quantum computing.',
-    'Shortlisted Ideathon teams receive mentorship, build time, and pitch their final version on Day 2.',
-    'October 2026 \u00b7 Open to all students \u2014 zero prerequisites for speaker sessions.',
-  ],
-  whatToExpect: [
-    'An original quantum idea pitched and built across two days of intense on-campus work.',
-    'Direct exposure to quantum researchers and IBM voices on where the field is heading.',
-    'IBM certification for participants completing the program.',
-  ],
-  schedule: [
-    {
-      day: 'STAGE 1',
-      title: 'Team Formation & Pitch Submission',
-      accent: '#FF7EB6',
-      borderColor: 'border-[#FF7EB6]/35',
-      badgeBg: 'bg-[#FF7EB6]/10 text-[#FF7EB6] border-[#FF7EB6]/30',
-      items: [
-        'Form a team of 1\u20133 and submit your project pitch deck via Google Form.',
-        'Shortlisted teams advance to the on-campus rounds.',
-      ],
-      footnote: 'Submission deadline: TBD',
-    },
-    {
-      day: 'DAY 1',
-      title: 'Speaker Sessions + Workshop',
-      accent: '#38bdf8',
-      borderColor: 'border-[#38bdf8]/35',
-      badgeBg: 'bg-[#38bdf8]/10 text-[#38bdf8] border-[#38bdf8]/30',
-      items: [
-        'Four talks \u2014 two external quantum experts and two from the club.',
-        'Hands-on workshop to prep teams for Day 2.',
-      ],
-      footnote: null,
-    },
-    {
-      day: 'DAY 2',
-      title: 'Build, Refine & Results',
-      accent: '#a78bfa',
-      borderColor: 'border-[#a78bfa]/35',
-      badgeBg: 'bg-purple-500/10 text-purple-300 border-purple-500/30',
-      items: [
-        'Shortlisted teams work, refine, and pitch their final version.',
-        'Results announced at end of day.',
-      ],
-      footnote: null,
-    },
-  ],
-  keyDetails: [
-    { label: 'Format', value: 'In-person Ideathon, 2 days on campus (plus remote pitch submission stage)' },
-    { label: 'Team Size', value: '1\u20133 members' },
-    { label: 'Dates', value: '9th and 10th October 2026' },
-    { label: 'Timing', value: '9:00 AM \u2013 4:00 PM, both days' },
-    { label: 'Venue', value: 'SIT Campus, 5th Floor Seminar Hall & Labs' },
-    { label: 'Speaker Session Registration', value: 'Via Google Form (opening soon)' },
-    { label: 'Ideathon Registration', value: 'Via Unstop (link opening soon)' },
-    { label: 'Pitch Deck Submission', value: 'Via Google Form (deadline TBD)' },
-    { label: 'IBM Hardware', value: '133-Qubit IBM Heron Cloud' },
-  ],
-  speakers: [
-    {
-      title: 'Where Quantum Computing Is Heading',
-      speaker: 'External Quantum Expert (TBA)',
-      desc: 'A forward-looking session on current trends, open research problems, and real-world applications of quantum computing.',
-      image: '/assets/fallfest/2026/svg/sticker_02.svg',
-      badge: 'Keynote Session',
-      accent: 'border-[#FF7EB6]/30',
-    },
-    {
-      title: 'Quantum from Industry: IBM Perspective',
-      speaker: 'IBM Quantum (Speaker TBA)',
-      desc: "Insights into IBM's quantum roadmap and the Heron architecture, and what the next decade holds for quantum on the cloud.",
-      image: '/assets/fallfest/2026/svg/sticker_05.svg',
-      badge: 'Industry Talk',
-      accent: 'border-[#38bdf8]/30',
-    },
-    {
-      title: 'Club Research & Live Quantum Demo',
-      speaker: 'SQC Research Team',
-      desc: 'Student researchers walk through club projects and run live circuits on IBM quantum hardware during the session.',
-      image: '/assets/fallfest/2026/svg/sticker_07.svg',
-      badge: 'Live Demo',
-      accent: 'border-[#a78bfa]/30',
-    },
-  ],
-  organizers: [
-    {
-      name: 'Dr. Archana Chaudhari',
-      role: 'Faculty in-Charge',
-      advisoryRole: 'Faculty Advisor',
-      dept: 'Faculty Advisor, SQC \u00b7 SIT Pune',
-      image: '/assets/team/archana-maam.jpeg',
-      linkedin: 'https://www.linkedin.com/in/archanachaudhari/',
-    },
-    {
-      name: 'Samarth Bhadane',
-      role: 'President',
-      advisoryRole: 'President Advisor',
-      dept: 'Founding President & Advisory Council',
-      image: '/assets/team/samarth.jpeg',
-      linkedin: 'https://www.linkedin.com/in/samarthsb4real',
-    },
-    {
-      name: 'Anirudh Raman',
-      role: 'Research Head',
-      advisoryRole: 'Research Advisor',
-      dept: 'Lead Organizer & Advisory Council',
-      image: '/assets/team/anirudh.jpeg',
-      linkedin: '#',
-    },
-    {
-      name: 'Eric Siquiera',
-      role: 'Technical Head',
-      advisoryRole: 'Technical Advisor',
-      dept: 'Circuits & Advisory Council',
-      image: '/assets/team/eric.png',
-      linkedin: '#',
-    },
-    {
-      name: 'Disha Gupta',
-      role: 'Technical Head',
-      advisoryRole: 'VP Advisor',
-      dept: 'Quantum Systems & Advisory Council',
-      image: '/assets/team/disha.png',
-      linkedin: '#',
-    },
-  ],
-  codeOfConduct: [
-    { title: 'Respect and Inclusivity', desc: 'A friendly, safe, and welcoming environment for all, regardless of experience, background, or identity.', icon: '\u2726' },
-    { title: 'Professionalism', desc: 'All participants, speakers, and organizers conduct themselves professionally and constructively in all sessions.', icon: '\u2726' },
-    { title: 'Safe Environment', desc: 'Harassment in any form is not tolerated. Everyone is empowered to learn, explore, and ask questions safely.', icon: '\u2726' },
-    { title: 'Collaboration and Learning', desc: 'Encourage peer learning, shared growth, and active problem-solving. Build together, compete fairly, grow as a community.', icon: '\u2726' },
-  ],
-  collaborators: [
-    { name: 'IBM Quantum', logo: '/assets/fallfest/IBM Quantum Logo.png', desc: 'Official Global Event Partner' },
-    { name: 'Qiskit', logo: '/assets/fallfest/Qiskit_03.png', desc: 'Open Source Quantum SDK' },
-  ],
-  applicationAlert: 'Applications Opening Soon',
-  stats: [
-    { label: 'Community', value: '250+' },
-    { label: 'Ideathon', value: '2 Days' },
-    { label: 'Speakers', value: '4+' },
-    { label: 'IBM QPU', value: '133-Q' },
-  ],
-}
-
-// Determine which edition to show based on the URL
-function useEdition() {
-  const path = window.location.pathname
-  if (path.includes('fallfest_2026')) return EDITION_2026
-  if (path.includes('fallfest_2025') || path.includes('fall-fest-2025')) return EDITION_2025
-  // /fallfest canonical → 2025 archive
-  return EDITION_2025
-}
-
-// Sticker assets — shared between both editions
+// Sticker assets used as ambient background decor
 const STICKERS = [
   '/assets/fallfest/2026/svg/sticker_01.svg',
   '/assets/fallfest/2026/svg/sticker_02.svg',
@@ -382,22 +210,23 @@ const STICKERS = [
 // Vertical marquee: renders a scrolling column of stickers
 function VerticalMarquee({ stickers, direction = 'up', speed = 40 }) {
   const items = [...stickers, ...stickers]
+  const animClass = direction === 'up' ? 'animate-marquee-up' : 'animate-marquee-down'
   return (
     <div className="flex flex-col gap-6 overflow-hidden h-full">
       <div
-        className="flex flex-col gap-6"
+        className={`flex flex-col gap-6 ${animClass}`}
         style={{ animation: `${direction === 'up' ? 'marqueeUp' : 'marqueeDown'} ${speed}s linear infinite` }}
       >
         {items.map((src, i) => (
           <div
             key={i}
-            className="w-20 h-20 lg:w-24 lg:h-24 xl:w-28 xl:h-28 shrink-0 p-3 lg:p-3.5 rounded-2xl bg-white/[0.06] border border-white/[0.14] hover:border-[#FF7EB6]/60 hover:bg-white/[0.1] shadow-[0_4px_16px_rgba(0,0,0,0.4)] backdrop-blur-sm transition-all duration-300 hover:scale-105 pointer-events-auto cursor-pointer flex items-center justify-center"
+            className="w-20 h-20 lg:w-24 lg:h-24 xl:w-28 xl:h-28 2xl:w-32 2xl:h-32 shrink-0 p-3 lg:p-3.5 xl:p-4 rounded-2xl bg-white/[0.12] border border-white/[0.22] hover:border-[#FF7EB6]/80 hover:bg-white/[0.20] shadow-[0_8px_30px_rgba(0,0,0,0.5),0_0_24px_rgba(255,126,182,0.3)] hover:shadow-[0_8px_38px_rgba(0,0,0,0.7),0_0_36px_rgba(255,126,182,0.55)] backdrop-blur-md transition-all duration-300 hover:scale-108 pointer-events-auto cursor-pointer flex items-center justify-center"
           >
             <img
               src={src}
               alt=""
               aria-hidden="true"
-              className="w-full h-full object-contain opacity-90 hover:opacity-100 transition-opacity"
+              className="w-full h-full object-contain filter drop-shadow-[0_4px_12px_rgba(0,0,0,0.4)] opacity-95 hover:opacity-100 transition-opacity"
             />
           </div>
         ))}
@@ -407,490 +236,473 @@ function VerticalMarquee({ stickers, direction = 'up', speed = 40 }) {
 }
 
 export default function FallFest() {
-  const edition = useEdition()
-  const is2026 = edition.year === '2026'
-  const linkedEvent = events.find((e) => e.id === edition.eventId || e.category === 'Fall Fest')
+  const linkedEvent = events.find(
+    (e) => e.id === edition.eventId || e.category === 'Fall Fest'
+  )
 
-  useEffect(() => {
-    document.title = `${edition.title} — Symbiosis Quantum Club`
-
-    const canonEl = document.querySelector('link[rel="canonical"]')
-    if (canonEl) canonEl.setAttribute('href', edition.canonicalUrl)
-
-    const setMeta = (attr, attrVal, content) => {
-      let el = document.querySelector(`meta[${attr}="${attrVal}"]`)
-      if (!el) { el = document.createElement('meta'); el.setAttribute(attr, attrVal); document.head.appendChild(el) }
-      el.setAttribute('content', content)
+  useSEO({
+    title: `${edition.title} — ${edition.theme} | Symbiosis Quantum Club`,
+    description: `${edition.title} — ${edition.theme} @ ${edition.institution}. Official IBM Qiskit Global Partner Event hosted by Symbiosis Quantum Club. Guided circuit workshops, live coding, and certification.`,
+    canonical: edition.canonicalUrl,
+    keywords: 'IBM Qiskit Fall Fest 2025, Qiskit workshop SIT Pune, quantum circuit programming, IBM partner event, Symbiosis Quantum Club',
+    ogType: 'website',
+    ogImage: edition.bannerImage,
+    structuredData: {
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'Event',
+          '@id': 'https://symbiosisquantumclub.vercel.app/fallfest#event',
+          'name': edition.title,
+          'description': `${edition.title} — ${edition.theme} @ ${edition.institution}. Official IBM Qiskit Global Partner Event.`,
+          'startDate': '2025-10-08T09:00:00+05:30',
+          'endDate': '2025-10-11T17:00:00+05:30',
+          'eventStatus': 'https://schema.org/EventScheduled',
+          'eventAttendanceMode': 'https://schema.org/MixedEventAttendanceMode',
+          'image': `https://symbiosisquantumclub.vercel.app${edition.bannerImage}`,
+          'location': {
+            '@type': 'Place',
+            'name': edition.institution,
+            'address': {
+              '@type': 'PostalAddress',
+              'streetAddress': 'SIT Pune Campus, Lavale',
+              'addressLocality': 'Pune',
+              'addressRegion': 'Maharashtra',
+              'postalCode': '412115',
+              'addressCountry': 'IN'
+            }
+          },
+          'organizer': {
+            '@type': 'Organization',
+            'name': 'Symbiosis Quantum Club',
+            'url': 'https://symbiosisquantumclub.vercel.app/'
+          }
+        },
+        {
+          '@type': 'BreadcrumbList',
+          'itemListElement': [
+            {
+              '@type': 'ListItem',
+              'position': 1,
+              'name': 'Home',
+              'item': 'https://symbiosisquantumclub.vercel.app/'
+            },
+            {
+              '@type': 'ListItem',
+              'position': 2,
+              'name': 'Events',
+              'item': 'https://symbiosisquantumclub.vercel.app/events'
+            },
+            {
+              '@type': 'ListItem',
+              'position': 3,
+              'name': edition.title,
+              'item': 'https://symbiosisquantumclub.vercel.app/fallfest'
+            }
+          ]
+        }
+      ]
     }
-    setMeta('name', 'description', `${edition.title} — ${edition.subtitle || edition.tagline}. Official IBM Qiskit Global Partner Event hosted by Symbiosis Quantum Club at SIT Pune.`)
-    setMeta('property', 'og:title', `${edition.title} — Symbiosis Quantum Club`)
-    setMeta('property', 'og:url', edition.canonicalUrl)
-
-    window.scrollTo(0, 0)
-
-    return () => {
-      const canon = document.querySelector('link[rel="canonical"]')
-      if (canon) canon.setAttribute('href', 'https://symbiosisquantumclub.vercel.app/')
-    }
-  }, [edition])
+  })
 
   return (
     <main className="bg-[#060409] min-h-dvh text-slate-200 overflow-x-clip">
-
-      {/* ── Fixed flanking sticker marquee columns (lg+) ── */}
-      <div className="fixed inset-y-0 left-1 xl:left-3 2xl:left-6 w-20 sm:w-24 lg:w-28 xl:w-32 h-screen z-0 pointer-events-none hidden lg:flex flex-col items-center overflow-hidden py-4">
+      {/* ── Vertical marquee columns flanking the page content (Full viewport height & restored large width) ── */}
+      <div className="fixed inset-y-0 left-1 xl:left-3 2xl:left-6 w-20 sm:w-24 lg:w-28 xl:w-32 2xl:w-36 h-screen z-0 pointer-events-none hidden lg:flex flex-col items-center overflow-hidden py-4">
         <VerticalMarquee stickers={STICKERS} direction="up" speed={45} />
       </div>
-      <div className="fixed inset-y-0 right-1 xl:right-3 2xl:right-6 w-20 sm:w-24 lg:w-28 xl:w-32 h-screen z-0 pointer-events-none hidden lg:flex flex-col items-center overflow-hidden py-4">
+      <div className="fixed inset-y-0 right-1 xl:right-3 2xl:right-6 w-20 sm:w-24 lg:w-28 xl:w-32 2xl:w-36 h-screen z-0 pointer-events-none hidden lg:flex flex-col items-center overflow-hidden py-4">
         <VerticalMarquee stickers={[...STICKERS].reverse()} direction="down" speed={38} />
       </div>
 
-      {/* ── Ambient scattered stickers (md+, purely decorative) ── */}
+      {/* ── Ambient background stickers (scattered, fixed, purely decorative, hidden on mobile) ── */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden hidden md:block" aria-hidden="true">
-        <img src={STICKERS[0]} alt="" className="absolute top-24 left-24 w-24 h-24 opacity-[0.12] rotate-[-15deg] filter drop-shadow-[0_0_24px_rgba(255,126,182,0.25)]" />
-        <img src={STICKERS[5]} alt="" className="absolute top-56 left-12 w-16 h-16 opacity-[0.1] rotate-[20deg] filter drop-shadow-[0_0_20px_rgba(56,189,248,0.2)]" />
-        <img src={STICKERS[2]} alt="" className="absolute top-28 right-24 w-20 h-20 opacity-[0.12] rotate-[12deg] filter drop-shadow-[0_0_24px_rgba(167,139,250,0.25)]" />
-        <img src={STICKERS[8]} alt="" className="absolute top-64 right-12 w-16 h-16 opacity-[0.1] rotate-[-8deg] filter drop-shadow-[0_0_20px_rgba(255,126,182,0.2)]" />
-        <img src={STICKERS[4]} alt="" className="absolute top-[46%] left-16 w-18 h-18 opacity-[0.1] rotate-[6deg] filter drop-shadow-[0_0_20px_rgba(56,189,248,0.2)]" />
-        <img src={STICKERS[6]} alt="" className="absolute top-[42%] right-16 w-18 h-18 opacity-[0.1] rotate-[-10deg] filter drop-shadow-[0_0_20px_rgba(167,139,250,0.2)]" />
-        <img src={STICKERS[3]} alt="" className="absolute bottom-40 left-28 w-18 h-18 opacity-[0.12] rotate-[16deg] filter drop-shadow-[0_0_24px_rgba(56,189,248,0.25)]" />
-        <img src={STICKERS[9]} alt="" className="absolute bottom-28 right-28 w-20 h-20 opacity-[0.12] rotate-[-12deg] filter drop-shadow-[0_0_28px_rgba(255,126,182,0.25)]" />
-        <img src={STICKERS[7]} alt="" className="absolute bottom-16 left-1/2 -translate-x-1/2 w-16 h-16 opacity-[0.09] rotate-[4deg]" />
+        <img src={STICKERS[0]} alt="" className="absolute top-24 left-24 w-24 h-24 opacity-[0.16] rotate-[-15deg] filter drop-shadow-[0_0_24px_rgba(255,126,182,0.35)]" />
+        <img src={STICKERS[5]} alt="" className="absolute top-56 left-12 w-16 h-16 opacity-[0.14] rotate-[20deg] filter drop-shadow-[0_0_20px_rgba(56,189,248,0.3)]" />
+        <img src={STICKERS[2]} alt="" className="absolute top-28 right-24 w-22 h-22 opacity-[0.16] rotate-[12deg] filter drop-shadow-[0_0_24px_rgba(167,139,250,0.35)]" />
+        <img src={STICKERS[8]} alt="" className="absolute top-64 right-12 w-16 h-16 opacity-[0.14] rotate-[-8deg] filter drop-shadow-[0_0_20px_rgba(255,126,182,0.3)]" />
+        <img src={STICKERS[4]} alt="" className="absolute top-[46%] left-16 w-18 h-18 opacity-[0.14] rotate-[6deg] filter drop-shadow-[0_0_20px_rgba(56,189,248,0.3)]" />
+        <img src={STICKERS[6]} alt="" className="absolute top-[42%] right-16 w-18 h-18 opacity-[0.14] rotate-[-10deg] filter drop-shadow-[0_0_20px_rgba(167,139,250,0.3)]" />
+        <img src={STICKERS[3]} alt="" className="absolute bottom-40 left-28 w-18 h-18 opacity-[0.16] rotate-[16deg] filter drop-shadow-[0_0_24px_rgba(56,189,248,0.35)]" />
+        <img src={STICKERS[9]} alt="" className="absolute bottom-28 right-28 w-22 h-22 opacity-[0.16] rotate-[-12deg] filter drop-shadow-[0_0_28px_rgba(255,126,182,0.35)]" />
+        <img src={STICKERS[7]} alt="" className="absolute bottom-16 left-1/2 -translate-x-1/2 w-16 h-16 opacity-[0.12] rotate-[4deg]" />
       </div>
 
-      {/* ── Main content — padded so flanking columns don't overlap ── */}
-      <div className="relative z-10 pt-[calc(72px+2rem)] pb-20 px-4 sm:px-6 lg:px-32 xl:px-40 w-full max-w-[1440px] mx-auto">
+      {/* ── Main content: Expanded width with ample clearance for large marquees ── */}
+      <div className="relative z-10 px-4 sm:px-6 lg:px-28 xl:px-36 2xl:px-44 w-full max-w-[1400px] mx-auto">
 
-        {/* ── Edition Reference Bar ── */}
-        <div className="flex flex-wrap items-center justify-center gap-2.5 p-1.5 px-4 rounded-full bg-white/[0.04] border border-white/10 backdrop-blur-md mb-8">
-          <span className="font-mono text-[11px] text-slate-400">
-            {is2026 ? 'Fall Fest 2026 — Upcoming Edition' : 'Viewing Fall Fest 2025 Archive (Official IBM Partner Link)'}
-          </span>
-          <span className="text-slate-600 font-mono text-xs">/</span>
-          {is2026 ? (
-            <Link to="/fallfest" className="font-mono text-[11px] font-bold text-cyan-400 hover:text-cyan-300 underline underline-offset-4">
-              View 2025 Archive ←
-            </Link>
-          ) : (
-            <Link to="/events/qiskit-fall-fest-2026" className="font-mono text-[11px] font-bold text-cyan-400 hover:text-cyan-300 underline underline-offset-4">
-              View Upcoming Fall Fest 2026 →
-            </Link>
-          )}
-        </div>
-
-        {/* ── Hero Section ── */}
-        <section className="relative pb-20 overflow-hidden mb-16">
-          {/* Ambient radial glow */}
+        {/* ── Hero ── */}
+        <section className="relative pt-[calc(5rem+1.5rem)] pb-16 px-1 sm:px-2 overflow-hidden">
+          {/* Radial glow */}
           <div
-            className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[350px] rounded-full opacity-15 pointer-events-none blur-3xl"
+            className="absolute top-0 left-1/2 -translate-x-1/2 w-[850px] h-[450px] rounded-full opacity-18 pointer-events-none blur-3xl"
             style={{ background: `radial-gradient(ellipse, ${edition.gradientFrom} 0%, ${edition.gradientTo} 60%, transparent 100%)` }}
           />
 
           <div className="relative flex flex-col items-center text-center gap-6 z-10">
-            {/* Tagline pill */}
-            <div
-              className="inline-flex items-center gap-2 px-5 py-2 rounded-full border backdrop-blur-md"
-              style={{ borderColor: `${edition.accentColor}40`, backgroundColor: `${edition.accentColor}0d` }}
-            >
-              <span className="font-mono text-[0.68rem] font-bold tracking-[0.22em] uppercase" style={{ color: edition.accentColor }}>
-                {edition.tagline}
-              </span>
+
+            {/* Archive link notice */}
+            <div className="flex flex-wrap items-center justify-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-md max-w-full">
+              <span className="font-mono text-xs text-slate-300">Fall Fest 2025 Archive — Official IBM Partner Link</span>
+              <span className="text-slate-600">·</span>
+              <Link to="/events/qiskit-fall-fest-2026" className="font-mono text-xs font-bold text-cyan-400 hover:text-cyan-300 underline underline-offset-4">
+                View Fall Fest 2026 →
+              </Link>
+            </div>
+
+            {/* IBM Quantum & Qiskit partner badge bar */}
+            <div className="relative group inline-flex max-w-full">
+              {/* Very subtle, light ambient blue hint */}
+              <div className="absolute -inset-1 bg-gradient-to-r from-cyan-500/15 via-blue-500/10 to-transparent rounded-2xl blur-md opacity-40 group-hover:opacity-70 transition-opacity duration-500 pointer-events-none" />
+
+              <div className="relative inline-flex flex-wrap items-center justify-center gap-3 sm:gap-6 py-2.5 px-4 sm:py-3.5 sm:px-8 rounded-2xl bg-white/[0.05] border border-white/[0.14] hover:border-cyan-400/30 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.4),0_0_20px_rgba(6,182,212,0.08)] transition-all duration-300 max-w-full">
+                <div className="flex items-center gap-2.5 sm:gap-4 shrink-0">
+                  <img
+                    src="/assets/fallfest/IBM Quantum Logo.png"
+                    alt="IBM Quantum"
+                    className="h-7 sm:h-9 md:h-10 w-auto object-contain"
+                  />
+                  <span className="h-5 sm:h-7 w-px bg-white/20 select-none" aria-hidden="true" />
+                  <img
+                    src="/assets/fallfest/Badge.png"
+                    alt="Qiskit Badge"
+                    className="h-7 sm:h-9 md:h-10 w-auto object-contain filter drop-shadow-[0_0_8px_rgba(255,126,182,0.25)]"
+                  />
+                </div>
+                <div
+                  className="inline-flex items-center justify-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border border-cyan-500/40 bg-cyan-500/10 text-cyan-300 text-[10.5px] xs:text-xs sm:text-sm font-mono font-medium tracking-wider uppercase text-center max-w-full"
+                >
+                  <span className="w-1.5 sm:w-2 h-1.5 sm:h-2 rounded-full animate-pulse bg-cyan-400 shrink-0" />
+                  <span>{edition.tagline}</span>
+                </div>
+              </div>
             </div>
 
             {/* Title */}
             <h1
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold font-display uppercase tracking-tight text-white leading-tight m-0"
-              style={{ textShadow: `0 0 40px ${edition.accentColor}30` }}
+              className="text-2xl xs:text-3xl sm:text-6xl md:text-7xl font-extrabold font-display uppercase tracking-tight text-white leading-tight m-0"
+              style={{ textShadow: `0 0 50px ${edition.accentColor}40` }}
             >
-              QISKIT FALL FEST
-              <span
-                className="block"
-                style={{
-                  background: `linear-gradient(135deg, ${edition.gradientFrom}, ${edition.gradientTo})`,
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text',
-                }}
-              >
-                {edition.year}
-              </span>
+              {edition.title}
             </h1>
 
-            {/* Tags / pills (2025) */}
-            {edition.tags && (
-              <div className="flex flex-wrap items-center justify-center gap-3 max-w-3xl">
-                {edition.tags.map((tag, idx) => (
-                  <span
-                    key={idx}
-                    className="px-4 py-2 rounded-full font-mono text-xs sm:text-sm font-semibold tracking-wide border bg-white/[0.04] backdrop-blur-md transition-all duration-300 hover:bg-white/[0.07]"
-                    style={{
-                      borderColor: idx === 0 ? '#40c0cb50' : idx === 1 ? '#8b5cf650' : '#34d39950',
-                      color: idx === 0 ? '#40c0cb' : idx === 1 ? '#a78bfa' : '#34d399',
-                    }}
-                  >
-                    ✦ {tag}
-                  </span>
-                ))}
-              </div>
-            )}
+            {/* Subtitle / Institution */}
+            <div className="flex flex-col items-center gap-1.5 max-w-3xl">
+              <p className="font-mono text-base sm:text-lg font-bold uppercase tracking-[0.16em] text-cyan-300">
+                {edition.institution}
+              </p>
+              <p className="font-mono text-xs sm:text-sm uppercase tracking-widest text-purple-300">
+                Theme: {edition.theme}
+              </p>
+            </div>
 
-            {/* Subtitle */}
-            <p className="font-mono text-xs sm:text-sm uppercase tracking-[0.18em]" style={{ color: edition.accentColor }}>
-              {edition.subtitle}
-            </p>
+            {/* Large Banner Illustration (Wider and prominent) */}
+            <div className="w-full max-w-4xl xl:max-w-5xl my-4 rounded-3xl overflow-hidden border border-white/15 bg-black/50 shadow-[0_20px_60px_rgba(0,0,0,0.7)] backdrop-blur-2xl group">
+              <img
+                src={edition.bannerImage}
+                alt="Qiskit Fall Fest 2025 Illustration"
+                className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-[1.02]"
+              />
+            </div>
 
-            {/* Lead text */}
-            <p className="max-w-3xl text-base sm:text-lg text-slate-300 leading-relaxed font-body">
-              {edition.leadText || (edition.description && edition.description[0])}
-            </p>
-
-            {/* Stats row */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 w-full max-w-2xl mt-2">
-              {edition.stats.map((stat) => (
-                <div
-                  key={stat.label}
-                  className="flex flex-col items-center gap-1 p-4 rounded-2xl border bg-[#0d0d0f]"
-                  style={{ borderColor: `${edition.accentColor}25` }}
+            {/* 3 Key Feature Pills */}
+            <div className="flex flex-wrap items-center justify-center gap-3 max-w-3xl">
+              {edition.tags.map((tag, idx) => (
+                <span
+                  key={idx}
+                  className="px-5 py-2.5 rounded-full font-mono text-xs sm:text-sm font-semibold tracking-wide border bg-white/[0.05] backdrop-blur-md transition-all duration-300 hover:border-cyan-400/60 hover:bg-cyan-500/10 shadow-sm"
+                  style={{
+                    borderColor: idx === 0 ? '#40c0cb60' : idx === 1 ? '#8b5cf660' : '#34d39960',
+                    color: idx === 0 ? '#40c0cb' : idx === 1 ? '#a78bfa' : '#34d399',
+                  }}
                 >
-                  <span className="font-mono text-2xl font-black" style={{ color: edition.accentColor }}>{stat.value}</span>
-                  <span className="font-mono text-[10px] uppercase tracking-widest text-slate-400">{stat.label}</span>
-                </div>
+                  ✦ {tag}
+                </span>
               ))}
             </div>
 
-            {/* CTA buttons */}
+            {/* Lead text */}
+            <p className="max-w-3xl text-base sm:text-xl text-slate-300 leading-relaxed font-body">
+              {edition.leadText}
+            </p>
+
+            {/* CTA action buttons */}
             <div className="flex flex-wrap gap-4 justify-center mt-2">
-              {edition.schedule && (
-                <a
-                  href="#schedule"
-                  className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-mono text-xs sm:text-sm font-bold uppercase tracking-wider text-white transition-all duration-300 hover:scale-105"
-                  style={{
-                    background: `linear-gradient(135deg, ${edition.gradientFrom}, ${edition.gradientTo})`,
-                    boxShadow: `0 0 24px ${edition.accentColor}35`,
-                  }}
-                >
-                  View Schedule ↓
-                </a>
-              )}
-              {!edition.schedule && linkedEvent && (
-                <Link
-                  to={`/events/${linkedEvent.id}`}
-                  className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-mono text-xs font-bold uppercase tracking-wider text-white transition-all duration-300 hover:scale-105"
-                  style={{
-                    background: `linear-gradient(135deg, ${edition.gradientFrom}, ${edition.gradientTo})`,
-                    boxShadow: `0 0 24px ${edition.accentColor}35`,
-                  }}
-                >
-                  View Full Event Details →
-                </Link>
-              )}
+              <a
+                href="#schedule"
+                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-mono text-xs sm:text-sm font-bold uppercase tracking-wider text-white transition-all duration-300 hover:scale-105 shadow-xl"
+                style={{
+                  background: `linear-gradient(135deg, ${edition.gradientFrom}, ${edition.gradientTo})`,
+                  boxShadow: `0 0 32px ${edition.accentColor}45`,
+                }}
+              >
+                View Schedule ↓
+              </a>
               <Link
                 to="/events?category=fall-fest"
-                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-mono text-xs sm:text-sm font-bold uppercase tracking-wider border text-slate-300 hover:text-white transition-all duration-300 bg-white/[0.03] border-white/15 hover:bg-white/[0.06]"
+                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-mono text-xs sm:text-sm font-bold uppercase tracking-wider border text-slate-200 hover:text-white transition-all duration-300 bg-white/5 border-white/15 hover:bg-white/10"
               >
                 All Fall Fest Editions
               </Link>
             </div>
 
-            {/* Banner image */}
-            {edition.bannerImage && (
-              <div className="w-full max-w-4xl mx-auto mt-6 rounded-2xl overflow-hidden border border-white/[0.1] bg-[#0a0a0c] p-2 sm:p-2.5 shadow-2xl">
-                <div className="relative rounded-xl overflow-hidden border border-white/[0.05]">
-                  <img
-                    src={edition.bannerImage}
-                    alt={edition.title}
-                    className="w-full h-auto object-cover max-h-[460px]"
-                  />
-                </div>
-              </div>
-            )}
           </div>
         </section>
 
-        {/* ── 2025-only: Event Details & What to Expect ── */}
-        {edition.eventDetails && (
-          <section className="mb-24">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              {/* Event Details Card */}
-              <div className="p-6 sm:p-10 rounded-3xl bg-[#0d0d0f] border border-cyan-500/25 shadow-xl flex flex-col transition-all duration-300 hover:border-cyan-400/40">
-                <div>
-                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 font-mono text-xs uppercase tracking-wider mb-5">
-                    <span>✦</span> Event Details
-                  </div>
-                  <h3 className="font-display text-2xl sm:text-3xl font-extrabold text-white mb-6 tracking-tight">
-                    Immersive 3-Day Quantum Experience
-                  </h3>
-                  <ul className="space-y-4">
-                    {edition.eventDetails.map((detail, idx) => (
-                      <li key={idx} className="flex items-start gap-3.5 text-slate-200 text-base leading-relaxed">
-                        <span className="w-6 h-6 rounded-lg bg-cyan-500/15 border border-cyan-500/35 text-cyan-300 flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold font-mono">✓</span>
-                        <span>{detail}</span>
-                      </li>
-                    ))}
-                  </ul>
+        {/* ── Event Details & What to Expect (Expanded 2-column cards) ── */}
+        <section className="mb-24">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* Event Details Card */}
+            <div className="p-5 xs:p-6 sm:p-10 xl:p-12 rounded-3xl bg-[#090d12]/90 border border-white/[0.08] hover:border-cyan-400/40 backdrop-blur-2xl shadow-xl flex flex-col justify-between transition-all duration-300">
+              <div>
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-500/15 border border-cyan-500/35 text-cyan-300 font-mono text-xs uppercase tracking-wider mb-5">
+                  <span>✦</span> Event Details
                 </div>
+                <h3 className="font-display text-2xl sm:text-3xl font-extrabold text-white mb-6 tracking-tight">
+                  Immersive 3-Day Quantum Experience
+                </h3>
+                <ul className="space-y-4 sm:space-y-5">
+                  {edition.eventDetails.map((detail, idx) => (
+                    <li key={idx} className="flex items-start gap-3.5 text-slate-200 text-base sm:text-lg leading-relaxed">
+                      <span className="w-6 h-6 rounded-lg bg-cyan-500/20 border border-cyan-500/40 text-cyan-300 flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold font-mono">✓</span>
+                      <span>{detail}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
+            </div>
 
-              {/* What to Expect Card */}
-              <div className="p-6 sm:p-10 rounded-3xl bg-[#0d0d0f] border border-purple-500/25 shadow-xl flex flex-col transition-all duration-300 hover:border-purple-400/40">
+            {/* What to Expect Card */}
+            <div className="p-5 xs:p-6 sm:p-10 xl:p-12 rounded-3xl bg-[#090d12]/90 border border-white/[0.08] hover:border-purple-400/40 backdrop-blur-2xl shadow-xl flex flex-col justify-between transition-all duration-300">
+              <div>
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-500/15 border border-purple-500/35 text-purple-300 font-mono text-xs uppercase tracking-wider mb-5">
+                  <span>✦</span> What to Expect
+                </div>
+                <h3 className="font-display text-2xl sm:text-3xl font-extrabold text-white mb-6 tracking-tight">
+                  Intuition First, Math Overhead Second
+                </h3>
+                <ul className="space-y-4 sm:space-y-5">
+                  {edition.whatToExpect.map((item, idx) => (
+                    <li key={idx} className="flex items-start gap-3.5 text-slate-200 text-base sm:text-lg leading-relaxed">
+                      <span className="w-6 h-6 rounded-lg bg-purple-500/20 border border-purple-500/40 text-purple-300 flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold font-mono">✦</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ── Schedule & Curriculum (Expanded 4 milestone cards) ── */}
+        <section id="schedule" className="mb-24 scroll-mt-24">
+          <div className="mb-12 text-center">
+            <span className="font-mono text-xs sm:text-sm font-bold tracking-[0.2em] uppercase text-cyan-400 block mb-2">
+              Curriculum & Roadmap
+            </span>
+            <h2 className="font-display text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+              Event Schedule
+            </h2>
+            <p className="text-slate-400 max-w-2xl mx-auto mt-3 text-base sm:text-lg">
+              Four focused milestones taking you from single qubits to circuit design and official certification.
+            </p>
+          </div>
+
+          {/* Timeline Graphic Banner */}
+          <div className="mb-10 rounded-3xl overflow-hidden border border-white/[0.08] bg-[#090d12]/90 backdrop-blur-2xl p-6 sm:p-8 shadow-xl flex justify-center">
+            <img
+              src={edition.timelineImage}
+              alt="Qiskit Fall Fest Timeline"
+              className="max-h-36 sm:max-h-48 md:max-h-56 w-auto object-contain filter drop-shadow-[0_4px_20px_rgba(0,0,0,0.6)]"
+            />
+          </div>
+
+          {/* 4 Schedule Milestone Cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {edition.schedule.map((slot, idx) => (
+              <div
+                key={idx}
+                className="p-7 sm:p-8 rounded-3xl bg-[#090d12]/90 border border-white/[0.08] hover:border-cyan-400/40 backdrop-blur-2xl transition-all duration-300 hover:-translate-y-2 shadow-xl flex flex-col justify-between min-h-[280px]"
+              >
                 <div>
-                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-500/10 border border-purple-500/30 text-purple-300 font-mono text-xs uppercase tracking-wider mb-5">
-                    <span>✦</span> What to Expect
+                  <div className="flex items-center justify-between gap-2 mb-4">
+                    <span className={`px-3 py-1.5 rounded-full font-mono text-xs font-bold uppercase tracking-wider border ${slot.badgeBg}`}>
+                      {slot.day}
+                    </span>
                   </div>
-                  <h3 className="font-display text-2xl sm:text-3xl font-extrabold text-white mb-6 tracking-tight">
-                    Intuition First, Math Overhead Second
+                  <h3 className="font-display text-2xl font-bold text-white mb-4">
+                    {slot.title}
                   </h3>
-                  <ul className="space-y-4">
-                    {edition.whatToExpect.map((item, idx) => (
-                      <li key={idx} className="flex items-start gap-3.5 text-slate-200 text-base leading-relaxed">
-                        <span className="w-6 h-6 rounded-lg bg-purple-500/15 border border-purple-500/35 text-purple-300 flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold font-mono">✦</span>
+                  <ul className="space-y-3">
+                    {slot.items.map((item, itemIdx) => (
+                      <li key={itemIdx} className="flex items-start gap-2.5 text-sm sm:text-base text-slate-200 leading-relaxed">
+                        <span className="text-cyan-400 shrink-0 mt-1">•</span>
                         <span>{item}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
               </div>
-            </div>
-          </section>
-        )}
+            ))}
+          </div>
+        </section>
 
-        {/* ── 2026-only: Highlights ── */}
-        {edition.highlights && (
-          <section className="mb-24">
-            <div className="mb-8 text-center">
-              <span className="font-mono text-[11px] font-bold tracking-widest uppercase" style={{ color: edition.accentColor }}>
-                What to Expect
-              </span>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-              {edition.highlights.map((h, i) => (
-                <div
-                  key={i}
-                  className="flex items-start gap-3 p-4 rounded-xl border bg-[#0d0d0f]"
-                  style={{ borderColor: `${edition.accentColor}20` }}
-                >
-                  <span className="font-mono text-lg shrink-0" style={{ color: edition.accentColor }}>✦</span>
-                  <span className="text-sm text-slate-300 leading-relaxed">{h}</span>
-                </div>
-              ))}
-            </div>
-          </section>
-        )}
-
-        {/* ── Schedule (2025 only) ── */}
-        {edition.schedule && (
-          <section id="schedule" className="mb-24 scroll-mt-24">
-            <div className="mb-12 text-center">
-              <span className="font-mono text-xs sm:text-sm font-bold tracking-[0.2em] uppercase text-cyan-400 block mb-2">
-                Curriculum & Roadmap
-              </span>
-              <h2 className="font-display text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
-                Event Schedule
-              </h2>
-              <p className="text-slate-400 max-w-2xl mx-auto mt-3 text-base sm:text-lg">
-                Four focused milestones taking you from single qubits to circuit design and official certification.
-              </p>
-            </div>
-
-            {/* Timeline image */}
-            {edition.timelineImage && (
-              <div className="mb-10 rounded-3xl overflow-hidden border border-white/[0.08] bg-[#0d0d0f] p-6 sm:p-8 shadow-xl flex justify-center">
-                <img
-                  src={edition.timelineImage}
-                  alt="Qiskit Fall Fest Timeline"
-                  className="max-h-36 sm:max-h-48 w-auto object-contain"
-                />
-              </div>
-            )}
-
-            {/* 4 Milestone cards — matte dark, not shiny */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {edition.schedule.map((slot, idx) => (
-                <div
-                  key={idx}
-                  className={`p-7 rounded-3xl bg-[#0d0d0f] border ${slot.borderColor} transition-all duration-300 hover:-translate-y-1 flex flex-col justify-between min-h-[260px]`}
-                >
-                  <div>
-                    <div className="flex items-center justify-between gap-2 mb-4">
-                      <span className={`px-3 py-1.5 rounded-full font-mono text-xs font-bold uppercase tracking-wider border ${slot.badgeBg}`}>
-                        {slot.day}
-                      </span>
-                    </div>
-                    <h3 className="font-display text-2xl font-bold text-white mb-4">
-                      {slot.title}
-                    </h3>
-                    <ul className="space-y-3">
-                      {slot.items.map((item, itemIdx) => (
-                        <li key={itemIdx} className="flex items-start gap-2.5 text-sm text-slate-300 leading-relaxed">
-                          <span className="text-cyan-400 shrink-0 mt-1">•</span>
-                          <span>{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
-        )}
-
-        {/* ── Speakers (2025 only) ── */}
-        {edition.speakers && (
-          <section className="mb-24">
-            <div className="mb-12 text-center">
-              <span className="font-mono text-xs sm:text-sm font-bold tracking-[0.2em] uppercase text-purple-400 block mb-2">
-                Sessions & Mentors
-              </span>
-              <h2 className="font-display text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
-                Speakers & Workshops
-              </h2>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-7">
-              {edition.speakers.map((spk, idx) => (
-                <div
-                  key={idx}
-                  className={`group relative p-6 rounded-3xl bg-[#0d0d0f] border ${spk.accent} hover:border-opacity-60 transition-all duration-300 hover:-translate-y-1 flex flex-col gap-4`}
-                >
-                  <div className="overflow-hidden rounded-2xl bg-[#111113] border border-white/[0.06]">
-                    <img
-                      src={spk.image}
-                      alt={spk.title}
-                      className="w-full h-48 object-cover object-center transition-transform duration-700 group-hover:scale-[1.03]"
-                    />
-                  </div>
-                  <div>
-                    <span className="inline-block px-3 py-1 rounded-full font-mono text-xs font-bold text-slate-300 border border-white/10 bg-white/[0.04] mb-3">
-                      {spk.badge}
-                    </span>
-                    <h3 className="font-display text-base font-bold text-white leading-snug mb-1">{spk.title}</h3>
-                    <p className="font-mono text-xs text-slate-500 mb-2">{spk.speaker}</p>
-                    <p className="text-sm text-slate-400 leading-relaxed">{spk.desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
-        )}
-
-        {/* ── Organizers / Advisory Members (2025 only) ── */}
-        {edition.organizers && (
-          <section className="mb-24">
-            <div className="mb-12 text-center">
-              <span className="font-mono text-xs sm:text-sm font-bold tracking-[0.2em] uppercase text-cyan-400 block mb-2">
-                Leadership & Coordination
-              </span>
-              <h2 className="font-display text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
-                Organizers & Advisory Council
-              </h2>
-              <p className="text-slate-400 max-w-2xl mx-auto mt-3 text-base sm:text-lg">
-                Meet the faculty advisor and club leadership who organized Qiskit Fall Fest 2025 at SIT Pune.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5 sm:gap-6">
-              {edition.organizers.map((org, idx) => (
-                <div
-                  key={idx}
-                  className="group relative p-5 sm:p-6 rounded-3xl bg-[#0d0d0f] border border-white/10 hover:border-cyan-400/50 transition-all duration-500 hover:-translate-y-2 flex flex-col items-center text-center overflow-hidden min-h-[340px]"
-                >
-                  {/* Portrait */}
-                  <div className="relative w-32 h-32 sm:w-36 sm:h-36 mb-4 rounded-2xl overflow-hidden border border-white/10 group-hover:border-cyan-400/40 transition-all duration-500 bg-[#111113]">
-                    <img
-                      src={org.image}
-                      alt={org.name}
-                      className="w-full h-full object-cover object-top filter grayscale-[10%] group-hover:grayscale-0 transition-transform duration-700 ease-out group-hover:scale-105"
-                      loading="lazy"
-                    />
-                  </div>
-
-                  <h3 className="font-display text-base sm:text-lg font-bold text-white group-hover:text-cyan-300 transition-colors mb-2 leading-snug tracking-tight">
-                    {org.name}
-                  </h3>
-                  <span className="px-3 py-1 rounded-full font-mono text-xs font-bold text-cyan-300 bg-cyan-500/10 border border-cyan-500/30 mb-2 block w-fit mx-auto">
-                    {org.role}
-                  </span>
-                  <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full font-mono text-[10px] text-purple-300 bg-purple-500/10 border border-purple-500/25 mb-2 font-medium">
-                    ✦ {org.advisoryRole}
-                  </span>
-                  <p className="font-mono text-xs text-slate-400 tracking-wide mt-auto">
-                    {org.dept}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </section>
-        )}
-
-        {/* ── Code of Conduct (2025 only) ── */}
-        {edition.codeOfConduct && (
-          <section className="mb-24">
-            <div className="mb-12 text-center">
-              <span className="font-mono text-xs sm:text-sm font-bold tracking-[0.2em] uppercase text-emerald-400 block mb-2">
-                Community Standards
-              </span>
-              <h2 className="font-display text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
-                Code of Conduct
-              </h2>
-              <p className="text-slate-400 max-w-2xl mx-auto mt-3 text-base sm:text-lg">
-                Committed to providing an inclusive, constructive, and inspiring environment.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
-              {edition.codeOfConduct.map((item, idx) => (
-                <div
-                  key={idx}
-                  className="p-7 sm:p-9 rounded-3xl bg-[#0d0d0f] border border-white/10 hover:border-emerald-500/40 transition-all duration-300 hover:-translate-y-1"
-                >
-                  <div className="flex items-center gap-3 mb-3">
-                    <span className="font-mono text-emerald-400 text-xl font-bold">✦</span>
-                    <h3 className="font-display text-xl sm:text-2xl font-bold text-white">
-                      {item.title}
-                    </h3>
-                  </div>
-                  <p className="text-base sm:text-lg text-slate-300 leading-relaxed">
-                    {item.desc}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </section>
-        )}
-
-        {/* ── Collaborators ── */}
-        {edition.collaborators && (
-          <section className="mb-20 p-6 sm:p-10 rounded-3xl bg-[#0d0d0f] border border-white/10 text-center shadow-xl">
-            <span className="font-mono text-xs sm:text-sm font-bold tracking-[0.2em] uppercase text-slate-400 block mb-3">
-              Official Global Collaborators
+        {/* ── Speakers & Mentors (Enlarged showcase cards) ── */}
+        <section className="mb-24">
+          <div className="mb-12 text-center">
+            <span className="font-mono text-xs sm:text-sm font-bold tracking-[0.2em] uppercase text-purple-400 block mb-2">
+              Learn from Experts
             </span>
-            <h2 className="font-display text-2xl sm:text-4xl font-extrabold text-white mb-10">
-              Powered by IBM Quantum & Qiskit
+            <h2 className="font-display text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+              Speakers & Mentors
             </h2>
+            <p className="text-slate-400 max-w-2xl mx-auto mt-3 text-base sm:text-lg">
+              Featuring IBM Quantum leadership and student-led hands-on programming workshops.
+            </p>
+          </div>
 
-            <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-12">
-              {edition.collaborators.map((c, idx) => (
-                <div
-                  key={idx}
-                  className="flex flex-col items-center gap-4 p-6 sm:p-8 rounded-2xl bg-[#111113] border border-white/10 hover:border-cyan-400/40 transition-all duration-300 w-full sm:w-auto sm:min-w-[240px]"
-                >
-                  <img src={c.logo} alt={c.name} className="h-10 sm:h-14 object-contain" />
-                  <div>
-                    <p className="font-bold text-white text-lg sm:text-xl">{c.name}</p>
-                    <p className="font-mono text-xs sm:text-sm text-slate-400">{c.desc}</p>
-                  </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {edition.speakers.map((spk, idx) => (
+              <div
+                key={idx}
+                className="group p-8 sm:p-10 rounded-3xl bg-[#090d12]/90 border border-white/[0.08] hover:border-cyan-400/50 backdrop-blur-2xl shadow-xl flex flex-col items-center text-center transition-all duration-500 hover:-translate-y-2"
+              >
+                <div className="w-36 h-36 sm:w-44 sm:h-44 mb-6 rounded-3xl bg-white/[0.04] border border-white/12 p-3 flex items-center justify-center shadow-inner group-hover:scale-105 transition-transform duration-500">
+                  <img
+                    src={spk.image}
+                    alt={spk.title}
+                    className="w-full h-full object-contain filter drop-shadow-[0_6px_20px_rgba(0,0,0,0.5)]"
+                  />
                 </div>
-              ))}
-            </div>
-          </section>
-        )}
+                <span className="px-3.5 py-1.5 rounded-full font-mono text-xs font-bold uppercase tracking-wider text-cyan-300 bg-cyan-500/15 border border-cyan-500/30 mb-4">
+                  {spk.badge}
+                </span>
+                <h3 className="font-display text-xl sm:text-2xl font-bold text-white mb-2 leading-snug">
+                  {spk.title}
+                </h3>
+                <p className="font-mono text-sm sm:text-base text-purple-300 font-semibold mb-4">
+                  {spk.speaker}
+                </p>
+                <p className="text-sm sm:text-base text-slate-300 leading-relaxed mt-auto">
+                  {spk.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* ── Organizers / Advisory Members (Large prominent cards with new high-res advisory images) ── */}
+        <section className="mb-24">
+          <div className="mb-12 text-center">
+            <span className="font-mono text-xs sm:text-sm font-bold tracking-[0.2em] uppercase text-cyan-400 block mb-2">
+              Leadership & Coordination
+            </span>
+            <h2 className="font-display text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+              Organizers & Advisory Council
+            </h2>
+            <p className="text-slate-400 max-w-2xl mx-auto mt-3 text-base sm:text-lg">
+              Meet the faculty advisor and club leadership who organized Qiskit Fall Fest 2025 at SIT Pune.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 sm:gap-7">
+            {edition.organizers.map((org, idx) => (
+              <div
+                key={idx}
+                className="group relative p-6 sm:p-7 rounded-3xl bg-[#090d12]/90 border border-white/[0.08] hover:border-cyan-400/50 backdrop-blur-2xl shadow-xl transition-all duration-500 hover:-translate-y-2 flex flex-col items-center text-center overflow-hidden min-h-[380px]"
+              >
+                {/* Large high-res Portrait */}
+                <div className="relative w-36 h-36 sm:w-40 sm:h-40 xl:w-44 xl:h-44 mb-5 rounded-2xl overflow-hidden border-2 border-white/15 group-hover:border-cyan-400 transition-all duration-500 shadow-[0_10px_25px_rgba(0,0,0,0.6)] bg-slate-900">
+                  <img
+                    src={org.image}
+                    alt={org.name}
+                    className="w-full h-full object-cover object-top filter grayscale-[10%] group-hover:grayscale-0 transition-transform duration-700 ease-out group-hover:scale-108"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                </div>
+
+                <h3 className="font-display text-base sm:text-lg xl:text-xl font-bold text-white group-hover:text-cyan-300 transition-colors mb-2 leading-snug tracking-tight">
+                  {org.name}
+                </h3>
+                <span className="px-3 py-1 rounded-full font-mono text-xs font-bold text-cyan-300 bg-cyan-500/15 border border-cyan-500/35 mb-2 shadow-sm block w-fit mx-auto">
+                  {org.role}
+                </span>
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full font-mono text-[10px] text-purple-300 bg-purple-500/15 border border-purple-500/30 mb-2 font-medium">
+                  ✦ {org.advisoryRole}
+                </span>
+                <p className="font-mono text-xs text-slate-400 tracking-wide mt-auto">
+                  {org.dept}
+                </p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* ── Code of Conduct (Expanded 2-column cards) ── */}
+        <section className="mb-24">
+          <div className="mb-12 text-center">
+            <span className="font-mono text-xs sm:text-sm font-bold tracking-[0.2em] uppercase text-emerald-400 block mb-2">
+              Community Standards
+            </span>
+            <h2 className="font-display text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+              Code of Conduct
+            </h2>
+            <p className="text-slate-400 max-w-2xl mx-auto mt-3 text-base sm:text-lg">
+              Committed to providing an inclusive, constructive, and inspiring environment.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+            {edition.codeOfConduct.map((item, idx) => (
+              <div
+                key={idx}
+                className="p-8 sm:p-10 rounded-3xl bg-[#090d12]/90 border border-white/[0.08] hover:border-emerald-500/40 backdrop-blur-2xl shadow-xl transition-all duration-300 hover:-translate-y-1"
+              >
+                <div className="flex items-center gap-3 mb-3">
+                  <span className="font-mono text-emerald-400 text-xl font-bold">✦</span>
+                  <h3 className="font-display text-xl sm:text-2xl font-bold text-white">
+                    {item.title}
+                  </h3>
+                </div>
+                <p className="text-base sm:text-lg text-slate-300 leading-relaxed">
+                  {item.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* ── Collaborators (Expanded showcase) ── */}
+        <section className="mb-20 p-6 sm:p-10 xl:p-14 rounded-3xl bg-[#090d12]/90 border border-white/[0.08] backdrop-blur-2xl text-center shadow-xl">
+          <span className="font-mono text-xs sm:text-sm font-bold tracking-[0.2em] uppercase text-slate-400 block mb-3">
+            Official Global Collaborators
+          </span>
+          <h2 className="font-display text-2xl sm:text-4xl font-extrabold text-white mb-10">
+            Powered by IBM Quantum & Qiskit
+          </h2>
+
+          <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-12">
+            {edition.collaborators.map((c, idx) => (
+              <div
+                key={idx}
+                className="flex flex-col items-center gap-4 p-6 sm:p-8 rounded-2xl sm:rounded-3xl bg-white/[0.05] border border-white/15 hover:border-cyan-400/50 transition-all duration-300 w-full sm:w-auto min-w-0 sm:min-w-[280px] shadow-lg"
+              >
+                <img src={c.logo} alt={c.name} className="h-12 sm:h-16 object-contain filter drop-shadow-md" />
+                <div>
+                  <p className="font-bold text-white text-lg sm:text-xl">{c.name}</p>
+                  <p className="font-mono text-xs sm:text-sm text-slate-400">{c.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
 
         {/* ── Footer ── */}
-        <section className="max-w-5xl mx-auto mb-12 pt-10 border-t border-slate-800/60">
+        <section className="max-w-5xl mx-auto mb-16 pt-10 border-t border-white/[0.08]">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
             <div>
-              <p className="font-mono text-[11px] uppercase tracking-widest text-slate-500 mb-1">
-                {edition.organizers ? 'Organized by' : 'Hosted by'}
-              </p>
+              <p className="font-mono text-xs uppercase tracking-widest text-slate-500 mb-1">Organized by</p>
               <p className="text-white font-bold text-lg sm:text-xl font-display">Symbiosis Quantum Club</p>
               <p className="text-slate-400 text-sm font-mono">Symbiosis Institute of Technology, Pune, India</p>
             </div>
@@ -901,18 +713,16 @@ export default function FallFest() {
               <Link to="/events" className="font-mono text-xs sm:text-sm uppercase tracking-wider text-slate-400 hover:text-white transition-colors">
                 Browse All Events →
               </Link>
-              {!is2026 && (
-                <Link to="/events/qiskit-fall-fest-2026" className="font-mono text-xs sm:text-sm uppercase tracking-wider text-cyan-400 hover:text-cyan-300 transition-colors">
-                  Qiskit Fall Fest 2026 →
-                </Link>
-              )}
+              <Link to="/events/qiskit-fall-fest-2026" className="font-mono text-xs sm:text-sm uppercase tracking-wider text-cyan-400 hover:text-cyan-300 transition-colors">
+                Qiskit Fall Fest 2026 →
+              </Link>
             </div>
           </div>
         </section>
 
-      </div>{/* end main content */}
+      </div>
 
-      {/* Marquee keyframes */}
+      {/* Vertical marquee keyframes injected inline for portability */}
       <style>{`
         @keyframes marqueeUp {
           0%   { transform: translateY(0); }

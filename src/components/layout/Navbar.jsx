@@ -177,7 +177,7 @@ export default function Navbar() {
 
               {/* Fall Fest 2026 — special highlighted button (no beacon dot) */}
               <Link
-                to="/fallfest_2026"
+                to="/events/qiskit-fall-fest-2026"
                 className={`relative inline-flex items-center gap-2 px-4 py-1.5 rounded-full font-mono text-[0.75rem] font-bold tracking-wider uppercase transition-all duration-300 select-none active:scale-[0.97] group overflow-hidden ${
                   isFallFestActive
                     ? 'bg-gradient-to-r from-[#FF7EB6] via-[#a78bfa] to-[#38bdf8] text-[#06040a] shadow-[0_0_24px_rgba(255,126,182,0.6)] font-extrabold'
@@ -291,6 +291,20 @@ export default function Navbar() {
               </Link>
             )
           })}
+          {/* Fall Fest mobile link */}
+          <Link
+            to="/events/qiskit-fall-fest-2026"
+            onClick={() => setMenuOpen(false)}
+            className="font-display text-[clamp(1.75rem,8vw,2.85rem)] leading-tight font-bold no-underline active:scale-[0.97] mt-2"
+            style={{
+              background: 'linear-gradient(90deg, #FF7EB6, #a78bfa, #38bdf8)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+            }}
+          >
+            FALL FEST 2026
+          </Link>
         </nav>
 
         <div
