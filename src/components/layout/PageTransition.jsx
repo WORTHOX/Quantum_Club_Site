@@ -96,13 +96,13 @@ export const getRouteMeta = (pathname) => {
   }
 }
 
-/* ─── 1.5 cm Square Pixel Box Dimensions ───
+/* ─── 2 cm Square Pixel Box Dimensions ───
    In CSS: 1 inch = 96px, 1 inch = 2.54cm
-   1.5 cm = (96 / 2.54) * 1.5 = 56.6929px */
-const BOX_SIZE_PX = 56.6929
+   2 cm = (96 / 2.54) * 2 = 75.5906px */
+const BOX_SIZE_PX = 75.5906
 
 function getGridDimensions() {
-  if (typeof window === 'undefined') return { cols: 28, rows: 18 }
+  if (typeof window === 'undefined') return { cols: 22, rows: 14 }
   return {
     cols: Math.ceil(window.innerWidth / BOX_SIZE_PX) + 2,
     rows: Math.ceil(window.innerHeight / BOX_SIZE_PX) + 2,
@@ -237,17 +237,16 @@ export default function PageTransition({ children }) {
           gsap.set(currentTiles, { scale: 1, opacity: 1, backgroundColor: curtainColor, outlineColor: curtainColor })
         },
       })
-      // Phase 2: 1.5 cm pixel tiles cascade out (exact same color)
+      // Phase 2: 2 cm pixel tiles randomly dissolve out (exact same color)
       .to(
         currentTiles,
         {
           scale: 0,
           opacity: 0,
-          duration: 0.38,
+          duration: 0.32,
           stagger: {
-            grid: [gridDimensions.rows, gridDimensions.cols],
-            from: 'center',
-            amount: 0.42,
+            from: 'random',
+            amount: 0.40,
           },
           ease: 'power2.inOut',
           onComplete: () => {
@@ -339,17 +338,16 @@ export default function PageTransition({ children }) {
           gsap.set(currentTiles, { scale: 1, opacity: 1, backgroundColor: curtainColor, outlineColor: curtainColor })
         },
       })
-      // Phase 2: PIXELS REVEAL — 1.5 cm square pixel boxes dissolve out from center
+      // Phase 2: PIXELS REVEAL — 2 cm square pixel boxes randomly dissolve out across the screen
       .to(
         currentTiles,
         {
           scale: 0,
           opacity: 0,
-          duration: 0.38,
+          duration: 0.32,
           stagger: {
-            grid: [gridDimensions.rows, gridDimensions.cols],
-            from: 'center',
-            amount: 0.42,
+            from: 'random',
+            amount: 0.40,
           },
           ease: 'power2.inOut',
           onComplete: () => {
@@ -503,21 +501,21 @@ export default function PageTransition({ children }) {
         </div>
       </div>
 
-      {/* ─── FULL-SCREEN PIXEL MOSAIC OVERLAY (1.5 CM SQUARE BOXES) ─── */}
+      {/* ─── FULL-SCREEN PIXEL MOSAIC OVERLAY (2 CM SQUARE BOXES) ─── */}
       <div
         ref={pixelOverlayRef}
         style={{ display: 'none' }}
         className="fixed inset-0 z-[99999] pointer-events-none select-none overflow-hidden flex items-center justify-center"
         aria-hidden="true"
       >
-        {/* Tiled 1.5 cm Square Pixel Grid */}
+        {/* Tiled 2 cm Square Pixel Grid */}
         <div
           className="grid pointer-events-none"
           style={{
-            gridTemplateColumns: `repeat(${gridDimensions.cols}, 1.5cm)`,
-            gridTemplateRows: `repeat(${gridDimensions.rows}, 1.5cm)`,
-            width: `${gridDimensions.cols * 1.5}cm`,
-            height: `${gridDimensions.rows * 1.5}cm`,
+            gridTemplateColumns: `repeat(${gridDimensions.cols}, 2cm)`,
+            gridTemplateRows: `repeat(${gridDimensions.rows}, 2cm)`,
+            width: `${gridDimensions.cols * 2}cm`,
+            height: `${gridDimensions.rows * 2}cm`,
           }}
         >
           {tiles.map((id) => (
@@ -525,8 +523,8 @@ export default function PageTransition({ children }) {
               key={id}
               ref={(el) => (tileRefs.current[id] = el)}
               style={{
-                width: '1.5cm',
-                height: '1.5cm',
+                width: '2cm',
+                height: '2cm',
                 backgroundColor: transitionColor,
                 outline: `1px solid ${transitionColor}`,
                 transformOrigin: 'center center',
