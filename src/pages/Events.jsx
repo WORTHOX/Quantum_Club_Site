@@ -33,7 +33,7 @@ const CATEGORY_HUB_DATA = {
     glowHover: 'group-hover:shadow-[0_16px_48px_rgba(249,115,22,0.28)]',
     badgeClass: 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30',
     tag: 'HANDS-ON SESSIONS',
-    coverImage: '/assets/events/iiser-visit/photo-5.jpg',
+    coverImage: '/assets/events/decoding-quantum-2026/photo-1.jpg',
     icon: (
       <svg className="w-8 h-8 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />

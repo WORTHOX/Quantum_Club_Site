@@ -14,6 +14,7 @@ This guide maps each event on the website to its active image folder in `src/ass
 | **IBM Qiskit Fall Fest 2025** | `fall-fest-2025/` | `Qiskit Fall Fest(AY 25-26 Odd Sem)/` | `badge-dark.png` | 10 photos |
 | **Quantum Ice Breaker 2025** | `ice-breaker-2025/` | `Quantum Ice Breaker(AY 25-26 Odd Sem)/` | `photo-1.jpg` | 10 photos |
 | **SQC Treasure Hunt** | `treasure-hunt-2026/` | `SQC Treasure Hunt(AY 26-27 Odd Sem)/` | `photo-1.jpg` | 11 photos |
+| **Workshop on National Science Day** | `powerbi-sis-2026/` | `PowerBI with SIS(AY 25-26 Even Sem)/` | `photo-1.jpg` | 10 photos |
 | **IBM Qiskit Fall Fest 2026** | `fallfest/2026/` | *Design Deliverables & SVGs* | `fall-fest-2026-cover.jpg` | Hero SVG, stickers 01-09 |
 
 ---

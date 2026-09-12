@@ -202,14 +202,17 @@ const EVENTS = [
     participants: '60+',
     duration: '3 hours',
     sessions: 1,
-    coverImage: null,
+    coverImage: '/assets/events/powerbi-sis-2026/photo-1.jpg',
     excerpt: 'On National Science Day, SQC conducted a hands-on Power BI workshop for students of Symbiosis International School — teaching data cleaning, transformation, and dashboard creation using a movie-themed dataset.',
     description: [
       'On the occasion of National Science Day (February 27), the Symbiosis Quantum Club conducted a hands-on Power BI workshop for students of Symbiosis International School (SIS) at SIT Pune.',
       'Using real-world datasets, participants learned the basics of data processing and visualization, including data cleaning, transformation, and dashboard creation.',
       'Participants were taught how data can tell stories, and how visualizations are the bridge between data and actually understanding it. The event was very engaging and the theme of movies kept the entire session entertaining and relatable.',
     ],
-    gallery: [],
+    gallery: Array.from({ length: 10 }, (_, i) => ({
+      url: `/assets/events/powerbi-sis-2026/photo-${i + 1}.jpg`,
+      caption: `Workshop on National Science Day — moment ${i + 1}`,
+    })),
     tags: ['Power BI', 'Data Visualization', 'National Science Day', 'SIS', 'Outreach'],
   },
 
