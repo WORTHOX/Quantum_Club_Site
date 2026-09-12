@@ -692,12 +692,14 @@ export default function EventDetail() {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-              {relatedEvents.map(rel => (
-                <Link
-                  key={rel.id}
-                  to={`/events/${rel.id}`}
-                  className={`p-4 rounded-xl bg-[#0a0e13]/80 border border-white/[0.06] ${isFallFest ? 'hover:border-cyan-500/40' : 'hover:border-emerald-500/40'} hover:-translate-y-0.5 transition-all duration-300 flex flex-col gap-2 group shadow-md`}
-                >
+              {relatedEvents.map(rel => {
+                const relUrl = rel.id === 'qiskit-fall-fest-2025' ? '/fallfest' : `/events/${rel.id}`
+                return (
+                  <Link
+                    key={rel.id}
+                    to={relUrl}
+                    className={`p-4 rounded-xl bg-[#0a0e13]/80 border border-white/[0.06] ${isFallFest ? 'hover:border-cyan-500/40' : 'hover:border-emerald-500/40'} hover:-translate-y-0.5 transition-all duration-300 flex flex-col gap-2 group shadow-md`}
+                  >
                   {rel.coverImage && (
                     <div className="w-full aspect-[16/9] rounded-lg overflow-hidden mb-1 bg-black/40">
                       <img
@@ -719,7 +721,8 @@ export default function EventDetail() {
                     </p>
                   )}
                 </Link>
-              ))}
+              )
+            })}
             </div>
           </section>
         )}
