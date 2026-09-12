@@ -79,20 +79,17 @@ export default function ScrollTextReveal() {
     <section className="relative h-[120vh] md:h-[140vh] bg-transparent text-white" ref={containerRef} id="welcome">
       <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden">
         <div className="w-full max-w-[1280px] mx-auto px-5 sm:px-8 md:px-12 lg:px-16 flex flex-col items-start">
-          <div className="flex flex-col items-start gap-3 mb-6 sm:mb-10">
-            <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full border border-purple-500/30 bg-[#0e0720]/70 backdrop-blur-md shadow-[0_0_20px_rgba(168,85,247,0.2)]">
-              <span className="w-2 h-2 rounded-full bg-purple-400 animate-pulse shadow-[0_0_8px_#c084fc]" />
-              <span className="font-pixel text-[11px] sm:text-xs md:text-sm font-bold tracking-widest text-purple-300 uppercase">
-                CHAPTER MANIFESTO
-              </span>
-            </div>
-            <h2 className="font-pixel text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-black tracking-wider text-white uppercase leading-tight drop-shadow-[0_0_28px_rgba(168,85,247,0.35)]">
+          <div className="flex flex-col items-start gap-2.5 mb-6 sm:mb-10">
+            <span className="font-pixel text-sm sm:text-base md:text-lg font-semibold tracking-widest text-purple-300 uppercase">
+              CHAPTER MANIFESTO
+            </span>
+            <h2 className="font-pixel text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black tracking-wider text-white uppercase leading-tight drop-shadow-[0_0_28px_rgba(168,85,247,0.35)]">
               WELCOME TO <span className="bg-gradient-to-r from-purple-300 via-violet-200 to-cyan-300 bg-clip-text text-transparent">QUANTUM CLUB</span>
             </h2>
           </div>
           
-          <div className="w-full max-w-[1240px]" ref={textWrapRef}>
-            <p className="font-display text-[clamp(1.7rem,2.9vw+0.2rem,3.35rem)] font-semibold leading-[1.24] tracking-tight m-0 text-left">
+          <div className="w-full max-w-[1300px]" ref={textWrapRef}>
+            <p className="font-display text-[clamp(1.9rem,3.5vw+0.25rem,3.95rem)] font-semibold leading-[1.22] tracking-tight m-0 text-left">
               {statement.map((item, i) => (
                 <span
                   key={i}
