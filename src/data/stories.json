@@ -3,24 +3,24 @@
     "id": "workshops",
     "title": "Workshops",
     "description": "Hands-on sessions with Qiskit, quantum circuits, and cloud IBM Quantum access.",
-    "image": "/assets/events/decoding-quantum-2026/photo-1.jpg"
+    "image": "/assets/events/decoding-quantum-2026/photo-1.webp"
   },
   {
     "id": "speakers",
     "title": "Guest Lectures",
     "description": "Talks from IBM researchers, quantum startups, and academic leaders.",
-    "image": "/assets/events/fall-fest-2025/photo-5.jpg"
+    "image": "/assets/events/fall-fest-2025/photo-5.webp"
   },
   {
     "id": "research",
     "title": "Research Visits",
     "description": "Field visits to premier research institutes like IISER Pune and collaborative study groups.",
-    "image": "/assets/events/iiser-visit/photo-8.jpg"
+    "image": "/assets/events/iiser-visit/photo-8.webp"
   },
   {
     "id": "community",
     "title": "Community",
     "description": "Building connections across colleges, companies, and countries.",
-    "image": "/assets/events/ice-breaker-2026/photo-5.jpg"
+    "image": "/assets/events/ice-breaker-2026/photo-5.webp"
   }
 ]

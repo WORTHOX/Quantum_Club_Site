@@ -33,7 +33,7 @@ const CATEGORY_HUB_DATA = {
     glowHover: 'group-hover:shadow-[0_16px_48px_rgba(249,115,22,0.28)]',
     badgeClass: 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30',
     tag: 'HANDS-ON SESSIONS',
-    coverImage: '/assets/events/decoding-quantum-2026/photo-1.jpg',
+    coverImage: '/assets/events/decoding-quantum-2026/photo-1.webp',
     icon: (
       <svg className="w-8 h-8 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
@@ -70,7 +70,7 @@ const CATEGORY_HUB_EXTRA = {
     glowHover: 'group-hover:shadow-[0_16px_48px_rgba(249,115,22,0.28)]',
     badgeClass: 'bg-pink-500/15 text-pink-400 border-pink-500/30',
     tag: 'ORIENTATION & WELCOME',
-    coverImage: '/assets/events/ice-breaker-2026/photo-3.jpg',
+    coverImage: '/assets/events/ice-breaker-2026/photo-3.webp',
     icon: (
       <svg className="w-8 h-8 text-pink-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
@@ -87,7 +87,7 @@ const CATEGORY_HUB_EXTRA = {
     glowHover: 'group-hover:shadow-[0_16px_48px_rgba(249,115,22,0.28)]',
     badgeClass: 'bg-amber-500/15 text-amber-400 border-amber-500/30',
     tag: 'RESEARCH LAB TOUR',
-    coverImage: '/assets/events/iiser-visit/photo-1.jpg',
+    coverImage: '/assets/events/iiser-visit/photo-1.webp',
     icon: (
       <svg className="w-8 h-8 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5m3 0v-4a1 1 0 011-1h2a1 1 0 011 1v4m-4 0h4" />
@@ -336,7 +336,7 @@ export default function Events() {
                     glowHover: 'group-hover:shadow-[0_16px_48px_rgba(249,115,22,0.28)]',
                     badgeClass: 'bg-amber-500/15 text-amber-400 border-amber-500/30',
                     tag: 'SQC INITIATIVE',
-                    coverImage: '/assets/events/iiser-visit/photo-1.jpg',
+                    coverImage: '/assets/events/iiser-visit/photo-1.webp',
                   }
 
                   return (

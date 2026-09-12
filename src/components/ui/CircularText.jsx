@@ -1,5 +1,3 @@
-import './CircularText.css'
-
 export default function CircularText({
   text = 'SYMBIOSIS QUANTUM CLUB • ',
   spinDuration = 12,
@@ -15,7 +13,7 @@ export default function CircularText({
 
   return (
     <div
-      className={`circular-text-container ${className}`}
+      className={`relative inline-flex items-center justify-center shrink-0 select-none ${className}`}
       style={{
         width: `${containerDim}px`,
         height: `${containerDim}px`,
@@ -23,7 +21,7 @@ export default function CircularText({
       }}
     >
       <div
-        className="circular-text-ring"
+        className="absolute inset-0 rounded-full origin-center pointer-events-none z-[2] will-change-transform animate-[spin_var(--spin-duration,12s)_linear_infinite]"
         style={{
           width: '100%',
           height: '100%'
@@ -34,7 +32,7 @@ export default function CircularText({
           return (
             <span
               key={i}
-              className="circular-text-char"
+              className="absolute top-1/2 left-1/2 origin-[0_0] font-display font-bold uppercase text-[#e0aaff] whitespace-pre pointer-events-none leading-none [text-shadow:0_0_8px_rgba(168,85,247,0.95),0_0_16px_rgba(236,72,153,0.7)]"
               style={{
                 transform: `rotate(${rotationAngle}deg) translateY(-${radius}px) translate(-50%, -50%)`,
                 fontSize: fontSize,
@@ -47,7 +45,11 @@ export default function CircularText({
         })}
       </div>
 
-      {children && <div className="circular-text-center">{children}</div>}
+      {children && (
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[1] flex items-center justify-center">
+          {children}
+        </div>
+      )}
     </div>
   )
 }

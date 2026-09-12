@@ -121,7 +121,7 @@ const EVENTS = [
     participants: '150+',
     duration: '3 hours',
     sessions: 1,
-    coverImage: '/assets/events/ice-breaker-2026/photo-3.jpg',
+    coverImage: '/assets/events/ice-breaker-2026/photo-3.webp',
     excerpt: 'SQC\'s annual ice breaker session welcoming the AY 2026–27 batch with interactive quantum demos, team introductions, and a preview of the year\'s events and research opportunities.',
     description: [
       'The Quantum Ice Breaker 2026 marked the official start of the new academic year for Symbiosis Quantum Club. Over 150 first-year and returning students gathered for an engaging orientation that blended fun with fundamentals.',
@@ -129,7 +129,8 @@ const EVENTS = [
       'New members experienced the spirit of SQC firsthand — collaborative, curious, and cutting-edge. The event set the tone for an ambitious year ahead, including Fall Fest 2026.',
     ],
     gallery: Array.from({ length: 10 }, (_, i) => ({
-      url: `/assets/events/ice-breaker-2026/photo-${i + 1}.jpg`,
+      url: `/assets/events/ice-breaker-2026/photo-${i + 1}.webp`,
+      fullUrl: `/assets/events/ice-breaker-2026/photo-${i + 1}-4k.webp`,
       caption: `Quantum Ice Breaker 2026 — moment ${i + 1}`,
     })),
     tags: ['Induction', 'Ice Breaker', 'Welcome', 'Orientation'],
@@ -150,7 +151,7 @@ const EVENTS = [
     participants: '40+',
     duration: '1 day',
     sessions: 4,
-    coverImage: '/assets/events/iiser-visit/photo-1.jpg',
+    coverImage: '/assets/events/iiser-visit/photo-1.webp',
     excerpt: 'SQC members visited i-Hub QTF at IISER Pune for expert-led workshops on Quantum Cryptography and Quantum Optics, plus a research tour showcasing a 20-qubit ion trap quantum processor currently under development.',
     description: [
       'The Symbiosis Quantum Club organised an industrial visit to i-Hub Quantum Technology Foundation (QTF) at IISER Pune — one of India\'s premier quantum research hubs. Over 40 club members participated in an immersive full-day programme.',
@@ -159,7 +160,8 @@ const EVENTS = [
       'The event fostered cross-institutional dialogue and planted seeds for an ongoing research collaboration between SIT Pune and IISER Pune in quantum science and engineering.',
     ],
     gallery: Array.from({ length: 10 }, (_, i) => ({
-      url: `/assets/events/iiser-visit/photo-${i + 1}.jpg`,
+      url: `/assets/events/iiser-visit/photo-${i + 1}.webp`,
+      fullUrl: `/assets/events/iiser-visit/photo-${i + 1}-4k.webp`,
       caption: `IISER Pune Visit — moment ${i + 1}`,
     })),
     tags: ['IISER Pune', 'Ion Trap', 'QKD', 'Quantum Optics', 'Lab Tour', 'Industrial Visit'],
@@ -202,7 +204,7 @@ const EVENTS = [
     participants: '60+',
     duration: '3 hours',
     sessions: 1,
-    coverImage: '/assets/events/powerbi-sis-2026/photo-1.jpg',
+    coverImage: '/assets/events/powerbi-sis-2026/photo-1.webp',
     excerpt: 'On National Science Day, SQC conducted a hands-on Power BI workshop for students of Symbiosis International School — teaching data cleaning, transformation, and dashboard creation using a movie-themed dataset.',
     description: [
       'On the occasion of National Science Day (February 27), the Symbiosis Quantum Club conducted a hands-on Power BI workshop for students of Symbiosis International School (SIS) at SIT Pune.',
@@ -210,7 +212,8 @@ const EVENTS = [
       'Participants were taught how data can tell stories, and how visualizations are the bridge between data and actually understanding it. The event was very engaging and the theme of movies kept the entire session entertaining and relatable.',
     ],
     gallery: Array.from({ length: 10 }, (_, i) => ({
-      url: `/assets/events/powerbi-sis-2026/photo-${i + 1}.jpg`,
+      url: `/assets/events/powerbi-sis-2026/photo-${i + 1}.webp`,
+      fullUrl: `/assets/events/powerbi-sis-2026/photo-${i + 1}-4k.webp`,
       caption: `Workshop on National Science Day — moment ${i + 1}`,
     })),
     tags: ['Power BI', 'Data Visualization', 'National Science Day', 'SIS', 'Outreach'],
@@ -229,7 +232,7 @@ const EVENTS = [
     participants: '80+',
     duration: '4 hours',
     sessions: 1,
-    coverImage: '/assets/events/decoding-quantum-2026/photo-1.jpg',
+    coverImage: '/assets/events/decoding-quantum-2026/photo-1.webp',
     excerpt: 'Pre-final year SQC members presented ongoing quantum computing projects — from Bloch sphere visualisation tools to post-quantum cryptography protocols — in an open showcase with extensive Q&A.',
     description: [
       'The "Decoding Quantum Projects" session was an interactive project discussion session led by pre-final year members of the Symbiosis Quantum Club, showcasing ongoing projects in quantum computing and the research challenges they addressed.',
@@ -237,7 +240,8 @@ const EVENTS = [
       'The session concluded with an extensive Q&A that gave students a clear understanding of the scope and complexity of research, while exploring several emerging opportunities available in quantum computing.',
     ],
     gallery: Array.from({ length: 10 }, (_, i) => ({
-      url: `/assets/events/decoding-quantum-2026/photo-${i + 1}.jpg`,
+      url: `/assets/events/decoding-quantum-2026/photo-${i + 1}.webp`,
+      fullUrl: `/assets/events/decoding-quantum-2026/photo-${i + 1}-4k.webp`,
       caption: `Decoding Quantum Projects — moment ${i + 1}`,
     })),
     tags: ['Project Showcase', 'Bloch Sphere', 'QKD', 'Quantum Cryptography', 'Research', 'ZKP'],
@@ -266,7 +270,8 @@ const EVENTS = [
       'Overall, the workshop successfully bridged the gap between theory and practice in quantum computing. Through live coding, visual demonstrations, and peer-led guidance, participants experienced how abstract quantum concepts come to life using Qiskit.',
     ],
     gallery: Array.from({ length: 10 }, (_, i) => ({
-      url: `/assets/events/fall-fest-2025/photo-${i + 1}.jpg`,
+      url: `/assets/events/fall-fest-2025/photo-${i + 1}.webp`,
+      fullUrl: `/assets/events/fall-fest-2025/photo-${i + 1}-4k.webp`,
       caption: `Qiskit Fall Fest 2025 — moment ${i + 1}`,
     })),
     tags: ['IBM Quantum', 'Qiskit', 'Circuits', 'Superposition', 'Quantum Gates', 'Kavitha Yogaraj'],
@@ -301,7 +306,7 @@ const EVENTS = [
     participants: '200+',
     duration: '1 day',
     sessions: 1,
-    coverImage: '/assets/events/qiscade-2025/photo-1.jpg',
+    coverImage: '/assets/events/qiscade-2025/photo-1.webp',
     excerpt: 'At Symbitech — SIT\'s premier techfest — SQC showcased Qiscade: an in-house quantum-inspired arcade game introducing 200+ players to superposition, entanglement, and quantum gates through interactive gameplay.',
     description: [
       'Qiscade (Quantum Arcade) was SQC\'s showpiece event at Symbitech 2025, SIT Pune\'s premier annual techfest. The club developed a quantum-inspired arcade game entirely in-house, introducing players to fundamental quantum computing concepts through immersive interactive gameplay.',
@@ -309,7 +314,8 @@ const EVENTS = [
       'The event attracted over 200 participants across all branches and years, receiving an overwhelmingly positive response. Qiscade was celebrated as a standout success in spreading awareness and enthusiasm for quantum computing across the SIT campus.',
     ],
     gallery: Array.from({ length: 11 }, (_, i) => ({
-      url: `/assets/events/qiscade-2025/photo-${i + 1}.jpg`,
+      url: `/assets/events/qiscade-2025/photo-${i + 1}.webp`,
+      fullUrl: `/assets/events/qiscade-2025/photo-${i + 1}-4k.webp`,
       caption: `Qiscade — Quantum Arcade at Symbitech 2025, moment ${i + 1}`,
     })),
     tags: ['Techfest', 'Symbitech', 'Game', 'Superposition', 'Entanglement', 'Interactive'],
@@ -328,7 +334,7 @@ const EVENTS = [
     participants: '70+',
     duration: '4 hours',
     sessions: 1,
-    coverImage: '/assets/events/agentic-ai-2025/photo-1.jpg',
+    coverImage: '/assets/events/agentic-ai-2025/photo-1.webp',
     excerpt: 'A student-led collaborative workshop equipping juniors with hands-on exposure to Quantum Agents — autonomous AI systems empowered by quantum-enhanced decision-making — including building a RAG-based multilingual AI chatbot.',
     description: [
       'The Agentic AI × Quantum Agents workshop was a student-led, collaborative session designed to equip junior and sophomore students with hands-on, industry-relevant exposure to the emerging intersection of quantum computing and artificial intelligence.',
@@ -336,7 +342,8 @@ const EVENTS = [
       'A key segment discussed how quantum-accelerated agent architectures are shaping the next generation of AIML research — enabling faster, more adaptive systems. The session was entirely peer-led by senior SQC members, demonstrating the club\'s strong culture of mentorship and knowledge transfer.',
     ],
     gallery: Array.from({ length: 14 }, (_, i) => ({
-      url: `/assets/events/agentic-ai-2025/photo-${i + 1}.jpg`,
+      url: `/assets/events/agentic-ai-2025/photo-${i + 1}.webp`,
+      fullUrl: `/assets/events/agentic-ai-2025/photo-${i + 1}-4k.webp`,
       caption: `Agentic AI × Quantum Agents Workshop — moment ${i + 1}`,
     })),
     tags: ['Agentic AI', 'Quantum Agents', 'RAG', 'LLM', 'QML', 'Peer Workshop'],
@@ -355,7 +362,7 @@ const EVENTS = [
     participants: '120+',
     duration: '2.5 hours',
     sessions: 1,
-    coverImage: '/assets/events/ice-breaker-2025/photo-1.jpg',
+    coverImage: '/assets/events/ice-breaker-2025/photo-1.webp',
     excerpt: 'SQC\'s very first event — a beginner-friendly interactive introduction to quantum computing featuring alumni guest speaker Mr. Om Shankar, Quantum AI Intern at Tech Mahindra, who shared experiences in Quantum AI and Quantum Biology.',
     description: [
       'The Quantum Ice Breaker on July 25, 2025 was the Symbiosis Quantum Club\'s very first event — a beginner-friendly interactive session designed to introduce students to the rapidly developing world of quantum computing.',
@@ -363,7 +370,8 @@ const EVENTS = [
       'Through live coding demonstrations, visual explanations, and peer-led guidance, participants experienced how abstract quantum concepts come to life using Qiskit. The session ignited curiosity and set the foundation for what would become one of SIT\'s most active technical clubs.',
     ],
     gallery: Array.from({ length: 10 }, (_, i) => ({
-      url: `/assets/events/ice-breaker-2025/photo-${i + 1}.jpg`,
+      url: `/assets/events/ice-breaker-2025/photo-${i + 1}.webp`,
+      fullUrl: `/assets/events/ice-breaker-2025/photo-${i + 1}-4k.webp`,
       caption: `Quantum Ice Breaker 2025 — moment ${i + 1}`,
     })),
     tags: ['Ice Breaker', 'Guest Lecture', 'Quantum AI', 'Quantum Biology', 'Alumni', 'Om Shankar'],

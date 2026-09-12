@@ -3,9 +3,6 @@
    Matte Dark Black Base + Multi-Color Quantum Spectrum Badges & Cards
    ======================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=IBM+Plex+Mono:wght@400;500&display=swap');
-
-
 @layer base {
   html {
     scroll-behavior: smooth;

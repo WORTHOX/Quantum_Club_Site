@@ -2,10 +2,10 @@ import { useRef, useState } from 'react'
 import stories from '../../data/stories.json'
 
 const STORY_IMAGES = {
-  workshops: '/assets/events/decoding-quantum-2026/photo-1.jpg',
-  speakers: '/assets/events/fall-fest-2025/photo-5.jpg',
-  research: '/assets/events/iiser-visit/photo-8.jpg',
-  community: '/assets/events/ice-breaker-2026/photo-5.jpg',
+  workshops: '/assets/events/decoding-quantum-2026/photo-1.webp',
+  speakers: '/assets/events/fall-fest-2025/photo-5.webp',
+  research: '/assets/events/iiser-visit/photo-8.webp',
+  community: '/assets/events/ice-breaker-2026/photo-5.webp',
 }
 
 export default function QuantumLifeStories() {
@@ -40,7 +40,7 @@ export default function QuantumLifeStories() {
       <div className="w-full max-w-7xl mx-auto px-5 sm:px-8 md:px-12">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6 justify-center">
           {stories.map((story) => {
-            const imgSrc = STORY_IMAGES[story.id] || '/assets/events/iiser-visit/photo-1.jpg'
+            const imgSrc = story.image || STORY_IMAGES[story.id] || '/assets/events/iiser-visit/photo-1.webp'
             return (
               <button
                 key={story.id}
@@ -104,7 +104,7 @@ export default function QuantumLifeStories() {
             </button>
             <div className="aspect-video bg-[#07040d] overflow-hidden relative">
               <img
-                src={STORY_IMAGES[activeStory.id] || '/assets/events/iiser-visit/photo-1.jpg'}
+                src={activeStory.image || STORY_IMAGES[activeStory.id] || '/assets/events/iiser-visit/photo-1.webp'}
                 alt={activeStory.title}
                 className={`w-full h-full object-cover ${
                   activeStory.id === 'community' ? 'object-[center_75%]' : 'object-center'

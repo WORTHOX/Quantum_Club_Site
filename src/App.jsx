@@ -1,17 +1,21 @@
 import { BrowserRouter, Routes, Route, useLocation, Navigate, useParams } from 'react-router-dom'
-import { useEffect, useState } from 'react'
+import { lazy, Suspense, useEffect, useState } from 'react'
 import { useGlobalReveal } from './utils/useGlobalReveal'
 import Preloader from './components/ui/Preloader'
+import ErrorBoundary from './components/ui/ErrorBoundary'
 import Navbar from './components/layout/Navbar'
 import Footer from './components/layout/Footer'
 import PageTransition, { isDetailPage } from './components/layout/PageTransition'
-import Home from './pages/Home'
-import Events from './pages/Events'
-import EventDetail from './pages/EventDetail'
-import Blog from './pages/Blog'
-import BlogDetail from './pages/BlogDetail'
-import Team from './pages/Team'
-import FallFest from './pages/FallFest'
+
+/* Lazy-loaded route chunks to isolate Three.js and reduce initial bundle */
+const Home = lazy(() => import('./pages/Home'))
+const Events = lazy(() => import('./pages/Events'))
+const EventDetail = lazy(() => import('./pages/EventDetail'))
+const Blog = lazy(() => import('./pages/Blog'))
+const BlogDetail = lazy(() => import('./pages/BlogDetail'))
+const Team = lazy(() => import('./pages/Team'))
+const FallFest = lazy(() => import('./pages/FallFest'))
+const NotFound = lazy(() => import('./pages/NotFound'))
 
 /* Helper for legacy Qiskit archive links */
 function QiskitRedirect() {
@@ -32,34 +36,32 @@ function AnimatedRoutes() {
 
   return (
     <PageTransition>
-      {/* ⚠️ Removed key={location.pathname} — that remounted PageTransition
-           on every route change, destroying pending timers and children state.
-           Instead, we pass `location` so React Router matches the right route
-           while PageTransition controls what's visible. */}
-      <Routes location={location}>
-        <Route path="/"              element={<Home />} />
-        <Route path="/events"        element={<Events />} />
-        <Route path="/events/qiskit-fall-fest-2025" element={<Navigate to="/fallfest" replace />} />
-        <Route path="/events/:id"    element={<EventDetail />} />
+      <Suspense fallback={null}>
+        <Routes location={location}>
+          <Route path="/"              element={<Home />} />
+          <Route path="/events"        element={<Events />} />
+          <Route path="/events/qiskit-fall-fest-2025" element={<Navigate to="/fallfest" replace />} />
+          <Route path="/events/:id"    element={<EventDetail />} />
 
-        {/*
-          ⚠️ IMPORTANT — IBM LINK PRESERVATION:
-          /fallfest is published on IBM's official Qiskit Global Partner page.
-          This URL MUST resolve to a real page (not a redirect) with proper
-          SEO metadata. IBM will NOT update the link — it must always work.
-          - /fallfest → Fall Fest 2025 (IBM-linked canonical URL)
-        */}
-        <Route path="/fallfest"      element={<FallFest />} />
-        <Route path="/fallfest-2026" element={<Navigate to="/events/qiskit-fall-fest-2026" replace />} />
-        <Route path="/fallfest/2026" element={<Navigate to="/events/qiskit-fall-fest-2026" replace />} />
-        <Route path="/fallfest_2026" element={<Navigate to="/events/qiskit-fall-fest-2026" replace />} />
+          {/*
+            ⚠️ IMPORTANT — IBM LINK PRESERVATION:
+            /fallfest is published on IBM's official Qiskit Global Partner page.
+            This URL MUST resolve to a real page (not a redirect) with proper
+            SEO metadata. IBM will NOT update the link — it must always work.
+            - /fallfest → Fall Fest 2025 (IBM-linked canonical URL)
+          */}
+          <Route path="/fallfest"      element={<FallFest />} />
+          <Route path="/fallfest-2026" element={<Navigate to="/events/qiskit-fall-fest-2026" replace />} />
+          <Route path="/fallfest/2026" element={<Navigate to="/events/qiskit-fall-fest-2026" replace />} />
+          <Route path="/fallfest_2026" element={<Navigate to="/events/qiskit-fall-fest-2026" replace />} />
 
-        <Route path="/blog"          element={<Blog />} />
-        <Route path="/blog/:id"      element={<BlogDetail />} />
-        <Route path="/team"          element={<Team />} />
-        <Route path="/qiskit/:year"  element={<QiskitRedirect />} />
-        <Route path="*"              element={<Home />} />
-      </Routes>
+          <Route path="/blog"          element={<Blog />} />
+          <Route path="/blog/:id"      element={<BlogDetail />} />
+          <Route path="/team"          element={<Team />} />
+          <Route path="/qiskit/:year"  element={<QiskitRedirect />} />
+          <Route path="*"              element={<NotFound />} />
+        </Routes>
+      </Suspense>
     </PageTransition>
   )
 }
@@ -85,9 +87,11 @@ export default function App() {
       {loading && <Preloader onDone={() => setLoading(false)} />}
       <RouteEffects />
       <Navbar />
-      <main id="main">
-        <AnimatedRoutes />
-      </main>
+      <div id="app-root" className="relative w-full">
+        <ErrorBoundary>
+          <AnimatedRoutes />
+        </ErrorBoundary>
+      </div>
       <Footer />
     </BrowserRouter>
   )

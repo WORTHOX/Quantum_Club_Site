@@ -14,10 +14,11 @@ export default function AboutDoubleImage() {
             {/* Primary image: Dilution Cryostat Facility */}
             <div className="aspect-[4/5] bg-[#090714] border border-white/[0.08] rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.75)] relative group">
               <img
-                src="/assets/images/about-large.jpg"
+                src="/assets/images/about-large.webp"
                 alt="State-of-the-art Quantum Dilution Refrigerator and Optical Laser Bench"
                 className="w-full h-full object-cover brightness-90 group-hover:scale-105 group-hover:brightness-100 transition-all duration-700 ease-out"
                 loading="lazy"
+                decoding="async"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#06040a]/85 via-transparent to-transparent pointer-events-none" />
               <div className="absolute bottom-3 sm:bottom-4 left-3 sm:left-4 right-3 sm:right-4 flex items-center justify-between">
@@ -29,10 +30,11 @@ export default function AboutDoubleImage() {
             {/* Secondary image — offset upward: Student Delegation at IISER Pune */}
             <div className="aspect-[3/4] bg-[#090714] border border-white/[0.08] rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.8)] relative -translate-y-[14%] group">
               <img
-                src="/assets/events/iiser-visit/photo-2.jpg"
+                src="/assets/events/iiser-visit/photo-2.webp"
                 alt="Symbiosis Quantum Club Student Delegation with Certificates at IISER Pune"
                 className="w-full h-full object-cover brightness-90 group-hover:scale-105 group-hover:brightness-100 transition-all duration-700 ease-out"
                 loading="lazy"
+                decoding="async"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#06040a]/85 via-transparent to-transparent pointer-events-none" />
               <div className="absolute bottom-2.5 sm:bottom-3 left-2.5 sm:left-3 right-2.5 sm:right-3">

@@ -23,7 +23,7 @@ const edition = {
   bannerImage: '/assets/fallfest/Full_Illustration.png',
   timelineImage: '/assets/fallfest/Timeline_01.png',
   gallery: Array.from({ length: 10 }, (_, i) => ({
-    url: `/assets/events/fall-fest-2025/photo-${i + 1}.jpg`,
+    url: `/assets/events/fall-fest-2025/photo-${i + 1}.webp`,
     caption: `Qiskit Fall Fest 2025 — Moment ${i + 1}`,
   })),
   tags: [

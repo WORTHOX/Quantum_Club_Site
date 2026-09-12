@@ -735,9 +735,15 @@ export default function EventDetail() {
           className="fixed inset-0 z-50 bg-black/95 backdrop-blur-md flex items-center justify-center p-4"
           onClick={() => setLightboxImg(null)}
         >
-          {/* Lightbox Index Counter */}
-          <div className="absolute top-4 left-4 px-3 py-1 rounded-full bg-black/70 border border-white/20 text-slate-300 font-mono text-xs backdrop-blur-md z-20">
-            {lightboxImg + 1} / {event.gallery.length}
+          {/* Lightbox Index Counter & 4K Specimen Indicator */}
+          <div className="absolute top-4 left-4 flex items-center gap-2 z-20">
+            <div className="px-3 py-1 rounded-full bg-black/70 border border-white/20 text-slate-300 font-mono text-xs backdrop-blur-md">
+              {lightboxImg + 1} / {event.gallery.length}
+            </div>
+            <span className="px-2.5 py-1 rounded-full bg-cyan-500/15 border border-cyan-500/30 text-cyan-300 font-mono text-[10px] font-semibold tracking-wider uppercase backdrop-blur-md flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
+              4K ULTRA-HD
+            </span>
           </div>
 
           <button
@@ -771,7 +777,7 @@ export default function EventDetail() {
           )}
 
           <img
-            src={event.gallery[lightboxImg].url}
+            src={event.gallery[lightboxImg].fullUrl || event.gallery[lightboxImg].url}
             alt={event.gallery[lightboxImg].caption || 'Enlarged view'}
             className="max-h-[82vh] max-w-[90vw] rounded-xl object-contain shadow-2xl border border-white/10"
             onClick={(e) => e.stopPropagation()}

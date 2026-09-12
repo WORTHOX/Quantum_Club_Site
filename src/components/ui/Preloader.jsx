@@ -92,12 +92,12 @@ export default function Preloader({ onDone }) {
   const rootRef = useRef(null)
   const leftColRef = useRef(null)
   const rightDeckRef = useRef(null)
-  const [percent, setPercent] = useState(0)
+  const percentTextRef = useRef(null)
+  const progressBarRef = useRef(null)
+  const [stageIndex, setStageIndex] = useState(0)
+  const [milestones, setMilestones] = useState({ m25: false, m50: false, m75: false, m90: false })
 
-  // Current quantum stage based on percentage
-  const stage = useMemo(() => {
-    return QUANTUM_STAGES.find(s => percent >= s.min && percent <= s.max) || QUANTUM_STAGES[0]
-  }, [percent])
+  const stage = QUANTUM_STAGES[stageIndex] || QUANTUM_STAGES[0]
 
   // Apple-grade architectural curtain reveal
   const runExit = () => {
@@ -136,14 +136,21 @@ export default function Preloader({ onDone }) {
     document.body.style.overflow = 'hidden'
 
     const tracker = { v: 0 }
+    let lastStage = 0
+    let lastM25 = false
+    let lastM50 = false
+    let lastM75 = false
+    let lastM90 = false
+
     const mainTl = gsap.timeline({
       onComplete: runExit,
     })
 
     /**
      * Organic 3.0-Second Flow from 0 to 100%
-     * Deliberate, high-aesthetic quantum telemetry sweep through all 4 calibration stages
+     * High-aesthetic quantum telemetry sweep through all 4 calibration stages
      * with smooth physical easing, settling gracefully at 100%.
+     * High-frequency updates (counter & bar) bypass React reconciliation via refs.
      */
     mainTl
       .to(tracker, {
@@ -151,7 +158,35 @@ export default function Preloader({ onDone }) {
         duration: 3.0,
         ease: 'power2.inOut',
         onUpdate: () => {
-          setPercent(Math.round(tracker.v))
+          const rounded = Math.round(tracker.v)
+
+          // 1. Direct 60fps DOM update for numerical counter & progress bar
+          if (percentTextRef.current) {
+            percentTextRef.current.textContent = String(rounded).padStart(3, '0')
+          }
+          if (progressBarRef.current) {
+            progressBarRef.current.style.width = `${rounded}%`
+          }
+
+          // 2. Discrete stage index update (only changes 4 times across 3.0s)
+          const newStageIdx = QUANTUM_STAGES.findIndex(s => rounded >= s.min && rounded <= s.max)
+          if (newStageIdx !== -1 && newStageIdx !== lastStage) {
+            lastStage = newStageIdx
+            setStageIndex(newStageIdx)
+          }
+
+          // 3. Discrete milestone notch updates (only trigger at 25, 50, 75, 90)
+          const m25 = rounded >= 25
+          const m50 = rounded >= 50
+          const m75 = rounded >= 75
+          const m90 = rounded >= 90
+          if (m25 !== lastM25 || m50 !== lastM50 || m75 !== lastM75 || m90 !== lastM90) {
+            lastM25 = m25
+            lastM50 = m50
+            lastM75 = m75
+            lastM90 = m90
+            setMilestones({ m25, m50, m75, m90 })
+          }
         },
       })
       // Physical 150ms hold at 100% for confirmation
@@ -201,7 +236,7 @@ export default function Preloader({ onDone }) {
       </header>
 
       {/* ── Main Structural Grid: Asymmetric 12-Column Layout ── */}
-      <main className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-16 items-center my-auto w-full max-w-7xl mx-auto py-2 sm:py-4 overflow-y-auto lg:overflow-visible max-h-[calc(100dvh-130px)]">
+      <section className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-16 items-center my-auto w-full max-w-7xl mx-auto py-2 sm:py-4 overflow-y-auto lg:overflow-visible max-h-[calc(100dvh-130px)]">
         {/* Left Column (7 cols): Editorial Typography Monolith & Mobile Specimen */}
         <div ref={leftColRef} className="lg:col-span-7 flex flex-col justify-center space-y-3.5 sm:space-y-5">
           {/* Eyebrow Status Badges — font-pixel Telemetry */}
@@ -306,6 +341,7 @@ export default function Preloader({ onDone }) {
           <div className="pt-1 sm:pt-2 flex items-baseline justify-between sm:justify-start gap-3 sm:gap-4">
             <div className="flex items-baseline leading-none">
               <span
+                ref={percentTextRef}
                 className="font-pixel text-5xl sm:text-7xl md:text-8xl lg:text-9xl text-white tracking-tight"
                 style={{
                   fontVariantNumeric: 'tabular-nums',
@@ -313,7 +349,7 @@ export default function Preloader({ onDone }) {
                   textShadow: `0 0 32px ${stage.glow}`,
                 }}
               >
-                {String(percent).padStart(3, '0')}
+                000
               </span>
               <span
                 className="font-pixel text-lg sm:text-2xl md:text-3xl lg:text-4xl font-bold ml-2 sm:ml-3 transition-colors duration-300"
@@ -388,23 +424,23 @@ export default function Preloader({ onDone }) {
             </div>
           </div>
         </div>
-      </main>
+      </section>
 
       {/* ── Bottom Section: Precision Engraved Hairline Timeline ── */}
       <footer className="relative z-10 flex flex-col w-full pt-3 sm:pt-4 border-t border-white/[0.06] shrink-0">
         {/* Discrete Coherence Notches in font-pixel */}
         <div className="flex justify-between w-full font-pixel text-[8px] sm:text-[9px] text-white/30 tracking-wider sm:tracking-widest uppercase mb-1.5 sm:mb-2 px-0.5">
-          <span className={percent >= 0 ? 'text-emerald-400 font-medium' : ''}>
+          <span className="text-emerald-400 font-medium">
             <span className="hidden sm:inline">00% [INIT]</span>
             <span className="sm:hidden">0% INIT</span>
           </span>
-          <span className={`hidden sm:inline ${percent >= 25 ? 'text-white/80' : ''}`}>25% [RESEARCH]</span>
-          <span className={percent >= 50 ? 'text-white/80' : ''}>
+          <span className={`hidden sm:inline ${milestones.m25 ? 'text-white/80' : ''}`}>25% [RESEARCH]</span>
+          <span className={milestones.m50 ? 'text-white/80' : ''}>
             <span className="hidden sm:inline">50% [COMMUNITY]</span>
             <span className="sm:hidden">50% COMMS</span>
           </span>
-          <span className={`hidden sm:inline ${percent >= 75 ? 'text-white/80' : ''}`}>75% [IBM LINK]</span>
-          <span className={percent >= 90 ? 'text-pink-400 font-bold' : ''}>
+          <span className={`hidden sm:inline ${milestones.m75 ? 'text-white/80' : ''}`}>75% [IBM LINK]</span>
+          <span className={milestones.m90 ? 'text-pink-400 font-bold' : ''}>
             <span className="hidden sm:inline">100% [COHERENT]</span>
             <span className="sm:hidden">100% READY</span>
           </span>
@@ -413,9 +449,10 @@ export default function Preloader({ onDone }) {
         {/* Laser Hairline Progress Rule with Glowing Tip */}
         <div className="w-full h-[1.5px] bg-white/[0.08] relative overflow-visible mb-2 sm:mb-4 rounded-full">
           <div
+            ref={progressBarRef}
             className="h-full relative transition-all duration-75 ease-out rounded-full"
             style={{
-              width: `${percent}%`,
+              width: '0%',
               background: `linear-gradient(to right, transparent, ${stage.accent})`,
             }}
           >

@@ -101,11 +101,12 @@ export default function QuantumDepartureBackground() {
       if (document.documentElement) ro.observe(document.documentElement)
     }
 
-    // Settle layout cache across initial load, preloader finish, and font loading
-    const t1 = setTimeout(updateLayoutCache, 500)
-    const t2 = setTimeout(updateLayoutCache, 1500)
-    const t3 = setTimeout(updateLayoutCache, 3200) // triggers right after preloader curtain reveal
-    const t4 = setTimeout(updateLayoutCache, 5000)
+    // Deterministic layout cache sync: fonts loaded, assets loaded, and post-preloader reveal
+    if (document.fonts?.ready) {
+      document.fonts.ready.then(updateLayoutCache)
+    }
+    window.addEventListener('load', updateLayoutCache, { once: true })
+    const tPostPreloader = setTimeout(updateLayoutCache, 3200) // triggers right after preloader curtain reveal
 
     // Passive scroll check: if scroll advances significantly, ensure layoutCache is synced
     let lastScrollY = 0
@@ -794,10 +795,8 @@ export default function QuantumDepartureBackground() {
     document.addEventListener('visibilitychange', onVisibilityChange)
 
     return () => {
-      clearTimeout(t1)
-      clearTimeout(t2)
-      clearTimeout(t3)
-      clearTimeout(t4)
+      clearTimeout(tPostPreloader)
+      window.removeEventListener('load', updateLayoutCache)
       if (ro) ro.disconnect()
       window.removeEventListener('resize', handleResize)
       window.removeEventListener('scroll', onScroll)

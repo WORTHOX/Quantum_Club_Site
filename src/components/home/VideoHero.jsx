@@ -48,7 +48,7 @@ const POLAROIDS = [
   },
   {
     id: 4,
-    image: '/classroom-session.jpg',
+    image: '/classroom-session.webp',
     caption: 'Classroom Sessions',
     subtitle: 'Foundations & math @ SIT',
     date: 'AY 2025–26',
