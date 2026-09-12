@@ -192,37 +192,174 @@ const EDITION_2025 = {
 const EDITION_2026 = {
   year: '2026',
   title: 'IBM Qiskit Fall Fest 2026',
-  subtitle: 'A Decade of Quantum on Cloud',
+  subtitle: 'A Decade of Quantum on the Cloud',
+  theme: 'Ideathon & Speaker Series',
+  institution: 'Symbiosis Institute of Technology, Pune',
   tagline: 'Official IBM Qiskit Global Partner Event',
-  description: [
-    "Symbiosis Quantum Club proudly hosts the IBM Qiskit Fall Fest 2026 — one of the most anticipated quantum computing events in India. This multi-day festival brings together students, researchers, and quantum enthusiasts for hands-on workshops, circuit design challenges, and algorithm hackathons powered by real IBM quantum hardware.",
-    "As an official IBM Qiskit Global Partner, Symbiosis Quantum Club continues its mission of democratising quantum education and building India's next generation of quantum-ready engineers and scientists.",
-  ],
-  canonicalUrl: 'https://symbiosisquantumclub.vercel.app/events/qiskit-fall-fest-2026',
+  canonicalUrl: 'https://symbiosisquantumclub.vercel.app/fallfest_2026',
   eventId: 'qiskit-fall-fest-2026',
   accentColor: '#FF7EB6',
   gradientFrom: '#FF7EB6',
   gradientTo: '#38bdf8',
-  highlights: [
-    'Live IBM Quantum Hardware Sessions via IBM Cloud',
-    'Qiskit Circuit Design & VQE Implementation Workshops',
-    'Algorithm Hackathon with Real QPU Access',
-    '48-hour Quantum Challenge',
-    'Expert Mentoring from IBM Qiskit Advocates',
-    'Certificate from IBM & Symbiosis Quantum Club',
+  bannerImage: '/assets/fallfest/2026/illustrations/hero_2_with_tile.webp',
+  tags: [
+    'IBM Qiskit Flagship Event',
+    'Ideathon + Speaker Series',
+    'Open to All Students',
   ],
+  leadText:
+    'For the second consecutive year, Symbiosis Quantum Club is an official IBM Qiskit Fall Fest partner — celebrating a decade of quantum on the cloud with a flagship Ideathon and curated speaker sessions.',
+  eventDetails: [
+    'Teams of 1\u20133 submit a pitch deck to enter the Ideathon and compete across two on-campus days.',
+    'Four speaker sessions \u2014 two external quantum experts and two from the club \u2014 on current trends in quantum computing.',
+    'Shortlisted Ideathon teams receive mentorship, build time, and pitch their final version on Day 2.',
+    'October 2026 \u00b7 Open to all students \u2014 zero prerequisites for speaker sessions.',
+  ],
+  whatToExpect: [
+    'An original quantum idea pitched and built across two days of intense on-campus work.',
+    'Direct exposure to quantum researchers and IBM voices on where the field is heading.',
+    'IBM certification for participants completing the program.',
+  ],
+  schedule: [
+    {
+      day: 'STAGE 1',
+      title: 'Team Formation & Pitch Submission',
+      accent: '#FF7EB6',
+      borderColor: 'border-[#FF7EB6]/35',
+      badgeBg: 'bg-[#FF7EB6]/10 text-[#FF7EB6] border-[#FF7EB6]/30',
+      items: [
+        'Form a team of 1\u20133 and submit your project pitch deck via Google Form.',
+        'Shortlisted teams advance to the on-campus rounds.',
+      ],
+      footnote: 'Submission deadline: TBD',
+    },
+    {
+      day: 'DAY 1',
+      title: 'Speaker Sessions + Workshop',
+      accent: '#38bdf8',
+      borderColor: 'border-[#38bdf8]/35',
+      badgeBg: 'bg-[#38bdf8]/10 text-[#38bdf8] border-[#38bdf8]/30',
+      items: [
+        'Four talks \u2014 two external quantum experts and two from the club.',
+        'Hands-on workshop to prep teams for Day 2.',
+      ],
+      footnote: null,
+    },
+    {
+      day: 'DAY 2',
+      title: 'Build, Refine & Results',
+      accent: '#a78bfa',
+      borderColor: 'border-[#a78bfa]/35',
+      badgeBg: 'bg-purple-500/10 text-purple-300 border-purple-500/30',
+      items: [
+        'Shortlisted teams work, refine, and pitch their final version.',
+        'Results announced at end of day.',
+      ],
+      footnote: null,
+    },
+  ],
+  keyDetails: [
+    { label: 'Format', value: 'In-person Ideathon, 2 days on campus (plus remote pitch submission stage)' },
+    { label: 'Team Size', value: '1\u20133 members' },
+    { label: 'Dates', value: '9th and 10th October 2026' },
+    { label: 'Timing', value: '9:00 AM \u2013 4:00 PM, both days' },
+    { label: 'Venue', value: 'SIT Campus, 5th Floor Seminar Hall & Labs' },
+    { label: 'Speaker Session Registration', value: 'Via Google Form (opening soon)' },
+    { label: 'Ideathon Registration', value: 'Via Unstop (link opening soon)' },
+    { label: 'Pitch Deck Submission', value: 'Via Google Form (deadline TBD)' },
+    { label: 'IBM Hardware', value: '133-Qubit IBM Heron Cloud' },
+  ],
+  speakers: [
+    {
+      title: 'Where Quantum Computing Is Heading',
+      speaker: 'External Quantum Expert (TBA)',
+      desc: 'A forward-looking session on current trends, open research problems, and real-world applications of quantum computing.',
+      image: '/assets/fallfest/2026/svg/sticker_02.svg',
+      badge: 'Keynote Session',
+      accent: 'border-[#FF7EB6]/30',
+    },
+    {
+      title: 'Quantum from Industry: IBM Perspective',
+      speaker: 'IBM Quantum (Speaker TBA)',
+      desc: "Insights into IBM's quantum roadmap and the Heron architecture, and what the next decade holds for quantum on the cloud.",
+      image: '/assets/fallfest/2026/svg/sticker_05.svg',
+      badge: 'Industry Talk',
+      accent: 'border-[#38bdf8]/30',
+    },
+    {
+      title: 'Club Research & Live Quantum Demo',
+      speaker: 'SQC Research Team',
+      desc: 'Student researchers walk through club projects and run live circuits on IBM quantum hardware during the session.',
+      image: '/assets/fallfest/2026/svg/sticker_07.svg',
+      badge: 'Live Demo',
+      accent: 'border-[#a78bfa]/30',
+    },
+  ],
+  organizers: [
+    {
+      name: 'Dr. Archana Chaudhari',
+      role: 'Faculty in-Charge',
+      advisoryRole: 'Faculty Advisor',
+      dept: 'Faculty Advisor, SQC \u00b7 SIT Pune',
+      image: '/assets/team/archana-maam.jpeg',
+      linkedin: 'https://www.linkedin.com/in/archanachaudhari/',
+    },
+    {
+      name: 'Samarth Bhadane',
+      role: 'President',
+      advisoryRole: 'President Advisor',
+      dept: 'Founding President & Advisory Council',
+      image: '/assets/team/samarth.jpeg',
+      linkedin: 'https://www.linkedin.com/in/samarthsb4real',
+    },
+    {
+      name: 'Anirudh Raman',
+      role: 'Research Head',
+      advisoryRole: 'Research Advisor',
+      dept: 'Lead Organizer & Advisory Council',
+      image: '/assets/team/anirudh.jpeg',
+      linkedin: '#',
+    },
+    {
+      name: 'Eric Siquiera',
+      role: 'Technical Head',
+      advisoryRole: 'Technical Advisor',
+      dept: 'Circuits & Advisory Council',
+      image: '/assets/team/eric.png',
+      linkedin: '#',
+    },
+    {
+      name: 'Disha Gupta',
+      role: 'Technical Head',
+      advisoryRole: 'VP Advisor',
+      dept: 'Quantum Systems & Advisory Council',
+      image: '/assets/team/disha.png',
+      linkedin: '#',
+    },
+  ],
+  codeOfConduct: [
+    { title: 'Respect and Inclusivity', desc: 'A friendly, safe, and welcoming environment for all, regardless of experience, background, or identity.', icon: '\u2726' },
+    { title: 'Professionalism', desc: 'All participants, speakers, and organizers conduct themselves professionally and constructively in all sessions.', icon: '\u2726' },
+    { title: 'Safe Environment', desc: 'Harassment in any form is not tolerated. Everyone is empowered to learn, explore, and ask questions safely.', icon: '\u2726' },
+    { title: 'Collaboration and Learning', desc: 'Encourage peer learning, shared growth, and active problem-solving. Build together, compete fairly, grow as a community.', icon: '\u2726' },
+  ],
+  collaborators: [
+    { name: 'IBM Quantum', logo: '/assets/fallfest/IBM Quantum Logo.png', desc: 'Official Global Event Partner' },
+    { name: 'Qiskit', logo: '/assets/fallfest/Qiskit_03.png', desc: 'Open Source Quantum SDK' },
+  ],
+  applicationAlert: 'Applications Opening Soon',
   stats: [
-    { label: 'Participants', value: '300+' },
-    { label: 'IBM QPUs', value: '7+' },
-    { label: 'Workshops', value: '8' },
-    { label: 'Hours', value: '48' },
+    { label: 'Community', value: '250+' },
+    { label: 'Ideathon', value: '2 Days' },
+    { label: 'Speakers', value: '4+' },
+    { label: 'IBM QPU', value: '133-Q' },
   ],
 }
 
 // Determine which edition to show based on the URL
 function useEdition() {
   const path = window.location.pathname
-  if (path.includes('fallfest_2026') || path.includes('fall-fest-2026')) return EDITION_2026
+  if (path.includes('fallfest_2026')) return EDITION_2026
   if (path.includes('fallfest_2025') || path.includes('fall-fest-2025')) return EDITION_2025
   // /fallfest canonical → 2025 archive
   return EDITION_2025
