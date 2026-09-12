@@ -66,7 +66,7 @@ export default function Blog() {
 
             {/* Subtitle Paragraph (Expanded to Fill Empty Visual Area) */}
             <p className="font-body text-base sm:text-lg text-gray-300 max-w-[48ch] leading-relaxed m-0">
-              Discover peer-reviewed papers, hardware breakthroughs, quantum algorithm deep-dives, and flagship event recaps engineered by student researchers and industry mentors at Symbiosis Quantum Club.
+              Discover student research papers, algorithm deep-dives, quantum analysis, and flagship event recaps authored by members and mentors at Symbiosis Quantum Club.
             </p>
           </aside>
 
