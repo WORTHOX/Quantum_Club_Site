@@ -873,7 +873,7 @@ export default function FallFest() {
 
         {/* ── Related Events Dossier Footer: More in Fall Fest ── */}
         {relatedEvents.length > 0 && (
-          <section className="pt-6 border-t border-white/[0.08] mb-12">
+          <section className="pt-6 border-t border-white/[0.08] mb-6">
             <div className="flex items-center justify-between mb-4">
               <h3 className="font-display text-xl font-bold text-white tracking-tight">
                 More in Fall Fest
@@ -915,28 +915,6 @@ export default function FallFest() {
             </div>
           </section>
         )}
-
-        {/* ── Footer ── */}
-        <section className="pt-6 border-t border-white/[0.08] mb-12">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
-            <div>
-              <p className="font-mono text-xs uppercase tracking-widest text-slate-500 mb-1">Organized by</p>
-              <p className="text-white font-bold text-base sm:text-lg font-display">Symbiosis Quantum Club</p>
-              <p className="text-slate-400 text-xs sm:text-sm font-mono">{edition.institution}</p>
-            </div>
-            <div className="flex flex-col gap-2 sm:text-right">
-              <Link to="/" className="font-mono text-xs sm:text-sm uppercase tracking-wider hover:text-white transition-colors" style={{ color: edition.accentColor }}>
-                Visit Symbiosis Quantum Club →
-              </Link>
-              <Link to="/events" className="font-mono text-xs sm:text-sm uppercase tracking-wider text-slate-400 hover:text-white transition-colors">
-                Browse All Events →
-              </Link>
-              <Link to="/events/qiskit-fall-fest-2026" className="font-mono text-xs sm:text-sm uppercase tracking-wider text-cyan-400 hover:text-cyan-300 transition-colors">
-                Qiskit Fall Fest 2026 →
-              </Link>
-            </div>
-          </div>
-        </section>
 
       </article>
 
