@@ -78,24 +78,25 @@ export default function ScrollTextReveal() {
   return (
     <section className="relative h-[120vh] md:h-[140vh] bg-transparent text-white" ref={containerRef} id="welcome">
       <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden">
-        <div className="w-full max-w-[1280px] mx-auto px-5 sm:px-8 md:px-12 lg:px-16 flex flex-col items-start">
-          <div className="flex flex-col items-start gap-3 mb-6 sm:mb-10">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0e0720]/60 backdrop-blur-md">
-              <span className="font-pixel text-[10px] sm:text-xs font-semibold tracking-widest text-purple-300 uppercase">
+        <div className="w-full max-w-[1040px] mx-auto px-5 sm:px-8 md:px-12 lg:px-16 flex flex-col items-start">
+          <div className="flex flex-col items-start gap-2.5 mb-6 sm:mb-8">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/25 backdrop-blur-md">
+              <span className="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse shadow-[0_0_8px_#c084fc]" />
+              <span className="font-mono text-[10px] sm:text-xs font-bold tracking-widest text-purple-300 uppercase">
                 CHAPTER MANIFESTO
               </span>
             </div>
-            <h2 className="font-pixel text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black tracking-wider text-white uppercase leading-tight drop-shadow-[0_0_24px_rgba(168,85,247,0.35)]">
+            <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-white uppercase leading-tight drop-shadow-[0_0_20px_rgba(168,85,247,0.3)]">
               WELCOME TO <span className="bg-gradient-to-r from-purple-300 via-violet-200 to-cyan-300 bg-clip-text text-transparent">QUANTUM CLUB</span>
             </h2>
           </div>
           
           <div className="w-full" ref={textWrapRef}>
-            <p className="font-display text-[clamp(1.75rem,4vw+1rem,4.5rem)] font-semibold leading-[1.18] tracking-tight m-0">
+            <p className="font-display text-xl sm:text-2xl md:text-3xl lg:text-[2.1rem] font-semibold leading-[1.4] sm:leading-[1.38] tracking-tight m-0 text-left">
               {statement.map((item, i) => (
                 <span
                   key={i}
-                  className={`scroll-text__word inline-block opacity-20 text-white/20 mr-[0.28em] will-change-[opacity,color] ${item.accent ? 'scroll-text__word--accent font-bold' : ''}`}
+                  className={`scroll-text__word inline-block opacity-20 text-white/20 mr-[0.24em] will-change-[opacity,color] ${item.accent ? 'scroll-text__word--accent font-bold' : ''}`}
                 >
                   {item.text}{' '}
                 </span>
