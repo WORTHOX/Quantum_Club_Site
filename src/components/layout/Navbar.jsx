@@ -176,11 +176,36 @@ export default function Navbar() {
 
           {/* Action Buttons — Right */}
           <div className="flex items-center gap-3 sm:gap-4">
+            {/* WhatsApp */}
+            <a
+              href="https://chat.whatsapp.com/JIujrGfVOwJD9z0fhsTIIa"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-slate-400 hover:text-[#25D366] hover:-translate-y-0.5 p-1.5 transition-all duration-200 grid place-items-center active:scale-[0.95]"
+              aria-label="WhatsApp"
+            >
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2m.01 1.67c2.2 0 4.26.86 5.82 2.42a8.23 8.23 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24m4.52 11.66c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.25-.75-.67-1.26-1.5-1.41-1.75-.15-.25-.02-.39.11-.51.11-.11.25-.29.37-.44.13-.15.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.34-.76-1.84-.2-.49-.4-.42-.56-.43h-.47c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.13.17 1.78 2.72 4.31 3.81.6.26 1.07.42 1.44.54.61.19 1.16.17 1.6.1.49-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.06-.11-.22-.17-.47-.3" />
+              </svg>
+            </a>
+            {/* GitHub */}
+            <a
+              href="https://github.com/Symbiosis-Quantum-Club"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-slate-400 hover:text-white hover:-translate-y-0.5 p-1.5 transition-all duration-200 grid place-items-center active:scale-[0.95]"
+              aria-label="GitHub"
+            >
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path fillRule="evenodd" clipRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
+              </svg>
+            </a>
+            {/* Instagram */}
             <a
               href="https://www.instagram.com/quantumclub.sit/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-slate-400 hover:text-purple-400 hover:-translate-y-0.5 p-1.5 transition-all duration-200 grid place-items-center active:scale-[0.95]"
+              className="text-slate-400 hover:text-[#e1306c] hover:-translate-y-0.5 p-1.5 transition-all duration-200 grid place-items-center active:scale-[0.95]"
               aria-label="Instagram"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
@@ -189,11 +214,12 @@ export default function Navbar() {
                 <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none" />
               </svg>
             </a>
+            {/* LinkedIn */}
             <a
               href="https://www.linkedin.com/company/symbiosis-quantum-club/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-slate-400 hover:text-purple-400 hover:-translate-y-0.5 p-1.5 transition-all duration-200 grid place-items-center active:scale-[0.95]"
+              className="text-slate-400 hover:text-[#0A66C2] hover:-translate-y-0.5 p-1.5 transition-all duration-200 grid place-items-center active:scale-[0.95]"
               aria-label="LinkedIn"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
@@ -202,7 +228,6 @@ export default function Navbar() {
                 <circle cx="4" cy="4" r="2" />
               </svg>
             </a>
-
 
             {/* Mobile Hamburger Button */}
             <button
@@ -258,10 +283,14 @@ export default function Navbar() {
           className="mt-6 flex flex-col gap-4 w-full max-w-xs"
         >
 
-          <div className="flex items-center gap-4 pt-1">
-            <a href="https://www.instagram.com/quantumclub.sit/" target="_blank" rel="noopener noreferrer" className="text-white/50 hover:text-fuchsia-400 transition-colors font-mono text-[10px] tracking-widest uppercase">Instagram</a>
+          <div className="flex items-center gap-4 pt-1 flex-wrap">
+            <a href="https://chat.whatsapp.com/JIujrGfVOwJD9z0fhsTIIa" target="_blank" rel="noopener noreferrer" className="text-white/50 hover:text-[#25D366] transition-colors font-mono text-[10px] tracking-widest uppercase">WhatsApp</a>
             <span className="text-white/20">·</span>
-            <a href="https://www.linkedin.com/company/symbiosis-quantum-club/" target="_blank" rel="noopener noreferrer" className="text-white/50 hover:text-cyan-400 transition-colors font-mono text-[10px] tracking-widest uppercase">LinkedIn</a>
+            <a href="https://github.com/Symbiosis-Quantum-Club" target="_blank" rel="noopener noreferrer" className="text-white/50 hover:text-white transition-colors font-mono text-[10px] tracking-widest uppercase">GitHub</a>
+            <span className="text-white/20">·</span>
+            <a href="https://www.instagram.com/quantumclub.sit/" target="_blank" rel="noopener noreferrer" className="text-white/50 hover:text-[#e1306c] transition-colors font-mono text-[10px] tracking-widest uppercase">Instagram</a>
+            <span className="text-white/20">·</span>
+            <a href="https://www.linkedin.com/company/symbiosis-quantum-club/" target="_blank" rel="noopener noreferrer" className="text-white/50 hover:text-[#0A66C2] transition-colors font-mono text-[10px] tracking-widest uppercase">LinkedIn</a>
           </div>
         </div>
       </div>

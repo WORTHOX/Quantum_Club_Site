@@ -109,8 +109,6 @@ export default function Events() {
 
   const [statusFilter, setStatusFilter] = useState('All')
   const [searchQuery, setSearchQuery] = useState('')
-  const [registeredEmail, setRegisteredEmail] = useState('')
-  const [isSubscribed, setIsSubscribed] = useState(false)
 
   useEffect(() => {
     document.title = selectedCategory === 'Hub'
@@ -192,15 +190,6 @@ export default function Events() {
     const day = date.getDate()
     const year = date.getFullYear()
     return `${month} ${day}, ${year}`
-  }
-
-  const handleSubscribe = (e) => {
-    e.preventDefault()
-    if (registeredEmail.trim()) {
-      setIsSubscribed(true)
-      setRegisteredEmail('')
-      setTimeout(() => setIsSubscribed(false), 4000)
-    }
   }
 
   const activeCategoryInfo = CATEGORY_HUB_DATA_FULL[selectedCategory]
@@ -507,46 +496,73 @@ export default function Events() {
 
         </div>
 
-        {/* ── Bottom Editorial Newsletter CTA Section (Sunrise Flame Theme) ── */}
-        <section className="mt-24 p-8 sm:p-12 lg:p-16 rounded-2xl bg-gradient-to-br from-[#ef4444]/15 via-[#121513]/80 to-[#070a08] border border-[#f59e0b]/30 grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-10 items-center relative overflow-hidden shadow-2xl">
-          <h2 className="font-display text-[clamp(1.8rem,3.2vw,2.75rem)] font-bold leading-tight text-white m-0 tracking-tight">
-            Be part of the next <span className="bg-gradient-to-r from-[#ef4444] via-[#f97316] to-[#eab308] bg-clip-text text-transparent">quantum milestone</span> at Symbiosis.
-          </h2>
-
-          <div className="flex flex-col gap-4">
-            <h3 className="font-display text-lg font-semibold text-white m-0">
-              Subscribe to Event Alerts & Registrations
-            </h3>
-
-            <form onSubmit={handleSubscribe} className="flex items-center relative w-full">
-              <input
-                type="email"
-                placeholder="Enter your email for event notifications..."
-                value={registeredEmail}
-                onChange={(e) => setRegisteredEmail(e.target.value)}
-                className="w-full py-3.5 pl-5 pr-14 bg-[#090d0a]/80 border border-[#f59e0b]/30 rounded-full font-body text-sm text-white outline-none transition-all duration-200 focus:border-[#f59e0b] focus:shadow-[0_0_20px_rgba(245,158,11,0.25)] placeholder:text-slate-500"
-                required
-              />
-              <button
-                type="submit"
-                className="absolute right-1.5 w-10 h-10 rounded-full bg-gradient-to-r from-[#ef4444] via-[#f97316] to-[#eab308] text-slate-950 flex items-center justify-center hover:scale-105 hover:shadow-[0_4px_16px_rgba(245,158,11,0.4)] transition-all duration-200"
-                aria-label="Subscribe to events"
-              >
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                  <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </button>
-            </form>
-
-            {isSubscribed ? (
-              <p className="font-mono text-xs text-[#f59e0b] m-0">
-                ✓ Subscribed! You will receive instant notifications for upcoming SQC events.
-              </p>
-            ) : (
-              <p className="font-mono text-xs text-slate-500 m-0">
-                Get early registration access for workshops, hackathons, and lab visits.
-              </p>
-            )}
+        {/* ── Bottom CTA: Stay in the Loop (Apple Design) ── */}
+        <section className="mt-20 p-8 sm:p-12 rounded-3xl bg-gradient-to-br from-[#ef4444]/10 via-[#121513]/90 to-[#070a08] border border-[#f59e0b]/25 shadow-[0_24px_60px_rgba(0,0,0,0.6)] backdrop-blur-2xl grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-8 lg:gap-12 items-center relative overflow-hidden before:absolute before:inset-x-0 before:top-0 before:h-[1px] before:bg-gradient-to-r before:from-transparent before:via-white/20 before:to-transparent">
+          <div>
+            <p className="font-pixel text-[11px] font-bold tracking-widest text-[#f59e0b] uppercase mb-3">
+              Stay in the Loop
+            </p>
+            <h2 className="font-display text-[clamp(1.65rem,3vw,2.5rem)] font-extrabold leading-tight text-white m-0 tracking-tight">
+              Be part of the next{' '}
+              <span className="bg-gradient-to-r from-[#ef4444] via-[#f97316] to-[#eab308] bg-clip-text text-transparent">
+                quantum milestone
+              </span>
+            </h2>
+            <p className="font-body text-sm sm:text-base text-slate-300 mt-2.5 max-w-[46ch] leading-relaxed">
+              Follow us for early registration access, event announcements, and quantum learning resources.
+            </p>
+          </div>
+          <div className="flex flex-wrap items-center gap-3 w-full sm:w-auto shrink-0">
+            {/* WhatsApp — outline green, fill on hover */}
+            <a
+              href="https://chat.whatsapp.com/JIujrGfVOwJD9z0fhsTIIa"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center justify-center gap-2.5 px-5 h-11 rounded-full bg-transparent border border-[#25D366] text-[#25D366] hover:bg-[#25D366] hover:text-[#061a0d] font-mono text-xs font-bold uppercase tracking-wider hover:shadow-[0_6px_24px_rgba(37,211,102,0.5)] hover:-translate-y-0.5 active:scale-[0.97] transition-all duration-200"
+            >
+              <svg className="w-4 h-4 shrink-0" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2m.01 1.67c2.2 0 4.26.86 5.82 2.42a8.23 8.23 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24m4.52 11.66c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.25-.75-.67-1.26-1.5-1.41-1.75-.15-.25-.02-.39.11-.51.11-.11.25-.29.37-.44.13-.15.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.34-.76-1.84-.2-.49-.4-.42-.56-.43h-.47c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.13.17 1.78 2.72 4.31 3.81.6.26 1.07.42 1.44.54.61.19 1.16.17 1.6.1.49-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.06-.11-.22-.17-.47-.3" />
+              </svg>
+              WhatsApp
+            </a>
+            {/* GitHub — outline white/gray, fill dark on hover */}
+            <a
+              href="https://github.com/Symbiosis-Quantum-Club"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center justify-center gap-2.5 px-5 h-11 rounded-full bg-transparent border border-white/40 text-white hover:bg-white hover:text-[#0d1117] font-mono text-xs font-bold uppercase tracking-wider hover:shadow-[0_6px_24px_rgba(255,255,255,0.18)] hover:-translate-y-0.5 active:scale-[0.97] transition-all duration-200"
+            >
+              <svg className="w-4 h-4 shrink-0" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path fillRule="evenodd" clipRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
+              </svg>
+              GitHub
+            </a>
+            {/* LinkedIn — outline blue, fill on hover */}
+            <a
+              href="https://www.linkedin.com/company/symbiosis-quantum-club/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center justify-center gap-2.5 px-5 h-11 rounded-full bg-transparent border border-[#0A66C2] text-[#0A66C2] hover:bg-[#0A66C2] hover:text-white font-mono text-xs font-bold uppercase tracking-wider hover:shadow-[0_6px_24px_rgba(10,102,194,0.5)] hover:-translate-y-0.5 active:scale-[0.97] transition-all duration-200"
+            >
+              <svg className="w-4 h-4 shrink-0" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+              </svg>
+              LinkedIn
+            </a>
+            {/* Instagram — outline purple/pink gradient, fill gradient on hover */}
+            <a
+              href="https://www.instagram.com/quantumclub.sit/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center justify-center gap-2.5 px-5 h-11 rounded-full bg-transparent border border-[#e1306c] text-[#e1306c] hover:bg-gradient-to-tr hover:from-[#833ab4] hover:via-[#fd1d1d] hover:to-[#fcb045] hover:border-transparent hover:text-white font-mono text-xs font-bold uppercase tracking-wider hover:shadow-[0_6px_24px_rgba(225,48,108,0.5)] hover:-translate-y-0.5 active:scale-[0.97] transition-all duration-200"
+            >
+              <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="2" y="2" width="20" height="20" rx="5" />
+                <circle cx="12" cy="12" r="5" />
+                <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none" />
+              </svg>
+              Instagram
+            </a>
           </div>
         </section>
 
