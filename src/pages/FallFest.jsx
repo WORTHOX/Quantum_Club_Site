@@ -244,6 +244,10 @@ export default function FallFest() {
   const [lightboxImg, setLightboxImg] = useState(null)
 
   useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
+  useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === 'Escape') setLightboxImg(null)
       if (e.key === 'ArrowLeft' && lightboxImg > 0) setLightboxImg((prev) => prev - 1)

@@ -4,22 +4,40 @@ import gsap from 'gsap'
 import events from '../../data/events'
 import blogData from '../../data/blog.json'
 
-/* ─── Detect if route is a "detail" page (events/:id or blog/:id) ─── */
+/* ─── Category slug → display name mapping for transition HUD ─── */
+const SLUG_TO_DISPLAY = {
+  'workshop': 'WORKSHOP',
+  'fall-fest': 'FALL FEST',
+  'induction': 'INDUCTION',
+  'industrial-visit': 'INDUSTRIAL VISITS',
+  'industrial-visits': 'INDUSTRIAL VISITS',
+}
+
+/* ─── Extract category display name from a URL search string ─── */
+const getCategoryFromSearch = (search) => {
+  const params = new URLSearchParams(search)
+  const slug = params.get('category')
+  if (!slug) return null
+  return SLUG_TO_DISPLAY[slug.toLowerCase()] || slug.replace(/-/g, ' ').toUpperCase()
+}
+
+/* ─── Detect if route is a "detail" page (events/:id or blog/:id or /fallfest) ─── */
 export const isDetailPage = (pathname) =>
-  /^\/events\/[^?#/]+/.test(pathname) || /^\/blog\/[^?#/]+/.test(pathname)
+  /^\/events\/[^?#/]+/.test(pathname) || /^\/blog\/[^?#/]+/.test(pathname) || pathname === '/fallfest'
 
 /* ─── Get the parent list route for a detail page ─── */
-/* e.g. /blog/some-post → /blog  |  /events/my-event → /events */
+/* e.g. /blog/some-post → /blog  |  /events/my-event → /events  |  /fallfest → /events */
 const getParentRoute = (pathname) => {
   if (/^\/events\//.test(pathname)) return '/events'
   if (/^\/blog\//.test(pathname)) return '/blog'
+  if (pathname === '/fallfest') return '/events'
   return null
 }
 
 /* ─── Destination metadata for Content Detail Cards (Pixel Transition) ─── */
 export const getPageMeta = (pathname) => {
-  if (/^\/events\/.+/.test(pathname)) {
-    const rawId = pathname.replace('/events/', '').split(/[?#]/)[0]
+  if (/^\/events\/.+/.test(pathname) || pathname === '/fallfest') {
+    const rawId = pathname === '/fallfest' ? 'qiskit-fall-fest-2025' : pathname.replace('/events/', '').split(/[?#]/)[0]
     const event = events.find((e) => e.id === rawId || e.slug === rawId)
     let accent = '#f97316'
     if (event?.category === 'Workshop') accent = '#10b981'
@@ -27,10 +45,13 @@ export const getPageMeta = (pathname) => {
     if (event?.category === 'Induction') accent = '#ec4899'
     if (event?.category === 'Industrial Visit') accent = '#f59e0b'
     return {
+      id: rawId,
+      eventId: event?.id || rawId,
       title: event ? event.title.toUpperCase() : rawId.replace(/-/g, ' ').toUpperCase(),
       subtitle: event?.subtitle || event?.dateDisplay || 'SYMBIOSIS QUANTUM CLUB ✦ EVENT',
+      category: event?.category || 'EVENT',
       accent,
-      panelColor: '#c2410c',
+      panelColor: event?.category === 'Fall Fest' ? '#7e22ce' : '#c2410c',
       type: 'EVENT',
     }
   }
@@ -38,14 +59,17 @@ export const getPageMeta = (pathname) => {
     const rawId = pathname.replace('/blog/', '').split(/[?#]/)[0]
     const post = blogData.find((p) => p.id === rawId || p.slug === rawId)
     return {
+      id: rawId,
+      eventId: rawId,
       title: post ? post.title.toUpperCase() : rawId.replace(/-/g, ' ').toUpperCase(),
       subtitle: post?.category ? `${post.category.toUpperCase()} ✦ RESEARCH PUBLICATION` : 'QUANTUM JOURNAL',
+      category: post?.category || 'ARTICLE',
       accent: '#34d399',
       panelColor: '#047857',
       type: 'ARTICLE',
     }
   }
-  return { title: 'QUANTUM', subtitle: 'SYMBIOSIS QUANTUM CLUB', accent: '#10b981', panelColor: '#047857', type: 'PAGE' }
+  return { id: 'QUANTUM', eventId: 'QUANTUM', title: 'QUANTUM', subtitle: 'SYMBIOSIS QUANTUM CLUB', accent: '#10b981', panelColor: '#047857', type: 'PAGE' }
 }
 
 /* ─── Metadata for Top-Level Navigation Pages (Wipe Transition) ─── */
@@ -112,8 +136,9 @@ function getGridDimensions() {
 /* ─────────────────────────────────────────────────────────────────────────
    PageTransition Component
    - Mode A: Wipe Transition (Navigating between main site pages)
-   - Mode B: Curtains-Mixed Wipe-to-Pixel with 1.5cm square boxes & same color throughout
-   - Mode C: No Transition (Returning from detail card back to list/cards)
+   - Mode B: Wipe-to-Pixel with category name (Forward category filter on /events)
+   - Mode C: Clean Wipe-to-Pixel, NO text (Navigating forward into /events/:id)
+   - Mode D: No Transition (Returning from detail or removing category filter)
    ───────────────────────────────────────────────────────────────────────── */
 export default function PageTransition({ children }) {
   const location = useLocation()
@@ -128,7 +153,7 @@ export default function PageTransition({ children }) {
   // Constant curtain color across both Wipe cover and Pixel reveal
   const [transitionColor, setTransitionColor] = useState(() => getRouteMeta(location.pathname).panelColor || '#c2410c')
 
-  // Dynamic 1.5cm square pixel grid based on viewport dimensions
+  // Dynamic 2cm square pixel grid based on viewport dimensions
   const [gridDimensions, setGridDimensions] = useState(getGridDimensions)
 
   useEffect(() => {
@@ -157,23 +182,38 @@ export default function PageTransition({ children }) {
 
   // Pixel overlay refs
   const pixelOverlayRef = useRef(null)
-  const pixelHudRef = useRef(null)
   const tileRefs = useRef([])
 
+  // Detail HUD ref (Event ID written on wipe-to-pixel) — now unused for text but kept for cleanup
+  const detailHudRef = useRef(null)
+
+  // Category HUD ref (Category name shown at bottom-right during category filter transitions)
+  const categoryHudRef = useRef(null)
+  const [categoryDisplayName, setCategoryDisplayName] = useState('')
+
   useEffect(() => {
-    // Skip animation on initial page load (preloader handles initial entrance)
+    // Skip animation on initial page load / reload, but ensure window is scrolled to the top
     if (isFirstMount.current) {
       isFirstMount.current = false
       prevPathRef.current = location.pathname
       prevSearchRef.current = location.search
       setDisplayChildren(children)
+      window.scrollTo(0, 0)
       return
     }
 
+    const cleanFrom = (prevPathRef.current || '').replace(/\/+$/, '') || '/'
+    const cleanTo = (location.pathname || '').replace(/\/+$/, '') || '/'
     const from = prevPathRef.current
     const to = location.pathname
     const prevSearch = prevSearchRef.current
     const nextSearch = location.search
+
+    // Kill any ongoing animation timeline immediately on route/search change
+    if (tlRef.current) {
+      tlRef.current.kill()
+      tlRef.current = null
+    }
 
     // 1. Same route path AND same query string -> instant update, no animation
     if (from === to && prevSearch === nextSearch) {
@@ -181,25 +221,42 @@ export default function PageTransition({ children }) {
       return
     }
 
-    // 1b. Same pathname but DIFFERENT query string (e.g. ?category filter change on /events)
-    // -> Hybrid: wipe panel slides in, content swaps, then 1.5cm pixel tiles cascade out
-    if (from === to && prevSearch !== nextSearch) {
+    // 1b. Within /events (or same pathname): category filter navigation
+    if (cleanFrom === cleanTo && prevSearch !== nextSearch) {
       prevSearchRef.current = nextSearch
 
-      // Kill stale animations
-      if (tlRef.current) {
-        tlRef.current.kill()
+      const prevCategory = getCategoryFromSearch(prevSearch)
+      const nextCategory = getCategoryFromSearch(nextSearch)
+
+      // BACKWARD: Going from any category (e.g. /events?category=fall-fest) back to /events -> NO TRANSITION
+      if (!nextCategory) {
         if (wipeOverlayRef.current) gsap.set(wipeOverlayRef.current, { display: 'none', pointerEvents: 'none' })
         if (pixelOverlayRef.current) gsap.set(pixelOverlayRef.current, { display: 'none', pointerEvents: 'none' })
+        if (detailHudRef.current) gsap.set(detailHudRef.current, { display: 'none' })
+        if (categoryHudRef.current) gsap.set(categoryHudRef.current, { display: 'none' })
+
+        setDisplayChildren(children)
+        window.scrollTo(0, 0)
+        return
       }
+
+      // FORWARD: Adding or changing ?category → wipe-to-pixel with category name at bottom-right, 2s total
+      setCategoryDisplayName(nextCategory || '')
+
+      if (wipeOverlayRef.current) gsap.set(wipeOverlayRef.current, { display: 'none', pointerEvents: 'none' })
+      if (pixelOverlayRef.current) gsap.set(pixelOverlayRef.current, { display: 'none', pointerEvents: 'none' })
+      if (detailHudRef.current) gsap.set(detailHudRef.current, { display: 'none' })
+      if (categoryHudRef.current) gsap.set(categoryHudRef.current, { display: 'none' })
 
       const wipeOverlay = wipeOverlayRef.current
       const wipePanel = wipePanelRef.current
       const pixelOverlay = pixelOverlayRef.current
+      const categoryHud = categoryHudRef.current
       const currentTiles = tileRefs.current.slice(0, tileCount).filter(Boolean)
 
       if (!wipeOverlay || !wipePanel || !pixelOverlay || currentTiles.length === 0) {
-        setDisplayChildren(latestChildrenRef.current)
+        setDisplayChildren(children)
+        window.scrollTo(0, 0)
         return
       }
 
@@ -208,8 +265,8 @@ export default function PageTransition({ children }) {
       setTransitionColor(curtainColor)
 
       if (wipeHudRef.current) gsap.set(wipeHudRef.current, { display: 'none', opacity: 0 })
-      if (pixelHudRef.current) gsap.set(pixelHudRef.current, { display: 'none', opacity: 0 })
-      if (wipeEdgeRef.current) gsap.set(wipeEdgeRef.current, { display: 'none', opacity: 0 })
+      if (detailHudRef.current) gsap.set(detailHudRef.current, { display: 'none', opacity: 0 })
+      if (wipeEdgeRef.current) gsap.set(wipeEdgeRef.current, { opacity: 1 })
 
       gsap.set(wipePanel, { backgroundColor: curtainColor })
       gsap.set(currentTiles, { backgroundColor: curtainColor, outlineColor: curtainColor, scale: 1, opacity: 1 })
@@ -220,43 +277,73 @@ export default function PageTransition({ children }) {
           gsap.set(wipePanel, { xPercent: -100, backgroundColor: curtainColor })
           gsap.set(pixelOverlay, { display: 'none', pointerEvents: 'none' })
           gsap.set(currentTiles, { scale: 1, opacity: 1, backgroundColor: curtainColor, outlineColor: curtainColor })
+          if (categoryHud) gsap.set(categoryHud, { display: 'flex', opacity: 0, y: 20 })
         },
       })
       tlRef.current = tl
 
-      // Phase 1: wipe panel slides in (same color)
+      // Phase 1: Wipe panel slides in from left (0.45s)
       tl.to(wipePanel, {
         xPercent: 0,
-        duration: 0.38,
+        duration: 0.45,
         ease: 'power3.inOut',
         onComplete: () => {
           setDisplayChildren(latestChildrenRef.current)
           window.scrollTo(0, 0)
-          gsap.set(wipeOverlay, { display: 'none', pointerEvents: 'none' })
-          gsap.set(pixelOverlay, { display: 'flex', pointerEvents: 'none' })
-          gsap.set(currentTiles, { scale: 1, opacity: 1, backgroundColor: curtainColor, outlineColor: curtainColor })
         },
       })
-      // Phase 2: 2 cm pixel tiles randomly dissolve out (exact same color)
+      // Phase 2: Category name HUD fades in at bottom-right (0.3s)
+      .to(
+        categoryHud,
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.30,
+          ease: 'power2.out',
+        },
+        '-=0.12'
+      )
+      // Phase 3: Seamless handoff to pixel tiles — wipe hides, pixel grid shows
+      .add(() => {
+        gsap.set(wipeOverlay, { display: 'none', pointerEvents: 'none' })
+        gsap.set(pixelOverlay, { display: 'flex', pointerEvents: 'none' })
+        gsap.set(currentTiles, { scale: 1, opacity: 1, backgroundColor: curtainColor, outlineColor: curtainColor })
+      })
+      // Phase 4: Readable hold so user can register the category name (~0.55s)
+      .to({}, { duration: 0.55 })
+      // Phase 5: Category HUD fades out
+      .to(categoryHud, {
+        opacity: 0,
+        y: -10,
+        duration: 0.22,
+        ease: 'power2.in',
+      })
+      // Phase 6: Pixel tiles randomly dissolve out (0.38s + 0.45s stagger = ~0.83s)
       .to(
         currentTiles,
         {
           scale: 0,
           opacity: 0,
-          duration: 0.32,
+          duration: 0.38,
           stagger: {
             from: 'random',
-            amount: 0.40,
+            amount: 0.45,
           },
           ease: 'power2.inOut',
           onComplete: () => {
             gsap.set(pixelOverlay, { display: 'none', pointerEvents: 'none' })
+            if (categoryHud) gsap.set(categoryHud, { display: 'none' })
           },
         },
-        '+=0.02'
+        '-=0.16'
       )
 
-      return () => { tl.kill() }
+      return () => {
+        tl.kill()
+        if (wipeOverlay) gsap.set(wipeOverlay, { display: 'none', pointerEvents: 'none' })
+        if (pixelOverlay) gsap.set(pixelOverlay, { display: 'none', pointerEvents: 'none' })
+        if (categoryHud) gsap.set(categoryHud, { display: 'none' })
+      }
     }
 
     // Kill any ongoing animation timeline immediately to prevent race conditions
@@ -264,14 +351,23 @@ export default function PageTransition({ children }) {
       tlRef.current.kill()
       if (wipeOverlayRef.current) gsap.set(wipeOverlayRef.current, { display: 'none', pointerEvents: 'none' })
       if (pixelOverlayRef.current) gsap.set(pixelOverlayRef.current, { display: 'none', pointerEvents: 'none' })
+      if (detailHudRef.current) gsap.set(detailHudRef.current, { display: 'none' })
+      if (categoryHudRef.current) gsap.set(categoryHudRef.current, { display: 'none' })
     }
 
     // 2. Returning back from a detail page to its OWN parent list -> NO TRANSITION
+    //    This covers /events/:id → /events (with or without ?category query)
     const parentOfFrom = getParentRoute(from)
-    const isReturningToOwnParent = isDetailPage(from) && parentOfFrom === to
+    const isReturningToOwnParent = isDetailPage(from) && parentOfFrom === cleanTo
     if (isReturningToOwnParent) {
+      if (wipeOverlayRef.current) gsap.set(wipeOverlayRef.current, { display: 'none', pointerEvents: 'none' })
+      if (pixelOverlayRef.current) gsap.set(pixelOverlayRef.current, { display: 'none', pointerEvents: 'none' })
+      if (detailHudRef.current) gsap.set(detailHudRef.current, { display: 'none' })
+      if (categoryHudRef.current) gsap.set(categoryHudRef.current, { display: 'none' })
+
       prevPathRef.current = to
-      setDisplayChildren(latestChildrenRef.current)
+      prevSearchRef.current = nextSearch
+      setDisplayChildren(children)
       window.scrollTo(0, 0)
       return
     }
@@ -279,14 +375,14 @@ export default function PageTransition({ children }) {
     prevPathRef.current = to
     prevSearchRef.current = nextSearch
 
-    // 3. Navigating INTO a Detail Page (e.g. /events -> /events/:id)
-    // -> CURTAINS-MIXED: Solid Wipe to 1.5cm Square Pixel Boxes with ZERO text and SAME COLOR
+    // 3. Navigating INTO a Detail Page (e.g. /events -> /events/:id or between /events/:id pages)
+    // -> CLEAN WIPE TO PIXEL — NO TEXT/NAME (just the transition effect)
     if (isDetailPage(to)) {
       const meta = getPageMeta(to)
       setPixelMeta(meta)
 
       // Single consistent color: keep the exact same color across Wipe AND Pixels
-      const curtainColor = getRouteMeta(to).panelColor || getRouteMeta(from).panelColor || '#c2410c'
+      const curtainColor = meta.panelColor || getRouteMeta(to).panelColor || getRouteMeta(from).panelColor || '#c2410c'
       setTransitionColor(curtainColor)
 
       const wipeOverlay = wipeOverlayRef.current
@@ -294,7 +390,6 @@ export default function PageTransition({ children }) {
       const wipeHud = wipeHudRef.current
       const wipeEdge = wipeEdgeRef.current
       const pixelOverlay = pixelOverlayRef.current
-      const pixelHud = pixelHudRef.current
       const currentTiles = tileRefs.current.slice(0, tileCount).filter(Boolean)
 
       if (!wipeOverlay || !wipePanel || !pixelOverlay || currentTiles.length === 0) {
@@ -303,10 +398,11 @@ export default function PageTransition({ children }) {
         return
       }
 
-      // Hide all text/HUDs completely — "without anything written on it"
+      // Hide ALL HUDs — this is a clean, no-text transition
       if (wipeHud) gsap.set(wipeHud, { display: 'none', opacity: 0 })
-      if (pixelHud) gsap.set(pixelHud, { display: 'none', opacity: 0 })
-      if (wipeEdge) gsap.set(wipeEdge, { display: 'none', opacity: 0 }) // pure solid curtain, no color-shifting white line
+      if (detailHudRef.current) gsap.set(detailHudRef.current, { display: 'none', opacity: 0 })
+      if (categoryHudRef.current) gsap.set(categoryHudRef.current, { display: 'none', opacity: 0 })
+      if (wipeEdge) gsap.set(wipeEdge, { opacity: 1 })
 
       // Keep exact same color on both Wipe and Pixels
       gsap.set(wipePanel, { backgroundColor: curtainColor })
@@ -322,29 +418,30 @@ export default function PageTransition({ children }) {
       })
       tlRef.current = tl
 
-      // Phase 1: WIPE COVER — Solid curtain sweeps in from left (exact same color, no text)
+      // Phase 1: WIPE COVER — Solid curtain sweeps in from left with laser leading line
       tl.to(wipePanel, {
         xPercent: 0,
-        duration: 0.38,
+        duration: 0.40,
         ease: 'power3.inOut',
         onComplete: () => {
           // Content swaps while screen is 100% covered by the curtain
           setDisplayChildren(latestChildrenRef.current)
           window.scrollTo(0, 0)
-
-          // Seamless handoff: exact same color, zero color shift
-          gsap.set(wipeOverlay, { display: 'none', pointerEvents: 'none' })
-          gsap.set(pixelOverlay, { display: 'flex', pointerEvents: 'none' })
-          gsap.set(currentTiles, { scale: 1, opacity: 1, backgroundColor: curtainColor, outlineColor: curtainColor })
         },
       })
-      // Phase 2: PIXELS REVEAL — 2 cm square pixel boxes randomly dissolve out across the screen
+      // Phase 2: Seamless handoff from Wipe cover to Pixel tiles (exact same color)
+      .add(() => {
+        gsap.set(wipeOverlay, { display: 'none', pointerEvents: 'none' })
+        gsap.set(pixelOverlay, { display: 'flex', pointerEvents: 'none' })
+        gsap.set(currentTiles, { scale: 1, opacity: 1, backgroundColor: curtainColor, outlineColor: curtainColor })
+      }, '+=0.06')
+      // Phase 3: PIXELS REVEAL — 2 cm square pixel boxes randomly dissolve out across the screen
       .to(
         currentTiles,
         {
           scale: 0,
           opacity: 0,
-          duration: 0.32,
+          duration: 0.34,
           stagger: {
             from: 'random',
             amount: 0.40,
@@ -354,7 +451,7 @@ export default function PageTransition({ children }) {
             gsap.set(pixelOverlay, { display: 'none', pointerEvents: 'none' })
           },
         },
-        '+=0.02'
+        '-=0.02'
       )
 
       return () => {
@@ -380,12 +477,16 @@ export default function PageTransition({ children }) {
       return
     }
 
+    if (detailHudRef.current) gsap.set(detailHudRef.current, { display: 'none' })
+    if (categoryHudRef.current) gsap.set(categoryHudRef.current, { display: 'none' })
+
     const tl = gsap.timeline({
       onStart: () => {
         gsap.set(wipeOverlay, { display: 'flex', pointerEvents: 'auto' })
         gsap.set(wipePanel, { xPercent: -100, backgroundColor: meta.panelColor })
         if (wipeEdge) gsap.set(wipeEdge, { opacity: 1 })
         if (wipeHud) gsap.set(wipeHud, { display: 'flex', opacity: 0, x: 50 })
+        if (detailHudRef.current) gsap.set(detailHudRef.current, { display: 'none' })
       },
     })
     tlRef.current = tl
@@ -438,7 +539,9 @@ export default function PageTransition({ children }) {
     return () => {
       tl.kill()
       if (wipeOverlay) gsap.set(wipeOverlay, { display: 'none', pointerEvents: 'none' })
+      if (detailHudRef.current) gsap.set(detailHudRef.current, { display: 'none' })
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname, location.search, tileCount, gridDimensions])
 
   return (
@@ -480,7 +583,7 @@ export default function PageTransition({ children }) {
             </span>
 
             <span
-              className="font-display font-extrabold uppercase leading-none select-none"
+              className="inline-block font-display font-extrabold uppercase select-none"
               style={{
                 fontSize: 'clamp(4.5rem, 11vw, 10rem)',
                 backgroundImage: wipeMeta.textGradient,
@@ -488,10 +591,11 @@ export default function PageTransition({ children }) {
                 backgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
                 color: 'transparent',
-                WebkitTextStroke: '1px rgba(255,255,255,0.4)',
-                paintOrder: 'stroke fill',
                 letterSpacing: '-0.03em',
-                lineHeight: 0.92,
+                lineHeight: 1.15,
+                paddingBottom: '0.25em',
+                marginBottom: '-0.25em',
+                paddingRight: '0.08em',
                 filter: 'drop-shadow(0 4px 24px rgba(0,0,0,0.4))',
               }}
             >
@@ -534,12 +638,61 @@ export default function PageTransition({ children }) {
           ))}
         </div>
 
-        {/* Center HUD (hidden for clean curtains-mixed) */}
-        <div
-          ref={pixelHudRef}
-          style={{ display: 'none' }}
-          className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center z-10"
-        />
+      </div>
+
+      {/* ─── DETAIL HUD OVERLAY (kept for potential future use, hidden by default) ─── */}
+      <div
+        ref={detailHudRef}
+        style={{ display: 'none' }}
+        className="fixed inset-0 z-[100000] pointer-events-none select-none overflow-hidden flex flex-col items-center justify-center p-6 text-center"
+        aria-hidden="true"
+      />
+
+      {/* ─── CATEGORY HUD OVERLAY (Category name at bottom-right during category filter transitions) ─── */}
+      <div
+        ref={categoryHudRef}
+        style={{ display: 'none' }}
+        className="fixed inset-0 z-[100000] pointer-events-none select-none overflow-hidden flex items-end justify-end p-8 sm:p-12 lg:p-16"
+        aria-hidden="true"
+      >
+        <div className="flex flex-col items-end gap-2 text-right">
+          {/* Eyebrow */}
+          <span
+            className="font-pixel text-[10px] sm:text-[11px] font-bold tracking-[0.22em] uppercase text-white/60"
+          >
+            SYMBIOSIS QUANTUM CLUB ✦ CATEGORY
+          </span>
+
+          {/* Category Name — Giant hero display at bottom-right */}
+          <span
+            className="font-display font-black uppercase leading-[0.92] tracking-tight text-white select-none"
+            style={{
+              fontSize: 'clamp(3rem, 9vw, 8rem)',
+              textShadow: '0 0 50px rgba(249,115,22,0.45), 0 4px 28px rgba(0,0,0,0.85)',
+              letterSpacing: '-0.03em',
+              lineHeight: 0.92,
+            }}
+          >
+            {categoryDisplayName}
+          </span>
+
+          {/* Telemetry bars */}
+          <div className="mt-2 flex items-center gap-1.5">
+            {[32, 20, 12, 6].map((w, i) => (
+              <div
+                key={i}
+                className="rounded-sm"
+                style={{
+                  width: w,
+                  height: 3,
+                  backgroundColor: '#f97316',
+                  opacity: [1, 0.6, 0.35, 0.15][i],
+                  boxShadow: i === 0 ? '0 0 10px #f97316' : 'none',
+                }}
+              />
+            ))}
+          </div>
+        </div>
       </div>
 
       {/* ─── MOUNTED PAGE CONTENT ─── */}

@@ -236,6 +236,7 @@ function EvasiveCard({ number, label, badge, index = 0 }) {
 export default function Team() {
   useEffect(() => {
     document.title = 'Meet the Team — Symbiosis Quantum Club | Quantum Computing India'
+    window.scrollTo(0, 0)
   }, [])
 
   return (

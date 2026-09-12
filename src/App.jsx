@@ -65,7 +65,20 @@ function AnimatedRoutes() {
 }
 
 export default function App() {
-  const [loading, setLoading] = useState(true)
+  // Only trigger the reload preloader on the home page ('/')
+  const [loading, setLoading] = useState(() => {
+    if (typeof window === 'undefined') return false
+    const cleanPath = (window.location.pathname || '').replace(/\/+$/, '') || '/'
+    return cleanPath === '/'
+  })
+
+  // Ensure scroll is at the top on initial mount / reload
+  useEffect(() => {
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual'
+    }
+    window.scrollTo(0, 0)
+  }, [])
 
   return (
     <BrowserRouter>

@@ -3,6 +3,14 @@ import { useParams, Link, useNavigate } from 'react-router-dom'
 import useSEO from '../utils/useSEO'
 import events, { CATEGORY_COLORS } from '../data/events'
 
+// Slug mapping for category-aware back navigation
+const CATEGORY_TO_SLUG = {
+  'Workshop': 'workshop',
+  'Fall Fest': 'fall-fest',
+  'Induction': 'induction',
+  'Industrial Visit': 'industrial-visit',
+}
+
 // Digital collectible sticker assets utilized for ambient background decor
 const FALLFEST_STICKERS = [
   '/assets/fallfest/2026/svg/sticker_01.svg',
@@ -71,6 +79,19 @@ export default function EventDetail() {
 
   const isFallFest = Boolean(event?.id?.includes('fall-fest') || event?.category === 'Fall Fest')
   const bannerSource = event?.bannerImage || event?.coverImage
+
+  // Compute the back URL: navigate to the event's category page if available
+  const backUrl = useMemo(() => {
+    if (!event?.category) return '/events'
+    const slug = CATEGORY_TO_SLUG[event.category]
+    return slug ? `/events?category=${slug}` : '/events'
+  }, [event?.category])
+
+  const backLabel = useMemo(() => {
+    if (!event?.category) return 'BACK_TO_EVENTS_INDEX'
+    const slug = CATEGORY_TO_SLUG[event.category]
+    return slug ? `BACK_TO_${event.category.toUpperCase().replace(/\s+/g, '_')}` : 'BACK_TO_EVENTS_INDEX'
+  }, [event?.category])
 
   const structuredData = useMemo(() => {
     if (!event) return null
@@ -158,6 +179,10 @@ export default function EventDetail() {
     structuredData,
   })
 
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [id])
+
   if (event === null) {
     return (
       <main className="min-h-dvh flex items-center justify-center bg-[#070a08] p-6 text-center">
@@ -236,11 +261,11 @@ export default function EventDetail() {
         {/* ── Top Navigation & Telemetry Breadcrumb ── */}
         <div className="flex flex-wrap items-center justify-between gap-2.5 sm:gap-3 mb-6 pb-4 border-b border-white/[0.06]">
           <Link
-            to="/events"
+            to={backUrl}
             className={`inline-flex items-center gap-1.5 sm:gap-2 font-pixel text-[9px] sm:text-[10px] tracking-widest ${isFallFest ? 'text-cyan-400 hover:text-cyan-300' : 'text-emerald-400 hover:text-emerald-300'} uppercase transition-colors group shrink-0`}
           >
             <span className="transition-transform duration-300 group-hover:-translate-x-1">←</span>
-            <span>BACK_TO_EVENTS_INDEX</span>
+            <span>{backLabel}</span>
           </Link>
 
           <div className="flex flex-wrap items-center gap-2 sm:gap-3 font-mono text-[10px] sm:text-[11px] text-slate-400">
@@ -640,7 +665,7 @@ export default function EventDetail() {
                         loading="lazy"
                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                       />
-                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 flex items-center justify-center">
+                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 flex items-center justify-center pointer-events-none">
                         <svg className="w-6 h-6 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
                         </svg>
@@ -745,9 +770,17 @@ export default function EventDetail() {
           <img
             src={event.gallery[lightboxImg].url}
             alt={event.gallery[lightboxImg].caption || 'Enlarged view'}
-            className="max-h-[85vh] max-w-[92vw] rounded-xl object-contain shadow-2xl border border-white/10"
+            className="max-h-[82vh] max-w-[90vw] rounded-xl object-contain shadow-2xl border border-white/10"
             onClick={(e) => e.stopPropagation()}
           />
+
+          {event.gallery[lightboxImg].caption && (
+            <div className="absolute bottom-4 inset-x-4 flex justify-center z-20 pointer-events-none">
+              <span className="px-4 py-1.5 rounded-full bg-black/85 border border-white/20 text-slate-200 font-mono text-xs text-center backdrop-blur-md max-w-xl shadow-2xl">
+                {event.gallery[lightboxImg].caption}
+              </span>
+            </div>
+          )}
         </div>
       )}
 
