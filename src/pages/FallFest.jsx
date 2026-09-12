@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import useSEO from '../utils/useSEO'
 import { Link } from 'react-router-dom'
 import events from '../data/events'
@@ -21,6 +22,10 @@ const edition = {
   gradientTo: '#8b5cf6',
   bannerImage: '/assets/fallfest/Full_Illustration.png',
   timelineImage: '/assets/fallfest/Timeline_01.png',
+  gallery: Array.from({ length: 10 }, (_, i) => ({
+    url: `/assets/events/fall-fest-2025/photo-${i + 1}.jpg`,
+    caption: `Qiskit Fall Fest 2025 — Moment ${i + 1}`,
+  })),
   tags: [
     'Fundamentals of Quantum Mechanics',
     'Assessment for Certification',
@@ -236,6 +241,22 @@ function VerticalMarquee({ stickers, direction = 'up', speed = 40 }) {
 }
 
 export default function FallFest() {
+  const [lightboxImg, setLightboxImg] = useState(null)
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') setLightboxImg(null)
+      if (e.key === 'ArrowLeft' && lightboxImg > 0) setLightboxImg((prev) => prev - 1)
+      if (e.key === 'ArrowRight' && lightboxImg < edition.gallery.length - 1) setLightboxImg((prev) => prev + 1)
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [lightboxImg])
+
+  const relatedEvents = events
+    .filter((e) => (e.category === 'Fall Fest' || e.id.includes('fall-fest')) && e.id !== edition.eventId)
+    .slice(0, 3)
+
   const linkedEvent = events.find(
     (e) => e.id === edition.eventId || e.category === 'Fall Fest'
   )
@@ -646,6 +667,43 @@ export default function FallFest() {
               </div>
             </div>
 
+            {/* 4. Photo Gallery */}
+            {edition.gallery && edition.gallery.length > 0 && (
+              <div className="flex flex-col gap-3.5">
+                <div className="flex items-center justify-between pb-2 border-b border-white/[0.08]">
+                  <h2 className="font-display text-xl sm:text-2xl font-bold text-white tracking-tight">
+                    Event Photos
+                  </h2>
+                  <span className="font-mono text-xs text-slate-400 uppercase tracking-wider">
+                    Click to enlarge
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
+                  {edition.gallery.map((img, idx) => (
+                    <button
+                      key={idx}
+                      type="button"
+                      className="relative aspect-square w-full rounded-xl overflow-hidden bg-slate-900 cursor-zoom-in group border border-white/[0.08] hover:border-cyan-500/50 transition-colors"
+                      onClick={() => setLightboxImg(idx)}
+                    >
+                      <img
+                        src={img.url}
+                        alt={img.caption || `Gallery image ${idx + 1}`}
+                        loading="lazy"
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 flex items-center justify-center">
+                        <svg className="w-6 h-6 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+                        </svg>
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
           </section>
         </div>
 
@@ -813,6 +871,51 @@ export default function FallFest() {
           </div>
         </section>
 
+        {/* ── Related Events Dossier Footer: More in Fall Fest ── */}
+        {relatedEvents.length > 0 && (
+          <section className="pt-6 border-t border-white/[0.08] mb-12">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="font-display text-xl font-bold text-white tracking-tight">
+                More in Fall Fest
+              </h3>
+              <Link to="/events" className="font-pixel text-[9px] uppercase tracking-wider text-cyan-400 hover:text-cyan-300 transition-colors">
+                View All →
+              </Link>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+              {relatedEvents.map((rel) => (
+                <Link
+                  key={rel.id}
+                  to={`/events/${rel.id}`}
+                  className="p-4 rounded-xl bg-[#0a0e13]/80 border border-white/[0.06] hover:border-cyan-500/40 hover:-translate-y-0.5 transition-all duration-300 flex flex-col gap-2 group shadow-md"
+                >
+                  {rel.coverImage && (
+                    <div className="w-full aspect-[16/9] rounded-lg overflow-hidden mb-1 bg-black/40">
+                      <img
+                        src={rel.coverImage}
+                        alt={rel.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                    </div>
+                  )}
+                  <span className="font-mono text-[10px] uppercase tracking-wider text-cyan-400">
+                    {rel.dateDisplay || rel.date}
+                  </span>
+                  <h4 className="font-display font-bold text-white text-sm leading-snug group-hover:text-cyan-300 transition-colors line-clamp-1">
+                    {rel.title}
+                  </h4>
+                  {rel.excerpt && (
+                    <p className="font-body text-xs text-slate-400 line-clamp-2 leading-relaxed">
+                      {rel.excerpt}
+                    </p>
+                  )}
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
+
         {/* ── Footer ── */}
         <section className="pt-6 border-t border-white/[0.08] mb-12">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
@@ -836,6 +939,56 @@ export default function FallFest() {
         </section>
 
       </article>
+
+      {/* ── Photo Gallery Lightbox Modal ── */}
+      {lightboxImg !== null && edition.gallery && (
+        <div
+          className="fixed inset-0 z-50 bg-black/95 backdrop-blur-md flex items-center justify-center p-4"
+          onClick={() => setLightboxImg(null)}
+        >
+          {/* Lightbox Index Counter */}
+          <div className="absolute top-4 left-4 px-3 py-1 rounded-full bg-black/70 border border-white/20 text-slate-300 font-mono text-xs backdrop-blur-md z-20">
+            {lightboxImg + 1} / {edition.gallery.length}
+          </div>
+
+          <button
+            type="button"
+            className="absolute top-4 right-4 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white/15 hover:bg-white/25 flex items-center justify-center text-white transition-colors cursor-pointer z-20"
+            onClick={() => setLightboxImg(null)}
+            aria-label="Close Lightbox"
+          >
+            ✕
+          </button>
+
+          {lightboxImg > 0 && (
+            <button
+              type="button"
+              className="absolute left-2 sm:left-4 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-black/60 hover:bg-black/80 border border-white/20 flex items-center justify-center text-white text-lg transition-colors cursor-pointer z-20"
+              onClick={(e) => { e.stopPropagation(); setLightboxImg(lightboxImg - 1) }}
+              aria-label="Previous Image"
+            >
+              ←
+            </button>
+          )}
+          {lightboxImg < edition.gallery.length - 1 && (
+            <button
+              type="button"
+              className="absolute right-2 sm:right-4 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-black/60 hover:bg-black/80 border border-white/20 flex items-center justify-center text-white text-lg transition-colors cursor-pointer z-20"
+              onClick={(e) => { e.stopPropagation(); setLightboxImg(lightboxImg + 1) }}
+              aria-label="Next Image"
+            >
+              →
+            </button>
+          )}
+
+          <img
+            src={edition.gallery[lightboxImg].url}
+            alt={edition.gallery[lightboxImg].caption || 'Enlarged view'}
+            className="max-h-[85vh] max-w-[92vw] rounded-xl object-contain shadow-2xl border border-white/10"
+            onClick={(e) => e.stopPropagation()}
+          />
+        </div>
+      )}
 
       {/* Vertical marquee keyframes injected inline for portability */}
       <style>{`
