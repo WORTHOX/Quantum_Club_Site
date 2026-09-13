@@ -11,19 +11,19 @@ export default function AboutDoubleImage() {
           {/* ── Left: Photo pair formatted cleanly ── */}
           <div className="relative grid grid-cols-[1fr_0.62fr] gap-3 sm:gap-4 items-end">
 
-            {/* Primary image: Dilution Cryostat Facility */}
+            {/* Primary image: IBM Qiskit Workshop at SIT Pune */}
             <div className="aspect-[4/5] bg-[#090714] border border-white/[0.08] rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.75)] relative group">
               <img
                 src="/assets/images/about-large.webp"
-                alt="State-of-the-art Quantum Dilution Refrigerator and Optical Laser Bench"
+                alt="SQC students at IBM Qiskit Fall Fest workshop"
                 className="w-full h-full object-cover brightness-90 group-hover:scale-105 group-hover:brightness-100 transition-all duration-700 ease-out"
                 loading="lazy"
                 decoding="async"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#06040a]/85 via-transparent to-transparent pointer-events-none" />
               <div className="absolute bottom-3 sm:bottom-4 left-3 sm:left-4 right-3 sm:right-4 flex items-center justify-between">
-                <span className="font-pixel text-[9px] sm:text-[10px] text-white font-semibold truncate">Quantum Dilution Chamber</span>
-                <span className="font-pixel text-[8px] sm:text-[9px] text-cyan-300 px-1.5 sm:px-2 py-0.5 rounded bg-cyan-500/15 border border-cyan-500/25 shrink-0">15 mK Cryostat</span>
+                <span className="font-pixel text-[9px] sm:text-[10px] text-white font-semibold truncate">IBM Qiskit Workshop</span>
+                <span className="font-pixel text-[8px] sm:text-[9px] text-cyan-300 px-1.5 sm:px-2 py-0.5 rounded bg-cyan-500/15 border border-cyan-500/25 shrink-0">SIT Pune</span>
               </div>
             </div>
 
@@ -38,8 +38,8 @@ export default function AboutDoubleImage() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#06040a]/85 via-transparent to-transparent pointer-events-none" />
               <div className="absolute bottom-2.5 sm:bottom-3 left-2.5 sm:left-3 right-2.5 sm:right-3">
-                <span className="block font-pixel text-[9px] sm:text-[10px] text-white font-semibold truncate">IISER Pune Delegation</span>
-                <span className="block font-pixel text-[8px] sm:text-[9px] text-emerald-300 mt-0.5 truncate">Student Researchers</span>
+                <span className="block font-pixel text-[9px] sm:text-[10px] text-white font-semibold truncate">IISER Pune</span>
+                <span className="block font-pixel text-[8px] sm:text-[9px] text-emerald-300 mt-0.5 truncate">Research Visit</span>
               </div>
             </div>
           </div>
@@ -49,7 +49,7 @@ export default function AboutDoubleImage() {
 
             <div className="inline-flex items-center px-3.5 py-1.5 rounded-full bg-[#0e0720]/50 backdrop-blur-md self-start">
               <span className="font-pixel text-[11px] font-bold tracking-widest text-purple-300 uppercase">
-                OUR MISSION &amp; ROOTS
+                OUR MISSION
               </span>
             </div>
 
@@ -62,11 +62,7 @@ export default function AboutDoubleImage() {
 
             <div className="space-y-3">
               <p className="font-body text-base sm:text-[1.05rem] text-slate-300 leading-[1.75] m-0">
-                Symbiosis Quantum Club was founded with a foundational belief: quantum computing should not remain confined to academic silos. We build immersive learning pipelines that take passionate engineers from classical logic to quantum superposition and cloud circuits.
-              </p>
-
-              <p className="font-body text-base sm:text-[1.05rem] text-slate-300 leading-[1.75] m-0">
-                From our flagship IBM Qiskit Fall Fest hackathons to physical delegations at national research laboratories, our members collaborate, construct algorithms, and publish quantum insights.
+                Symbiosis Quantum Club bridges the gap between theory and practice. We run immersive workshops, cloud quantum computing sessions with Qiskit, and research visits — turning curious students into quantum practitioners.
               </p>
             </div>
 
@@ -74,8 +70,8 @@ export default function AboutDoubleImage() {
             <div className="grid grid-cols-3 gap-2 sm:gap-3 pt-5 border-t border-white/[0.07]">
               {[
                 { value: '20+', label: 'Active Members', color: 'text-purple-300' },
-                { value: 'Year-round', label: 'Workshops', color: 'text-cyan-300' },
-                { value: '12+', label: 'Workshops Run', color: 'text-emerald-300' },
+                { value: '12+', label: 'Workshops Run', color: 'text-cyan-300' },
+                { value: '1+', label: 'Year Active', color: 'text-emerald-300' },
               ].map(stat => (
                 <div
                   key={stat.label}
