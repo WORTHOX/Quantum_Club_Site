@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { Link } from 'react-router-dom'
 import gsap from 'gsap'
 
@@ -47,7 +48,7 @@ const POLAROIDS = [
   },
   {
     id: 4,
-    image: '/classroom-session.jpg',
+    image: '/classroom-session.webp',
     caption: 'Classroom Sessions',
     subtitle: 'Foundations & math @ SIT',
     date: 'AY 2025–26',
@@ -87,6 +88,18 @@ export default function VideoHero() {
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [])
 
+  // Prevent background scrolling while modal is open
+  useEffect(() => {
+    if (activePhoto) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+    }
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [activePhoto])
+
   useEffect(() => {
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ delay: 0.1 })
@@ -117,10 +130,11 @@ export default function VideoHero() {
         <div className="col-span-12 lg:col-span-6 flex flex-col items-start min-w-0 w-full">
 
           {/* Eyebrow */}
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-purple-500/30 bg-[#0e0720]/50 backdrop-blur-md mb-6 max-w-full">
-            <span className="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse shrink-0" />
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#0e0720]/50 backdrop-blur-md mb-6 max-w-full">
             <span className="hero__eyebrow font-pixel text-[10px] sm:text-[11px] font-semibold tracking-widest text-purple-200 uppercase truncate">
-              IBM Qiskit Fall Fest 2026 · Official Host
+              IBM Qiskit Fall Fest 2026
+              <span className="mx-1.5 text-purple-400/50 font-light">/</span>
+              Official Host
             </span>
           </div>
 
@@ -224,9 +238,10 @@ export default function VideoHero() {
 
             {/* Little playful polaroid pin badge */}
             <div className="absolute -bottom-3 right-2 sm:right-6 max-w-[calc(100%-1rem)] z-40 px-3 py-1.5 rounded-full bg-[#121513]/90 border border-emerald-500/40 backdrop-blur-md shadow-lg flex items-center gap-2 pointer-events-none">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0" />
               <span className="font-mono text-[9.5px] sm:text-[10px] font-semibold text-emerald-300 tracking-wide uppercase truncate">
-                SQC Team &amp; Crew · SIT Pune
+                SQC Team &amp; Crew
+                <span className="mx-1 text-emerald-400/40 font-light">/</span>
+                SIT Pune
               </span>
             </div>
           </div>
@@ -234,53 +249,68 @@ export default function VideoHero() {
 
       </div>
 
-      {/* Lightbox Modal for Full Uncropped View */}
-      {activePhoto && (
+      {/* Lightbox Modal for Full Uncropped View — Exact Same Looking Polaroid Card Just Expanded */}
+      {activePhoto && typeof document !== 'undefined' && createPortal(
         <div
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/85 backdrop-blur-md p-4 sm:p-6 animate-fadeIn"
+          className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/85 backdrop-blur-md px-4 pt-20 pb-8 sm:px-6 sm:pt-24 sm:pb-10 overflow-y-auto animate-fadeIn"
           onClick={() => setActivePhoto(null)}
           role="dialog"
           aria-modal="true"
           aria-label={activePhoto.caption}
         >
+          {/* Exact Same Looking Polaroid Card Just Expanded */}
           <div
-            className="relative w-full max-w-4xl max-h-[92vh] bg-[#faf8f5] p-3 sm:p-4 pb-4 sm:pb-5 rounded-sm shadow-[0_25px_70px_rgba(0,0,0,0.9)] border border-stone-300/80 flex flex-col my-auto"
+            className="relative w-auto max-w-[92vw] sm:max-w-xl md:max-w-2xl lg:max-w-3xl max-h-[calc(100dvh-6.5rem)] p-3.5 sm:p-5 pb-5 sm:pb-6 rounded-md sm:rounded-lg bg-[#faf8f5] border border-stone-200/95 shadow-[0_30px_90px_rgba(0,0,0,0.95),0_0_50px_rgba(168,85,247,0.25)] flex flex-col my-auto transition-all select-none"
             onClick={(e) => e.stopPropagation()}
           >
+            {/* Washi Tape Strip — Exactly like the hero card, scaled up */}
+            <div
+              className={`absolute -top-3.5 sm:-top-4 left-1/2 -translate-x-1/2 w-16 sm:w-20 h-4 sm:h-5 ${activePhoto.tapeColor} backdrop-blur-sm z-30 shadow-sm border pointer-events-none opacity-95 -rotate-1`}
+            />
+
+            {/* Single Unified Close Button — Pinned directly to the card's top-right corner */}
             <button
               onClick={() => setActivePhoto(null)}
-              className="absolute -top-3.5 -right-3.5 w-8 h-8 rounded-full bg-[#121513] border border-white/20 text-white text-sm flex items-center justify-center hover:bg-rose-600 transition-colors shadow-xl z-10 cursor-pointer"
+              className="absolute -top-3 -right-3 sm:-top-3.5 sm:-right-3.5 z-40 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#121513] hover:bg-rose-600 text-white border border-white/20 shadow-2xl flex items-center justify-center transition-all duration-200 cursor-pointer hover:scale-110 active:scale-95"
               aria-label="Close photo preview"
+              title="Close (Esc)"
             >
-              ✕
+              <span className="text-xs sm:text-sm font-bold leading-none">✕</span>
             </button>
 
+            {/* Polaroid Photo Box — Matching exact styling and natural aspect ratio */}
             <div
-              className="overflow-hidden bg-neutral-900 relative shadow-inner max-h-[76vh] flex items-center justify-center rounded-sm"
-              style={{ aspectRatio: activePhoto.aspectRatio }}
+              className="w-full overflow-hidden bg-neutral-900 relative shadow-[inset_0_0_10px_rgba(0,0,0,0.45)] rounded-[2px] flex items-center justify-center"
+              style={{
+                aspectRatio: activePhoto.aspectRatio,
+                maxHeight: 'calc(100dvh - 14rem)',
+              }}
             >
               <img
                 src={activePhoto.image}
                 alt={activePhoto.caption}
-                className="w-full h-full object-contain filter contrast-[1.02]"
+                className="w-full h-full object-contain filter contrast-[1.03] brightness-[0.98] select-none block"
               />
+              <div className="absolute inset-0 bg-gradient-to-tr from-black/15 via-transparent to-white/15 pointer-events-none" />
             </div>
 
-            <div className="pt-3 px-1 flex items-baseline justify-between gap-4">
-              <div>
-                <h3 className="font-sans text-sm sm:text-base font-bold text-slate-900 m-0">
+            {/* Polaroid Bottom Caption Row — Matching exact font hierarchy and alignment */}
+            <div className="pt-3 sm:pt-4 px-1">
+              <div className="flex items-baseline justify-between gap-3">
+                <h3 className="font-sans text-sm sm:text-base md:text-lg font-bold text-slate-800 tracking-tight leading-snug truncate m-0">
                   {activePhoto.caption}
                 </h3>
-                <p className="font-mono text-xs text-slate-600 m-0 mt-0.5">
-                  {activePhoto.subtitle}
-                </p>
+                <span className="font-mono text-[10px] sm:text-xs text-slate-500 shrink-0 font-semibold">
+                  {activePhoto.date}
+                </span>
               </div>
-              <span className="font-mono text-xs text-slate-500 font-semibold shrink-0">
-                {activePhoto.date}
-              </span>
+              <p className="block font-mono text-[10px] sm:text-xs text-slate-500/90 tracking-wide mt-1 m-0 truncate">
+                {activePhoto.subtitle}
+              </p>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </section>
   )

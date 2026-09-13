@@ -5,7 +5,6 @@ import ScrollTextReveal from '../components/home/ScrollTextReveal'
 import WhyQuantumMarquee from '../components/home/WhyQuantumMarquee'
 import AboutDoubleImage from '../components/home/AboutDoubleImage'
 import QuantumLifeStories from '../components/home/QuantumLifeStories'
-// import VideoRecap from '../components/home/VideoRecap'
 import Testimonials from '../components/home/Testimonials'
 
 export default function Home() {
@@ -42,7 +41,6 @@ export default function Home() {
         <WhyQuantumMarquee />
         <AboutDoubleImage />
         <QuantumLifeStories />
-        {/* <VideoRecap /> */}
         <Testimonials />
       </div>
     </main>
