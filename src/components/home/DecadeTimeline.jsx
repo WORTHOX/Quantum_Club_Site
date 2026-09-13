@@ -60,44 +60,41 @@ export default function DecadeTimeline() {
   }
 
   return (
-    <section className="py-24 sm:py-32 bg-transparent text-white relative overflow-visible" ref={sectionRef} id="timeline">
+    <section className="py-20 sm:py-28 bg-transparent text-white relative overflow-visible" ref={sectionRef} id="timeline">
       <div className="w-full max-w-[1440px] mx-auto px-5 sm:px-8 md:px-12 lg:px-16 relative z-10">
         
-        {/* Section Header: Swiss Archival Specimen Standard */}
-        <div className="text-center mb-12 sm:mb-16">
-          <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-[#0e0720]/60 border border-purple-500/30 mb-4 backdrop-blur-md shadow-[0_0_20px_rgba(168,85,247,0.15)]">
-            <span className="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse shadow-[0_0_8px_#c084fc]" />
-            <span className="font-pixel text-[11px] font-semibold text-purple-300 tracking-widest uppercase">
-              HISTORICAL ACCELERATION // 2016 — 2026
+        {/* Section Header */}
+        <div className="text-center mb-10 sm:mb-14">
+          <span className="font-pixel text-[11px] font-bold tracking-widest text-purple-300 uppercase block mb-3">
+            2016 — 2026
+          </span>
+          <h2 className="font-display text-[clamp(2.2rem,4vw,3.4rem)] font-extrabold text-white tracking-tight m-0">
+            A Decade of{' '}
+            <span className="bg-gradient-to-r from-purple-300 via-violet-200 to-cyan-300 bg-clip-text text-transparent">
+              Quantum Acceleration
             </span>
-          </div>
-          <h2 className="font-display text-[clamp(2.2rem,4vw,3.6rem)] font-extrabold text-white tracking-tight m-0">
-            A Decade of <span className="bg-gradient-to-r from-purple-300 via-violet-200 to-cyan-300 bg-clip-text text-transparent">Quantum Acceleration</span>
           </h2>
-          <p className="font-body text-base sm:text-lg text-slate-400 mt-3 max-w-[64ch] mx-auto">
-            From the dawn of 5-qubit cloud-accessible processors to utility-scale modular quantum systems and student-led hackathons.
+          <p className="font-body text-base sm:text-[1.05rem] text-slate-400 mt-3 max-w-[56ch] mx-auto leading-[1.7]">
+            From 5-qubit cloud processors to utility-scale modular systems and student-led hackathons.
           </p>
         </div>
 
-        {/* Interactive Decade Ribbon Scrubber */}
-        <div className="w-full overflow-x-auto pb-4 mb-10 scrollbar-none">
-          <div className="flex items-center gap-2 min-w-max p-1.5 bg-[#080512]/90 border border-white/[0.08] backdrop-blur-xl rounded-2xl mx-auto w-fit shadow-lg">
-            <span className="font-pixel text-[10px] uppercase tracking-widest text-slate-400 px-3 select-none">
-              EPOCHS:
-            </span>
+        {/* Decade Ribbon Scrubber — horizontally scrollable on mobile */}
+        <div className="w-full overflow-x-auto pb-2 mb-10 -mx-5 px-5 sm:-mx-8 sm:px-8 md:-mx-12 md:px-12 lg:-mx-16 lg:px-16" style={{ scrollbarWidth: 'none' }}>
+          <div className="flex items-center gap-1.5 w-max p-1.5 bg-[#080512]/90 border border-white/[0.08] backdrop-blur-xl rounded-2xl shadow-md">
             {timeline.map((item) => {
               const isSelected = activeYear === item.year
               return (
                 <button
                   key={item.year}
                   onClick={() => scrollToYear(item.year)}
-                  className={`font-pixel text-[11px] sm:text-xs font-bold px-3.5 py-1.5 rounded-xl transition-all duration-200 flex items-center gap-1.5 ${
+                  className={`font-pixel text-[11px] font-bold px-3 py-1.5 rounded-xl transition-all duration-200 whitespace-nowrap ${
                     isSelected
-                      ? 'bg-gradient-to-r from-purple-600 to-cyan-600 text-white shadow-[0_0_15px_rgba(168,85,247,0.4)] border border-white/20 scale-105'
-                      : 'text-slate-400 hover:text-white hover:bg-white/[0.04]'
+                      ? 'bg-gradient-to-r from-purple-600 to-cyan-600 text-white shadow-[0_0_12px_rgba(168,85,247,0.35)] border border-white/15'
+                      : 'text-slate-500 hover:text-white hover:bg-white/[0.04]'
                   }`}
                 >
-                  <span>{item.year}</span>
+                  {item.year}
                 </button>
               )
             })}
@@ -204,8 +201,8 @@ export default function DecadeTimeline() {
                     zIndex: index + 10,
                   }}
                   className={`timeline__specimen-card sticky ${
-                    isLast ? 'mb-0' : 'mb-28 sm:mb-36'
-                  } p-6 sm:p-8 rounded-3xl bg-[#090615] border transition-all duration-300 backdrop-blur-2xl relative overflow-hidden group cursor-pointer shadow-[0_-16px_36px_rgba(0,0,0,0.85),0_24px_55px_rgba(0,0,0,0.95)] ${
+                    isLast ? 'mb-0' : 'mb-20 sm:mb-28'
+                  } p-5 sm:p-7 rounded-2xl bg-[#090615] border transition-all duration-300 backdrop-blur-2xl relative overflow-hidden group cursor-pointer shadow-[0_-12px_28px_rgba(0,0,0,0.8),0_20px_44px_rgba(0,0,0,0.9)] ${
                     isSelected
                       ? 'border-purple-400/70 bg-[#0d091a]'
                       : 'border-white/[0.1] hover:border-white/30 hover:bg-[#0c0818]'

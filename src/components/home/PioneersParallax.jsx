@@ -306,7 +306,7 @@ export default function PioneersParallax() {
   }, [])
 
   return (
-    <section className="py-24 sm:py-32 bg-transparent min-h-[90dvh] flex items-center relative overflow-hidden text-white" ref={sectionRef} id="pioneers">
+    <section className="py-20 sm:py-28 bg-transparent min-h-[90dvh] flex items-center relative overflow-hidden text-white" ref={sectionRef} id="pioneers">
       <div className="w-full max-w-[1440px] mx-auto px-5 sm:px-8 md:px-12 lg:px-16 relative">
         
         {/* Archival Specimen Large Background Watermark */}
@@ -314,18 +314,19 @@ export default function PioneersParallax() {
           QUANTUM ARCHIVES
         </h2>
 
-        {/* Section Header: Swiss Archival Specimen Standard */}
-        <div className="pioneers__title-block text-center mb-16 relative z-10">
-          <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-[#0e0720]/60 backdrop-blur-md mb-4">
-            <span className="font-pixel text-[11px] font-semibold text-purple-300 uppercase tracking-widest">
-              ARCHIVE SPECIMENS &nbsp;·&nbsp; 1981 — 2026
-            </span>
-          </div>
+        {/* Section Header */}
+        <div className="pioneers__title-block text-center mb-14 relative z-10">
+          <span className="font-pixel text-[11px] font-bold tracking-widest text-purple-300 uppercase block mb-3">
+            Archive Specimens · 1981 — 2026
+          </span>
           <h2 className="font-display text-[clamp(2.2rem,4vw,3.4rem)] font-extrabold text-white tracking-tight m-0">
-            Pioneers of the <span className="bg-gradient-to-r from-purple-300 via-violet-200 to-cyan-300 bg-clip-text text-transparent">Quantum Realm</span>
+            Pioneers of the{' '}
+            <span className="bg-gradient-to-r from-purple-300 via-violet-200 to-cyan-300 bg-clip-text text-transparent">
+              Quantum Realm
+            </span>
           </h2>
-          <p className="font-mono text-xs sm:text-sm text-slate-400 max-w-[62ch] mx-auto mt-3">
-            Foundational theorists, mathematical cryptanalysts, and hardware architects who formulated quantum mechanics into computation.
+          <p className="font-body text-base sm:text-[1.05rem] text-slate-400 max-w-[58ch] mx-auto mt-3 leading-[1.7]">
+            Foundational theorists, cryptanalysts, and hardware architects who turned quantum mechanics into computation.
           </p>
         </div>
 
@@ -365,10 +366,10 @@ export default function PioneersParallax() {
 
               {/* Scientific Orbital Annotation */}
               <text x="-540" y="-12" fill="rgba(192, 132, 252, 0.35)" fontFamily='"Departure Mono", monospace' fontSize="9" letterSpacing="0.1em">
-                ORBITAL_APOAPSIS  θ = 180°
+                ORBITAL_APOAPSIS // θ = 180°
               </text>
               <text x="400" y="-12" fill="rgba(56, 189, 248, 0.35)" fontFamily='"Departure Mono", monospace' fontSize="9" letterSpacing="0.1em">
-                PERIAPSIS  θ = 000°
+                PERIAPSIS // θ = 000°
               </text>
               <text x="-120" y="325" fill="rgba(192, 132, 252, 0.25)" fontFamily='"Departure Mono", monospace' fontSize="8" letterSpacing="0.15em">
                 SHARED FOCAL SINGULARITY • r(θ) = ae^(-kθ) • 4-ARM VORTEX
@@ -396,7 +397,7 @@ export default function PioneersParallax() {
                   <div className="flex items-center justify-between border-b border-white/[0.08] pb-3">
                     <div className="flex items-center gap-2 font-pixel text-[10px] sm:text-[11px] text-white/60">
                       <span className="font-bold tracking-wider text-slate-300">
-                        SPECIMEN_{spec.index}
+                        SPECIMEN_{spec.index} // 04
                       </span>
                       <span className="text-white/20">•</span>
                       <span 

@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import useSEO from '../utils/useSEO'
 import QuantumDepartureBackground from '../components/home/QuantumDepartureBackground'
 import VideoHero from '../components/home/VideoHero'
@@ -18,25 +17,21 @@ export default function Home() {
     structuredData: {
       '@context': 'https://schema.org',
       '@type': 'Organization',
-      name: 'Symbiosis Quantum Club',
-      alternateName: 'SQC',
-      url: 'https://symbiosisquantumclub.vercel.app/',
-      logo: 'https://symbiosisquantumclub.vercel.app/favicon-32x32.png',
-      description: "India's premier student quantum computing community at Symbiosis Institute of Technology. Official host of IBM Qiskit Fall Fest.",
-      memberOf: {
+      'name': 'Symbiosis Quantum Club',
+      'alternateName': 'SQC',
+      'url': 'https://symbiosisquantumclub.vercel.app/',
+      'logo': 'https://symbiosisquantumclub.vercel.app/favicon-32x32.png',
+      'description': "India's premier student quantum computing community at Symbiosis Institute of Technology. Official host of IBM Qiskit Fall Fest.",
+      'memberOf': {
         '@type': 'Organization',
-        name: 'IBM Qiskit Network'
+        'name': 'IBM Qiskit Network'
       },
-      sameAs: [
+      'sameAs': [
         'https://www.instagram.com/symbiosisquantumclub',
         'https://www.linkedin.com/company/symbiosis-quantum-club'
       ]
     }
   })
-
-  useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [])
 
   return (
     <main className="overflow-x-clip bg-[#06040a] relative">
