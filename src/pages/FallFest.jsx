@@ -350,15 +350,15 @@ export default function FallFest() {
 
       {/* ── Ambient background decorative stickers (matching EventDetail.jsx) ── */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden hidden xl:block" aria-hidden="true">
-        <img src={STICKERS[0]} alt="" className="absolute top-24 left-24 w-24 h-24 opacity-[0.14] rotate-[-15deg] filter drop-shadow-[0_0_24px_rgba(255,126,182,0.35)]" />
-        <img src={STICKERS[5]} alt="" className="absolute top-56 left-12 w-16 h-16 opacity-[0.12] rotate-[20deg] filter drop-shadow-[0_0_20px_rgba(56,189,248,0.3)]" />
-        <img src={STICKERS[2]} alt="" className="absolute top-28 right-24 w-22 h-22 opacity-[0.14] rotate-[12deg] filter drop-shadow-[0_0_24px_rgba(167,139,250,0.35)]" />
-        <img src={STICKERS[8]} alt="" className="absolute top-64 right-12 w-16 h-16 opacity-[0.12] rotate-[-8deg] filter drop-shadow-[0_0_20px_rgba(255,126,182,0.3)]" />
-        <img src={STICKERS[4]} alt="" className="absolute top-[46%] left-16 w-18 h-18 opacity-[0.12] rotate-[6deg] filter drop-shadow-[0_0_20px_rgba(56,189,248,0.3)]" />
-        <img src={STICKERS[6]} alt="" className="absolute top-[42%] right-16 w-18 h-18 opacity-[0.12] rotate-[-10deg] filter drop-shadow-[0_0_20px_rgba(167,139,250,0.3)]" />
-        <img src={STICKERS[3]} alt="" className="absolute bottom-40 left-28 w-18 h-18 opacity-[0.14] rotate-[16deg] filter drop-shadow-[0_0_24px_rgba(56,189,248,0.35)]" />
-        <img src={STICKERS[9]} alt="" className="absolute bottom-28 right-28 w-22 h-22 opacity-[0.14] rotate-[-12deg] filter drop-shadow-[0_0_28px_rgba(255,126,182,0.35)]" />
-        <img src={STICKERS[7]} alt="" className="absolute bottom-16 left-1/2 -translate-x-1/2 w-16 h-16 opacity-[0.10] rotate-[4deg]" />
+        <img src={STICKERS[0]} alt="" aria-hidden="true" className="absolute top-24 left-24 w-24 h-24 opacity-[0.14] rotate-[-15deg] filter drop-shadow-[0_0_24px_rgba(255,126,182,0.35)]" />
+        <img src={STICKERS[5]} alt="" aria-hidden="true" className="absolute top-56 left-12 w-16 h-16 opacity-[0.12] rotate-[20deg] filter drop-shadow-[0_0_20px_rgba(56,189,248,0.3)]" />
+        <img src={STICKERS[2]} alt="" aria-hidden="true" className="absolute top-28 right-24 w-22 h-22 opacity-[0.14] rotate-[12deg] filter drop-shadow-[0_0_24px_rgba(167,139,250,0.35)]" />
+        <img src={STICKERS[8]} alt="" aria-hidden="true" className="absolute top-64 right-12 w-16 h-16 opacity-[0.12] rotate-[-8deg] filter drop-shadow-[0_0_20px_rgba(255,126,182,0.3)]" />
+        <img src={STICKERS[4]} alt="" aria-hidden="true" className="absolute top-[46%] left-16 w-18 h-18 opacity-[0.12] rotate-[6deg] filter drop-shadow-[0_0_20px_rgba(56,189,248,0.3)]" />
+        <img src={STICKERS[6]} alt="" aria-hidden="true" className="absolute top-[42%] right-16 w-18 h-18 opacity-[0.12] rotate-[-10deg] filter drop-shadow-[0_0_20px_rgba(167,139,250,0.3)]" />
+        <img src={STICKERS[3]} alt="" aria-hidden="true" className="absolute bottom-40 left-28 w-18 h-18 opacity-[0.14] rotate-[16deg] filter drop-shadow-[0_0_24px_rgba(56,189,248,0.35)]" />
+        <img src={STICKERS[9]} alt="" aria-hidden="true" className="absolute bottom-28 right-28 w-22 h-22 opacity-[0.14] rotate-[-12deg] filter drop-shadow-[0_0_28px_rgba(255,126,182,0.35)]" />
+        <img src={STICKERS[7]} alt="" aria-hidden="true" className="absolute bottom-16 left-1/2 -translate-x-1/2 w-16 h-16 opacity-[0.10] rotate-[4deg]" />
       </div>
 
       {/* ── Main content: Exact container dimensions matching EventDetail.jsx ── */}

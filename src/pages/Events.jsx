@@ -1,5 +1,6 @@
 import { useEffect, useState, useMemo } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
+import useSEO from '../utils/useSEO'
 import events, { CATEGORIES, CATEGORY_COLORS } from '../data/events'
 import PixelBlast from '../components/ui/PixelBlast'
 import WhatsappIcon from '../components/ui/WhatsappIcon'
@@ -111,10 +112,32 @@ export default function Events() {
   const [statusFilter, setStatusFilter] = useState('All')
   const [searchQuery, setSearchQuery] = useState('')
 
+  const seoTitle = selectedCategory === 'Hub'
+    ? 'Quantum Events & Workshops — Symbiosis Quantum Club'
+    : `${selectedCategory} Events — Symbiosis Quantum Club | Qiskit & Quantum`
+
+  useSEO({
+    title: seoTitle,
+    description: selectedCategory === 'Hub'
+      ? 'Explore all quantum computing events, workshops, hackathons, and lab visits organized by Symbiosis Quantum Club at SIT Pune. Official IBM Qiskit Fall Fest host.'
+      : `Browse ${selectedCategory} events by Symbiosis Quantum Club — India\'s premier student quantum computing community.`,
+    canonical: selectedCategory === 'Hub' ? '/events' : `/events?category=${selectedCategory.toLowerCase().replace(/\s+/g, '-')}`,
+    keywords: `quantum events, ${selectedCategory.toLowerCase()}, Qiskit workshops, SIT Pune hackathon`,
+    structuredData: {
+      '@context': 'https://schema.org',
+      '@type': 'CollectionPage',
+      name: seoTitle,
+      url: `https://symbiosisquantumclub.vercel.app/events`,
+      description: 'Quantum computing events hosted by Symbiosis Quantum Club.',
+      isPartOf: {
+        '@type': 'WebSite',
+        name: 'Symbiosis Quantum Club',
+        url: 'https://symbiosisquantumclub.vercel.app/'
+      }
+    }
+  })
+
   useEffect(() => {
-    document.title = selectedCategory === 'Hub'
-      ? 'Quantum Events & Workshops — Symbiosis Quantum Club'
-      : `${selectedCategory} Events — Symbiosis Quantum Club | Qiskit & Quantum`
     window.scrollTo(0, 0)
   }, [selectedCategory])
 
@@ -265,14 +288,14 @@ export default function Events() {
                     </span>
                   </h1>
                 ) : (
-                  <h1 className="font-display text-[clamp(2.4rem,4.2vw,3.6rem)] font-extrabold leading-[1.02] tracking-tight uppercase text-white m-0 flex flex-col">
+                  <h2 className="font-display text-[clamp(2.4rem,4.2vw,3.6rem)] font-extrabold leading-[1.02] tracking-tight uppercase text-white m-0 flex flex-col">
                     <span className="text-slate-300 text-lg font-mono tracking-widest font-semibold text-[#f59e0b] mb-1">
                       SELECTED CATEGORY
                     </span>
                     <span className="bg-gradient-to-r from-white via-[#f97316] to-[#eab308] bg-clip-text text-transparent">
                       {activeCategoryInfo?.title || selectedCategory.toUpperCase()}
                     </span>
-                  </h1>
+                  </h2>
                 )}
               </div>
 

@@ -31,11 +31,11 @@ export default function HeroSection() {
             </span>
           </div>
           
-          <h1 className="font-title text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold mb-6 tracking-tight leading-[1.1] max-w-4xl text-white">
+          <h2 className="font-title text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold mb-6 tracking-tight leading-[1.1] max-w-4xl text-white">
             <span className="gradient-text">
               Symbiosis Quantum Club
             </span>
-          </h1>
+          </h2>
           
           <p className="font-display text-lg sm:text-xl md:text-2xl mb-8 text-gray-300 max-w-2xl leading-relaxed">
             Exploring the quantum realm, one qubit at a time. Join us in pushing the boundaries of computation and quantum innovation.

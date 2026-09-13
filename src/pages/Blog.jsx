@@ -1,13 +1,32 @@
 import { useEffect, useState, useMemo } from 'react'
 import { Link } from 'react-router-dom'
+import useSEO from '../utils/useSEO'
 import blogData from '../data/blog.json'
 import WhatsappIcon from '../components/ui/WhatsappIcon'
 
 export default function Blog() {
   const [searchQuery, setSearchQuery] = useState('')
 
+  useSEO({
+    title: 'Quantum Insights & Research Blog — Symbiosis Quantum Club',
+    description: 'Read quantum computing insights, research breakdowns, and technical deep-dives from the Symbiosis Quantum Club team at SIT Pune.',
+    canonical: '/blog',
+    keywords: 'quantum computing blog, Qiskit tutorials, quantum research, SIT Pune articles',
+    structuredData: {
+      '@context': 'https://schema.org',
+      '@type': 'CollectionPage',
+      name: 'Quantum Insights & Research Blog',
+      url: 'https://symbiosisquantumclub.vercel.app/blog',
+      description: 'Quantum computing insights and research articles by Symbiosis Quantum Club.',
+      isPartOf: {
+        '@type': 'WebSite',
+        name: 'Symbiosis Quantum Club',
+        url: 'https://symbiosisquantumclub.vercel.app/'
+      }
+    }
+  })
+
   useEffect(() => {
-    document.title = 'Quantum Insights & Research Blog — Symbiosis Quantum Club'
     window.scrollTo(0, 0)
   }, [])
 

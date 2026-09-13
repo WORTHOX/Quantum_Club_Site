@@ -266,12 +266,12 @@ export default function Preloader({ onDone }) {
               STUDENT QUANTUM INITIATIVE • PUNE
             </div>
 
-            <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-light text-white tracking-tight leading-[1.05]">
+            <div className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-light text-white tracking-tight leading-[1.05]" aria-hidden="true">
               Symbiosis <br />
               <span className="font-normal text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-cyan-200 to-white">
                 Quantum Club
               </span>
-            </h1>
+            </div>
 
             {/* Sub-Headline: Official Host of IBM Qiskit Fall Fest */}
             <div className="flex items-center gap-2 pt-0.5 sm:pt-1">

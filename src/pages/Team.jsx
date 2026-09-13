@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from 'react'
+import useSEO from '../utils/useSEO'
 import teamData from '../data/team.json'
 
 const LinkedinIcon = ({ className, 'aria-hidden': ariaHidden, stroke, strokeWidth, fill }) => (
@@ -234,8 +235,26 @@ function EvasiveCard({ number, label, badge, index = 0 }) {
 }
 
 export default function Team() {
+  useSEO({
+    title: 'Meet the Team — Symbiosis Quantum Club',
+    description: 'Meet the minds behind Symbiosis Quantum Club — faculty advisors, student leads, and researchers driving quantum computing education at SIT Pune.',
+    canonical: '/team',
+    keywords: 'quantum club team, SIT Pune students, quantum researchers, faculty advisors',
+    structuredData: {
+      '@context': 'https://schema.org',
+      '@type': 'AboutPage',
+      name: 'Meet the Team — Symbiosis Quantum Club',
+      url: 'https://symbiosisquantumclub.vercel.app/team',
+      description: 'Meet the faculty advisors, student leads, and researchers of Symbiosis Quantum Club.',
+      isPartOf: {
+        '@type': 'WebSite',
+        name: 'Symbiosis Quantum Club',
+        url: 'https://symbiosisquantumclub.vercel.app/'
+      }
+    }
+  })
+
   useEffect(() => {
-    document.title = 'Meet the Team — Symbiosis Quantum Club | Quantum Computing India'
     window.scrollTo(0, 0)
   }, [])
 

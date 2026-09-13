@@ -31,10 +31,10 @@ export default function Footer() {
             </div>
             <div className="flex flex-col gap-3">
               <h6 className="font-mono text-xs uppercase tracking-wider text-gray-200 font-semibold">Events</h6>
-              <Link to="/events" className="text-sm text-gray-400 hover:text-[#f59e0b] transition-colors">Fall Fest</Link>
-              <Link to="/events" className="text-sm text-gray-400 hover:text-[#f59e0b] transition-colors">Workshops</Link>
-              <Link to="/events" className="text-sm text-gray-400 hover:text-[#f59e0b] transition-colors">Hackathons</Link>
-              <Link to="/events" className="text-sm text-gray-400 hover:text-[#f59e0b] transition-colors">Lab Visits</Link>
+              <Link to="/fallfest" className="text-sm text-gray-400 hover:text-[#f59e0b] transition-colors">Fall Fest</Link>
+              <Link to="/events?category=workshop" className="text-sm text-gray-400 hover:text-[#f59e0b] transition-colors">Workshops</Link>
+              <Link to="/events?category=hackathon" className="text-sm text-gray-400 hover:text-[#f59e0b] transition-colors">Hackathons</Link>
+              <Link to="/events?category=lab-visit" className="text-sm text-gray-400 hover:text-[#f59e0b] transition-colors">Lab Visits</Link>
             </div>
             <div className="flex flex-col gap-3">
               <h6 className="font-mono text-xs uppercase tracking-wider text-gray-200 font-semibold">Connect</h6>
