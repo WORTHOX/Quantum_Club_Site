@@ -96,11 +96,12 @@ export default function QuantumDepartureBackground() {
     // ─── RENDER LOOP: Margin Ruler Scales Only (All diagrams removed) ───
     const render = () => {
       const scrollY = window.scrollY || 0
+      const isDarkMode = typeof document !== 'undefined' && document.documentElement.classList.contains('dark')
 
       ctx.clearRect(0, 0, W, H)
 
-      // 1. Base dark background
-      ctx.fillStyle = '#06040a'
+      // 1. Base background
+      ctx.fillStyle = isDarkMode ? '#06040a' : '#fcfcfd'
       ctx.fillRect(0, 0, W, H)
 
       // 2. Subtle radial glow near top of page
@@ -108,8 +109,13 @@ export default function QuantumDepartureBackground() {
         const opacity = Math.max(0, 1 - scrollY / 1200)
         if (opacity > 0) {
           const glow = ctx.createRadialGradient(W * 0.5, H * 0.25, 0, W * 0.5, H * 0.25, W * 0.55)
-          glow.addColorStop(0, `rgba(168,85,247,${0.07 * opacity})`)
-          glow.addColorStop(1, 'rgba(0,0,0,0)')
+          if (isDarkMode) {
+            glow.addColorStop(0, `rgba(168,85,247,${0.07 * opacity})`)
+            glow.addColorStop(1, 'rgba(0,0,0,0)')
+          } else {
+            glow.addColorStop(0, `rgba(124,58,237,${0.04 * opacity})`)
+            glow.addColorStop(1, 'rgba(252,252,253,0)')
+          }
           ctx.fillStyle = glow
           ctx.fillRect(0, 0, W, H)
         }
@@ -129,9 +135,18 @@ export default function QuantumDepartureBackground() {
 
       if (scaleEnd > scaleStart) {
         const toCanvas = (worldY) => worldY - scrollY
+        const strokeGuide = isDarkMode ? 'rgba(168,85,247,0.22)' : 'rgba(100,116,139,0.25)'
+        const strokeTopCap = isDarkMode ? 'rgba(168,85,247,0.45)' : 'rgba(124,58,237,0.5)'
+        const strokeEndCap = isDarkMode ? 'rgba(168,85,247,0.6)' : 'rgba(124,58,237,0.7)'
+        const fillEndL = isDarkMode ? 'rgba(192,132,252,0.5)' : 'rgba(124,58,237,0.7)'
+        const fillEndR = isDarkMode ? 'rgba(56,189,248,0.5)' : 'rgba(2,132,199,0.7)'
+        const strokeMajor = isDarkMode ? 'rgba(168,85,247,0.38)' : 'rgba(124,58,237,0.45)'
+        const strokeMinor = isDarkMode ? 'rgba(168,85,247,0.18)' : 'rgba(148,163,184,0.3)'
+        const fillMajorL = isDarkMode ? 'rgba(192,132,252,0.35)' : 'rgba(124,58,237,0.65)'
+        const fillMajorR = isDarkMode ? 'rgba(56,189,248,0.3)' : 'rgba(2,132,199,0.65)'
 
         // Vertical guide axes
-        ctx.strokeStyle = 'rgba(168,85,247,0.22)'
+        ctx.strokeStyle = strokeGuide
         ctx.lineWidth = 1
         ctx.beginPath()
         ctx.moveTo(leftX, toCanvas(scaleStart))
@@ -147,7 +162,7 @@ export default function QuantumDepartureBackground() {
 
         // Page top cap
         if (scrollY <= 0) {
-          ctx.strokeStyle = 'rgba(168,85,247,0.45)'
+          ctx.strokeStyle = strokeTopCap
           ctx.lineWidth = 1.2
           ctx.beginPath(); ctx.moveTo(leftX - 6, 0); ctx.lineTo(leftX + 6, 0); ctx.stroke()
           if (hasRight) { ctx.beginPath(); ctx.moveTo(rx - 6, 0); ctx.lineTo(rx + 6, 0); ctx.stroke() }
@@ -156,14 +171,14 @@ export default function QuantumDepartureBackground() {
         // Bottom of page cap (END_SCALE)
         const endVY = bottomLimit - scrollY
         if (endVY >= 0 && endVY <= H) {
-          ctx.strokeStyle = 'rgba(168,85,247,0.6)'
+          ctx.strokeStyle = strokeEndCap
           ctx.lineWidth = 1.5
           ctx.beginPath(); ctx.moveTo(leftX - 8, endVY); ctx.lineTo(leftX + 8, endVY); ctx.stroke()
           if (hasRight) { ctx.beginPath(); ctx.moveTo(rx - 8, endVY); ctx.lineTo(rx + 8, endVY); ctx.stroke() }
-          ctx.fillStyle = 'rgba(192,132,252,0.5)'
+          ctx.fillStyle = fillEndL
           ctx.textAlign = 'left'
           ctx.fillText('END_SCALE', leftX + 11, endVY - 4)
-          if (hasRight) { ctx.textAlign = 'right'; ctx.fillText('0xFOOTER', rx - 11, endVY - 4) }
+          if (hasRight) { ctx.textAlign = 'right'; ctx.fillStyle = fillEndR; ctx.fillText('0xFOOTER', rx - 11, endVY - 4) }
         }
 
         // Major & Minor tick marks with coordinate labels
@@ -178,20 +193,20 @@ export default function QuantumDepartureBackground() {
 
           const isMajor = worldY % stepMajor === 0
           if (isMajor) {
-            ctx.strokeStyle = 'rgba(168,85,247,0.38)'
+            ctx.strokeStyle = strokeMajor
             ctx.lineWidth = 1
             ctx.beginPath(); ctx.moveTo(leftX - 5, vy); ctx.lineTo(leftX + 5, vy); ctx.stroke()
-            ctx.fillStyle = 'rgba(192,132,252,0.35)'
+            ctx.fillStyle = fillMajorL
             ctx.textAlign = 'left'
             ctx.fillText(`Y:${String(worldY).padStart(5, '0')}`, leftX + 9, vy + 3)
             if (hasRight) {
               ctx.beginPath(); ctx.moveTo(rx - 5, vy); ctx.lineTo(rx + 5, vy); ctx.stroke()
-              ctx.fillStyle = 'rgba(56,189,248,0.3)'
+              ctx.fillStyle = fillMajorR
               ctx.textAlign = 'right'
               ctx.fillText(`+${Math.floor(worldY / 10)}`, rx - 9, vy + 3)
             }
           } else {
-            ctx.strokeStyle = 'rgba(168,85,247,0.18)'
+            ctx.strokeStyle = strokeMinor
             ctx.lineWidth = 0.8
             ctx.beginPath(); ctx.moveTo(leftX - 2.5, vy); ctx.lineTo(leftX + 2.5, vy); ctx.stroke()
             if (hasRight) { ctx.beginPath(); ctx.moveTo(rx - 2.5, vy); ctx.lineTo(rx + 2.5, vy); ctx.stroke() }
@@ -204,7 +219,8 @@ export default function QuantumDepartureBackground() {
     }
 
     if (prefersReduced) {
-      ctx.fillStyle = '#06040a'
+      const isDarkMode = typeof document !== 'undefined' && document.documentElement.classList.contains('dark')
+      ctx.fillStyle = isDarkMode ? '#06040a' : '#fcfcfd'
       ctx.fillRect(0, 0, W, H)
     } else {
       raf = requestAnimationFrame(render)

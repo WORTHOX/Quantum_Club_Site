@@ -52,10 +52,10 @@ export default function LogoWithCircularText({
 
       {showTitleText && (
         <div className="flex flex-col leading-[1.1]">
-          <span className={`font-display font-bold tracking-[0.08em] text-white ${config.titleSize}`}>
+          <span className={`font-display font-bold tracking-[0.08em] text-slate-900 dark:text-white ${config.titleSize}`}>
             SYMBIOSIS
           </span>
-          <span className={`font-mono font-semibold tracking-[0.14em] text-[#c084fc] ${config.subSize}`}>
+          <span className={`font-mono font-semibold tracking-[0.14em] text-purple-700 dark:text-[#c084fc] ${config.subSize}`}>
             QUANTUM CLUB
           </span>
         </div>

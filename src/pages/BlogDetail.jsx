@@ -165,17 +165,17 @@ export default function BlogDetail() {
   }, [post])
 
   return (
-    <main className="bg-[#070a08] min-h-screen text-slate-200 relative selection:bg-[#34d399]/30 selection:text-white pb-32 overflow-x-clip">
+    <main className="bg-[#fcfcfd] dark:bg-[#070a08] min-h-screen text-slate-800 dark:text-slate-200 relative selection:bg-[#34d399]/30 selection:text-white pb-32 overflow-x-clip transition-colors duration-300">
       
       {/* ── Dotted Matrix Ambient Grid (Consistent with SQC Design System) ── */}
       <div 
-        className="absolute inset-0 bg-[radial-gradient(rgba(255,255,255,0.06)_1px,transparent_1px)] [background-size:28px_28px] opacity-70 pointer-events-none z-0" 
+        className="absolute inset-0 bg-[radial-gradient(rgba(0,0,0,0.06)_1px,transparent_1px)] dark:bg-[radial-gradient(rgba(255,255,255,0.06)_1px,transparent_1px)] [background-size:28px_28px] opacity-70 pointer-events-none z-0" 
         aria-hidden="true" 
       />
 
       {/* ── Soft Emerald Radial Glow Behind Hero ── */}
       <div 
-        className="absolute top-28 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-gradient-to-b from-[#10b981]/12 via-[#06b6d4]/05 to-transparent rounded-full blur-3xl pointer-events-none z-0" 
+        className="absolute top-28 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-gradient-to-b from-[#10b981]/08 dark:from-[#10b981]/12 via-[#06b6d4]/05 to-transparent rounded-full blur-3xl pointer-events-none z-0" 
         aria-hidden="true"
       />
 
@@ -185,22 +185,22 @@ export default function BlogDetail() {
         <nav className="mb-10 flex flex-wrap items-center justify-between gap-4" aria-label="Breadcrumb">
           <Link
             to="/blog"
-            className="group inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-[#121513] border border-white/10 hover:border-[#34d399]/40 text-slate-300 hover:text-white font-mono text-xs font-semibold uppercase tracking-wider transition-all duration-200 backdrop-blur-md shadow-md active:scale-95"
+            className="group inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-white hover:bg-slate-50 border border-slate-300 text-slate-800 shadow-xs dark:bg-[#121513] dark:border-white/10 dark:text-slate-300 dark:hover:text-white font-mono text-xs font-semibold uppercase tracking-wider transition-all duration-200 backdrop-blur-md active:scale-95"
           >
             <svg 
-              className="w-4 h-4 text-[#34d399] group-hover:-translate-x-1 transition-transform duration-200" 
+              className="w-4 h-4 text-emerald-600 dark:text-[#34d399] group-hover:-translate-x-1 transition-transform duration-200" 
               viewBox="0 0 16 16" 
               fill="none" 
-              aria-hidden="true"
+              aria-hidden="true" 
             >
               <path d="M12 8H4M4 8L8 12M4 8L8 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
             <span>Back to Journal</span>
           </Link>
 
-          <div className="hidden sm:flex items-center gap-3 font-mono text-xs font-bold text-[#34d399] tracking-widest uppercase">
+          <div className="hidden sm:flex items-center gap-3 font-mono text-xs font-bold text-emerald-700 dark:text-[#34d399] tracking-widest uppercase">
             <span>SYMBIOSIS QUANTUM CLUB</span>
-            <span className="text-white/30">✦</span>
+            <span className="text-slate-300 dark:text-white/30">✦</span>
             <span>RESEARCH DISPATCHES 2026</span>
           </div>
         </nav>
@@ -210,48 +210,48 @@ export default function BlogDetail() {
           
           {/* Category & Metadata Pills */}
           <div className="flex flex-wrap items-center gap-3 mb-6">
-            <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full font-mono text-xs font-bold uppercase tracking-wider bg-[#10b981]/15 text-[#34d399] border border-[#10b981]/35 shadow-[0_0_15px_rgba(16,185,129,0.2)]">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#34d399] animate-pulse" />
+            <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full font-mono text-xs font-bold uppercase tracking-wider bg-[#10b981]/15 text-emerald-800 dark:text-[#34d399] border border-[#10b981]/35 shadow-sm">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 dark:bg-[#34d399] animate-pulse" />
               {post.category}
             </span>
-            <span className="font-mono text-xs text-slate-400 font-medium">
+            <span className="font-mono text-xs text-slate-500 dark:text-slate-400 font-medium">
               {formatDate(post.date)}
             </span>
-            <span className="text-white/20">•</span>
-            <span className="font-mono text-xs text-[#34d399] font-medium">
+            <span className="text-slate-300 dark:text-white/20">•</span>
+            <span className="font-mono text-xs text-emerald-700 dark:text-[#34d399] font-medium">
               {post.readTime}
             </span>
-            <span className="text-white/20 hidden sm:inline">•</span>
-            <span className="font-mono text-xs text-slate-400 font-medium hidden sm:inline">
+            <span className="text-slate-300 dark:text-white/20 hidden sm:inline">•</span>
+            <span className="font-mono text-xs text-slate-500 dark:text-slate-400 font-medium hidden sm:inline">
               ~{wordCount} words
             </span>
           </div>
 
           {/* Article Title */}
-          <h1 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] font-bold text-white tracking-tight leading-[1.14] mb-6">
+          <h1 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] font-bold text-slate-900 dark:text-white tracking-tight leading-[1.14] mb-6">
             {post.title}
           </h1>
 
           {/* Lead Summary Deck */}
-          <p className="font-body text-lg sm:text-xl text-slate-300 leading-relaxed font-light max-w-[68ch] border-l-2 border-[#34d399] pl-5 py-0.5 mb-8 text-left">
+          <p className="font-body text-lg sm:text-xl text-slate-700 dark:text-slate-300 leading-relaxed font-light max-w-[68ch] border-l-2 border-emerald-500 dark:border-[#34d399] pl-5 py-0.5 mb-8 text-left">
             {details.leadSummary}
           </p>
 
           {/* Author Byline Bar */}
-          <div className="flex flex-wrap items-center justify-between gap-4 pt-6 border-t border-white/[0.08]">
+          <div className="flex flex-wrap items-center justify-between gap-4 pt-6 border-t border-slate-200 dark:border-white/[0.08]">
             <div className="flex items-center gap-3.5">
-              <div className="relative w-12 h-12 rounded-full bg-[#121513] border-2 border-[#34d399]/40 overflow-hidden shadow-md shrink-0 flex items-center justify-center text-[#34d399] font-display font-bold text-base">
+              <div className="relative w-12 h-12 rounded-full bg-slate-100 dark:bg-[#121513] border-2 border-emerald-500/40 dark:border-[#34d399]/40 overflow-hidden shadow-sm shrink-0 flex items-center justify-center text-emerald-700 dark:text-[#34d399] font-display font-bold text-base">
                 {typeof post.author === 'object' && post.author.avatar ? (
                   <img src={post.author.avatar} alt={authorName} className="w-full h-full object-cover" />
                 ) : (
                   authorName.charAt(0)
                 )}
-                <span className="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-[#10b981] border-2 border-[#070a08]" title="Verified SQC Fellow" />
+                <span className="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-[#10b981] border-2 border-white dark:border-[#070a08]" title="Verified SQC Fellow" />
               </div>
               
               <div className="flex flex-col text-left">
                 <div className="flex items-center gap-2">
-                  <span className="font-display text-base font-bold text-white">
+                  <span className="font-display text-base font-bold text-slate-900 dark:text-white">
                     {authorName}
                   </span>
                   <a 
@@ -266,8 +266,8 @@ export default function BlogDetail() {
                     </svg>
                   </a>
                 </div>
-                <span className="font-mono text-xs text-slate-400">
-                  {authorRole} <span className="text-white/20">•</span> {authorDepartment}
+                <span className="font-mono text-xs text-slate-500 dark:text-slate-400">
+                  {authorRole} <span className="text-slate-300 dark:text-white/20">•</span> {authorDepartment}
                 </span>
               </div>
             </div>
@@ -276,7 +276,7 @@ export default function BlogDetail() {
             <div className="flex items-center gap-2">
               <button
                 onClick={handleCopyLink}
-                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 hover:border-[#34d399]/40 text-slate-300 hover:text-white font-mono text-xs transition-all duration-200 active:scale-95 cursor-pointer"
+                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white hover:bg-slate-50 border border-slate-300 text-slate-800 shadow-xs dark:bg-white/[0.04] dark:border-white/10 dark:text-slate-300 dark:hover:bg-white/[0.08] dark:hover:text-white font-mono text-xs transition-all duration-200 active:scale-95 cursor-pointer"
                 title="Copy article URL"
               >
                 <span>{copiedLink ? '✓ Copied Link' : 'Copy Link'}</span>
@@ -286,11 +286,11 @@ export default function BlogDetail() {
                 href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(typeof window !== 'undefined' ? window.location.href : '')}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 hover:border-[#0a66c2]/50 text-slate-300 hover:text-white font-mono text-xs transition-all duration-200 active:scale-95"
+                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white hover:bg-slate-50 border border-slate-300 text-slate-800 shadow-xs dark:bg-white/[0.04] dark:border-white/10 dark:text-slate-300 dark:hover:bg-white/[0.08] dark:hover:text-white font-mono text-xs transition-all duration-200 active:scale-95"
                 title="Share on LinkedIn"
               >
                 <span>Share</span>
-                <span className="text-[#34d399] font-bold">↗</span>
+                <span className="text-emerald-600 dark:text-[#34d399] font-bold">↗</span>
               </a>
             </div>
           </div>
@@ -300,7 +300,7 @@ export default function BlogDetail() {
         <div className="max-w-5xl mx-auto mb-14">
           <div 
             onClick={() => setLightboxOpen(true)}
-            className="group relative w-full aspect-[16/9] sm:aspect-[21/9] rounded-2xl overflow-hidden bg-[#121513] border border-white/10 shadow-[0_20px_60px_rgba(0,0,0,0.85),0_0_40px_rgba(16,185,129,0.08)] cursor-pointer transition-all duration-300 hover:border-[#34d399]/50"
+            className="group relative w-full aspect-[16/9] sm:aspect-[21/9] rounded-2xl overflow-hidden bg-slate-100 dark:bg-[#121513] border border-slate-200 dark:border-white/10 shadow-md dark:shadow-[0_20px_60px_rgba(0,0,0,0.85),0_0_40px_rgba(16,185,129,0.08)] cursor-pointer transition-all duration-300 hover:border-emerald-500/50 dark:hover:border-[#34d399]/50"
             role="button"
             tabIndex={0}
             onKeyDown={(e) => {
@@ -314,18 +314,18 @@ export default function BlogDetail() {
             <img 
               src={post.image} 
               alt={post.title} 
-              className="w-full h-full object-cover transition-transform duration-700 ease-out brightness-[0.97] contrast-[1.03] group-hover:scale-[1.02]" 
+              className="w-full h-full object-cover transition-transform duration-700 ease-out brightness-[0.98] contrast-[1.02] group-hover:scale-[1.02]" 
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#070a08]/85 via-transparent to-black/20 pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 dark:from-[#070a08]/85 via-transparent to-black/20 pointer-events-none" />
 
             {/* Bottom Figure Caption */}
             <div className="absolute bottom-3 left-4 right-4 sm:bottom-4 sm:left-6 sm:right-6 flex items-center justify-between pointer-events-none">
-              <span className="font-mono text-[10px] sm:text-xs text-slate-300 bg-[#070a08]/80 backdrop-blur-md px-3 py-1 rounded-full border border-white/10 truncate max-w-[80%]">
+              <span className="font-mono text-[10px] sm:text-xs text-slate-800 dark:text-slate-300 bg-white/90 dark:bg-[#070a08]/80 backdrop-blur-md px-3 py-1 rounded-full border border-slate-200 dark:border-white/10 truncate max-w-[80%] shadow-sm">
                 {post.imageCaption || `FIGURE 1.0 — ${post.category.toUpperCase()} RESEARCH APPARATUS`}
               </span>
 
               {/* Click to expand badge */}
-              <span className="font-mono text-[10px] sm:text-xs text-[#34d399] bg-[#121513]/90 backdrop-blur-md px-2.5 py-1 rounded-full border border-[#34d399]/30 flex items-center gap-1.5 opacity-90 group-hover:opacity-100 transition-opacity">
+              <span className="font-mono text-[10px] sm:text-xs text-emerald-700 dark:text-[#34d399] bg-white/95 dark:bg-[#121513]/90 backdrop-blur-md px-2.5 py-1 rounded-full border border-emerald-500/30 dark:border-[#34d399]/30 flex items-center gap-1.5 opacity-90 group-hover:opacity-100 transition-opacity shadow-sm">
                 <span>Expand</span>
                 <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
@@ -345,27 +345,27 @@ export default function BlogDetail() {
             {details.takeaways && details.takeaways.length > 0 && (
               <section 
                 aria-labelledby="takeaways-heading"
-                className="relative p-6 sm:p-8 rounded-2xl bg-gradient-to-br from-[#10b981]/12 via-[#121513]/90 to-[#070a08] border border-[#10b981]/30 shadow-[0_12px_36px_rgba(0,0,0,0.5)] flex flex-col gap-4 overflow-hidden"
+                className="relative p-6 sm:p-8 rounded-2xl bg-white dark:bg-[#121513]/90 border border-emerald-300/60 dark:border-[#10b981]/30 shadow-sm dark:shadow-[0_12px_36px_rgba(0,0,0,0.5)] flex flex-col gap-4 overflow-hidden"
               >
-                <div className="flex items-center justify-between border-b border-white/[0.08] pb-3">
-                  <div className="flex items-center gap-2 font-mono text-xs font-bold text-[#34d399] uppercase tracking-wider">
-                    <span className="w-2 h-2 rounded-full bg-[#34d399] shadow-[0_0_8px_#34d399]" />
-                    <h2 id="takeaways-heading" className="font-mono text-xs font-bold m-0 text-[#34d399]">
+                <div className="flex items-center justify-between border-b border-slate-200 dark:border-white/[0.08] pb-3">
+                  <div className="flex items-center gap-2 font-mono text-xs font-bold text-emerald-800 dark:text-[#34d399] uppercase tracking-wider">
+                    <span className="w-2 h-2 rounded-full bg-emerald-500 dark:bg-[#34d399] shadow-[0_0_8px_#34d399]" />
+                    <h2 id="takeaways-heading" className="font-mono text-xs font-bold m-0 text-emerald-800 dark:text-[#34d399]">
                       EXECUTIVE RESEARCH BRIEFING
                     </h2>
                   </div>
-                  <span className="font-mono text-[10px] text-slate-400 uppercase">
+                  <span className="font-mono text-[10px] text-slate-500 dark:text-slate-400 uppercase">
                     Key Findings
                   </span>
                 </div>
 
-                <ol className="flex flex-col gap-4 m-0 pl-0 list-none font-body text-[0.9375rem] sm:text-base text-slate-300 leading-relaxed">
+                <ol className="flex flex-col gap-4 m-0 pl-0 list-none font-body text-[0.9375rem] sm:text-base text-slate-700 dark:text-slate-300 leading-relaxed">
                   {details.takeaways.map((item, idx) => (
                     <li key={idx} className="flex items-start gap-3.5">
-                      <span className="font-mono text-xs font-bold px-2 py-0.5 rounded bg-[#10b981]/20 text-[#34d399] border border-[#10b981]/35 shrink-0 mt-0.5">
+                      <span className="font-mono text-xs font-bold px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-800 dark:text-[#34d399] border border-emerald-500/30 shrink-0 mt-0.5">
                         0{idx + 1}
                       </span>
-                      <span className="text-slate-200">{item}</span>
+                      <span className="text-slate-800 dark:text-slate-200">{item}</span>
                     </li>
                   ))}
                 </ol>
@@ -376,29 +376,29 @@ export default function BlogDetail() {
             {details.sections && details.sections.map((sec, idx) => (
               <section 
                 key={idx} 
-                className="flex flex-col gap-5 pt-8 border-t border-white/[0.08] first:border-t-0 first:pt-0"
+                className="flex flex-col gap-5 pt-8 border-t border-slate-200 dark:border-white/[0.08] first:border-t-0 first:pt-0"
               >
                 {/* Section Heading */}
                 {sec.title && (
-                  <h2 className="font-display text-2xl sm:text-3xl font-bold text-white tracking-tight leading-snug m-0">
+                  <h2 className="font-display text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white tracking-tight leading-snug m-0">
                     {sec.title}
                   </h2>
                 )}
 
                 {/* Section Body Paragraphs */}
                 {sec.content && (
-                  <div className="font-body text-base sm:text-lg leading-[1.85] text-slate-300 space-y-5 whitespace-pre-line">
+                  <div className="font-body text-base sm:text-lg leading-[1.85] text-slate-700 dark:text-slate-300 space-y-5 whitespace-pre-line">
                     {sec.content}
                   </div>
                 )}
 
                 {/* Pullquote */}
                 {sec.quote && (
-                  <figure className="relative my-4 p-6 sm:p-7 rounded-2xl bg-gradient-to-r from-white/[0.04] to-white/[0.01] border-l-4 border-[#34d399] border-y border-r border-white/10 shadow-lg">
-                    <blockquote className="m-0 font-display text-lg sm:text-xl font-medium italic text-slate-100 leading-relaxed">
+                  <figure className="relative my-4 p-6 sm:p-7 rounded-2xl bg-slate-50/80 dark:bg-gradient-to-r dark:from-white/[0.04] dark:to-white/[0.01] border-l-4 border-emerald-500 border-y border-r border-slate-200/90 dark:border-white/10 shadow-xs dark:shadow-lg">
+                    <blockquote className="m-0 font-display text-lg sm:text-xl font-medium italic text-slate-900 dark:text-slate-100 leading-relaxed">
                       &ldquo;{sec.quote}&rdquo;
                     </blockquote>
-                    <figcaption className="mt-3 font-mono text-xs text-[#34d399] uppercase tracking-wider">
+                    <figcaption className="mt-3 font-mono text-xs text-emerald-700 dark:text-[#34d399] uppercase tracking-wider">
                       — Research Log Annotation // SQC
                     </figcaption>
                   </figure>
@@ -448,24 +448,24 @@ export default function BlogDetail() {
             ))}
 
             {/* ── Academic Citation Box (BibTeX / APA Tabs) ── */}
-            <div className="mt-4 p-6 rounded-2xl bg-[#0e1210] border border-white/10 shadow-lg flex flex-col gap-4">
-              <div className="flex items-center justify-between flex-wrap gap-2 border-b border-white/[0.08] pb-3">
+            <div className="mt-4 p-6 rounded-2xl bg-white dark:bg-[#0e1210] border border-slate-200/90 dark:border-white/10 shadow-sm dark:shadow-lg flex flex-col gap-4">
+              <div className="flex items-center justify-between flex-wrap gap-2 border-b border-slate-200 dark:border-white/[0.08] pb-3">
                 <div className="flex items-center gap-2">
-                  <span className="font-mono text-xs font-bold text-white uppercase tracking-wider">
+                  <span className="font-mono text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
                     Cite This Article
                   </span>
-                  <span className="font-mono text-[10px] text-slate-400 bg-white/[0.05] px-2 py-0.5 rounded">
+                  <span className="font-mono text-[10px] text-slate-600 dark:text-slate-400 bg-slate-100 dark:bg-white/[0.05] px-2 py-0.5 rounded">
                     Open Access
                   </span>
                 </div>
 
-                <div className="flex items-center gap-1.5 bg-black/40 p-1 rounded-lg border border-white/10">
+                <div className="flex items-center gap-1.5 bg-slate-100 dark:bg-black/40 p-1 rounded-lg border border-slate-200 dark:border-white/10">
                   <button
                     onClick={() => setCitationFormat('bibtex')}
                     className={`font-mono text-[11px] px-2.5 py-1 rounded transition-colors cursor-pointer ${
                       citationFormat === 'bibtex' 
-                        ? 'bg-[#34d399]/20 text-[#34d399] font-bold' 
-                        : 'text-slate-400 hover:text-white'
+                        ? 'bg-emerald-500/20 text-emerald-800 dark:text-[#34d399] font-bold' 
+                        : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                     }`}
                   >
                     BibTeX
@@ -474,8 +474,8 @@ export default function BlogDetail() {
                     onClick={() => setCitationFormat('apa')}
                     className={`font-mono text-[11px] px-2.5 py-1 rounded transition-colors cursor-pointer ${
                       citationFormat === 'apa' 
-                        ? 'bg-[#34d399]/20 text-[#34d399] font-bold' 
-                        : 'text-slate-400 hover:text-white'
+                        ? 'bg-emerald-500/20 text-emerald-800 dark:text-[#34d399] font-bold' 
+                        : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                     }`}
                   >
                     APA
@@ -483,7 +483,7 @@ export default function BlogDetail() {
                 </div>
               </div>
 
-              <div className="bg-black/50 rounded-xl p-3.5 border border-white/[0.06] font-mono text-xs text-slate-300 whitespace-pre-wrap leading-relaxed overflow-x-auto select-all">
+              <div className="bg-slate-50 dark:bg-black/50 rounded-xl p-3.5 border border-slate-200/90 dark:border-white/[0.06] font-mono text-xs text-slate-800 dark:text-slate-300 whitespace-pre-wrap leading-relaxed overflow-x-auto select-all">
                 {citationTexts[citationFormat]}
               </div>
 
@@ -493,7 +493,7 @@ export default function BlogDetail() {
                 </span>
                 <button
                   onClick={handleCopyCitation}
-                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#10b981]/15 hover:bg-[#10b981]/30 text-[#34d399] border border-[#10b981]/35 font-mono text-xs font-medium transition-all active:scale-95 cursor-pointer"
+                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#10b981]/15 hover:bg-[#10b981]/30 text-emerald-800 dark:text-[#34d399] border border-[#10b981]/35 font-mono text-xs font-medium transition-all active:scale-95 cursor-pointer"
                 >
                   {copiedCitation ? '✓ Citation Copied' : 'Copy Citation'}
                 </button>
@@ -501,15 +501,15 @@ export default function BlogDetail() {
             </div>
 
             {/* Tags & Topic Pills */}
-            <div className="pt-6 border-t border-white/[0.08] flex flex-col gap-3">
-              <span className="font-mono text-xs text-slate-400 uppercase tracking-wider">
+            <div className="pt-6 border-t border-slate-200 dark:border-white/[0.08] flex flex-col gap-3">
+              <span className="font-mono text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wider">
                 Related Topics & Research Tags
               </span>
               <div className="flex flex-wrap gap-2">
                 {details.tags.map((tag) => (
                   <span 
                     key={tag} 
-                    className="px-3 py-1 rounded-full font-mono text-xs bg-[#121513] text-slate-300 border border-white/10 hover:border-[#34d399]/40 transition-colors"
+                    className="px-3 py-1 rounded-full font-mono text-xs bg-slate-50 dark:bg-[#121513] text-slate-700 dark:text-slate-300 border border-slate-200/90 dark:border-white/10 hover:border-[#34d399]/40 transition-colors"
                   >
                     {tag}
                   </span>
@@ -518,9 +518,9 @@ export default function BlogDetail() {
             </div>
 
             {/* Author Profile Bio Box */}
-            <div className="p-6 sm:p-7 rounded-2xl bg-[#121513]/90 border border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 shadow-xl">
+            <div className="p-6 sm:p-7 rounded-2xl bg-white dark:bg-[#121513]/90 border border-slate-200/90 dark:border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 shadow-sm dark:shadow-xl">
               <div className="flex items-center gap-4">
-                <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[#10b981]/20 to-transparent border border-[#10b981]/40 flex items-center justify-center font-display font-bold text-xl text-[#34d399] overflow-hidden shrink-0">
+                <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[#10b981]/20 to-transparent border border-[#10b981]/40 flex items-center justify-center font-display font-bold text-xl text-emerald-700 dark:text-[#34d399] overflow-hidden shrink-0">
                   {typeof post.author === 'object' && post.author.avatar ? (
                     <img src={post.author.avatar} alt={authorName} className="w-full h-full object-cover" />
                   ) : (
@@ -529,15 +529,15 @@ export default function BlogDetail() {
                 </div>
                 <div className="flex flex-col gap-1 text-left">
                   <div className="flex items-center gap-2">
-                    <span className="font-display font-bold text-white text-base sm:text-lg">{authorName}</span>
-                    <span className="font-mono text-[10px] text-[#34d399] bg-[#34d399]/15 border border-[#34d399]/30 px-2 py-0.5 rounded-full uppercase">
+                    <span className="font-display font-bold text-slate-900 dark:text-white text-base sm:text-lg">{authorName}</span>
+                    <span className="font-mono text-[10px] text-emerald-800 dark:text-[#34d399] bg-[#34d399]/15 border border-[#34d399]/30 px-2 py-0.5 rounded-full uppercase">
                       Author
                     </span>
                   </div>
-                  <span className="font-mono text-xs text-slate-400">
+                  <span className="font-mono text-xs text-slate-500 dark:text-slate-400">
                     {authorRole} • Symbiosis Quantum Club
                   </span>
-                  <span className="font-body text-xs text-slate-400">
+                  <span className="font-body text-xs text-slate-600 dark:text-slate-400">
                     Contributing research fellow at Symbiosis Institute of Technology (SIT), Pune.
                   </span>
                 </div>
@@ -547,7 +547,7 @@ export default function BlogDetail() {
                 href={authorLinkedin} 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#10b981]/15 hover:bg-[#10b981] text-[#34d399] hover:text-[#041f14] border border-[#10b981]/30 font-mono text-xs font-bold transition-all duration-200 active:scale-95 shrink-0"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#10b981]/15 hover:bg-[#10b981] text-emerald-800 dark:text-[#34d399] hover:text-[#041f14] border border-[#10b981]/30 font-mono text-xs font-bold transition-all duration-200 active:scale-95 shrink-0"
               >
                 <span>LinkedIn Profile</span>
                 <span>↗</span>
@@ -560,18 +560,18 @@ export default function BlogDetail() {
           <aside className="hidden lg:flex flex-col gap-6 sticky top-28">
             
             {/* Share & Quick Actions Card */}
-            <div className="p-5 rounded-2xl bg-[#121513]/90 border border-white/10 flex flex-col gap-4 backdrop-blur-xl shadow-lg text-left">
-              <h3 className="font-mono text-[11px] font-bold text-[#34d399] uppercase tracking-wider border-b border-white/[0.08] pb-2.5 m-0">
+            <div className="p-5 rounded-2xl bg-white dark:bg-[#121513]/90 border border-slate-200/90 dark:border-white/10 flex flex-col gap-4 backdrop-blur-xl shadow-sm dark:shadow-lg text-left">
+              <h3 className="font-mono text-[11px] font-bold text-emerald-800 dark:text-[#34d399] uppercase tracking-wider border-b border-slate-200 dark:border-white/[0.08] pb-2.5 m-0">
                 SHARE PUBLICATION
               </h3>
 
               <div className="flex flex-col gap-2.5">
                 <button
                   onClick={handleCopyLink}
-                  className="w-full py-2.5 px-3.5 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 hover:border-[#34d399]/40 text-slate-200 font-mono text-xs flex items-center justify-between transition-all duration-200 cursor-pointer active:scale-98"
+                  className="w-full py-2.5 px-3.5 rounded-xl bg-slate-50 dark:bg-white/[0.04] hover:bg-slate-100 dark:hover:bg-white/[0.08] border border-slate-200 dark:border-white/10 hover:border-[#34d399]/40 text-slate-800 dark:text-slate-200 font-mono text-xs flex items-center justify-between transition-all duration-200 cursor-pointer active:scale-98"
                 >
                   <span>{copiedLink ? '✓ Copied URL' : 'Copy Article Link'}</span>
-                  <svg className="w-3.5 h-3.5 text-[#34d399]" viewBox="0 0 16 16" fill="none">
+                  <svg className="w-3.5 h-3.5 text-emerald-600 dark:text-[#34d399]" viewBox="0 0 16 16" fill="none">
                     <path d="M6 10L10 6M7 4h5v5M9 12H4V7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </button>
@@ -580,18 +580,18 @@ export default function BlogDetail() {
                   href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(typeof window !== 'undefined' ? window.location.href : '')}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full py-2.5 px-3.5 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 hover:border-[#0a66c2]/50 text-slate-200 font-mono text-xs flex items-center justify-between transition-all duration-200"
+                  className="w-full py-2.5 px-3.5 rounded-xl bg-slate-50 dark:bg-white/[0.04] hover:bg-slate-100 dark:hover:bg-white/[0.08] border border-slate-200 dark:border-white/10 hover:border-[#0a66c2]/50 text-slate-800 dark:text-slate-200 font-mono text-xs flex items-center justify-between transition-all duration-200"
                 >
                   <span>Share on LinkedIn</span>
-                  <span className="text-[#34d399] font-mono">↗</span>
+                  <span className="text-emerald-600 dark:text-[#34d399] font-mono">↗</span>
                 </a>
               </div>
             </div>
 
             {/* Quick Citation Card */}
-            <div className="p-5 rounded-2xl bg-[#121513]/90 border border-white/10 flex flex-col gap-3.5 backdrop-blur-xl shadow-lg text-left">
-              <div className="flex items-center justify-between border-b border-white/[0.08] pb-2.5">
-                <span className="font-mono text-[11px] font-bold text-[#34d399] uppercase tracking-wider">
+            <div className="p-5 rounded-2xl bg-white dark:bg-[#121513]/90 border border-slate-200/90 dark:border-white/10 flex flex-col gap-3.5 backdrop-blur-xl shadow-sm dark:shadow-lg text-left">
+              <div className="flex items-center justify-between border-b border-slate-200 dark:border-white/[0.08] pb-2.5">
+                <span className="font-mono text-[11px] font-bold text-emerald-800 dark:text-[#34d399] uppercase tracking-wider">
                   QUICK CITATION
                 </span>
                 <span className="font-mono text-[10px] text-slate-500">
@@ -599,27 +599,27 @@ export default function BlogDetail() {
                 </span>
               </div>
 
-              <div className="p-3 bg-black/40 rounded-xl border border-white/5 font-mono text-[11px] text-slate-400 line-clamp-3 leading-relaxed">
+              <div className="p-3 bg-slate-50 dark:bg-black/40 rounded-xl border border-slate-200 dark:border-white/5 font-mono text-[11px] text-slate-600 dark:text-slate-400 line-clamp-3 leading-relaxed">
                 {citationTexts.bibtex}
               </div>
 
               <button
                 onClick={handleCopyCitation}
-                className="w-full py-2 px-3 rounded-xl bg-[#10b981]/15 hover:bg-[#10b981]/25 text-[#34d399] border border-[#10b981]/30 font-mono text-xs font-semibold flex items-center justify-center gap-1.5 transition-all cursor-pointer active:scale-98"
+                className="w-full py-2 px-3 rounded-xl bg-[#10b981]/15 hover:bg-[#10b981]/25 text-emerald-800 dark:text-[#34d399] border border-[#10b981]/30 font-mono text-xs font-semibold flex items-center justify-center gap-1.5 transition-all cursor-pointer active:scale-98"
               >
                 <span>{copiedCitation ? '✓ Copied' : 'Copy BibTeX'}</span>
               </button>
             </div>
 
             {/* Publication Identity Card */}
-            <div className="p-5 rounded-2xl bg-gradient-to-br from-[#10b981]/10 via-[#121513] to-[#070a08] border border-[#10b981]/25 flex flex-col gap-2.5 shadow-md text-left">
-              <span className="font-mono text-[10px] font-bold text-[#34d399] uppercase tracking-widest">
+            <div className="p-5 rounded-2xl bg-gradient-to-br from-emerald-50/90 via-white to-slate-50 dark:from-[#10b981]/10 dark:via-[#121513] dark:to-[#070a08] border border-emerald-300/40 dark:border-[#10b981]/25 flex flex-col gap-2.5 shadow-sm dark:shadow-md text-left">
+              <span className="font-mono text-[10px] font-bold text-emerald-800 dark:text-[#34d399] uppercase tracking-widest">
                 SYMBIOSIS QUANTUM DISPATCHES
               </span>
-              <p className="font-body text-xs text-slate-400 leading-relaxed m-0">
+              <p className="font-body text-xs text-slate-600 dark:text-slate-400 leading-relaxed m-0">
                 Official research dispatches authored by student researchers and mentors at Symbiosis Quantum Club, SIT Pune.
               </p>
-              <div className="pt-2 border-t border-white/[0.08] flex items-center justify-between font-mono text-[10px] text-slate-500">
+              <div className="pt-2 border-t border-slate-200 dark:border-white/[0.08] flex items-center justify-between font-mono text-[10px] text-slate-500">
                 <span>OPEN ACCESS</span>
                 <span>VOL. 2026</span>
               </div>
@@ -631,20 +631,20 @@ export default function BlogDetail() {
 
         {/* ── Related Articles Recommendation ── */}
         {relatedPosts.length > 0 && (
-          <section className="mt-28 pt-16 border-t border-white/10 flex flex-col gap-10 max-w-5xl mx-auto text-left">
+          <section className="mt-28 pt-16 border-t border-slate-200 dark:border-white/10 flex flex-col gap-10 max-w-5xl mx-auto text-left">
             <div className="flex items-center justify-between flex-wrap gap-4">
               <div>
-                <span className="font-mono text-xs uppercase tracking-widest text-[#34d399] font-semibold block mb-1">
+                <span className="font-mono text-xs uppercase tracking-widest text-emerald-700 dark:text-[#34d399] font-semibold block mb-1">
                   CONTINUE EXPLORING
                 </span>
-                <h2 className="font-display text-2xl sm:text-3xl font-bold text-white tracking-tight m-0">
+                <h2 className="font-display text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white tracking-tight m-0">
                   More Research From Quantum Journal
                 </h2>
               </div>
               
               <Link 
                 to="/blog" 
-                className="inline-flex items-center gap-2 font-mono text-xs font-bold text-[#34d399] hover:underline"
+                className="inline-flex items-center gap-2 font-mono text-xs font-bold text-emerald-700 dark:text-[#34d399] hover:underline"
               >
                 <span>Browse All Articles</span>
                 <span>➔</span>
@@ -656,35 +656,35 @@ export default function BlogDetail() {
                 <Link 
                   key={relPost.id} 
                   to={`/blog/${relPost.id}`}
-                  className="group flex flex-col bg-[#121215] border border-white/10 rounded-2xl overflow-hidden hover:border-[#34d399]/50 hover:shadow-[0_16px_36px_rgba(16,185,129,0.15)] transition-all duration-300 hover:-translate-y-1"
+                  className="group flex flex-col bg-white dark:bg-[#121215] border border-slate-200/90 dark:border-white/10 rounded-2xl overflow-hidden hover:border-[#34d399]/50 shadow-sm hover:shadow-md dark:shadow-none hover:shadow-[0_16px_36px_rgba(16,185,129,0.15)] transition-all duration-300 hover:-translate-y-1"
                 >
-                  <div className="w-full aspect-[16/10] overflow-hidden relative bg-[#070a08]">
+                  <div className="w-full aspect-[16/10] overflow-hidden relative bg-slate-100 dark:bg-[#070a08]">
                     <img 
                       src={relPost.image} 
                       alt={relPost.title} 
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#121215] via-transparent to-transparent opacity-80" />
-                    <span className="absolute bottom-3 left-3 px-2.5 py-0.5 rounded-full font-mono text-[10px] font-bold uppercase tracking-wider bg-[#070a08]/80 text-[#34d399] border border-white/10 backdrop-blur-md">
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 dark:from-[#121215] via-transparent to-transparent opacity-80" />
+                    <span className="absolute bottom-3 left-3 px-2.5 py-0.5 rounded-full font-mono text-[10px] font-bold uppercase tracking-wider bg-white/90 dark:bg-[#070a08]/80 text-emerald-800 dark:text-[#34d399] border border-slate-200 dark:border-white/10 backdrop-blur-md shadow-sm">
                       {relPost.category}
                     </span>
                   </div>
 
                   <div className="p-5 flex flex-col gap-2.5 flex-1 justify-between">
                     <div className="flex flex-col gap-2">
-                      <div className="flex items-center justify-between text-[11px] font-mono text-slate-400">
+                      <div className="flex items-center justify-between text-[11px] font-mono text-slate-500 dark:text-slate-400">
                         <span>{formatDate(relPost.date)}</span>
                         <span>{relPost.readTime}</span>
                       </div>
-                      <h3 className="font-display text-base font-bold text-white group-hover:text-[#34d399] transition-colors leading-snug m-0 line-clamp-2">
+                      <h3 className="font-display text-base font-bold text-slate-900 dark:text-white group-hover:text-emerald-700 dark:group-hover:text-[#34d399] transition-colors leading-snug m-0 line-clamp-2">
                         {relPost.title}
                       </h3>
-                      <p className="font-body text-xs text-slate-400 line-clamp-2 leading-relaxed m-0">
+                      <p className="font-body text-xs text-slate-600 dark:text-slate-400 line-clamp-2 leading-relaxed m-0">
                         {relPost.excerpt}
                       </p>
                     </div>
 
-                    <span className="font-mono text-xs font-semibold text-[#34d399] pt-2 inline-flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                    <span className="font-mono text-xs font-semibold text-emerald-700 dark:text-[#34d399] pt-2 inline-flex items-center gap-1 group-hover:translate-x-1 transition-transform">
                       Read Paper <span>→</span>
                     </span>
                   </div>

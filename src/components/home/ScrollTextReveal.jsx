@@ -12,34 +12,53 @@ export default function ScrollTextReveal() {
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     if (prefersReduced) return
 
-    const ctx = gsap.context(() => {
-      const words = textWrapRef.current.querySelectorAll('.scroll-text__word')
+    let ctx
 
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: 'top top',
-          end: 'bottom bottom',
-          scrub: 0.5,
-        },
-      })
+    const initAnimation = () => {
+      if (ctx) ctx.revert()
+      const isDark = document.documentElement.classList.contains('dark')
 
-      words.forEach((word) => {
-        tl.to(
-          word,
-          {
-            opacity: 1,
-            color: word.classList.contains('scroll-text__word--accent') ? '#c084fc' : '#ffffff',
-            textShadow: word.classList.contains('scroll-text__word--accent') ? '0 0 24px rgba(192, 132, 252, 0.6)' : 'none',
-            duration: 0.5,
-            ease: 'none',
+      ctx = gsap.context(() => {
+        const words = textWrapRef.current?.querySelectorAll('.scroll-text__word')
+        if (!words || words.length === 0) return
+
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: 'top top',
+            end: 'bottom bottom',
+            scrub: 0.5,
           },
-          '>-0.35'
-        )
-      })
-    }, containerRef)
+        })
 
-    return () => ctx.revert()
+        words.forEach((word) => {
+          const isAccent = word.classList.contains('scroll-text__word--accent')
+          tl.to(
+            word,
+            {
+              opacity: 1,
+              color: isAccent ? (isDark ? '#c084fc' : '#7c3aed') : (isDark ? '#ffffff' : '#0f172a'),
+              textShadow: isAccent && isDark ? '0 0 24px rgba(192, 132, 252, 0.6)' : 'none',
+              duration: 0.5,
+              ease: 'none',
+            },
+            '>-0.35'
+          )
+        })
+      }, containerRef)
+    }
+
+    initAnimation()
+
+    const handleThemeChange = () => {
+      initAnimation()
+    }
+    window.addEventListener('sqc-theme-change', handleThemeChange)
+
+    return () => {
+      window.removeEventListener('sqc-theme-change', handleThemeChange)
+      if (ctx) ctx.revert()
+    }
   }, [])
 
   const statement = [
@@ -76,15 +95,15 @@ export default function ScrollTextReveal() {
   ]
 
   return (
-    <section className="relative h-[120vh] md:h-[140vh] bg-transparent text-white" ref={containerRef} id="welcome">
+    <section className="relative h-[120vh] md:h-[140vh] bg-transparent text-slate-900 dark:text-white transition-colors duration-300" ref={containerRef} id="welcome">
       <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden">
         <div className="w-full max-w-[1280px] mx-auto px-5 sm:px-8 md:px-12 lg:px-16 flex flex-col items-start">
           <div className="flex flex-col items-start gap-2.5 mb-6 sm:mb-10">
-            <span className="font-pixel text-sm sm:text-base md:text-lg font-semibold tracking-widest text-purple-300 uppercase">
+            <span className="font-pixel text-sm sm:text-base md:text-lg font-semibold tracking-widest text-purple-700 dark:text-purple-300 uppercase">
               CHAPTER MANIFESTO
             </span>
-            <h2 className="font-pixel text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black tracking-wider text-white uppercase leading-tight drop-shadow-[0_0_28px_rgba(168,85,247,0.35)]">
-              WELCOME TO <span className="bg-gradient-to-r from-purple-300 via-violet-200 to-cyan-300 bg-clip-text text-transparent">QUANTUM CLUB</span>
+            <h2 className="font-pixel text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black tracking-wider text-slate-900 dark:text-white uppercase leading-tight dark:drop-shadow-[0_0_28px_rgba(168,85,247,0.35)]">
+              WELCOME TO <span className="bg-gradient-to-r from-purple-700 via-violet-600 to-cyan-600 dark:from-purple-300 dark:via-violet-200 dark:to-cyan-300 bg-clip-text text-transparent">QUANTUM CLUB</span>
             </h2>
           </div>
           
@@ -93,7 +112,7 @@ export default function ScrollTextReveal() {
               {statement.map((item, i) => (
                 <span
                   key={i}
-                  className={`scroll-text__word inline-block opacity-20 text-white/20 mr-[0.26em] will-change-[opacity,color] ${item.accent ? 'scroll-text__word--accent font-bold' : ''}`}
+                  className={`scroll-text__word inline-block opacity-20 text-slate-900/20 dark:text-white/20 mr-[0.26em] will-change-[opacity,color] ${item.accent ? 'scroll-text__word--accent font-bold' : ''}`}
                 >
                   {item.text}{' '}
                 </span>

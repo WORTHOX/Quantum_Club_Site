@@ -6,6 +6,7 @@ import ErrorBoundary from './components/ui/ErrorBoundary'
 import Navbar from './components/layout/Navbar'
 import Footer from './components/layout/Footer'
 import PageTransition, { isDetailPage } from './components/layout/PageTransition'
+import { ThemeProvider } from './utils/ThemeContext'
 
 /* Lazy-loaded route chunks to isolate Three.js and reduce initial bundle */
 const Home = lazy(() => import('./pages/Home'))
@@ -96,16 +97,18 @@ export default function App() {
   }, [])
 
   return (
-    <BrowserRouter>
-      {loading && <Preloader onDone={handlePreloaderDone} />}
-      <RouteEffects />
-      <Navbar />
-      <div id="app-root" className="relative w-full">
-        <ErrorBoundary>
-          <AnimatedRoutes />
-        </ErrorBoundary>
-      </div>
-      <Footer />
-    </BrowserRouter>
+    <ThemeProvider>
+      <BrowserRouter>
+        {loading && <Preloader onDone={handlePreloaderDone} />}
+        <RouteEffects />
+        <Navbar />
+        <div id="app-root" className="relative w-full min-h-screen bg-[#fcfcfd] dark:bg-[#06040a] text-slate-900 dark:text-slate-100 transition-colors duration-300">
+          <ErrorBoundary>
+            <AnimatedRoutes />
+          </ErrorBoundary>
+        </div>
+        <Footer />
+      </BrowserRouter>
+    </ThemeProvider>
   )
 }

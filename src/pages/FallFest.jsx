@@ -50,7 +50,7 @@ const edition = {
       title: 'Foundations',
       accent: '#40c0cb',
       borderColor: 'border-[#40c0cb]/40',
-      badgeBg: 'bg-[#40c0cb]/15 text-[#40c0cb] border-[#40c0cb]/30',
+      badgeBg: 'bg-cyan-50 dark:bg-[#40c0cb]/15 text-cyan-800 dark:text-[#40c0cb] border-cyan-200 dark:border-[#40c0cb]/30',
       glow: 'shadow-[0_0_30px_rgba(64,192,203,0.18)]',
       items: [
         'State vectors, measurements, single-qubit gates.',
@@ -62,7 +62,7 @@ const edition = {
       title: 'Circuits',
       accent: '#8b5cf6',
       borderColor: 'border-[#8b5cf6]/40',
-      badgeBg: 'bg-purple-500/15 text-purple-300 border-purple-500/30',
+      badgeBg: 'bg-purple-50 dark:bg-purple-500/15 text-purple-800 dark:text-purple-300 border-purple-200 dark:border-purple-500/30',
       glow: 'shadow-[0_0_30px_rgba(139,92,246,0.18)]',
       items: [
         'Multi-qubit systems, entanglement.',
@@ -74,7 +74,7 @@ const edition = {
       title: 'Algorithms',
       accent: '#fbbf24',
       borderColor: 'border-[#fbbf24]/40',
-      badgeBg: 'bg-amber-500/15 text-amber-300 border-amber-500/30',
+      badgeBg: 'bg-amber-50 dark:bg-amber-500/15 text-amber-800 dark:text-amber-300 border-amber-200 dark:border-amber-500/30',
       glow: 'shadow-[0_0_30px_rgba(251,191,36,0.18)]',
       items: [
         'Intro to basic algorithms.',
@@ -86,7 +86,7 @@ const edition = {
       title: 'Certification',
       accent: '#ff4e50',
       borderColor: 'border-[#ff4e50]/40',
-      badgeBg: 'bg-rose-500/15 text-rose-300 border-rose-500/30',
+      badgeBg: 'bg-rose-50 dark:bg-rose-500/15 text-rose-800 dark:text-rose-300 border-rose-200 dark:border-rose-500/30',
       glow: 'shadow-[0_0_30px_rgba(255,78,80,0.18)]',
       items: [
         'Submission checklist and timeline.',
@@ -331,11 +331,11 @@ export default function FallFest() {
   })
 
   return (
-    <main className="bg-[#060409] min-h-dvh pt-[calc(72px+clamp(1.5rem,1rem+2.5vw,3.5rem))] pb-12 sm:pb-16 text-slate-200 relative overflow-x-clip">
+    <main className="bg-[#fcfcfd] dark:bg-[#060409] min-h-dvh pt-[calc(72px+clamp(1.5rem,1rem+2.5vw,3.5rem))] pb-12 sm:pb-16 text-slate-800 dark:text-slate-200 relative overflow-x-clip">
       {/* Dynamic Ambient Background Aura */}
       <div className="absolute top-0 inset-x-0 h-[450px] overflow-hidden pointer-events-none -z-10 flex justify-center">
         <div
-          className="w-[min(100vw,900px)] h-full rounded-full opacity-20 blur-3xl"
+          className="w-[min(100vw,900px)] h-full rounded-full opacity-10 dark:opacity-20 blur-3xl"
           style={{ background: `radial-gradient(ellipse, ${edition.gradientFrom} 0%, ${edition.gradientTo} 60%, transparent 100%)` }}
         />
       </div>
@@ -365,22 +365,22 @@ export default function FallFest() {
       <article className="w-full max-w-[1360px] px-3.5 sm:px-6 md:px-8 lg:px-10 xl:px-14 2xl:px-20 mx-auto relative z-10">
 
         {/* ── Top Navigation & Telemetry Breadcrumb ── */}
-        <div className="flex flex-wrap items-center justify-between gap-2.5 sm:gap-3 mb-6 pb-4 border-b border-white/[0.06]">
+        <div className="flex flex-wrap items-center justify-between gap-2.5 sm:gap-3 mb-6 pb-4 border-b border-slate-200/80 dark:border-white/[0.06]">
           <Link
             to="/events"
-            className="inline-flex items-center gap-1.5 sm:gap-2 font-pixel text-[9px] sm:text-[10px] tracking-widest text-cyan-400 hover:text-cyan-300 uppercase transition-colors group shrink-0"
+            className="inline-flex items-center gap-1.5 sm:gap-2 font-pixel text-[9px] sm:text-[10px] tracking-widest text-cyan-700 hover:text-cyan-800 dark:text-cyan-400 dark:hover:text-cyan-300 uppercase transition-colors group shrink-0"
           >
             <span className="transition-transform duration-300 group-hover:-translate-x-1">←</span>
             <span>BACK_TO_EVENTS_INDEX</span>
           </Link>
 
-          <div className="flex flex-wrap items-center gap-2 sm:gap-3 font-mono text-[10px] sm:text-[11px] text-slate-400">
-            <span className="hidden sm:inline text-white/30">•</span>
-            <span className="text-slate-400 font-medium tracking-wide">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-3 font-mono text-[10px] sm:text-[11px] text-slate-500 dark:text-slate-400">
+            <span className="hidden sm:inline text-slate-300 dark:text-white/30">•</span>
+            <span className="text-slate-700 dark:text-slate-400 font-medium tracking-wide">
               SPECIMEN // {edition.eventId.toUpperCase()}
             </span>
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-cyan-500/10 text-cyan-300 border border-cyan-500/30 text-[9px] sm:text-[10px] font-pixel tracking-wider uppercase shrink-0">
-              <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-cyan-50 dark:bg-cyan-500/10 text-cyan-800 dark:text-cyan-300 border border-cyan-200 dark:border-cyan-500/30 text-[9px] sm:text-[10px] font-pixel tracking-wider uppercase shrink-0">
+              <span className="w-1.5 h-1.5 rounded-full bg-cyan-500 dark:bg-cyan-400 animate-pulse" />
               OFFICIAL_IBM_PARTNER_LINK
             </span>
           </div>
@@ -391,34 +391,34 @@ export default function FallFest() {
           <div className="flex flex-col gap-3">
             {/* Top Archive Link Notice & IBM Quantum Partner Banner */}
             <div className="mb-4 sm:mb-5 flex flex-col items-center gap-3 w-full">
-              <div className="flex flex-wrap items-center justify-center gap-2 px-4 sm:px-5 py-1.5 sm:py-2 rounded-full bg-white/[0.05] border border-white/10 backdrop-blur-md max-w-full shadow-lg">
-                <span className="font-mono text-[11px] sm:text-xs text-slate-300">Fall Fest 2025 Archive — Official IBM Partner Link</span>
-                <span className="text-slate-600">·</span>
-                <Link to="/events/qiskit-fall-fest-2026" className="font-mono text-[11px] sm:text-xs font-bold text-cyan-400 hover:text-cyan-300 underline underline-offset-4">
+              <div className="flex flex-wrap items-center justify-center gap-2 px-4 sm:px-5 py-1.5 sm:py-2 rounded-full bg-slate-100/90 dark:bg-white/[0.05] border border-slate-200 dark:border-white/10 backdrop-blur-md max-w-full shadow-sm dark:shadow-lg">
+                <span className="font-mono text-[11px] sm:text-xs text-slate-700 dark:text-slate-300">Fall Fest 2025 Archive — Official IBM Partner Link</span>
+                <span className="text-slate-400 dark:text-slate-600">·</span>
+                <Link to="/events/qiskit-fall-fest-2026" className="font-mono text-[11px] sm:text-xs font-bold text-cyan-700 hover:text-cyan-800 dark:text-cyan-400 dark:hover:text-cyan-300 underline underline-offset-4">
                   View Fall Fest 2026 →
                 </Link>
               </div>
 
               {/* IBM Quantum & Qiskit Partner Banner */}
               <div className="relative group inline-flex max-w-full">
-                <div className="absolute -inset-1 bg-gradient-to-r from-cyan-500/25 via-blue-500/20 to-purple-500/15 rounded-2xl blur-md opacity-60 group-hover:opacity-90 transition-opacity duration-500 pointer-events-none" />
+                <div className="absolute -inset-1 bg-gradient-to-r from-cyan-500/25 via-blue-500/20 to-purple-500/15 rounded-2xl blur-md opacity-40 dark:opacity-60 group-hover:opacity-75 dark:group-hover:opacity-90 transition-opacity duration-500 pointer-events-none" />
 
-                <div className="relative inline-flex flex-wrap items-center justify-center gap-2.5 sm:gap-4 md:gap-6 py-2 px-3.5 sm:py-3 sm:px-6 rounded-2xl bg-[#0b0818]/80 border border-cyan-500/30 hover:border-cyan-400/50 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.5),0_0_24px_rgba(6,182,212,0.18)] transition-all duration-300 max-w-full">
+                <div className="relative inline-flex flex-wrap items-center justify-center gap-2.5 sm:gap-4 md:gap-6 py-2 px-3.5 sm:py-3 sm:px-6 rounded-2xl bg-white/90 dark:bg-[#0b0818]/80 border border-slate-200/90 dark:border-cyan-500/30 hover:border-cyan-500/50 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.06),0_0_24px_rgba(6,182,212,0.08)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.5),0_0_24px_rgba(6,182,212,0.18)] transition-all duration-300 max-w-full">
                   <div className="flex items-center gap-2 sm:gap-3 shrink-0">
                     <img
                       src="/assets/fallfest/IBM Quantum Logo.png"
                       alt="IBM Quantum"
                       className="h-6 xs:h-7 sm:h-9 w-auto object-contain"
                     />
-                    <span className="h-4 sm:h-6 w-px bg-white/20 select-none" aria-hidden="true" />
+                    <span className="h-4 sm:h-6 w-px bg-slate-300 dark:bg-white/20 select-none" aria-hidden="true" />
                     <img
                       src="/assets/fallfest/Badge.png"
                       alt="Qiskit Badge"
-                      className="h-6 xs:h-7 sm:h-9 w-auto object-contain filter drop-shadow-[0_0_10px_rgba(56,189,248,0.45)]"
+                      className="h-6 xs:h-7 sm:h-9 w-auto object-contain filter drop-shadow-[0_0_10px_rgba(56,189,248,0.35)]"
                     />
                   </div>
-                  <div className="inline-flex items-center justify-center gap-1.5 sm:gap-2 px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full border border-cyan-500/40 bg-cyan-950/60 text-cyan-300 text-[10px] xs:text-[11px] sm:text-xs font-mono font-medium tracking-wider uppercase text-center max-w-full shadow-[0_0_15px_rgba(6,182,212,0.2)]">
-                    <span className="w-1.5 h-1.5 rounded-full animate-pulse bg-cyan-400 shrink-0" />
+                  <div className="inline-flex items-center justify-center gap-1.5 sm:gap-2 px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full border border-cyan-300/80 dark:border-cyan-500/40 bg-cyan-50/80 dark:bg-cyan-950/60 text-cyan-800 dark:text-cyan-300 text-[10px] xs:text-[11px] sm:text-xs font-mono font-medium tracking-wider uppercase text-center max-w-full shadow-[0_0_15px_rgba(6,182,212,0.1)] dark:shadow-[0_0_15px_rgba(6,182,212,0.2)]">
+                    <span className="w-1.5 h-1.5 rounded-full animate-pulse bg-cyan-500 dark:bg-cyan-400 shrink-0" />
                     <span>Official IBM Qiskit Global Partner Event</span>
                   </div>
                 </div>
@@ -427,25 +427,25 @@ export default function FallFest() {
 
             {/* Category badge & date (Left-aligned, matching EventDetail.jsx) */}
             <div className="flex flex-wrap items-center gap-2 font-mono text-xs">
-              <span className="px-2.5 py-0.5 rounded-full border text-[11px] font-semibold uppercase tracking-wider bg-cyan-500/10 text-cyan-400 border-cyan-500/25">
+              <span className="px-2.5 py-0.5 rounded-full border text-[11px] font-semibold uppercase tracking-wider bg-cyan-50 dark:bg-cyan-500/10 text-cyan-800 dark:text-cyan-400 border-cyan-200 dark:border-cyan-500/25">
                 Fall Fest 2025
               </span>
-              <span className="text-white/20">•</span>
-              <span className="text-slate-300 font-medium">November 2025</span>
-              <span className="text-white/20 hidden sm:inline">•</span>
-              <span className="text-slate-400 hidden sm:inline">{edition.institution}</span>
+              <span className="text-slate-300 dark:text-white/20">•</span>
+              <span className="text-slate-700 dark:text-slate-300 font-medium">November 2025</span>
+              <span className="text-slate-300 dark:text-white/20 hidden sm:inline">•</span>
+              <span className="text-slate-500 dark:text-slate-400 hidden sm:inline">{edition.institution}</span>
             </div>
 
             {/* Title & Subtitle (Left-aligned, matching EventDetail.jsx) */}
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mt-1">
               <div>
                 <h1
-                  className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold font-display text-white tracking-tight leading-tight"
-                  style={{ textShadow: '0 0 40px rgba(56, 189, 248, 0.4)' }}
+                  className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold font-display text-slate-900 dark:text-white tracking-tight leading-tight"
+                  style={{ textShadow: '0 0 40px rgba(56, 189, 248, 0.25)' }}
                 >
                   {edition.title}
                 </h1>
-                <p className="font-mono text-xs sm:text-sm text-cyan-400 font-semibold uppercase tracking-wider mt-1.5">
+                <p className="font-mono text-xs sm:text-sm text-cyan-700 dark:text-cyan-400 font-semibold uppercase tracking-wider mt-1.5">
                   {edition.subtitle}
                 </p>
               </div>
@@ -457,7 +457,7 @@ export default function FallFest() {
                 {edition.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="font-mono text-[10px] sm:text-[11px] px-2.5 py-0.5 rounded-md bg-white/[0.04] border border-white/[0.08] text-slate-300"
+                    className="font-mono text-[10px] sm:text-[11px] px-2.5 py-0.5 rounded-md bg-slate-100 dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.08] text-slate-700 dark:text-slate-300"
                   >
                     #{tag}
                   </span>
@@ -469,13 +469,13 @@ export default function FallFest() {
 
         {/* ── Visual Asset / Specimen Holo-Display (Matching EventDetail.jsx) ── */}
         <div className="mb-8 sm:mb-10 w-full">
-          <div className="relative w-full rounded-2xl sm:rounded-3xl overflow-hidden border border-cyan-500/30 shadow-[0_16px_48px_rgba(0,0,0,0.6),0_0_32px_rgba(6,182,212,0.18)] bg-[#040206] flex items-center justify-center max-h-[360px] sm:max-h-[460px] md:max-h-[540px] group">
+          <div className="relative w-full rounded-2xl sm:rounded-3xl overflow-hidden border border-slate-200/90 dark:border-cyan-500/30 shadow-[0_16px_48px_rgba(0,0,0,0.08),0_0_32px_rgba(6,182,212,0.06)] dark:shadow-[0_16px_48px_rgba(0,0,0,0.6),0_0_32px_rgba(6,182,212,0.18)] bg-white dark:bg-[#040206] flex items-center justify-center max-h-[360px] sm:max-h-[460px] md:max-h-[540px] group">
             <img
               src={edition.bannerImage}
               alt="Qiskit Fall Fest 2025 Illustration"
               className="w-full h-full object-contain sm:object-cover filter contrast-[1.03] transition-transform duration-700 group-hover:scale-[1.01]"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
           </div>
         </div>
 
@@ -484,62 +484,62 @@ export default function FallFest() {
 
           {/* ══ Left Column: Mission Control & Event Details (Sticky on desktop) ══ */}
           <aside className="lg:sticky lg:top-24 flex flex-col gap-4">
-            <div className="rounded-2xl sm:rounded-3xl bg-[#090d12]/90 border border-white/[0.08] shadow-xl p-5 sm:p-6 backdrop-blur-2xl flex flex-col gap-4">
+            <div className="rounded-2xl sm:rounded-3xl bg-white/95 dark:bg-[#090d12]/90 border border-slate-200/90 dark:border-white/[0.08] shadow-md dark:shadow-xl p-5 sm:p-6 backdrop-blur-2xl flex flex-col gap-4">
 
               {/* Header */}
-              <div className="flex items-center justify-between pb-3 border-b border-white/[0.08]">
+              <div className="flex items-center justify-between pb-3 border-b border-slate-200/80 dark:border-white/[0.08]">
                 <div className="flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
-                  <span className="font-mono text-xs font-bold uppercase tracking-wider text-cyan-400">
+                  <span className="w-2 h-2 rounded-full bg-cyan-500 dark:bg-cyan-400 animate-pulse" />
+                  <span className="font-mono text-xs font-bold uppercase tracking-wider text-cyan-700 dark:text-cyan-400">
                     Event Details
                   </span>
                 </div>
-                <span className="font-mono text-[10px] text-slate-400 uppercase tracking-wider">
+                <span className="font-mono text-[10px] text-slate-500 dark:text-slate-400 uppercase tracking-wider">
                   Specs
                 </span>
               </div>
 
               {/* Specifications List */}
               <div className="flex flex-col gap-3 text-sm">
-                <div className="flex flex-col gap-0.5 pb-2.5 border-b border-white/[0.05]">
-                  <span className="font-mono text-[11px] text-slate-400 uppercase tracking-wider">Date</span>
-                  <span className="text-white font-bold font-mono text-sm sm:text-[15px] leading-snug">
+                <div className="flex flex-col gap-0.5 pb-2.5 border-b border-slate-200/70 dark:border-white/[0.05]">
+                  <span className="font-mono text-[11px] text-slate-500 dark:text-slate-400 uppercase tracking-wider">Date</span>
+                  <span className="text-slate-900 dark:text-white font-bold font-mono text-sm sm:text-[15px] leading-snug">
                     November 2025
                   </span>
                 </div>
 
-                <div className="flex flex-col gap-0.5 pb-2.5 border-b border-white/[0.05]">
-                  <span className="font-mono text-[11px] text-slate-400 uppercase tracking-wider">Format</span>
-                  <span className="text-slate-200 font-semibold font-mono text-sm leading-snug">
+                <div className="flex flex-col gap-0.5 pb-2.5 border-b border-slate-200/70 dark:border-white/[0.05]">
+                  <span className="font-mono text-[11px] text-slate-500 dark:text-slate-400 uppercase tracking-wider">Format</span>
+                  <span className="text-slate-800 dark:text-slate-200 font-semibold font-mono text-sm leading-snug">
                     3-Day Guided Workshop + Certification Sprint
                   </span>
                 </div>
 
-                <div className="flex flex-col gap-0.5 pb-2.5 border-b border-white/[0.05]">
-                  <span className="font-mono text-[11px] text-slate-400 uppercase tracking-wider">Venue</span>
-                  <span className="text-slate-200 font-semibold text-xs sm:text-sm leading-snug">
+                <div className="flex flex-col gap-0.5 pb-2.5 border-b border-slate-200/70 dark:border-white/[0.05]">
+                  <span className="font-mono text-[11px] text-slate-500 dark:text-slate-400 uppercase tracking-wider">Venue</span>
+                  <span className="text-slate-800 dark:text-slate-200 font-semibold text-xs sm:text-sm leading-snug">
                     {edition.institution}
                   </span>
                 </div>
 
-                <div className="flex flex-col gap-0.5 pb-2.5 border-b border-white/[0.05]">
-                  <span className="font-mono text-[11px] text-slate-400 uppercase tracking-wider">Cloud Platform</span>
-                  <span className="text-cyan-300 font-semibold font-mono text-xs leading-snug flex items-center gap-1.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
+                <div className="flex flex-col gap-0.5 pb-2.5 border-b border-slate-200/70 dark:border-white/[0.05]">
+                  <span className="font-mono text-[11px] text-slate-500 dark:text-slate-400 uppercase tracking-wider">Cloud Platform</span>
+                  <span className="text-cyan-700 dark:text-cyan-300 font-semibold font-mono text-xs leading-snug flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-cyan-500 dark:bg-cyan-400" />
                     IBM Quantum Platform &amp; Qiskit SDK
                   </span>
                 </div>
 
-                <div className="flex flex-col gap-0.5 pb-2.5 border-b border-white/[0.05]">
-                  <span className="font-mono text-[11px] text-slate-400 uppercase tracking-wider">Eligibility</span>
-                  <span className="text-slate-200 font-semibold font-mono text-sm leading-snug">
+                <div className="flex flex-col gap-0.5 pb-2.5 border-b border-slate-200/70 dark:border-white/[0.05]">
+                  <span className="font-mono text-[11px] text-slate-500 dark:text-slate-400 uppercase tracking-wider">Eligibility</span>
+                  <span className="text-slate-800 dark:text-slate-200 font-semibold font-mono text-sm leading-snug">
                     Open to Everyone · All Backgrounds
                   </span>
                 </div>
 
                 <div className="flex flex-col gap-0.5">
-                  <span className="font-mono text-[11px] text-slate-400 uppercase tracking-wider">Certification</span>
-                  <span className="text-slate-200 font-semibold font-mono text-sm leading-snug">
+                  <span className="font-mono text-[11px] text-slate-500 dark:text-slate-400 uppercase tracking-wider">Certification</span>
+                  <span className="text-slate-800 dark:text-slate-200 font-semibold font-mono text-sm leading-snug">
                     Official Course Certificate on Assessment
                   </span>
                 </div>
@@ -547,8 +547,8 @@ export default function FallFest() {
 
               {/* Action Center */}
               <div className="pt-2 flex flex-col gap-2.5">
-                <div className="w-full py-2.5 px-3 rounded-xl bg-white/[0.04] border border-white/[0.08] font-mono text-xs text-slate-400 uppercase tracking-wider text-center flex flex-col gap-1">
-                  <span className="font-bold text-slate-300">COMPLETED_EVENT_ARCHIVE</span>
+                <div className="w-full py-2.5 px-3 rounded-xl bg-slate-100 dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.08] font-mono text-xs text-slate-600 dark:text-slate-400 uppercase tracking-wider text-center flex flex-col gap-1">
+                  <span className="font-bold text-slate-800 dark:text-slate-300">COMPLETED_EVENT_ARCHIVE</span>
                   <span className="text-[10px] text-slate-500 lowercase">official ibm partner link maintained</span>
                 </div>
 
@@ -561,7 +561,7 @@ export default function FallFest() {
 
                 <Link
                   to="/events"
-                  className="w-full py-2 px-3 rounded-xl bg-white/[0.03] border border-white/[0.06] hover:border-white/20 font-mono text-[11px] text-slate-300 hover:text-white uppercase tracking-wider text-center transition-colors"
+                  className="w-full py-2 px-3 rounded-xl bg-slate-50 dark:bg-white/[0.03] border border-slate-200 dark:border-white/[0.06] hover:border-slate-300 dark:hover:border-white/20 font-mono text-[11px] text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white uppercase tracking-wider text-center transition-colors"
                 >
                   Browse All Events →
                 </Link>
@@ -574,26 +574,26 @@ export default function FallFest() {
 
             {/* 1. Program Tracks / Curriculum Stages */}
             <div id="schedule" className="flex flex-col gap-4 scroll-mt-24">
-              <div className="flex items-center justify-between pb-2 border-b border-white/[0.08]">
+              <div className="flex items-center justify-between pb-2 border-b border-slate-200/80 dark:border-white/[0.08]">
                 <div>
-                  <span className="font-mono text-xs font-semibold uppercase tracking-widest text-purple-400 block mb-0.5">
+                  <span className="font-mono text-xs font-semibold uppercase tracking-widest text-purple-700 dark:text-purple-400 block mb-0.5">
                     CURRICULUM_MATRIX // 4_STAGES
                   </span>
-                  <h2 className="font-display text-xl sm:text-2xl font-bold text-white tracking-tight">
+                  <h2 className="font-display text-xl sm:text-2xl font-bold text-slate-900 dark:text-white tracking-tight">
                     Program Tracks &amp; Event Timeline
                   </h2>
                 </div>
-                <span className="font-mono text-[10px] text-slate-400 hidden sm:inline uppercase">
+                <span className="font-mono text-[10px] text-slate-500 dark:text-slate-400 hidden sm:inline uppercase">
                   IBM_QISKIT_CURRICULUM
                 </span>
               </div>
 
               {/* Timeline Graphic Banner */}
-              <div className="rounded-2xl sm:rounded-3xl overflow-hidden border border-white/[0.08] bg-[#090d12]/90 backdrop-blur-2xl p-4 sm:p-6 shadow-xl flex justify-center">
+              <div className="rounded-2xl sm:rounded-3xl overflow-hidden border border-slate-200/90 dark:border-white/[0.08] bg-white/95 dark:bg-[#090d12]/90 backdrop-blur-2xl p-4 sm:p-6 shadow-md dark:shadow-xl flex justify-center">
                 <img
                   src={edition.timelineImage}
                   alt="Qiskit Fall Fest Timeline"
-                  className="max-h-36 sm:max-h-48 md:max-h-56 w-auto object-contain filter drop-shadow-[0_4px_20px_rgba(0,0,0,0.6)]"
+                  className="max-h-36 sm:max-h-48 md:max-h-56 w-auto object-contain filter drop-shadow-[0_4px_20px_rgba(0,0,0,0.2)] dark:drop-shadow-[0_4px_20px_rgba(0,0,0,0.6)]"
                 />
               </div>
 
@@ -602,7 +602,7 @@ export default function FallFest() {
                 {edition.schedule.map((slot, idx) => (
                   <div
                     key={idx}
-                    className="p-4 sm:p-5 rounded-2xl sm:rounded-3xl bg-[#090d12]/90 border border-white/[0.08] hover:border-cyan-400/40 shadow-xl transition-all duration-300 flex flex-col justify-between group min-w-0"
+                    className="p-4 sm:p-5 rounded-2xl sm:rounded-3xl bg-white/95 dark:bg-[#090d12]/90 border border-slate-200/90 dark:border-white/[0.08] hover:border-cyan-500/40 shadow-sm dark:shadow-xl transition-all duration-300 flex flex-col justify-between group min-w-0"
                   >
                     <div>
                       <div className="flex items-center justify-between gap-2 mb-3">
@@ -610,13 +610,13 @@ export default function FallFest() {
                           {slot.day}
                         </span>
                       </div>
-                      <h3 className="font-display text-sm sm:text-base font-bold text-white leading-snug mb-2.5 tracking-tight break-normal">
+                      <h3 className="font-display text-sm sm:text-base font-bold text-slate-900 dark:text-white leading-snug mb-2.5 tracking-tight break-normal">
                         {slot.title}
                       </h3>
                       <ul className="space-y-2">
                         {slot.items.map((item, itemIdx) => (
-                          <li key={itemIdx} className="flex items-start gap-1.5 sm:gap-2 text-xs text-slate-300 leading-relaxed">
-                            <span className="text-cyan-400 shrink-0 mt-0.5">•</span>
+                          <li key={itemIdx} className="flex items-start gap-1.5 sm:gap-2 text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                            <span className="text-cyan-600 dark:text-cyan-400 shrink-0 mt-0.5">•</span>
                             <span>{item}</span>
                           </li>
                         ))}
@@ -628,15 +628,15 @@ export default function FallFest() {
             </div>
 
             {/* 2. Flagship Highlights Showcase */}
-            <div className="p-5 sm:p-7 rounded-2xl sm:rounded-3xl bg-[#090d12]/90 border border-white/[0.08] shadow-xl backdrop-blur-2xl">
-              <div className="flex items-center justify-between pb-3 mb-4 border-b border-white/[0.08]">
+            <div className="p-5 sm:p-7 rounded-2xl sm:rounded-3xl bg-white/95 dark:bg-[#090d12]/90 border border-slate-200/90 dark:border-white/[0.08] shadow-md dark:shadow-xl backdrop-blur-2xl">
+              <div className="flex items-center justify-between pb-3 mb-4 border-b border-slate-200/80 dark:border-white/[0.08]">
                 <div className="flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
-                  <h3 className="font-display text-lg sm:text-xl font-bold text-white tracking-tight">
+                  <span className="w-2 h-2 rounded-full bg-cyan-500 dark:bg-cyan-400 animate-pulse" />
+                  <h3 className="font-display text-lg sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight">
                     Event Highlights &amp; Flagship Features
                   </h3>
                 </div>
-                <span className="font-mono text-[10px] text-cyan-400/80 uppercase tracking-wider hidden xs:inline">
+                <span className="font-mono text-[10px] text-cyan-700 dark:text-cyan-400/80 uppercase tracking-wider hidden xs:inline">
                   KEY_PILLARS
                 </span>
               </div>
@@ -645,10 +645,10 @@ export default function FallFest() {
                 {edition.whatToExpect.concat(edition.eventDetails.slice(0, 3)).map((item, idx) => (
                   <div
                     key={idx}
-                    className="flex items-start gap-2.5 p-3 sm:p-3.5 rounded-xl bg-white/[0.03] border border-white/[0.06] hover:border-cyan-500/30 transition-colors"
+                    className="flex items-start gap-2.5 p-3 sm:p-3.5 rounded-xl bg-slate-50/90 dark:bg-white/[0.03] border border-slate-200/80 dark:border-white/[0.06] hover:border-cyan-500/30 transition-colors"
                   >
-                    <span className="font-mono text-cyan-400 text-xs shrink-0 mt-0.5">✦</span>
-                    <span className="font-body text-xs sm:text-[13px] text-slate-200 leading-snug">
+                    <span className="font-mono text-cyan-600 dark:text-cyan-400 text-xs shrink-0 mt-0.5">✦</span>
+                    <span className="font-body text-xs sm:text-[13px] text-slate-700 dark:text-slate-200 leading-snug">
                       {item}
                     </span>
                   </div>
@@ -657,13 +657,13 @@ export default function FallFest() {
             </div>
 
             {/* 3. Executive Briefing / Overview */}
-            <div className="p-6 sm:p-8 rounded-2xl sm:rounded-3xl bg-[#090d12]/90 border border-white/[0.08] shadow-xl backdrop-blur-2xl">
-              <div className="flex items-center gap-2 font-mono text-xs font-bold uppercase tracking-widest text-cyan-400 mb-4 pb-2.5 border-b border-white/[0.06]">
-                <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
+            <div className="p-6 sm:p-8 rounded-2xl sm:rounded-3xl bg-white/95 dark:bg-[#090d12]/90 border border-slate-200/90 dark:border-white/[0.08] shadow-md dark:shadow-xl backdrop-blur-2xl">
+              <div className="flex items-center gap-2 font-mono text-xs font-bold uppercase tracking-widest text-cyan-700 dark:text-cyan-400 mb-4 pb-2.5 border-b border-slate-200/80 dark:border-white/[0.06]">
+                <span className="w-1.5 h-1.5 rounded-full bg-cyan-500 dark:bg-cyan-400" />
                 <span>EXECUTIVE_BRIEFING // OVERVIEW</span>
               </div>
 
-              <div className="flex flex-col gap-4 text-slate-200 font-body text-sm sm:text-base leading-relaxed max-w-[68ch]">
+              <div className="flex flex-col gap-4 text-slate-700 dark:text-slate-200 font-body text-sm sm:text-base leading-relaxed max-w-[68ch]">
                 <p>{edition.leadText}</p>
                 {edition.eventDetails.map((detail, idx) => (
                   <p key={idx}>{detail}</p>
@@ -674,11 +674,11 @@ export default function FallFest() {
             {/* 4. Photo Gallery */}
             {edition.gallery && edition.gallery.length > 0 && (
               <div className="flex flex-col gap-3.5">
-                <div className="flex items-center justify-between pb-2 border-b border-white/[0.08]">
-                  <h2 className="font-display text-xl sm:text-2xl font-bold text-white tracking-tight">
+                <div className="flex items-center justify-between pb-2 border-b border-slate-200/80 dark:border-white/[0.08]">
+                  <h2 className="font-display text-xl sm:text-2xl font-bold text-slate-900 dark:text-white tracking-tight">
                     Event Photos
                   </h2>
-                  <span className="font-mono text-xs text-slate-400 uppercase tracking-wider">
+                  <span className="font-mono text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wider">
                     Click to enlarge
                   </span>
                 </div>
@@ -688,7 +688,7 @@ export default function FallFest() {
                     <button
                       key={idx}
                       type="button"
-                      className="relative aspect-square w-full rounded-xl overflow-hidden bg-slate-900 cursor-zoom-in group border border-white/[0.08] hover:border-cyan-500/50 transition-colors"
+                      className="relative aspect-square w-full rounded-xl overflow-hidden bg-slate-100 dark:bg-slate-900 cursor-zoom-in group border border-slate-200 dark:border-white/[0.08] hover:border-cyan-500/50 transition-colors shadow-sm"
                       onClick={() => setLightboxImg(idx)}
                     >
                       <img
@@ -712,17 +712,17 @@ export default function FallFest() {
         </div>
 
         {/* ── Speakers & Mentors ── */}
-        <section className="mb-14 sm:mb-18 pt-6 border-t border-white/[0.08]">
-          <div className="flex items-center justify-between pb-3 mb-6 border-b border-white/[0.08]">
+        <section className="mb-14 sm:mb-18 pt-6 border-t border-slate-200/80 dark:border-white/[0.08]">
+          <div className="flex items-center justify-between pb-3 mb-6 border-b border-slate-200/80 dark:border-white/[0.08]">
             <div>
-              <span className="font-mono text-xs font-semibold uppercase tracking-widest text-purple-400 block mb-0.5">
+              <span className="font-mono text-xs font-semibold uppercase tracking-widest text-purple-700 dark:text-purple-400 block mb-0.5">
                 LEARN_FROM_EXPERTS // WORKSHOPS & KEYNOTES
               </span>
-              <h2 className="font-display text-xl sm:text-2xl font-bold text-white tracking-tight">
+              <h2 className="font-display text-xl sm:text-2xl font-bold text-slate-900 dark:text-white tracking-tight">
                 Speakers &amp; Mentors
               </h2>
             </div>
-            <span className="font-mono text-[10px] text-slate-400 hidden sm:inline uppercase">
+            <span className="font-mono text-[10px] text-slate-500 dark:text-slate-400 hidden sm:inline uppercase">
               IBM_QUANTUM_LEADERSHIP
             </span>
           </div>
@@ -731,25 +731,25 @@ export default function FallFest() {
             {edition.speakers.map((spk, idx) => (
               <div
                 key={idx}
-                className="group p-6 sm:p-8 rounded-2xl sm:rounded-3xl bg-[#090d12]/90 border border-white/[0.08] hover:border-cyan-400/50 backdrop-blur-2xl shadow-xl flex flex-col items-center text-center transition-all duration-300 hover:-translate-y-1"
+                className="group p-6 sm:p-8 rounded-2xl sm:rounded-3xl bg-white/95 dark:bg-[#090d12]/90 border border-slate-200/90 dark:border-white/[0.08] hover:border-cyan-500/50 backdrop-blur-2xl shadow-md dark:shadow-xl flex flex-col items-center text-center transition-all duration-300 hover:-translate-y-1"
               >
-                <div className="w-32 h-32 sm:w-36 sm:h-36 mb-5 rounded-2xl bg-white/[0.04] border border-white/10 p-2.5 flex items-center justify-center shadow-inner group-hover:scale-105 transition-transform duration-300">
+                <div className="w-32 h-32 sm:w-36 sm:h-36 mb-5 rounded-2xl bg-slate-100 dark:bg-white/[0.04] border border-slate-200 dark:border-white/10 p-2.5 flex items-center justify-center shadow-inner group-hover:scale-105 transition-transform duration-300">
                   <img
                     src={spk.image}
                     alt={spk.title}
-                    className="w-full h-full object-contain filter drop-shadow-[0_4px_16px_rgba(0,0,0,0.5)]"
+                    className="w-full h-full object-contain filter drop-shadow-[0_4px_16px_rgba(0,0,0,0.15)] dark:drop-shadow-[0_4px_16px_rgba(0,0,0,0.5)]"
                   />
                 </div>
-                <span className="px-3 py-1 rounded-full font-mono text-[11px] font-bold uppercase tracking-wider text-cyan-300 bg-cyan-500/15 border border-cyan-500/30 mb-3">
+                <span className="px-3 py-1 rounded-full font-mono text-[11px] font-bold uppercase tracking-wider text-cyan-800 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-500/15 border border-cyan-200 dark:border-cyan-500/30 mb-3">
                   {spk.badge}
                 </span>
-                <h3 className="font-display text-lg sm:text-xl font-bold text-white mb-1.5 leading-snug">
+                <h3 className="font-display text-lg sm:text-xl font-bold text-slate-900 dark:text-white mb-1.5 leading-snug">
                   {spk.title}
                 </h3>
-                <p className="font-mono text-xs sm:text-sm text-purple-300 font-semibold mb-3">
+                <p className="font-mono text-xs sm:text-sm text-purple-700 dark:text-purple-300 font-semibold mb-3">
                   {spk.speaker}
                 </p>
-                <p className="text-xs sm:text-sm text-slate-300 leading-relaxed mt-auto">
+                <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed mt-auto">
                   {spk.desc}
                 </p>
               </div>
@@ -758,17 +758,17 @@ export default function FallFest() {
         </section>
 
         {/* ── Organizers / Advisory Members ── */}
-        <section className="mb-14 sm:mb-18 pt-6 border-t border-white/[0.08]">
-          <div className="flex items-center justify-between pb-3 mb-6 border-b border-white/[0.08]">
+        <section className="mb-14 sm:mb-18 pt-6 border-t border-slate-200/80 dark:border-white/[0.08]">
+          <div className="flex items-center justify-between pb-3 mb-6 border-b border-slate-200/80 dark:border-white/[0.08]">
             <div>
-              <span className="font-mono text-xs font-semibold uppercase tracking-widest text-cyan-400 block mb-0.5">
+              <span className="font-mono text-xs font-semibold uppercase tracking-widest text-cyan-700 dark:text-cyan-400 block mb-0.5">
                 LEADERSHIP_AND_COORDINATION
               </span>
-              <h2 className="font-display text-xl sm:text-2xl font-bold text-white tracking-tight">
+              <h2 className="font-display text-xl sm:text-2xl font-bold text-slate-900 dark:text-white tracking-tight">
                 Organizers &amp; Advisory Council
               </h2>
             </div>
-            <span className="font-mono text-[10px] text-slate-400 hidden sm:inline uppercase">
+            <span className="font-mono text-[10px] text-slate-500 dark:text-slate-400 hidden sm:inline uppercase">
               SQC_COMMITTEE
             </span>
           </div>
@@ -777,10 +777,10 @@ export default function FallFest() {
             {edition.organizers.map((org, idx) => (
               <div
                 key={idx}
-                className="group relative p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-[#090d12]/90 border border-white/[0.08] hover:border-cyan-400/50 backdrop-blur-2xl shadow-xl transition-all duration-300 hover:-translate-y-1 flex flex-col items-center text-center overflow-hidden min-h-[360px]"
+                className="group relative p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white/95 dark:bg-[#090d12]/90 border border-slate-200/90 dark:border-white/[0.08] hover:border-cyan-500/50 backdrop-blur-2xl shadow-md dark:shadow-xl transition-all duration-300 hover:-translate-y-1 flex flex-col items-center text-center overflow-hidden min-h-[360px]"
               >
                 {/* Portrait */}
-                <div className="relative w-32 h-32 sm:w-36 sm:h-36 mb-4 rounded-2xl overflow-hidden border-2 border-white/15 group-hover:border-cyan-400 transition-all duration-300 shadow-[0_8px_20px_rgba(0,0,0,0.6)] bg-slate-900">
+                <div className="relative w-32 h-32 sm:w-36 sm:h-36 mb-4 rounded-2xl overflow-hidden border-2 border-slate-200 dark:border-white/15 group-hover:border-cyan-500 dark:group-hover:border-cyan-400 transition-all duration-300 shadow-[0_8px_20px_rgba(0,0,0,0.08)] dark:shadow-[0_8px_20px_rgba(0,0,0,0.6)] bg-slate-100 dark:bg-slate-900">
                   <img
                     src={org.image}
                     alt={org.name}
@@ -790,16 +790,16 @@ export default function FallFest() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                 </div>
 
-                <h3 className="font-display text-sm sm:text-base font-bold text-white group-hover:text-cyan-300 transition-colors mb-1.5 leading-snug tracking-tight">
+                <h3 className="font-display text-sm sm:text-base font-bold text-slate-900 dark:text-white group-hover:text-cyan-700 dark:group-hover:text-cyan-300 transition-colors mb-1.5 leading-snug tracking-tight">
                   {org.name}
                 </h3>
-                <span className="px-2.5 py-0.5 rounded-full font-mono text-[11px] font-bold text-cyan-300 bg-cyan-500/15 border border-cyan-500/35 mb-1.5 shadow-sm block w-fit mx-auto">
+                <span className="px-2.5 py-0.5 rounded-full font-mono text-[11px] font-bold text-cyan-800 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-500/15 border border-cyan-200 dark:border-cyan-500/35 mb-1.5 shadow-sm block w-fit mx-auto">
                   {org.role}
                 </span>
-                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full font-mono text-[9.5px] text-purple-300 bg-purple-500/15 border border-purple-500/30 mb-2 font-medium">
+                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full font-mono text-[9.5px] text-purple-800 dark:text-purple-300 bg-purple-50 dark:bg-purple-500/15 border border-purple-200 dark:border-purple-500/30 mb-2 font-medium">
                   ✦ {org.advisoryRole}
                 </span>
-                <p className="font-mono text-[11px] text-slate-400 tracking-wide mt-auto">
+                <p className="font-mono text-[11px] text-slate-500 dark:text-slate-400 tracking-wide mt-auto">
                   {org.dept}
                 </p>
               </div>
@@ -808,17 +808,17 @@ export default function FallFest() {
         </section>
 
         {/* ── Code of Conduct ── */}
-        <section className="mb-14 sm:mb-18 pt-6 border-t border-white/[0.08]">
-          <div className="flex items-center justify-between pb-3 mb-6 border-b border-white/[0.08]">
+        <section className="mb-14 sm:mb-18 pt-6 border-t border-slate-200/80 dark:border-white/[0.08]">
+          <div className="flex items-center justify-between pb-3 mb-6 border-b border-slate-200/80 dark:border-white/[0.08]">
             <div>
-              <span className="font-mono text-xs font-semibold uppercase tracking-widest text-emerald-400 block mb-0.5">
+              <span className="font-mono text-xs font-semibold uppercase tracking-widest text-emerald-700 dark:text-emerald-400 block mb-0.5">
                 COMMUNITY_STANDARDS
               </span>
-              <h2 className="font-display text-xl sm:text-2xl font-bold text-white tracking-tight">
+              <h2 className="font-display text-xl sm:text-2xl font-bold text-slate-900 dark:text-white tracking-tight">
                 Code of Conduct
               </h2>
             </div>
-            <span className="font-mono text-[10px] text-slate-400 hidden sm:inline uppercase">
+            <span className="font-mono text-[10px] text-slate-500 dark:text-slate-400 hidden sm:inline uppercase">
               INCLUSIVE_POLICY
             </span>
           </div>
@@ -827,15 +827,15 @@ export default function FallFest() {
             {edition.codeOfConduct.map((item, idx) => (
               <div
                 key={idx}
-                className="p-6 sm:p-8 rounded-2xl sm:rounded-3xl bg-[#090d12]/90 border border-white/[0.08] hover:border-emerald-500/40 backdrop-blur-2xl shadow-xl transition-all duration-300 hover:-translate-y-1"
+                className="p-6 sm:p-8 rounded-2xl sm:rounded-3xl bg-white/95 dark:bg-[#090d12]/90 border border-slate-200/90 dark:border-white/[0.08] hover:border-emerald-500/40 backdrop-blur-2xl shadow-md dark:shadow-xl transition-all duration-300 hover:-translate-y-1"
               >
                 <div className="flex items-center gap-2.5 mb-2.5">
-                  <span className="font-mono text-emerald-400 text-lg font-bold">✦</span>
-                  <h3 className="font-display text-lg sm:text-xl font-bold text-white">
+                  <span className="font-mono text-emerald-600 dark:text-emerald-400 text-lg font-bold">✦</span>
+                  <h3 className="font-display text-lg sm:text-xl font-bold text-slate-900 dark:text-white">
                     {item.title}
                   </h3>
                 </div>
-                <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
+                <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
                   {item.desc}
                 </p>
               </div>
@@ -844,17 +844,17 @@ export default function FallFest() {
         </section>
 
         {/* ── Collaborators ── */}
-        <section className="mb-14 sm:mb-18 p-6 sm:p-10 rounded-2xl sm:rounded-3xl bg-[#090d12]/90 border border-white/[0.08] backdrop-blur-2xl text-center shadow-xl">
-          <div className="flex items-center justify-between pb-3 mb-6 border-b border-white/[0.08] text-left">
+        <section className="mb-14 sm:mb-18 p-6 sm:p-10 rounded-2xl sm:rounded-3xl bg-white/95 dark:bg-[#090d12]/90 border border-slate-200/90 dark:border-white/[0.08] backdrop-blur-2xl text-center shadow-md dark:shadow-xl">
+          <div className="flex items-center justify-between pb-3 mb-6 border-b border-slate-200/80 dark:border-white/[0.08] text-left">
             <div>
-              <span className="font-mono text-xs font-semibold uppercase tracking-widest text-cyan-400 block mb-0.5">
+              <span className="font-mono text-xs font-semibold uppercase tracking-widest text-cyan-700 dark:text-cyan-400 block mb-0.5">
                 OFFICIAL_GLOBAL_COLLABORATORS
               </span>
-              <h2 className="font-display text-xl sm:text-2xl font-bold text-white tracking-tight">
+              <h2 className="font-display text-xl sm:text-2xl font-bold text-slate-900 dark:text-white tracking-tight">
                 Powered by IBM Quantum &amp; Qiskit
               </h2>
             </div>
-            <span className="font-mono text-[10px] text-slate-400 hidden sm:inline uppercase">
+            <span className="font-mono text-[10px] text-slate-500 dark:text-slate-400 hidden sm:inline uppercase">
               GLOBAL_SPONSORS
             </span>
           </div>
@@ -863,12 +863,12 @@ export default function FallFest() {
             {edition.collaborators.map((c, idx) => (
               <div
                 key={idx}
-                className="flex flex-col items-center gap-3 p-5 sm:p-6 rounded-2xl bg-white/[0.04] border border-white/10 hover:border-cyan-400/40 transition-all duration-300 w-full sm:w-auto min-w-0 sm:min-w-[260px] shadow-lg"
+                className="flex flex-col items-center gap-3 p-5 sm:p-6 rounded-2xl bg-slate-50 dark:bg-white/[0.04] border border-slate-200 dark:border-white/10 hover:border-cyan-500/40 transition-all duration-300 w-full sm:w-auto min-w-0 sm:min-w-[260px] shadow-sm"
               >
-                <img src={c.logo} alt={c.name} className="h-10 sm:h-12 object-contain filter drop-shadow-md" />
+                <img src={c.logo} alt={c.name} className="h-10 sm:h-12 object-contain filter drop-shadow-sm dark:drop-shadow-md" />
                 <div>
-                  <p className="font-bold text-white text-base sm:text-lg">{c.name}</p>
-                  <p className="font-mono text-xs text-slate-400">{c.desc}</p>
+                  <p className="font-bold text-slate-900 dark:text-white text-base sm:text-lg">{c.name}</p>
+                  <p className="font-mono text-xs text-slate-500 dark:text-slate-400">{c.desc}</p>
                 </div>
               </div>
             ))}
@@ -877,12 +877,12 @@ export default function FallFest() {
 
         {/* ── Related Events Dossier Footer: More in Fall Fest ── */}
         {relatedEvents.length > 0 && (
-          <section className="pt-6 border-t border-white/[0.08] mb-6">
+          <section className="pt-6 border-t border-slate-200/80 dark:border-white/[0.08] mb-6">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="font-display text-xl font-bold text-white tracking-tight">
+              <h3 className="font-display text-xl font-bold text-slate-900 dark:text-white tracking-tight">
                 More in Fall Fest
               </h3>
-              <Link to="/events" className="font-pixel text-[9px] uppercase tracking-wider text-cyan-400 hover:text-cyan-300 transition-colors">
+              <Link to="/events" className="font-pixel text-[9px] uppercase tracking-wider text-cyan-700 hover:text-cyan-800 dark:text-cyan-400 dark:hover:text-cyan-300 transition-colors">
                 View All →
               </Link>
             </div>
@@ -892,10 +892,10 @@ export default function FallFest() {
                 <Link
                   key={rel.id}
                   to={`/events/${rel.id}`}
-                  className="p-4 rounded-xl bg-[#0a0e13]/80 border border-white/[0.06] hover:border-cyan-500/40 hover:-translate-y-0.5 transition-all duration-300 flex flex-col gap-2 group shadow-md"
+                  className="p-4 rounded-xl bg-white/95 dark:bg-[#0a0e13]/80 border border-slate-200/90 dark:border-white/[0.06] hover:border-cyan-500/40 hover:-translate-y-0.5 transition-all duration-300 flex flex-col gap-2 group shadow-sm dark:shadow-md"
                 >
                   {rel.coverImage && (
-                    <div className="w-full aspect-[16/9] rounded-lg overflow-hidden mb-1 bg-black/40">
+                    <div className="w-full aspect-[16/9] rounded-lg overflow-hidden mb-1 bg-slate-100 dark:bg-black/40">
                       <img
                         src={rel.coverImage}
                         alt={rel.title}
@@ -903,14 +903,14 @@ export default function FallFest() {
                       />
                     </div>
                   )}
-                  <span className="font-mono text-[10px] uppercase tracking-wider text-cyan-400">
+                  <span className="font-mono text-[10px] uppercase tracking-wider text-cyan-700 dark:text-cyan-400">
                     {rel.dateDisplay || rel.date}
                   </span>
-                  <h4 className="font-display font-bold text-white text-sm leading-snug group-hover:text-cyan-300 transition-colors line-clamp-1">
+                  <h4 className="font-display font-bold text-slate-900 dark:text-white text-sm leading-snug group-hover:text-cyan-700 dark:group-hover:text-cyan-300 transition-colors line-clamp-1">
                     {rel.title}
                   </h4>
                   {rel.excerpt && (
-                    <p className="font-body text-xs text-slate-400 line-clamp-2 leading-relaxed">
+                    <p className="font-body text-xs text-slate-600 dark:text-slate-400 line-clamp-2 leading-relaxed">
                       {rel.excerpt}
                     </p>
                   )}
@@ -921,15 +921,15 @@ export default function FallFest() {
         )}
 
         {/* ── Organized by ── */}
-        <section className="pt-6 border-t border-white/[0.08] mb-12">
+        <section className="pt-6 border-t border-slate-200/80 dark:border-white/[0.08] mb-12">
           <div>
             <p className="font-mono text-xs uppercase tracking-widest text-slate-500 mb-1">
               Organized by
             </p>
-            <p className="text-white font-bold text-base sm:text-lg font-display">
+            <p className="text-slate-900 dark:text-white font-bold text-base sm:text-lg font-display">
               Symbiosis Quantum Club
             </p>
-            <p className="text-slate-400 text-xs sm:text-sm font-mono">
+            <p className="text-slate-600 dark:text-slate-400 text-xs sm:text-sm font-mono">
               Symbiosis Institute of Technology, Pune, India
             </p>
           </div>

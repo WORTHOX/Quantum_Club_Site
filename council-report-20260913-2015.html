@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LLM Council Report: Light Theme UI Architecture — Symbiosis Quantum Club</title>
+  <style>
+    :root {
+      --bg: #09090b;
+      --card-bg: #121215;
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent-violet: #a855f7;
+      --accent-cyan: #06b6d4;
+      --accent-emerald: #10b981;
+      --accent-amber: #f59e0b;
+      --accent-pink: #ec4899;
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --font-mono: "IBM Plex Mono", "SF Mono", Menlo, monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      line-height: 1.65;
+      padding: 2.5rem 1.25rem;
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+
+    header {
+      margin-bottom: 2.5rem;
+      border-bottom: 1px solid var(--card-border);
+      padding-bottom: 1.5rem;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      border-radius: 9999px;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: rgba(168, 85, 247, 0.12);
+      color: #c084fc;
+      border: 1px solid rgba(168, 85, 247, 0.3);
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-size: 2.25rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 50%, #a855f7 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.75rem;
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      max-width: 800px;
+    }
+
+    .verdict-card {
+      background: linear-gradient(145deg, rgba(18, 18, 21, 0.95), rgba(26, 26, 31, 0.8));
+      border: 1px solid rgba(168, 85, 247, 0.3);
+      border-radius: 20px;
+      padding: 2rem;
+      margin-bottom: 2.5rem;
+      box-shadow: 0 12px 40px -10px rgba(0, 0, 0, 0.7), 0 0 30px rgba(168, 85, 247, 0.12);
+    }
+
+    .verdict-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 1.25rem;
+    }
+
+    .verdict-section {
+      margin-bottom: 1.5rem;
+    }
+
+    .verdict-section h3 {
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--accent-cyan);
+      margin-bottom: 0.5rem;
+      font-family: var(--font-mono);
+    }
+
+    .verdict-section p, .verdict-section ul {
+      color: #cbd5e1;
+      font-size: 0.98rem;
+    }
+
+    .verdict-section ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .verdict-section li {
+      position: relative;
+      padding-left: 1.5rem;
+      margin-bottom: 0.45rem;
+    }
+
+    .verdict-section li::before {
+      content: "✦";
+      position: absolute;
+      left: 0;
+      color: var(--accent-violet);
+      font-size: 0.8rem;
+    }
+
+    .action-banner {
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .action-icon {
+      font-size: 1.75rem;
+    }
+
+    .action-text strong {
+      color: #34d399;
+      font-size: 1rem;
+      display: block;
+      margin-bottom: 0.2rem;
+    }
+
+    .action-text span {
+      color: #e2e8f0;
+      font-size: 0.92rem;
+    }
+
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .comparison-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 1.25rem;
+    }
+
+    .comparison-card.light-preview {
+      background: #f8fafc;
+      color: #0f172a;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 4px 20px -2px rgba(0,0,0,0.06);
+    }
+
+    .comparison-card.light-preview h4 {
+      color: #09090b;
+    }
+
+    .comparison-card.light-preview p {
+      color: #475569;
+    }
+
+    .comparison-card h4 {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    details {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      margin-bottom: 1rem;
+      overflow: hidden;
+      transition: all 0.2s ease;
+    }
+
+    details[open] {
+      border-color: rgba(168, 85, 247, 0.3);
+    }
+
+    summary {
+      padding: 1rem 1.25rem;
+      cursor: pointer;
+      font-weight: 600;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      user-select: none;
+    }
+
+    summary:hover {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .advisor-meta {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .details-content {
+      padding: 1rem 1.25rem 1.5rem 1.25rem;
+      border-top: 1px solid var(--card-border);
+      font-size: 0.94rem;
+      color: #cbd5e1;
+    }
+
+    .alignment-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1.5rem;
+      margin-bottom: 2.5rem;
+      font-size: 0.9rem;
+    }
+
+    .alignment-table th, .alignment-table td {
+      padding: 10px 14px;
+      text-align: left;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .alignment-table th {
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .status-agree { color: #34d399; font-weight: 600; }
+    .status-clash { color: #f59e0b; font-weight: 600; }
+
+    footer {
+      border-top: 1px solid var(--card-border);
+      padding-top: 1.5rem;
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="badge">✦ LLM Council Session ✦</div>
+    <h1>Light Theme UI Architecture for Symbiosis Quantum Club</h1>
+    <p class="subtitle">
+      Council synthesis on designing a luminous, Apple HIG-compliant, anti-slop Light Theme that preserves SQC's quantum identity, maintains 100% of current UI components, and complies strictly with project constraints.
+    </p>
+  </header>
+
+  <!-- CHAIRMAN'S VERDICT -->
+  <section class="verdict-card">
+    <div class="verdict-title">
+      <span>⚖️</span>
+      <h2>Chairman's Synthesis & Verdict</h2>
+    </div>
+
+    <div class="verdict-section">
+      <h3>Where the Council Agrees (High Confidence)</h3>
+      <ul>
+        <li><strong>Zero UI / Layout Alteration:</strong> 100% of existing components, layouts, routes, and interactions remain identical. Light theme is purely an aesthetic and tonal evolution.</li>
+        <li><strong>Photonic Laboratory Metaphor:</strong> Reject lazy "inverted black into blinding white" or generic SaaS blue. Ground light mode in real-world quantum physics: optical laser benches, frosted beam-splitters, cryogenic titanium, and crisp spectral refraction.</li>
+        <li><strong>Apple HIG Liquid Glass Materials:</strong> In light mode, glass surfaces transition to crisp frosted acrylic (<code>bg-white/80 backdrop-blur-xl border border-slate-200/80 shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)]</code>).</li>
+        <li><strong>No New CSS Files:</strong> Respect project rule <code>AGENTS.md</code> strictly. Implement via Tailwind's <code>darkMode: 'class'</code>, update existing <code>tokens.css</code> and <code>global.css</code>, and inline Tailwind utility classes.</li>
+        <li><strong>WCAG AA/AAA Contrast Discipline:</strong> Replace dark-mode glowing neons with high-saturation pigment inks (e.g. <code>#0284c7</code> cyan, <code>#7c3aed</code> violet, <code>#059669</code> emerald, <code>#d97706</code> amber) so body and badges maintain ≥4.5:1 contrast against light cards.</li>
+      </ul>
+    </div>
+
+    <div class="verdict-section">
+      <h3>Where the Council Clashes & Resolutions</h3>
+      <ul>
+        <li>
+          <strong>Default Mode Strategy:</strong> The Expansionist proposed auto-detecting user OS preference by default, while The Contrarian warned that dark mode is SQC's signature brand.
+          <br /><em>Resolution:</em> Dark mode remains the default initial state on first arrival, but user choice is respected and persisted in <code>localStorage</code> with an instant system-detect option.
+        </li>
+        <li>
+          <strong>Canvas Background Handling:</strong> The Contrarian feared <code>QuantumDepartureBackground</code> would look busy on white, while First Principles argued the telemetry tick marks look like precision laboratory calipers.
+          <br /><em>Resolution:</em> Adapt canvas colors in light mode to ultra-subtle slate-400 and violet-300 lines (opacity 0.18-0.35) on an alabaster/pearl background (<code>#fcfcfd</code>), preserving the scientific HUD without visual noise.
+        </li>
+      </ul>
+    </div>
+
+    <div class="verdict-section">
+      <h3>Blind Spots Caught During Peer Review</h3>
+      <ul>
+        <li><strong>Projector / Daylight Glare:</strong> Student workshops and auditorium hackathons frequently project the site in bright rooms. The light mode must avoid low-contrast gray text; body copy must use <code>text-slate-600</code> and headings <code>text-slate-900</code>.</li>
+        <li><strong>Hover States Inversion:</strong> Dark mode relied on brightening hover glows (e.g. <code>shadow-[0_0_25px_rgba(...)]</code>). In light mode, interactions should use subtle tactile elevation lifts (<code>-translate-y-0.5</code>) and soft drop shadows instead of bright blooms.</li>
+      </ul>
+    </div>
+
+    <div class="action-banner">
+      <div class="action-icon">🚀</div>
+      <div class="action-text">
+        <strong>The One Thing to Do First:</strong>
+        <span>Configure <code>darkMode: 'class'</code> in <code>tailwind.config.js</code>, wire a lightweight React <code>ThemeContext</code>, and implement an Apple-style tactile Sun/Moon switcher in the Navbar.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- VISUAL PREVIEW OF DUAL-MODE TOKENS -->
+  <h2 style="font-size: 1.35rem; margin-bottom: 1rem; color: #fff;">Dual-Mode Visual Spectrum Architecture</h2>
+  <div class="comparison-grid">
+    <div class="comparison-card">
+      <div class="badge" style="background: rgba(168,85,247,0.15); color: #c084fc;">Dark Obsidian Mode (Current)</div>
+      <h4>Cosmic Deep Vacuum</h4>
+      <p style="color: #94a3b8; font-size: 0.9rem; margin-bottom: 1rem;">
+        Matte dark black base (#09090b), floating neon lasers, deep obsidian glass cards, high-contrast white typography.
+      </p>
+      <div style="background: #121215; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 12px;">
+        <span style="color: #a855f7; font-family: var(--font-mono); font-size: 0.75rem;">✦ QUANTUM ALGORITHM</span>
+        <div style="font-weight: 700; color: #fff; margin-top: 4px;">Variational Quantum Eigensolver</div>
+        <p style="color: #94a3b8; font-size: 0.8rem; margin-top: 4px;">Card surface: #121215 | Glow: rgba(168,85,247,0.35)</p>
+      </div>
+    </div>
+
+    <div class="comparison-card light-preview">
+      <div class="badge" style="background: rgba(124,58,237,0.1); color: #7c3aed; border-color: rgba(124,58,237,0.25);">Photonic Cleanroom Mode (Light)</div>
+      <h4>Optical Laboratory Precision</h4>
+      <p style="font-size: 0.9rem; margin-bottom: 1rem;">
+        Pure alabaster base (#fcfcfd / #f8fafc), frosted Apple-grade liquid glass, deep carbon obsidian ink (#0f172a), high-density spectral accents.
+      </p>
+      <div style="background: rgba(255,255,255,0.85); border: 1px solid rgba(226,232,240,0.9); border-radius: 8px; padding: 12px; box-shadow: 0 4px 14px rgba(0,0,0,0.04);">
+        <span style="color: #7c3aed; font-family: var(--font-mono); font-size: 0.75rem; font-weight: 600;">✦ QUANTUM ALGORITHM</span>
+        <div style="font-weight: 700; color: #09090b; margin-top: 4px;">Variational Quantum Eigensolver</div>
+        <p style="color: #475569; font-size: 0.8rem; margin-top: 4px;">Card surface: white/85 | Shadow: 0 4px 14px rgba(0,0,0,0.04)</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ALIGNMENT TABLE -->
+  <h2 style="font-size: 1.35rem; margin-bottom: 0.75rem; color: #fff;">Advisor Alignment Matrix</h2>
+  <table class="alignment-table">
+    <thead>
+      <tr>
+        <th>Decision Dimension</th>
+        <th>Contrarian</th>
+        <th>First Principles</th>
+        <th>Expansionist</th>
+        <th>Outsider</th>
+        <th>Executor</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Keep 100% UI Layout & Structure</td>
+        <td class="status-agree">Agree</td>
+        <td class="status-agree">Agree</td>
+        <td class="status-agree">Agree</td>
+        <td class="status-agree">Agree</td>
+        <td class="status-agree">Agree</td>
+        <td class="status-agree">Consensus (5/5)</td>
+      </tr>
+      <tr>
+        <td>Photonic Optics Subject Metaphor</td>
+        <td class="status-agree">Agree</td>
+        <td class="status-agree">Champion</td>
+        <td class="status-agree">Agree</td>
+        <td class="status-agree">Agree</td>
+        <td class="status-agree">Agree</td>
+        <td class="status-agree">Consensus (5/5)</td>
+      </tr>
+      <tr>
+        <td>Apple-grade Liquid Glass Surfaces</td>
+        <td class="status-agree">Agree</td>
+        <td class="status-agree">Agree</td>
+        <td class="status-agree">Champion</td>
+        <td class="status-agree">Agree</td>
+        <td class="status-agree">Agree</td>
+        <td class="status-agree">Consensus (5/5)</td>
+      </tr>
+      <tr>
+        <td>Initial Default Theme</td>
+        <td class="status-clash">Dark (Brand)</td>
+        <td class="status-agree">Dark or System</td>
+        <td class="status-clash">System Auto</td>
+        <td class="status-agree">Persist Choice</td>
+        <td class="status-agree">Dark + Switch</td>
+        <td class="status-clash">Resolved: Dark Default</td>
+      </tr>
+      <tr>
+        <td>Zero New CSS Files Rule</td>
+        <td class="status-agree">Enforce</td>
+        <td class="status-agree">Enforce</td>
+        <td class="status-agree">Enforce</td>
+        <td class="status-agree">Enforce</td>
+        <td class="status-agree">Champion</td>
+        <td class="status-agree">Consensus (5/5)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- COLLAPSIBLE ADVISOR STATEMENTS -->
+  <h2 style="font-size: 1.35rem; margin-bottom: 1rem; color: #fff;">Independent Advisor Statements</h2>
+
+  <details>
+    <summary>
+      <span>1. The Contrarian: "Don't Turn Quantum Glow into Dirty Smudges"</span>
+      <span class="advisor-meta">Risk & Downside Analysis</span>
+    </summary>
+    <div class="details-content">
+      Converting a dark-first quantum site to light mode is notoriously fraught. Quantum aesthetics rely heavily on neon glow filters (drop-shadows, radial bloom, deep obsidian contrast). In light mode, naive implementations look like dirty stains, washed-out text, or blinding white rectangles where badges become unreadable. Specifically, glowing cyan (#00f0ff or #38bdf8) on white fails WCAG AA contrast spectacularly (under 1.8:1). If we just slap bg-white and invert text, we will butcher SQC’s identity into a soulless generic dashboard. We must reject glow-reliance in light mode: replace light glows with crisp physical borders, micro-tinted glass fills, and deepened ink-grade pigment spectrums (#0284c7 instead of neon cyan, #7c3aed instead of pastel purple). Don't touch the layout or component trees; keep dark mode default and make light mode an intentional, opt-in photonic mode.
+    </div>
+  </details>
+
+  <details>
+    <summary>
+      <span>2. The First Principles Thinker: "The Photonic Cleanroom Metaphor"</span>
+      <span class="advisor-meta">Foundational Truths</span>
+    </summary>
+    <div class="details-content">
+      What is the physical reality of quantum computing in the light? A quantum computer isn't just a dark sci-fi void. Real quantum labs—like IBM Quantum at Yorktown Heights or Oxford Ionics—are gleaming white cleanrooms, polished optical tables, brushed titanium cryostats, and laser-guided sapphire crystals. The light theme shouldn't be a reluctant inversion of dark mode; it should be the 'Photonic Cleanroom' edition of SQC. The metaphor shifts from 'cosmic vacuum' to 'optical precision'. The canvas telemetry marks in QuantumDepartureBackground become technical laboratory vernier scales etched into optical glass. The frosted cards become optical beam-splitters. We don't need new CSS files; we define CSS custom properties for surfaces that dynamically switch via html.dark vs html.light, keeping all JSX class definitions elegant and maintainable.
+    </div>
+  </details>
+
+  <details>
+    <summary>
+      <span>3. The Expansionist: "The Apple-Grade Multi-Theme Experience"</span>
+      <span class="advisor-meta">Upside & Elevation</span>
+    </summary>
+    <div class="details-content">
+      This is a massive opportunity to elevate SQC into an Apple-grade web application. When users toggle between Dark and Light mode, the experience should feel like switching between macOS Dark and Light appearance—tactile, instantaneous, and cinematic. We should implement a dedicated, beautifully crafted Apple-style pill switch in the Navbar (with Sun and Moon states with a tactile spring icon morph). In light mode, our frosted glass (backdrop-blur-xl bg-white/80 border-slate-200/60 shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)]) will feel remarkably premium and native to modern Apple hardware. By designing a dual-mode token system, every page—from the Events hub to the Qiskit Fall Fest portal—instantly gains accessibility for daylight viewing, projector presentations in classrooms, and bright outdoor mobile browsing.
+    </div>
+  </details>
+
+  <details>
+    <summary>
+      <span>4. The Outsider: "Daylight Legibility & Clickability Above All"</span>
+      <span class="advisor-meta">Fresh Eyes Perspective</span>
+    </summary>
+    <div class="details-content">
+      As an outsider who knows nothing about your internal codebase: When I land on a student club site in broad daylight on my phone or in a lecture hall, dark mode can be hard to read with sun glare. But if I switch to light mode, I expect text to be sharp and effortless to read. I don't want to decipher faint grey text on a white card. The primary text must be deep obsidian (#0f172a), the secondary text must be crisp slate (#475569), and buttons must have undeniable clickability. The badges for Workshop, Hackathon, and Fall Fest must look like official physical academic credentials or laser-cut enamel tags, not washed-out pastel pills. Keep every single button, link, and photo where it currently is. If the layout shifts or elements jump around when I flip the theme switch, the experience feels broken.
+    </div>
+  </details>
+
+  <details>
+    <summary>
+      <span>5. The Executor: "Precise Execution Under Project Constraints"</span>
+      <span class="advisor-meta">Implementation Engineering</span>
+    </summary>
+    <div class="details-content">
+      Let's ground this in cold, hard code constraints. Rule 2 from .agents/AGENTS.md is non-negotiable: NEVER generate new .css files or directories. All styling MUST be implemented using inline Tailwind CSS utility classes in React JSX components. Here is the exact execution roadmap:
+      1. Update tailwind.config.js to enable class-based dark mode: darkMode: 'class'.
+      2. In src/styles/tokens.css, define dual-mode custom properties on :root (light defaults) and .dark (the dark black obsidian palette).
+      3. Create a lightweight, high-performance React ThemeContext with localStorage persistence, initial system preference detection, and zero-flicker state.
+      4. Design and insert an Apple-style toggle in Navbar.jsx with smooth icon transition.
+      5. Refactor the foundational layout wrappers in App.jsx, Navbar.jsx, Footer.jsx, and PageTransition.jsx to use dual classes (e.g. bg-white dark:bg-[#06040a]).
+      6. Adapt QuantumDepartureBackground.jsx to sense theme and draw high-contrast slate/violet telemetry on light mode without lagging.
+    </div>
+  </details>
+
+  <footer>
+    Symbiosis Quantum Club &bull; Generated by Antigravity LLM Council on 2026-09-13
+  </footer>
+
+</body>
+</html>

@@ -219,7 +219,7 @@ export default function Events() {
   const activeCategoryInfo = CATEGORY_HUB_DATA_FULL[selectedCategory]
 
   return (
-    <main className="bg-[#070a08] min-h-screen pt-20 sm:pt-22 pb-24 text-slate-200 relative overflow-x-clip">
+    <main className="bg-[#fcfcfd] dark:bg-[#070a08] min-h-screen pt-20 sm:pt-22 pb-24 text-slate-700 dark:text-slate-200 relative overflow-x-clip transition-colors duration-300">
       {/* ── ReactBits PixelBlast Background (Sunrise Warm Red/Yellow Patch Format) ── */}
       <PixelBlast
         variant="square"
@@ -239,7 +239,7 @@ export default function Events() {
         speed={0.15}
         edgeFade={0.4}
         transparent
-        style={{ opacity: 0.45 }}
+        style={{ opacity: 0.35 }}
       />
 
       {/* ── Outer Container ── */}
@@ -256,9 +256,9 @@ export default function Events() {
               <div className="animate-fadeIn transition-all duration-300">
                 <button
                   onClick={() => handleSelectCategory('Hub')}
-                  className="inline-flex items-center gap-2.5 px-4 py-3.5 rounded-xl bg-[#121513] border border-[#f59e0b]/40 text-[#f59e0b] hover:text-slate-950 hover:bg-gradient-to-r hover:from-[#ef4444] hover:via-[#f97316] hover:to-[#eab308] hover:border-[#eab308] hover:shadow-[0_4px_20px_rgba(245,158,11,0.35)] font-mono text-xs font-bold uppercase tracking-wider transition-all duration-200 shadow-md group shrink-0 whitespace-nowrap"
+                  className="inline-flex items-center gap-2.5 px-4 py-3.5 rounded-xl bg-white/90 dark:bg-[#121513] border border-[#f59e0b]/50 text-[#d97706] dark:text-[#f59e0b] hover:text-slate-950 hover:bg-gradient-to-r hover:from-[#ef4444] hover:via-[#f97316] hover:to-[#eab308] hover:border-[#eab308] hover:shadow-[0_4px_20px_rgba(245,158,11,0.35)] font-mono text-xs font-bold uppercase tracking-wider transition-all duration-200 shadow-sm dark:shadow-md group shrink-0 whitespace-nowrap"
                 >
-                  <svg className="w-4 h-4 text-[#f59e0b] group-hover:text-slate-950 group-hover:-translate-x-1 transition-all duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg className="w-4 h-4 text-[#d97706] dark:text-[#f59e0b] group-hover:text-slate-950 group-hover:-translate-x-1 transition-all duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                   </svg>
                   BACK TO ALL CATEGORIES
@@ -270,7 +270,7 @@ export default function Events() {
             <div className={`flex flex-col gap-6 ${selectedCategory !== 'Hub' ? 'mt-24 lg:mt-44' : ''}`}>
               {/* Header Lockup: Sunrise Red & Yellow Line Accent + Monospace Eyebrow */}
               <div className="flex items-center gap-3 transition-opacity duration-300">
-                <span className="font-mono text-[0.675rem] font-bold tracking-widest text-[#f59e0b] uppercase">
+                <span className="font-mono text-[0.675rem] font-bold tracking-widest text-[#d97706] dark:text-[#f59e0b] uppercase">
                   {selectedCategory === 'Hub' 
                     ? 'SYMBIOSIS QUANTUM CLUB ✦ OFFICIAL EVENTS'
                     : `SYMBIOSIS QUANTUM CLUB ✦ ${selectedCategory.toUpperCase()}`}
@@ -280,19 +280,19 @@ export default function Events() {
               {/* Main High-Impact Headline Stack with Dynamic Transition */}
               <div key={selectedCategory} className="flex flex-col animate-fadeIn transition-all duration-500">
                 {selectedCategory === 'Hub' ? (
-                  <h1 className="font-display text-[clamp(2.4rem,4.2vw,3.6rem)] font-extrabold leading-[1.02] tracking-tight uppercase text-white m-0 flex flex-col">
+                  <h1 className="font-display text-[clamp(2.4rem,4.2vw,3.6rem)] font-extrabold leading-[1.02] tracking-tight uppercase text-slate-900 dark:text-white m-0 flex flex-col">
                     <span>EXPLORE OUR</span>
                     <span>QUANTUM</span>
-                    <span className="bg-gradient-to-r from-white via-[#f97316] to-[#eab308] bg-clip-text text-transparent">
+                    <span className="bg-gradient-to-r from-slate-900 via-[#f97316] to-[#d97706] dark:from-white dark:via-[#f97316] dark:to-[#eab308] bg-clip-text text-transparent">
                       INITIATIVES
                     </span>
                   </h1>
                 ) : (
-                  <h2 className="font-display text-[clamp(2.4rem,4.2vw,3.6rem)] font-extrabold leading-[1.02] tracking-tight uppercase text-white m-0 flex flex-col">
-                    <span className="text-slate-300 text-lg font-mono tracking-widest font-semibold text-[#f59e0b] mb-1">
+                  <h2 className="font-display text-[clamp(2.4rem,4.2vw,3.6rem)] font-extrabold leading-[1.02] tracking-tight uppercase text-slate-900 dark:text-white m-0 flex flex-col">
+                    <span className="text-slate-600 dark:text-slate-300 text-lg font-mono tracking-widest font-semibold text-[#d97706] dark:text-[#f59e0b] mb-1">
                       SELECTED CATEGORY
                     </span>
-                    <span className="bg-gradient-to-r from-white via-[#f97316] to-[#eab308] bg-clip-text text-transparent">
+                    <span className="bg-gradient-to-r from-slate-900 via-[#f97316] to-[#d97706] dark:from-white dark:via-[#f97316] dark:to-[#eab308] bg-clip-text text-transparent">
                       {activeCategoryInfo?.title || selectedCategory.toUpperCase()}
                     </span>
                   </h2>
@@ -300,7 +300,7 @@ export default function Events() {
               </div>
 
               {/* Subtitle Paragraph */}
-              <p key={`sub-${selectedCategory}`} className="font-body text-base sm:text-lg text-gray-300 max-w-[52ch] leading-relaxed m-0 transition-opacity duration-300">
+              <p key={`sub-${selectedCategory}`} className="font-body text-base sm:text-lg text-slate-600 dark:text-gray-300 max-w-[52ch] leading-relaxed m-0 transition-opacity duration-300">
                 {selectedCategory === 'Hub'
                   ? 'Immersive hands-on workshops, official IBM Qiskit Fall Fest, club inductions, quantum arcade gaming, and research lab visits hosted by Symbiosis Quantum Club.'
                   : (activeCategoryInfo?.description || `Explore all official ${selectedCategory} events organized chronologically.`)}
@@ -323,7 +323,7 @@ export default function Events() {
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder={`Search ${selectedCategory} events...`}
-                    className="w-full py-3.5 pl-11 pr-10 bg-[#090d0a]/90 border border-[#f59e0b]/30 rounded-xl font-body text-sm text-white outline-none transition-all duration-200 focus:border-[#f59e0b] focus:shadow-[0_0_20px_rgba(245,158,11,0.25)] placeholder:text-slate-500"
+                    className="w-full py-3.5 pl-11 pr-10 bg-white/95 dark:bg-[#090d0a]/90 border border-slate-300 dark:border-[#f59e0b]/30 rounded-xl font-body text-sm text-slate-900 dark:text-white outline-none transition-all duration-200 focus:border-[#f59e0b] focus:shadow-[0_0_20px_rgba(245,158,11,0.25)] placeholder:text-slate-400 dark:placeholder:text-slate-500 shadow-sm"
                   />
                   {/* Search Icon */}
                   <svg className="w-5 h-5 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -333,7 +333,7 @@ export default function Events() {
                   {searchQuery && (
                     <button
                       onClick={() => setSearchQuery('')}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-slate-400 hover:text-white transition-colors"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
                       title="Clear search"
                     >
                       <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -366,20 +366,20 @@ export default function Events() {
                     <div
                       key={catKey}
                       onClick={() => handleSelectCategory(catKey)}
-                      className={`group relative w-full rounded-3xl p-6 sm:p-7 lg:p-8 bg-gradient-to-r ${info.gradient} border border-white/10 ${info.borderHover} ${info.glowHover} transition-all duration-300 cursor-pointer flex flex-col md:flex-row gap-6 sm:gap-8 items-center overflow-hidden shadow-2xl hover:-translate-y-1.5`}
+                      className={`group relative w-full rounded-3xl p-6 sm:p-7 lg:p-8 bg-white dark:bg-gradient-to-r dark:${info.gradient} border border-slate-200/90 dark:border-white/10 ${info.borderHover} ${info.glowHover} transition-all duration-300 cursor-pointer flex flex-col md:flex-row gap-6 sm:gap-8 items-center overflow-hidden shadow-sm hover:shadow-md dark:shadow-2xl hover:-translate-y-1.5`}
                     >
                       {/* Left Square Visual Cover Frame — Consistent 1:1 Aspect Ratio Across All Categories */}
-                      <div className="relative aspect-square w-full sm:w-[240px] md:w-[240px] lg:w-[260px] h-[240px] sm:h-[240px] lg:h-[260px] rounded-2xl overflow-hidden bg-[#090d0a] border border-white/15 group-hover:border-[#f59e0b]/50 transition-all duration-500 shadow-2xl shrink-0">
+                      <div className="relative aspect-square w-full sm:w-[240px] md:w-[240px] lg:w-[260px] h-[240px] sm:h-[240px] lg:h-[260px] rounded-2xl overflow-hidden bg-slate-100 dark:bg-[#090d0a] border border-slate-200 dark:border-white/15 group-hover:border-[#f59e0b]/50 transition-all duration-500 shadow-sm dark:shadow-2xl shrink-0">
                         {info.coverImage ? (
                           <img
                             src={info.coverImage}
                             alt={info.title}
-                            className="w-full h-full object-cover object-center brightness-90 contrast-[1.05] group-hover:scale-105 group-hover:brightness-100 transition-all duration-700 ease-out"
+                            className="w-full h-full object-cover object-center brightness-95 dark:brightness-90 contrast-[1.02] dark:contrast-[1.05] group-hover:scale-105 group-hover:brightness-100 transition-all duration-700 ease-out"
                             loading="lazy"
                           />
                         ) : (
-                          <div className="w-full h-full bg-gradient-to-br from-[#1c130d] via-[#121513] to-[#070a08] flex items-center justify-center">
-                            <div className="p-5 rounded-2xl bg-[#121513]/90 border border-white/15 shadow-xl group-hover:scale-110 group-hover:border-[#f59e0b]/50 transition-all duration-300">
+                          <div className="w-full h-full bg-slate-100 dark:bg-gradient-to-br dark:from-[#1c130d] dark:via-[#121513] dark:to-[#070a08] flex items-center justify-center">
+                            <div className="p-5 rounded-2xl bg-white/90 dark:bg-[#121513]/90 border border-slate-200 dark:border-white/15 shadow-xl group-hover:scale-110 group-hover:border-[#f59e0b]/50 transition-all duration-300">
                               {info.icon}
                             </div>
                           </div>
@@ -390,25 +390,25 @@ export default function Events() {
                       <div className="flex flex-col justify-between gap-4 relative z-10 py-1 flex-1 w-full">
                         <div className="flex flex-col gap-2.5">
                           <div className="flex items-center gap-3 flex-wrap">
-                            <span className="font-mono text-xs text-slate-400 font-semibold uppercase tracking-wider">
+                            <span className="font-mono text-xs text-slate-500 dark:text-slate-400 font-semibold uppercase tracking-wider">
                               {info.subtitle}
                             </span>
                           </div>
 
-                          <h3 className="font-display text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight group-hover:text-[#f59e0b] transition-colors m-0">
+                          <h3 className="font-display text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight group-hover:text-[#d97706] dark:group-hover:text-[#f59e0b] transition-colors m-0">
                             {info.title}
                           </h3>
 
-                          <p className="font-body text-base text-slate-300 leading-relaxed max-w-[62ch] m-0">
+                          <p className="font-body text-base text-slate-600 dark:text-slate-300 leading-relaxed max-w-[62ch] m-0">
                             {info.description}
                           </p>
                         </div>
 
-                        {/* Action Button: Base dark lockup -> Sunrise Red & Yellow Hover pop-up */}
+                        {/* Action Button: Base lockup -> Sunrise Red & Yellow Hover pop-up */}
                         <div className="pt-2">
-                          <span className="inline-flex items-center gap-2.5 px-6 py-2.5 rounded-full bg-[#121513] border border-[#f59e0b]/30 text-white font-display text-xs font-bold tracking-wider uppercase transition-all duration-200 group-hover:bg-gradient-to-r group-hover:from-[#ef4444] group-hover:via-[#f97316] group-hover:to-[#eab308] group-hover:text-slate-950 group-hover:border-[#eab308] group-hover:shadow-[0_6px_24px_rgba(245,158,11,0.4)]">
+                          <span className="inline-flex items-center gap-2.5 px-6 py-2.5 rounded-full bg-white hover:bg-slate-50 border border-slate-300 text-slate-800 shadow-xs dark:bg-[#121513] dark:border-[#f59e0b]/30 dark:text-white font-display text-xs font-bold tracking-wider uppercase transition-all duration-200 group-hover:bg-gradient-to-r group-hover:from-[#ef4444] group-hover:via-[#f97316] group-hover:to-[#eab308] group-hover:text-slate-950 group-hover:border-[#eab308] group-hover:shadow-[0_6px_24px_rgba(245,158,11,0.4)]">
                             Explore Category
-                            <svg className="w-4 h-4 text-[#f59e0b] group-hover:text-slate-950 group-hover:translate-x-1 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <svg className="w-4 h-4 text-[#d97706] dark:text-[#f59e0b] group-hover:text-slate-950 group-hover:translate-x-1 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                             </svg>
                           </span>
@@ -428,9 +428,9 @@ export default function Events() {
                 
 
                 {/* Timeline Filter Pills Bar */}
-                <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-[#121513] via-[#090d0a] to-[#121513] border border-[#f59e0b]/30 flex items-center justify-between gap-4 flex-wrap shadow-lg">
+                <div className="p-4 sm:p-5 rounded-2xl bg-white dark:bg-gradient-to-r dark:from-[#121513] dark:via-[#090d0a] dark:to-[#121513] border border-slate-200/90 dark:border-[#f59e0b]/30 flex items-center justify-between gap-4 flex-wrap shadow-sm dark:shadow-lg">
                   <div className="flex items-center gap-2">
-                    <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#f59e0b]">
+                    <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#d97706] dark:text-[#f59e0b]">
                       FILTER TIMELINE:
                     </span>
                   </div>
@@ -443,7 +443,7 @@ export default function Events() {
                         className={`px-3.5 py-1.5 rounded-full font-mono text-[0.725rem] uppercase tracking-wider transition-all cursor-pointer ${
                           statusFilter === st
                             ? 'bg-gradient-to-r from-[#ef4444] via-[#f97316] to-[#eab308] text-slate-950 font-bold shadow-[0_2px_10px_rgba(245,158,11,0.3)]'
-                            : 'bg-white/5 text-slate-400 hover:text-white hover:bg-white/10'
+                            : 'bg-slate-100 hover:bg-slate-200/80 dark:bg-white/5 text-slate-700 dark:text-slate-400 hover:text-slate-950 dark:hover:text-white'
                         }`}
                       >
                         {st} Events
@@ -460,8 +460,8 @@ export default function Events() {
                     {upcomingEvents.length > 0 && (statusFilter === 'All' || statusFilter === 'Upcoming') && (
                       <div className="flex flex-col gap-6">
                         <div className="flex items-center gap-3 pb-3 border-b border-[#f59e0b]/30">
-                          <span className="w-2.5 h-2.5 rounded-full bg-[#f59e0b] animate-pulse" />
-                          <h3 className="font-display text-xl font-bold text-[#f59e0b] tracking-wide uppercase m-0">
+                          <span className="w-2.5 h-2.5 rounded-full bg-[#d97706] dark:bg-[#f59e0b] animate-pulse" />
+                          <h3 className="font-display text-xl font-bold text-[#d97706] dark:text-[#f59e0b] tracking-wide uppercase m-0">
                             Upcoming Events
                           </h3>
                         </div>
@@ -477,9 +477,9 @@ export default function Events() {
                     {/* PAST EVENTS SECTION */}
                     {pastEvents.length > 0 && (statusFilter === 'All' || statusFilter === 'Past') && (
                       <div className="flex flex-col gap-6 pt-4">
-                        <div className="flex items-center gap-3 pb-3 border-b border-white/10">
-                          <span className="w-2.5 h-2.5 rounded-full bg-slate-500" />
-                          <h3 className="font-display text-xl font-bold text-white tracking-wide uppercase m-0">
+                        <div className="flex items-center gap-3 pb-3 border-b border-slate-200 dark:border-white/10">
+                          <span className="w-2.5 h-2.5 rounded-full bg-slate-400 dark:bg-slate-500" />
+                          <h3 className="font-display text-xl font-bold text-slate-900 dark:text-white tracking-wide uppercase m-0">
                             Past Events & Archives
                           </h3>
                         </div>
@@ -494,7 +494,7 @@ export default function Events() {
 
                   </div>
                 ) : (
-                  <div className="py-16 px-8 text-center flex flex-col items-center gap-5 text-slate-400 font-body border border-white/10 rounded-2xl bg-[#121513]/50">
+                  <div className="py-16 px-8 text-center flex flex-col items-center gap-5 text-slate-500 dark:text-slate-400 font-body border border-slate-200 dark:border-white/10 rounded-2xl bg-white/60 dark:bg-[#121513]/50 shadow-sm">
                     <p>
                       {searchQuery 
                         ? `No events matching "${searchQuery}" found in ${selectedCategory}.`
@@ -505,7 +505,7 @@ export default function Events() {
                         setSearchQuery('')
                         setStatusFilter('All')
                       }}
-                      className="px-5 py-2.5 rounded-full bg-gradient-to-r from-[#ef4444] via-[#f97316] to-[#eab308] text-[#070a08] font-display text-xs font-bold transition-transform hover:scale-105 cursor-pointer"
+                      className="px-5 py-2.5 rounded-full bg-gradient-to-r from-[#ef4444] via-[#f97316] to-[#eab308] text-slate-950 font-display text-xs font-bold transition-transform hover:scale-105 cursor-pointer shadow-md"
                     >
                       Clear Filters
                     </button>
@@ -521,18 +521,18 @@ export default function Events() {
         </div>
 
         {/* ── Bottom CTA: Stay in the Loop (Apple Design) ── */}
-        <section className="mt-20 p-8 sm:p-12 rounded-3xl bg-gradient-to-br from-[#ef4444]/10 via-[#121513]/90 to-[#070a08] border border-[#f59e0b]/25 shadow-[0_24px_60px_rgba(0,0,0,0.6)] backdrop-blur-2xl grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-8 lg:gap-12 items-center relative overflow-hidden before:absolute before:inset-x-0 before:top-0 before:h-[1px] before:bg-gradient-to-r before:from-transparent before:via-white/20 before:to-transparent">
+        <section className="mt-20 p-8 sm:p-12 rounded-3xl bg-gradient-to-br from-amber-50/80 via-white/90 to-slate-50/90 dark:from-[#ef4444]/10 dark:via-[#121513]/90 dark:to-[#070a08] border border-amber-300/40 dark:border-[#f59e0b]/25 shadow-xl dark:shadow-[0_24px_60px_rgba(0,0,0,0.6)] backdrop-blur-2xl grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-8 lg:gap-12 items-center relative overflow-hidden before:absolute before:inset-x-0 before:top-0 before:h-[1px] before:bg-gradient-to-r before:from-transparent before:via-slate-300/40 dark:before:via-white/20 before:to-transparent">
           <div>
-            <p className="font-pixel text-[11px] font-bold tracking-widest text-[#f59e0b] uppercase mb-3">
+            <p className="font-pixel text-[11px] font-bold tracking-widest text-[#d97706] dark:text-[#f59e0b] uppercase mb-3">
               Stay in the Loop
             </p>
-            <h2 className="font-display text-[clamp(1.65rem,3vw,2.5rem)] font-extrabold leading-tight text-white m-0 tracking-tight">
+            <h2 className="font-display text-[clamp(1.65rem,3vw,2.5rem)] font-extrabold leading-tight text-slate-900 dark:text-white m-0 tracking-tight">
               Be part of the next{' '}
-              <span className="bg-gradient-to-r from-[#ef4444] via-[#f97316] to-[#eab308] bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-[#ef4444] via-[#f97316] to-[#d97706] dark:to-[#eab308] bg-clip-text text-transparent">
                 quantum milestone
               </span>
             </h2>
-            <p className="font-body text-sm sm:text-base text-slate-300 mt-2.5 max-w-[46ch] leading-relaxed">
+            <p className="font-body text-sm sm:text-base text-slate-600 dark:text-slate-300 mt-2.5 max-w-[46ch] leading-relaxed">
               Follow us for early registration access, event announcements, and quantum learning resources.
             </p>
           </div>
@@ -552,7 +552,7 @@ export default function Events() {
               href="https://github.com/Symbiosis-Quantum-Club"
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center justify-center gap-2.5 px-5 h-11 rounded-full bg-transparent border border-white/40 text-white hover:bg-white hover:text-[#0d1117] font-mono text-xs font-bold uppercase tracking-wider hover:shadow-[0_6px_24px_rgba(255,255,255,0.18)] hover:-translate-y-0.5 active:scale-[0.97] transition-all duration-200"
+              className="group inline-flex items-center justify-center gap-2.5 px-5 h-11 rounded-full bg-transparent border border-slate-400 dark:border-white/40 text-slate-800 dark:text-white hover:bg-slate-900 hover:text-white dark:hover:bg-white dark:hover:text-[#0d1117] font-mono text-xs font-bold uppercase tracking-wider hover:shadow-[0_6px_24px_rgba(0,0,0,0.1)] dark:hover:shadow-[0_6px_24px_rgba(255,255,255,0.18)] hover:-translate-y-0.5 active:scale-[0.97] transition-all duration-200"
             >
               <svg className="w-4 h-4 shrink-0" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path fillRule="evenodd" clipRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
@@ -595,32 +595,32 @@ export default function Events() {
 
 // Sub-component for individual Event rows inside active categories
 function EventCardRow({ event, formatDate, isUpcoming }) {
-  const catTheme = CATEGORY_COLORS[event.category] || { bg: 'bg-amber-500/12', text: 'text-amber-400', border: 'border-amber-500/30' }
+  const catTheme = CATEGORY_COLORS[event.category] || { bg: 'bg-amber-500/12', text: 'text-amber-500 dark:text-amber-400', border: 'border-amber-500/30' }
   const eventUrl = event.id === 'qiskit-fall-fest-2025' ? '/fallfest' : `/events/${event.id}`
 
   return (
     <article
-      className="group grid grid-cols-1 sm:grid-cols-[200px_1fr] lg:grid-cols-[240px_1fr] gap-7 lg:gap-9 py-8 border-t border-white/10 first:border-t-0 first:pt-0 hover:border-[#f59e0b]/40 transition-colors duration-300 relative"
+      className="group grid grid-cols-1 sm:grid-cols-[200px_1fr] lg:grid-cols-[240px_1fr] gap-7 lg:gap-9 py-8 border-t border-slate-200 dark:border-white/10 first:border-t-0 first:pt-0 hover:border-[#f59e0b]/50 transition-colors duration-300 relative"
     >
       {/* 3:4 Aspect Ratio Image Frame */}
       <Link
         to={eventUrl}
-        className="w-full aspect-[3/4] rounded-xl overflow-hidden relative bg-[#121513] border border-white/10 shadow-lg group-hover:border-[#f59e0b]/40 group-hover:shadow-[0_12px_32px_rgba(245,158,11,0.18)] transition-all duration-300 flex items-center justify-center group/img"
+        className="w-full aspect-[3/4] rounded-xl overflow-hidden relative bg-white dark:bg-[#121513] border border-slate-200/90 dark:border-white/10 shadow-sm group-hover:border-[#f59e0b]/50 group-hover:shadow-[0_12px_32px_rgba(245,158,11,0.18)] transition-all duration-300 flex items-center justify-center group/img"
       >
         {event.coverImage ? (
           <img
             src={event.coverImage}
             alt={event.title}
-            className="w-full h-full object-cover transition-all duration-500 ease-out brightness-90 contrast-[1.05] group-hover:scale-[1.07] group-hover:brightness-100 group-hover:contrast-[1.1] transform-gpu"
+            className="w-full h-full object-cover transition-all duration-500 ease-out brightness-95 dark:brightness-90 contrast-[1.02] dark:contrast-[1.05] group-hover:scale-[1.07] group-hover:brightness-100 group-hover:contrast-[1.1] transform-gpu"
             loading="lazy"
             decoding="async"
           />
         ) : (
-          <div className="w-full h-full p-6 flex flex-col items-center justify-center text-center bg-gradient-to-br from-[#270c0c] via-[#121513] to-[#070a08]">
-            <span className="font-mono text-[#f59e0b] font-bold text-xs uppercase tracking-widest">
+          <div className="w-full h-full p-6 flex flex-col items-center justify-center text-center bg-slate-100 dark:bg-gradient-to-br dark:from-[#270c0c] dark:via-[#121513] dark:to-[#070a08]">
+            <span className="font-mono text-[#d97706] dark:text-[#f59e0b] font-bold text-xs uppercase tracking-widest">
               SQC EVENT
             </span>
-            <span className="font-display text-sm font-bold text-white/80 mt-2 line-clamp-2">
+            <span className="font-display text-sm font-bold text-slate-800 dark:text-white/80 mt-2 line-clamp-2">
               {event.title}
             </span>
           </div>
@@ -628,8 +628,8 @@ function EventCardRow({ event, formatDate, isUpcoming }) {
 
         {/* Status Overlay Badge */}
         <span className={`absolute top-3 left-3 px-2.5 py-1 rounded-full font-mono text-[0.625rem] font-bold tracking-wider uppercase border backdrop-blur-md ${isUpcoming
-          ? 'bg-[#ef4444]/80 text-[#fff7ed] border-[#f97316]/50 shadow-[0_0_12px_rgba(239,68,68,0.5)]'
-          : 'bg-black/60 text-slate-400 border-white/10'
+          ? 'bg-[#ef4444]/90 text-[#fff7ed] border-[#f97316]/50 shadow-[0_0_12px_rgba(239,68,68,0.5)]'
+          : 'bg-white/95 dark:bg-black/60 text-slate-700 dark:text-slate-400 border-slate-300 dark:border-white/10 shadow-xs'
           }`}>
           {isUpcoming ? '● UPCOMING' : 'PAST'}
         </span>
@@ -638,7 +638,7 @@ function EventCardRow({ event, formatDate, isUpcoming }) {
       {/* Content Meta */}
       <div className="flex flex-col gap-3">
         <div className="flex items-center gap-3 flex-wrap">
-          <time className="font-mono text-xs font-semibold text-[#f59e0b] tracking-wider uppercase" dateTime={event.date}>
+          <time className="font-mono text-xs font-semibold text-[#d97706] dark:text-[#f59e0b] tracking-wider uppercase" dateTime={event.date}>
             {event.dateDisplay || formatDate(event.date)}
           </time>
           <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full font-mono text-[0.675rem] font-bold tracking-wider uppercase border ${catTheme.bg} ${catTheme.text} ${catTheme.border}`}>
@@ -647,7 +647,7 @@ function EventCardRow({ event, formatDate, isUpcoming }) {
         </div>
 
         <Link to={eventUrl}>
-          <h3 className="font-display text-[clamp(1.2rem,2vw,1.5rem)] font-bold text-white leading-snug m-0 group-hover:text-[#f59e0b] transition-colors duration-200">
+          <h3 className="font-display text-[clamp(1.2rem,2vw,1.5rem)] font-bold text-slate-900 dark:text-white leading-snug m-0 group-hover:text-[#d97706] dark:group-hover:text-[#f59e0b] transition-colors duration-200">
             {event.title}
           </h3>
         </Link>
@@ -655,17 +655,17 @@ function EventCardRow({ event, formatDate, isUpcoming }) {
         <div className="flex items-center gap-3 flex-wrap">
           <Link
             to={eventUrl}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#121513] border border-[#f59e0b]/30 text-white font-display text-xs font-semibold tracking-wide transition-all duration-200 group-hover:bg-gradient-to-r group-hover:from-[#ef4444] group-hover:via-[#f97316] group-hover:to-[#eab308] group-hover:border-[#eab308] group-hover:text-slate-950 group-hover:shadow-[0_4px_18px_rgba(245,158,11,0.35)] cursor-pointer"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white hover:bg-slate-50 border border-slate-300 text-slate-800 shadow-xs dark:bg-[#121513] dark:border-[#f59e0b]/30 dark:text-white font-display text-xs font-semibold tracking-wide transition-all duration-200 group-hover:bg-gradient-to-r group-hover:from-[#ef4444] group-hover:via-[#f97316] group-hover:to-[#eab308] group-hover:border-[#eab308] group-hover:text-slate-950 group-hover:shadow-[0_4px_18px_rgba(245,158,11,0.35)] cursor-pointer"
           >
             Discover Event
             <svg
-              className="w-3.5 h-3.5 text-[#f59e0b] group-hover:text-slate-950 group-hover:translate-x-1 group-hover:-translate-y-0.5 transition-transform duration-200"
+              className="w-3.5 h-3.5 text-[#d97706] dark:text-[#f59e0b] group-hover:text-slate-950 group-hover:translate-x-1 group-hover:-translate-y-0.5 transition-transform duration-200"
               viewBox="0 0 16 16"
               fill="none"
               aria-hidden="true"
             >
               <path
-                d="M4 12L12 4M12 4H6M12 4V10"
+                d="M4 12L12 4H6M12 4V10"
                 stroke="currentColor"
                 strokeWidth="2"
                 strokeLinecap="round"
@@ -674,21 +674,21 @@ function EventCardRow({ event, formatDate, isUpcoming }) {
             </svg>
           </Link>
           {event.applicationAlert && (
-            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full font-mono text-[0.675rem] font-bold tracking-wider uppercase bg-amber-500/10 text-amber-300 border border-amber-500/30">
-              <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
+            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full font-mono text-[0.675rem] font-bold tracking-wider uppercase bg-amber-500/10 text-amber-700 dark:text-amber-300 border border-amber-500/30">
+              <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
               {event.applicationAlert}
             </span>
           )}
         </div>
 
-        <p className="font-body text-[0.9rem] text-slate-400 leading-relaxed m-0 max-w-[60ch]">
+        <p className="font-body text-[0.9rem] text-slate-600 dark:text-slate-400 leading-relaxed m-0 max-w-[60ch]">
           {event.excerpt || (event.description && event.description[0])}
         </p>
 
         <div className="flex items-center gap-4 pt-1 font-mono text-[0.725rem] text-slate-500 flex-wrap">
           {event.location && (
-            <span className="flex items-center gap-1.5 text-slate-400">
-              <svg className="w-3 h-3 text-[#f59e0b]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <span className="flex items-center gap-1.5 text-slate-600 dark:text-slate-400">
+              <svg className="w-3 h-3 text-[#d97706] dark:text-[#f59e0b]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
               </svg>
@@ -726,7 +726,7 @@ function EventCardRow({ event, formatDate, isUpcoming }) {
         {event.tags && event.tags.length > 0 && (
           <div className="flex items-center gap-2 pt-1 flex-wrap">
             {event.tags.map((tag) => (
-              <span key={tag} className="px-2 py-0.5 rounded bg-white/5 text-slate-400 font-mono text-[0.65rem]">
+              <span key={tag} className="px-2.5 py-0.5 rounded bg-slate-50 dark:bg-white/5 border border-slate-200/90 dark:border-transparent text-slate-600 dark:text-slate-400 font-mono text-[0.65rem]">
                 #{tag}
               </span>
             ))}

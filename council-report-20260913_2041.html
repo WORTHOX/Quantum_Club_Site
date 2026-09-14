@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LLM Council Report: Light Theme Contrast & Visual Emphasis</title>
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --border: #e2e8f0;
+      --text: #0f172a;
+      --muted: #475569;
+      --accent: #7c3aed;
+      --accent-light: #f5f3ff;
+      --cyan: #0284c7;
+      --emerald: #059669;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      margin: 0;
+      padding: 40px 20px;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      background: var(--accent-light);
+      color: var(--accent);
+      border: 1px solid #ddd6fe;
+      margin-bottom: 12px;
+    }
+    h1 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin: 0 0 16px 0;
+      color: var(--text);
+    }
+    .lead {
+      font-size: 1.15rem;
+      color: var(--muted);
+      margin-bottom: 32px;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+      margin-bottom: 24px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 6px 16px rgba(0,0,0,0.02);
+    }
+    .card h2 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-top: 0;
+      margin-bottom: 16px;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      margin-top: 16px;
+    }
+    .stat-box {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+    .stat-box h3 {
+      margin: 0 0 6px 0;
+      font-size: 0.9rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .stat-box p {
+      margin: 0;
+      font-weight: 600;
+      color: var(--text);
+    }
+    details {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin-bottom: 12px;
+      overflow: hidden;
+    }
+    summary {
+      padding: 16px 20px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      background: #fdfdfd;
+      border-bottom: 1px solid transparent;
+      user-select: none;
+    }
+    details[open] summary {
+      border-bottom: 1px solid var(--border);
+    }
+    .details-content {
+      padding: 20px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+    .verdict-box {
+      border-left: 4px solid var(--accent);
+      padding-left: 18px;
+      margin-bottom: 20px;
+    }
+    .footer {
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <span class="badge">LLM Council Report ✦ Apple HIG Architecture</span>
+    <h1>Light Theme Contrast &amp; Emphasis Redesign</h1>
+    <p class="lead">
+      Systematic audit and strategic redesign of the Symbiosis Quantum Club web interface to eliminate contrast deficiencies and elevate light-mode visual hierarchy.
+    </p>
+
+    <!-- Chairman Verdict -->
+    <div class="card" style="border-color: #c4b5fd;">
+      <h2><span class="dot" style="background: #7c3aed;"></span> Council Chairman Verdict</h2>
+      
+      <div class="verdict-box">
+        <h3 style="margin-top:0; color: #5b21b6;">The Fundamental Paradigm Shift</h3>
+        <p>
+          Dark theme succeeds through <strong>emissive phosphor radiation</strong> (neon glow highlights emerging from an obsidian void). Light theme fails when trying to mimic emission. In light mode, human perception is driven by <strong>physical pigment density, crisp edge definition, and micro-elevation shadows</strong>.
+        </p>
+      </div>
+
+      <div class="grid">
+        <div class="stat-box">
+          <h3>Ground Plane</h3>
+          <p>Crisp <code>#fcfcfd</code> cleanroom base with hairline <code>slate-200/80</code> partition rules.</p>
+        </div>
+        <div class="stat-box">
+          <h3>Elevated Surfaces</h3>
+          <p>Opaque <code>bg-white</code> cards with multi-stop elevation <code>shadow-sm</code> / <code>shadow-md</code>.</p>
+        </div>
+        <div class="stat-box">
+          <h3>Saturated Inks</h3>
+          <p>WCAG AA <code>#0f172a</code> headings &amp; <code>#334155</code> body for 7.5:1+ guaranteed contrast.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Core Actions -->
+    <div class="card">
+      <h2><span class="dot" style="background: #0284c7;"></span> Mandatory Remediation Plan</h2>
+      <ol style="padding-left: 20px; color: var(--text); font-weight: 500;">
+        <li style="margin-bottom: 10px;">
+          <strong>Brand Typography Contrast:</strong> Fix <code>SYMBIOSIS</code> logo text in <code>LogoWithCircularText.jsx</code> and <code>CircularText.jsx</code> from invisible white to <code>text-slate-900 dark:text-white</code>.
+        </li>
+        <li style="margin-bottom: 10px;">
+          <strong>Card Form &amp; Boundary Elevation:</strong> Ensure all cards across Home, Team, Events, and FallFest utilize solid white backgrounds (<code>bg-white dark:bg-[#121215]</code>), crisp hairline borders (<code>border-slate-200/90</code>), and elevation shadows (<code>shadow-sm hover:shadow-md</code>).
+        </li>
+        <li style="margin-bottom: 10px;">
+          <strong>Pill &amp; Badge Visibility:</strong> Replace faint pastel tags with Apple-style enamel badges: <code>bg-purple-50 dark:bg-purple-500/15 text-purple-800 dark:text-purple-300 border-purple-200 dark:border-purple-500/30</code>.
+        </li>
+        <li style="margin-bottom: 10px;">
+          <strong>Interactive Affordance:</strong> Upgrade secondary buttons from ghost frames to distinct white pill surfaces with <code>border-slate-300 text-slate-800 shadow-sm</code>.
+        </li>
+      </ol>
+    </div>
+
+    <!-- Collapsible Advisor Responses -->
+    <h3 style="font-size: 1.1rem; margin: 32px 0 16px 0;">Independent Council Advisor Perspectives</h3>
+
+    <details>
+      <summary>Advisor 1: The Contrarian (Emissive Glow Fallacy)</summary>
+      <div class="details-content">
+        Dark mode is forgiving: you can slap an unbordered glass card onto an obsidian background, add a 20% blur gradient, and it looks like a glowing sci-fi hologram. In light mode, that same card is literally invisible. Stop trying to make light mode 'glow'. Glow on a white surface is dirt; it looks like a printer smudge. You must strip all neon text-shadows in light mode. Replace glow with contrast of edge and surface elevation.
+      </div>
+    </details>
+
+    <details>
+      <summary>Advisor 2: The First Principles Thinker (Daylight Physics)</summary>
+      <div class="details-content">
+        Light mode is daylight. In daylight, objects are distinguished by reflected light, edge occlusion, and shadows, not by emission. Dark mode uses spectral emission; light mode must use ink on paper. Your purples must shift from neon lavender to deep royal amethyst. Your cyans must shift from cyan to deep oceanic azure.
+      </div>
+    </details>
+
+    <details>
+      <summary>Advisor 3: The Expansionist (Institutional Apple Hardware Spec Aesthetic)</summary>
+      <div class="details-content">
+        When done right, a Photonic Cleanroom aesthetic is actually more premium than dark mode. Dark mode is common in crypto and gamer sites; pristine, editorial, high-contrast light mode communicates institutional credibility, academic rigor, and Apple-grade precision. This makes SQC look like Stanford or MIT Quantum Labs.
+      </div>
+    </details>
+
+    <details>
+      <summary>Advisor 4: The Outsider (User Experience Audit)</summary>
+      <div class="details-content">
+        In the top left logo, half the title disappeared. I see 'QUANTUM CLUB' in faint purple, but 'SYMBIOSIS' is missing completely. In the team section and event cards, some badges are so bright and low-contrast that they look disabled. Many buttons don't look clickable because their borders are so light they blend into the background.
+      </div>
+    </details>
+
+    <details>
+      <summary>Advisor 5: The Executor (Concrete Class Remapping)</summary>
+      <div class="details-content">
+        Brand emblems: Replace text-white with text-slate-900 dark:text-white. Shift circular SVG/text to text-purple-700 dark:text-[#e0aaff]. Surface Stratification: Use bg-white dark:bg-[#121215] with border border-slate-200/90 dark:border-white/10 and shadow-sm hover:shadow-md. Typographic Weight: Titles text-slate-900, body text-slate-600.
+      </div>
+    </details>
+
+    <div class="footer">
+      Symbiosis Quantum Club ✦ Antigravity LLM Council Report ✦ Apple HIG Alignment ✦ 2026
+    </div>
+  </div>
+</body>
+</html>

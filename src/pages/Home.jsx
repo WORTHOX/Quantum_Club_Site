@@ -33,7 +33,7 @@ export default function Home() {
   })
 
   return (
-    <main className="overflow-x-clip bg-[#06040a] relative">
+    <main className="overflow-x-clip bg-[#fcfcfd] dark:bg-[#06040a] text-slate-900 dark:text-white relative transition-colors duration-300">
       <QuantumDepartureBackground />
       <div className="relative z-10">
         <VideoHero />

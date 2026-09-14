@@ -1,9 +1,9 @@
 const BADGE_STYLES = {
-  violet:  'bg-purple-500/12 text-purple-300 border-purple-500/25',
-  cyan:    'bg-cyan-500/12 text-cyan-300 border-cyan-500/25',
-  magenta: 'bg-pink-500/12 text-pink-300 border-pink-500/25',
-  emerald: 'bg-emerald-500/12 text-emerald-300 border-emerald-500/25',
-  amber:   'bg-amber-500/12 text-amber-300 border-amber-500/25',
+  violet:  'bg-purple-50 dark:bg-purple-500/12 text-purple-800 dark:text-purple-300 border-purple-200/90 dark:border-purple-500/25 shadow-xs',
+  cyan:    'bg-cyan-50 dark:bg-cyan-500/12 text-cyan-800 dark:text-cyan-300 border-cyan-200/90 dark:border-cyan-500/25 shadow-xs',
+  magenta: 'bg-pink-50 dark:bg-pink-500/12 text-pink-800 dark:text-pink-300 border-pink-200/90 dark:border-pink-500/25 shadow-xs',
+  emerald: 'bg-emerald-50 dark:bg-emerald-500/12 text-emerald-800 dark:text-emerald-300 border-emerald-200/90 dark:border-emerald-500/25 shadow-xs',
+  amber:   'bg-amber-50 dark:bg-amber-500/12 text-amber-800 dark:text-amber-300 border-amber-200/90 dark:border-amber-500/25 shadow-xs',
 }
 
 const items = [
@@ -21,7 +21,7 @@ const track = [...items, ...items, ...items, ...items]
 export default function WhyQuantumMarquee() {
   return (
     <section
-      className="py-5 overflow-hidden bg-transparent border-y border-white/[0.06] relative z-10"
+      className="py-5 overflow-hidden bg-transparent border-y border-slate-200/80 dark:border-white/[0.06] relative z-10 transition-colors duration-300"
       aria-label="Quantum Club Highlights"
     >
       <div className="overflow-hidden relative flex group">
@@ -39,10 +39,10 @@ export default function WhyQuantumMarquee() {
               >
                 {item.tag}
               </span>
-              <span className="font-display text-base sm:text-lg font-semibold text-white/80 tracking-tight">
+              <span className="font-display text-base sm:text-lg font-semibold text-slate-900 dark:text-white/80 tracking-tight">
                 {item.text}
               </span>
-              <span className="text-white/15 text-sm">✦</span>
+              <span className="text-slate-400 dark:text-white/15 text-sm">✦</span>
             </div>
           ))}
         </div>

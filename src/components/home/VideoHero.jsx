@@ -120,7 +120,7 @@ export default function VideoHero() {
 
   return (
     <section
-      className="relative min-h-screen flex flex-col justify-center pt-24 pb-16 overflow-hidden bg-transparent text-white"
+      className="relative min-h-screen flex flex-col justify-center pt-24 pb-16 overflow-hidden bg-transparent text-slate-900 dark:text-white transition-colors duration-300"
       ref={heroRef}
       id="hero"
     >
@@ -130,29 +130,29 @@ export default function VideoHero() {
         <div className="col-span-12 lg:col-span-6 flex flex-col items-start min-w-0 w-full">
 
           {/* Eyebrow */}
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#0e0720]/50 backdrop-blur-md mb-6 max-w-full">
-            <span className="hero__eyebrow font-pixel text-[10px] sm:text-[11px] font-semibold tracking-widest text-purple-200 uppercase truncate">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-purple-50 dark:bg-[#0e0720]/50 border border-purple-200 dark:border-purple-500/30 backdrop-blur-md mb-6 max-w-full shadow-sm dark:shadow-none">
+            <span className="hero__eyebrow font-pixel text-[10px] sm:text-[11px] font-semibold tracking-widest text-purple-800 dark:text-purple-200 uppercase truncate">
               IBM Qiskit Fall Fest 2026
-              <span className="mx-1.5 text-purple-400/50 font-light">/</span>
+              <span className="mx-1.5 text-purple-400/60 dark:text-purple-400/50 font-light">/</span>
               Official Host
             </span>
           </div>
 
           {/* Headline */}
-          <h1 className="font-display text-[clamp(2.05rem,6.2vw,5.5rem)] font-bold leading-[0.98] tracking-tight mb-5 text-white break-words">
+          <h1 className="font-display text-[clamp(2.05rem,6.2vw,5.5rem)] font-bold leading-[0.98] tracking-tight mb-5 text-slate-900 dark:text-white break-words">
             <span className="block">
               <span className="hero__title-word inline-block">Decode</span>
             </span>
             <span className="block">
-              <span className="hero__title-word inline-block bg-gradient-to-r from-white via-slate-100 to-slate-300 bg-clip-text text-transparent">the Future</span>
+              <span className="hero__title-word inline-block bg-gradient-to-r from-slate-950 via-slate-800 to-slate-700 dark:from-white dark:via-slate-100 dark:to-slate-300 bg-clip-text text-transparent">the Future</span>
             </span>
             <span className="block">
-              <span className="hero__title-word inline-block bg-gradient-to-r from-purple-300 via-violet-200 to-cyan-300 bg-clip-text text-transparent">of Quantum</span>
+              <span className="hero__title-word inline-block bg-gradient-to-r from-purple-800 via-violet-700 to-cyan-700 dark:from-purple-300 dark:via-violet-200 dark:to-cyan-300 bg-clip-text text-transparent">of Quantum</span>
             </span>
           </h1>
 
           {/* Description — concise, readable */}
-          <p className="hero__description font-body text-base sm:text-[1.05rem] leading-[1.7] text-slate-300 max-w-[46ch] mb-8">
+          <p className="hero__description font-body text-base sm:text-[1.05rem] leading-[1.7] text-slate-700 dark:text-slate-300 font-normal max-w-[46ch] mb-8">
             Symbiosis Quantum Club is a student-led community at SIT Pune — running workshops, hackathons, and cloud quantum computing sessions with Qiskit.
           </p>
 
@@ -160,7 +160,7 @@ export default function VideoHero() {
           <div className="hero__actions flex flex-wrap items-center gap-3 sm:gap-4 w-full sm:w-auto">
             <Link
               to="/events?category=fall-fest"
-              className="inline-flex items-center gap-2.5 font-mono text-xs sm:text-sm font-bold uppercase tracking-wider px-6 py-3 rounded-full bg-gradient-to-r from-purple-600 via-violet-600 to-indigo-600 text-white shadow-[0_0_22px_rgba(168,85,247,0.3),inset_0_1px_0_rgba(255,255,255,0.2)] hover:shadow-[0_0_32px_rgba(168,85,247,0.5)] hover:-translate-y-0.5 active:scale-[0.97] transition-all duration-200 group"
+              className="inline-flex items-center gap-2.5 font-mono text-xs sm:text-sm font-bold uppercase tracking-wider px-6 py-3 rounded-full bg-gradient-to-r from-purple-600 via-violet-600 to-indigo-600 text-white shadow-md shadow-purple-500/20 hover:shadow-lg hover:shadow-purple-500/30 hover:-translate-y-0.5 active:scale-[0.97] transition-all duration-200 group"
             >
               <span>Register for Fall Fest</span>
               <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true" className="group-hover:translate-x-0.5 transition-transform duration-200">
@@ -169,7 +169,7 @@ export default function VideoHero() {
             </Link>
             <Link
               to="/events"
-              className="inline-flex items-center gap-2 font-mono text-xs sm:text-sm font-semibold uppercase tracking-wider px-6 py-3 rounded-full border border-white/15 text-slate-300 bg-white/[0.04] hover:border-purple-400/50 hover:text-white hover:bg-white/[0.07] active:scale-[0.97] transition-all duration-200"
+              className="inline-flex items-center gap-2 font-mono text-xs sm:text-sm font-semibold uppercase tracking-wider px-6 py-3 rounded-full border border-slate-300 hover:border-slate-400 dark:border-white/15 text-slate-800 dark:text-slate-300 bg-white dark:bg-white/[0.04] hover:text-purple-700 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-white/[0.07] active:scale-[0.97] transition-all duration-200 shadow-sm"
             >
               Explore Events
             </Link>
@@ -237,10 +237,10 @@ export default function VideoHero() {
             ))}
 
             {/* Little playful polaroid pin badge */}
-            <div className="absolute -bottom-3 right-2 sm:right-6 max-w-[calc(100%-1rem)] z-40 px-3 py-1.5 rounded-full bg-[#121513]/90 border border-emerald-500/40 backdrop-blur-md shadow-lg flex items-center gap-2 pointer-events-none">
-              <span className="font-mono text-[9.5px] sm:text-[10px] font-semibold text-emerald-300 tracking-wide uppercase truncate">
+            <div className="absolute -bottom-3 right-2 sm:right-6 max-w-[calc(100%-1rem)] z-40 px-3 py-1.5 rounded-full bg-white/90 dark:bg-[#121513]/90 border border-emerald-500/30 dark:border-emerald-500/40 backdrop-blur-md shadow-lg flex items-center gap-2 pointer-events-none">
+              <span className="font-mono text-[9.5px] sm:text-[10px] font-semibold text-emerald-700 dark:text-emerald-300 tracking-wide uppercase truncate">
                 SQC Team &amp; Crew
-                <span className="mx-1 text-emerald-400/40 font-light">/</span>
+                <span className="mx-1 text-emerald-600/50 dark:text-emerald-400/40 font-light">/</span>
                 SIT Pune
               </span>
             </div>

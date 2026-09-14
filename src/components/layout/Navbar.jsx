@@ -4,6 +4,7 @@ import { motion, LayoutGroup } from 'framer-motion'
 import gsap from 'gsap'
 import LogoWithCircularText from '../shared/LogoWithCircularText'
 import WhatsappIcon from '../ui/WhatsappIcon'
+import { useTheme } from '../../utils/ThemeContext'
 
 // Page-specific accent spectrums
 const PAGE_THEMES = {
@@ -33,6 +34,7 @@ const navLinks = [
 ]
 
 export default function Navbar() {
+  const { theme, isDark, toggleTheme } = useTheme()
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const location = useLocation()
@@ -100,7 +102,7 @@ export default function Navbar() {
       <header
         className={`fixed top-0 left-0 right-0 z-50 h-20 flex items-center transition-all duration-300 ${
           scrolled
-            ? 'bg-[#07040d]/90 backdrop-blur-xl border-b border-white/[0.06] shadow-[0_4px_30px_rgba(7,4,13,0.8)]'
+            ? 'bg-white/80 dark:bg-[#07040d]/90 backdrop-blur-xl border-b border-slate-200/80 dark:border-white/[0.06] shadow-sm dark:shadow-[0_4px_30px_rgba(7,4,13,0.8)]'
             : 'bg-transparent border-b border-transparent'
         }`}
         role="banner"
@@ -130,7 +132,7 @@ export default function Navbar() {
                     key={link.to}
                     to={link.to}
                     className={`relative py-1.5 font-mono text-[0.8rem] tracking-[0.16em] font-semibold uppercase transition-colors duration-200 no-underline inline-flex items-center justify-center select-none active:scale-[0.97] ${
-                      isActive ? 'text-white' : 'text-slate-400 hover:text-white'
+                      isActive ? 'text-slate-900 dark:text-white' : 'text-slate-700 dark:text-slate-400 hover:text-slate-950 dark:hover:text-white'
                     }`}
                   >
                     {/* Fluid Gliding Quantum Beam Underline — Clean, crisp line without surrounding blur shine */}
@@ -161,7 +163,7 @@ export default function Navbar() {
                 className={`relative inline-flex items-center gap-2 px-4 py-1.5 rounded-full font-mono text-[0.75rem] font-bold tracking-wider uppercase transition-all duration-300 select-none active:scale-[0.97] group overflow-hidden ${
                   isFallFestActive
                     ? 'bg-gradient-to-r from-[#FF7EB6] via-[#a78bfa] to-[#38bdf8] text-[#06040a] shadow-[0_0_24px_rgba(255,126,182,0.6)] font-extrabold'
-                    : 'bg-gradient-to-r from-[#FF7EB6]/20 via-[#a78bfa]/15 to-[#38bdf8]/15 text-white border border-[#FF7EB6]/50 hover:border-[#FF7EB6] shadow-[0_0_15px_rgba(255,126,182,0.25)] hover:shadow-[0_0_25px_rgba(255,126,182,0.45)]'
+                    : 'bg-pink-50/90 text-purple-950 border border-pink-300/80 hover:border-pink-400 shadow-xs dark:bg-gradient-to-r dark:from-[#FF7EB6]/20 dark:via-[#a78bfa]/15 dark:to-[#38bdf8]/15 dark:text-white dark:border-[#FF7EB6]/50 dark:shadow-[0_0_15px_rgba(255,126,182,0.25)]'
                 }`}
               >
                 {/* Ambient shimmer sweep */}
@@ -172,13 +174,32 @@ export default function Navbar() {
           </LayoutGroup>
 
           {/* Action Buttons — Right */}
-          <div className="flex items-center gap-3 sm:gap-4">
+          <div className="flex items-center gap-2.5 sm:gap-3.5">
+            {/* Apple-grade Tactile Theme Switcher */}
+            <button
+              type="button"
+              onClick={toggleTheme}
+              className="relative p-2 rounded-full border transition-all duration-200 grid place-items-center active:scale-[0.92] bg-white hover:bg-slate-50 dark:bg-white/[0.07] dark:hover:bg-white/[0.12] border-slate-300 dark:border-white/10 text-amber-500 dark:text-cyan-300 shadow-xs"
+              aria-label={`Switch to ${isDark ? 'light' : 'dark'} mode`}
+              title={`Switch to ${isDark ? 'light' : 'dark'} mode`}
+            >
+              {isDark ? (
+                <svg className="w-4 h-4 transition-transform duration-300 rotate-0 text-cyan-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                </svg>
+              ) : (
+                <svg className="w-4 h-4 transition-transform duration-300 rotate-90 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+              )}
+            </button>
+
             {/* WhatsApp */}
             <a
               href="https://chat.whatsapp.com/JIujrGfVOwJD9z0fhsTIIa"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-slate-400 hover:text-[#25D366] hover:-translate-y-0.5 p-1.5 transition-all duration-200 grid place-items-center active:scale-[0.95]"
+              className="text-slate-500 dark:text-slate-400 hover:text-[#25D366] hover:-translate-y-0.5 p-1.5 transition-all duration-200 grid place-items-center active:scale-[0.95]"
               aria-label="WhatsApp"
             >
               <WhatsappIcon size={20} strokeWidth={1.5} className="w-5 h-5" />
@@ -188,7 +209,7 @@ export default function Navbar() {
               href="https://github.com/Symbiosis-Quantum-Club"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-slate-400 hover:text-white hover:-translate-y-0.5 p-1.5 transition-all duration-200 grid place-items-center active:scale-[0.95]"
+              className="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:-translate-y-0.5 p-1.5 transition-all duration-200 grid place-items-center active:scale-[0.95]"
               aria-label="GitHub"
             >
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -200,7 +221,7 @@ export default function Navbar() {
               href="https://www.instagram.com/quantumclub.sit/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-slate-400 hover:text-[#e1306c] hover:-translate-y-0.5 p-1.5 transition-all duration-200 grid place-items-center active:scale-[0.95]"
+              className="text-slate-500 dark:text-slate-400 hover:text-[#e1306c] hover:-translate-y-0.5 p-1.5 transition-all duration-200 grid place-items-center active:scale-[0.95]"
               aria-label="Instagram"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
@@ -214,7 +235,7 @@ export default function Navbar() {
               href="https://www.linkedin.com/company/symbiosis-quantum-club/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-slate-400 hover:text-[#0A66C2] hover:-translate-y-0.5 p-1.5 transition-all duration-200 grid place-items-center active:scale-[0.95]"
+              className="text-slate-500 dark:text-slate-400 hover:text-[#0A66C2] hover:-translate-y-0.5 p-1.5 transition-all duration-200 grid place-items-center active:scale-[0.95]"
               aria-label="LinkedIn"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
@@ -231,9 +252,9 @@ export default function Navbar() {
               aria-label={menuOpen ? 'Close menu' : 'Open menu'}
               aria-expanded={menuOpen}
             >
-              <span className={`block w-full h-[2px] bg-white rounded-full transition-transform duration-300 ${menuOpen ? 'translate-y-[8px] rotate-45' : ''}`} />
-              <span className={`block w-full h-[2px] bg-white rounded-full transition-opacity duration-300 ${menuOpen ? 'opacity-0' : ''}`} />
-              <span className={`block w-full h-[2px] bg-white rounded-full transition-transform duration-300 ${menuOpen ? '-translate-y-[8px] -rotate-45' : ''}`} />
+              <span className={`block w-full h-[2px] bg-slate-800 dark:bg-white rounded-full transition-transform duration-300 ${menuOpen ? 'translate-y-[8px] rotate-45' : ''}`} />
+              <span className={`block w-full h-[2px] bg-slate-800 dark:bg-white rounded-full transition-opacity duration-300 ${menuOpen ? 'opacity-0' : ''}`} />
+              <span className={`block w-full h-[2px] bg-slate-800 dark:bg-white rounded-full transition-transform duration-300 ${menuOpen ? '-translate-y-[8px] -rotate-45' : ''}`} />
             </button>
           </div>
         </div>
@@ -243,7 +264,7 @@ export default function Navbar() {
       <div
         ref={overlayRef}
         style={{ display: 'none', clipPath: 'circle(0% at calc(100% - 2.5rem) 2.5rem)' }}
-        className="fixed inset-0 z-40 flex flex-col items-start justify-center gap-4 px-8 md:px-14 bg-[#07040d]/98 backdrop-blur-2xl"
+        className="fixed inset-0 z-40 flex flex-col items-start justify-center gap-4 px-8 md:px-14 bg-[#fcfcfd]/98 dark:bg-[#07040d]/98 backdrop-blur-2xl text-slate-900 dark:text-white"
       >
         <div className="absolute top-1/4 right-0 w-72 h-72 rounded-full bg-[radial-gradient(circle,rgba(168,85,247,0.15)_0%,transparent_70%)] blur-3xl pointer-events-none" />
         <div className="absolute bottom-1/4 left-0 w-56 h-56 rounded-full bg-[radial-gradient(circle,rgba(6,182,212,0.1)_0%,transparent_70%)] blur-3xl pointer-events-none" />
@@ -259,7 +280,7 @@ export default function Navbar() {
                 to={link.to}
                 onClick={() => setMenuOpen(false)}
                 className="group relative font-display text-[12vw] sm:text-[9vw] leading-tight font-bold no-underline transition-colors duration-200 active:scale-[0.97]"
-                style={{ color: isActive ? theme.accentColor : 'rgba(239,231,214,0.8)' }}
+                style={{ color: isActive ? theme.accentColor : isDark ? 'rgba(239,231,214,0.8)' : '#334155' }}
               >
                 <span className="relative">
                   {link.label}
@@ -291,15 +312,26 @@ export default function Navbar() {
           ref={(el) => (mobileItemsRef.current[navLinks.length] = el)}
           className="mt-6 flex flex-col gap-4 w-full max-w-xs"
         >
+          {/* Mobile Theme Toggle Button */}
+          <button
+            type="button"
+            onClick={toggleTheme}
+            className="flex items-center justify-between w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-100 dark:bg-white/[0.06] text-xs font-mono tracking-wider uppercase font-semibold text-slate-800 dark:text-white active:scale-[0.98] transition-all"
+          >
+            <span>Appearance</span>
+            <span className="inline-flex items-center gap-1.5 text-amber-500 dark:text-cyan-300">
+              {isDark ? '🌙 Dark Mode' : '☀️ Light Mode'}
+            </span>
+          </button>
 
           <div className="flex items-center gap-4 pt-1 flex-wrap">
-            <a href="https://chat.whatsapp.com/JIujrGfVOwJD9z0fhsTIIa" target="_blank" rel="noopener noreferrer" className="text-white/50 hover:text-[#25D366] transition-colors font-mono text-[10px] tracking-widest uppercase">WhatsApp</a>
-            <span className="text-white/20">·</span>
-            <a href="https://github.com/Symbiosis-Quantum-Club" target="_blank" rel="noopener noreferrer" className="text-white/50 hover:text-white transition-colors font-mono text-[10px] tracking-widest uppercase">GitHub</a>
-            <span className="text-white/20">·</span>
-            <a href="https://www.instagram.com/quantumclub.sit/" target="_blank" rel="noopener noreferrer" className="text-white/50 hover:text-[#e1306c] transition-colors font-mono text-[10px] tracking-widest uppercase">Instagram</a>
-            <span className="text-white/20">·</span>
-            <a href="https://www.linkedin.com/company/symbiosis-quantum-club/" target="_blank" rel="noopener noreferrer" className="text-white/50 hover:text-[#0A66C2] transition-colors font-mono text-[10px] tracking-widest uppercase">LinkedIn</a>
+            <a href="https://chat.whatsapp.com/JIujrGfVOwJD9z0fhsTIIa" target="_blank" rel="noopener noreferrer" className="text-slate-500 dark:text-white/50 hover:text-[#25D366] transition-colors font-mono text-[10px] tracking-widest uppercase">WhatsApp</a>
+            <span className="text-slate-400 dark:text-white/20">·</span>
+            <a href="https://github.com/Symbiosis-Quantum-Club" target="_blank" rel="noopener noreferrer" className="text-slate-500 dark:text-white/50 hover:text-slate-900 dark:hover:text-white transition-colors font-mono text-[10px] tracking-widest uppercase">GitHub</a>
+            <span className="text-slate-400 dark:text-white/20">·</span>
+            <a href="https://www.instagram.com/quantumclub.sit/" target="_blank" rel="noopener noreferrer" className="text-slate-500 dark:text-white/50 hover:text-[#e1306c] transition-colors font-mono text-[10px] tracking-widest uppercase">Instagram</a>
+            <span className="text-slate-400 dark:text-white/20">·</span>
+            <a href="https://www.linkedin.com/company/symbiosis-quantum-club/" target="_blank" rel="noopener noreferrer" className="text-slate-500 dark:text-white/50 hover:text-[#0A66C2] transition-colors font-mono text-[10px] tracking-widest uppercase">LinkedIn</a>
           </div>
         </div>
       </div>

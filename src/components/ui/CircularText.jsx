@@ -32,7 +32,7 @@ export default function CircularText({
           return (
             <span
               key={i}
-              className="absolute top-1/2 left-1/2 origin-[0_0] font-display font-bold uppercase text-[#e0aaff] whitespace-pre pointer-events-none leading-none [text-shadow:0_0_8px_rgba(168,85,247,0.95),0_0_16px_rgba(236,72,153,0.7)]"
+              className="absolute top-1/2 left-1/2 origin-[0_0] font-display font-bold uppercase text-purple-700 dark:text-[#e0aaff] whitespace-pre pointer-events-none leading-none [text-shadow:none] dark:[text-shadow:0_0_8px_rgba(168,85,247,0.95),0_0_16px_rgba(236,72,153,0.7)]"
               style={{
                 transform: `rotate(${rotationAngle}deg) translateY(-${radius}px) translate(-50%, -50%)`,
                 fontSize: fontSize,

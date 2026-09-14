@@ -38,7 +38,7 @@ function GroupLinkedinWatermark({ group = 'core', index = 0 }) {
           <div className="absolute inset-4 rounded-full bg-gradient-to-br from-amber-600/20 via-yellow-700/10 to-transparent blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
           {/* Brown Golden Emblem */}
-          <LinkedinIcon className="w-full h-full text-amber-600/[0.08] group-hover:text-amber-400/35 group-hover:drop-shadow-[0_0_20px_rgba(217,119,6,0.4)] transition-all duration-500" />
+          <LinkedinIcon className="w-full h-full text-amber-700/[0.08] dark:text-amber-600/[0.08] group-hover:text-amber-600/35 dark:group-hover:text-amber-400/35 group-hover:drop-shadow-[0_0_20px_rgba(217,119,6,0.3)] transition-all duration-500" />
         </div>
       )
 
@@ -53,7 +53,7 @@ function GroupLinkedinWatermark({ group = 'core', index = 0 }) {
           }}
           aria-hidden="true"
         >
-          <LinkedinIcon className="w-full h-full text-white/[0.04] group-hover:text-[#0a66c2]/25 transition-colors duration-500" />
+          <LinkedinIcon className="w-full h-full text-slate-900/[0.04] dark:text-white/[0.04] group-hover:text-[#0a66c2]/30 dark:group-hover:text-[#0a66c2]/25 transition-colors duration-500" />
         </div>
       )
 
@@ -69,10 +69,10 @@ function GroupLinkedinWatermark({ group = 'core', index = 0 }) {
           aria-hidden="true"
         >
           {/* Ambient Silver / White-Grey Glow Orb */}
-          <div className="absolute inset-4 rounded-full bg-gradient-to-br from-slate-200/20 via-slate-400/10 to-transparent blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+          <div className="absolute inset-4 rounded-full bg-gradient-to-br from-slate-400/15 via-slate-500/10 to-transparent dark:from-slate-200/20 dark:via-slate-400/10 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
           
-          {/* Subtle text-white/[0.04] default -> Silverish White Grey shine on hover */}
-          <LinkedinIcon className="w-full h-full text-white/[0.04] group-hover:text-slate-200/40 group-hover:drop-shadow-[0_0_22px_rgba(241,245,249,0.45)] transition-all duration-500" />
+          {/* Subtle watermark emblem */}
+          <LinkedinIcon className="w-full h-full text-slate-900/[0.04] dark:text-white/[0.04] group-hover:text-slate-500/40 dark:group-hover:text-slate-200/40 group-hover:drop-shadow-[0_0_22px_rgba(100,116,139,0.3)] dark:group-hover:drop-shadow-[0_0_22px_rgba(241,245,249,0.45)] transition-all duration-500" />
         </div>
       )
 
@@ -91,7 +91,7 @@ function GroupLinkedinWatermark({ group = 'core', index = 0 }) {
           <div className="absolute inset-3 rounded-full bg-gradient-to-br from-indigo-500/15 via-violet-500/10 to-transparent blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
           {/* Soft Shining Emblem on hover (50% toned down) */}
-          <LinkedinIcon className="w-full h-full text-indigo-400/[0.08] group-hover:text-indigo-300/25 group-hover:drop-shadow-[0_0_12px_rgba(129,140,248,0.3)] transition-all duration-500" />
+          <LinkedinIcon className="w-full h-full text-indigo-600/[0.08] dark:text-indigo-400/[0.08] group-hover:text-indigo-600/30 dark:group-hover:text-indigo-300/25 group-hover:drop-shadow-[0_0_12px_rgba(99,102,241,0.25)] dark:group-hover:drop-shadow-[0_0_12px_rgba(129,140,248,0.3)] transition-all duration-500" />
         </div>
       )
 
@@ -111,7 +111,7 @@ function GroupLinkedinWatermark({ group = 'core', index = 0 }) {
           <div className="absolute inset-3 rounded-full bg-gradient-to-br from-emerald-500/20 via-teal-500/10 to-transparent blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
           {/* Emerald Quantum Watermark Emblem */}
-          <LinkedinIcon className="w-full h-full text-white/[0.04] group-hover:text-emerald-300/35 group-hover:drop-shadow-[0_0_16px_rgba(52,211,153,0.35)] transition-all duration-500" />
+          <LinkedinIcon className="w-full h-full text-emerald-800/[0.06] dark:text-white/[0.04] group-hover:text-emerald-600/35 dark:group-hover:text-emerald-300/35 group-hover:drop-shadow-[0_0_16px_rgba(16,185,129,0.25)] dark:group-hover:drop-shadow-[0_0_16px_rgba(52,211,153,0.35)] transition-all duration-500" />
         </div>
       )
   }
@@ -216,15 +216,15 @@ function EvasiveCard({ number, label, badge, index = 0 }) {
       >
         <div className="relative z-10 flex flex-col justify-between h-full min-h-[75px]">
           <div>
-            <span className="block font-display text-2xl sm:text-3xl font-extrabold text-white tracking-tight group-hover:text-cyan-300 transition-colors leading-none drop-shadow-[0_0_25px_rgba(6,182,212,0.4)]">
+            <span className="block font-display text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight group-hover:text-cyan-600 dark:group-hover:text-cyan-300 transition-colors leading-none drop-shadow-[0_0_25px_rgba(6,182,212,0.15)] dark:drop-shadow-[0_0_25px_rgba(6,182,212,0.4)]">
               {number}
             </span>
-            <span className="block font-mono text-xs text-cyan-400 font-semibold tracking-wider uppercase mt-1.5 drop-shadow-[0_0_12px_rgba(6,182,212,0.3)]">
+            <span className="block font-mono text-xs text-cyan-600 dark:text-cyan-400 font-semibold tracking-wider uppercase mt-1.5 drop-shadow-[0_0_12px_rgba(6,182,212,0.2)] dark:drop-shadow-[0_0_12px_rgba(6,182,212,0.3)]">
               {label}
             </span>
           </div>
           {badge && (
-            <span className="block font-mono text-[10px] text-gray-400/90 tracking-wide mt-1.5">
+            <span className="block font-mono text-[10px] text-slate-500 dark:text-gray-400/90 tracking-wide mt-1.5">
               {badge}
             </span>
           )}
@@ -259,13 +259,13 @@ export default function Team() {
   }, [])
 
   return (
-    <main className="min-h-screen bg-[#050507] text-white selection:bg-cyan-500/30" id="main-content">
+    <main className="min-h-screen bg-[#fcfcfd] dark:bg-[#050507] text-slate-900 dark:text-white selection:bg-cyan-500/30" id="main-content">
 
       {/* ── Team Hero (Elevated Header Section) ── */}
-      <section className="relative flex flex-col justify-start pt-24 sm:pt-28 md:pt-32 pb-12 sm:pb-16 overflow-hidden bg-[#050507] text-white">
+      <section className="relative flex flex-col justify-start pt-24 sm:pt-28 md:pt-32 pb-12 sm:pb-16 overflow-hidden bg-slate-50/50 dark:bg-[#050507] text-slate-900 dark:text-white border-b border-slate-200/80 dark:border-white/5">
         {/* Background Visual Layer: Quantum Circuit SVG & Radial Ambient Light */}
         <div className="absolute inset-0 pointer-events-none z-0">
-          <svg className="w-full h-full object-cover opacity-25" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <svg className="w-full h-full object-cover opacity-25 dark:opacity-25 opacity-15" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
             {/* Horizontal Grid lines */}
             {[...Array(7)].map((_, i) => (
               <line
@@ -306,8 +306,8 @@ export default function Team() {
           </svg>
 
           {/* Cyan Ambient Glow Orb */}
-          <div className="absolute top-1/4 left-1/4 w-[60vw] h-[60vw] max-w-[700px] max-h-[700px] bg-cyan-500/15 blur-[120px] rounded-full" />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#050507]/40 via-[#050507]/80 to-[#050507]" />
+          <div className="absolute top-1/4 left-1/4 w-[60vw] h-[60vw] max-w-[700px] max-h-[700px] bg-cyan-500/10 dark:bg-cyan-500/15 blur-[120px] rounded-full" />
+          <div className="absolute inset-0 bg-gradient-to-b from-white/40 via-white/80 to-[#fcfcfd] dark:from-[#050507]/40 dark:via-[#050507]/80 dark:to-[#050507]" />
         </div>
 
         {/* Hero Content — 2 Column Layout (Left Text, Right Floating Evasive Cards Grid) */}
@@ -318,24 +318,24 @@ export default function Team() {
             <div className="lg:col-span-7 flex flex-col items-start">
               {/* Header Lockup: Divider + Monospace Eyebrow */}
               <div className="flex items-center gap-4 mb-5">
-                <span className="font-mono text-xs sm:text-sm font-semibold tracking-widest text-cyan-400 uppercase">
+                <span className="font-mono text-xs sm:text-sm font-semibold tracking-widest text-cyan-600 dark:text-cyan-400 uppercase">
                   SYMBIOSIS QUANTUM CLUB ✦ TEAM DIRECTORY 2026
                 </span>
               </div>
 
               {/* Title Row Lockup */}
-              <h1 className="font-display text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-white mb-6 leading-[1.05]">
+              <h1 className="font-display text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-slate-900 dark:text-white mb-6 leading-[1.05]">
                 <span className="block">Architecting The</span>
                 <span className="block">
                   Future Of{' '}
-                  <span className="bg-gradient-to-r from-cyan-400 via-sky-300 to-blue-400 bg-clip-text text-transparent drop-shadow-[0_0_35px_rgba(6,182,212,0.35)]">
+                  <span className="bg-gradient-to-r from-cyan-600 via-sky-600 to-blue-600 dark:from-cyan-400 dark:via-sky-300 dark:to-blue-400 bg-clip-text text-transparent drop-shadow-[0_0_35px_rgba(6,182,212,0.2)] dark:drop-shadow-[0_0_35px_rgba(6,182,212,0.35)]">
                     Quantum Leadership
                   </span>
                 </span>
               </h1>
 
               {/* Description */}
-              <p className="font-body text-base sm:text-lg text-gray-300 max-w-xl leading-relaxed mb-8">
+              <p className="font-body text-base sm:text-lg text-slate-600 dark:text-gray-300 max-w-xl leading-relaxed mb-8">
                 Meet the faculty mentors, advisors, core officers, and department heads driving research, events, technical development, and community building at Symbiosis Quantum Club.
               </p>
 
@@ -343,7 +343,7 @@ export default function Team() {
               <div className="flex flex-wrap items-center gap-2.5">
                 <a
                   href="#faculty"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-cyan-500 hover:bg-cyan-400 text-black font-display font-semibold text-xs sm:text-sm transition-all duration-200 hover:shadow-[0_0_20px_rgba(6,182,212,0.4)]"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-cyan-600 hover:bg-cyan-500 dark:bg-cyan-500 dark:hover:bg-cyan-400 text-white dark:text-black font-display font-semibold text-xs sm:text-sm transition-all duration-200 hover:shadow-[0_0_20px_rgba(6,182,212,0.4)]"
                 >
                   <span>FACULTY ADVISOR</span>
                   <svg width="12" height="12" viewBox="0 0 16 16" fill="none">
@@ -352,25 +352,25 @@ export default function Team() {
                 </a>
                 <a
                   href="#advisors"
-                  className="px-4 py-2.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-white font-mono text-xs sm:text-sm transition-all duration-200"
+                  className="px-4 py-2.5 rounded-full bg-slate-100 hover:bg-slate-200 dark:bg-white/5 dark:hover:bg-white/10 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-white font-mono text-xs sm:text-sm transition-all duration-200 shadow-sm dark:shadow-none"
                 >
                   ADVISORY COUNCIL
                 </a>
                 <a
                   href="#core"
-                  className="px-4 py-2.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-white font-mono text-xs sm:text-sm transition-all duration-200"
+                  className="px-4 py-2.5 rounded-full bg-slate-100 hover:bg-slate-200 dark:bg-white/5 dark:hover:bg-white/10 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-white font-mono text-xs sm:text-sm transition-all duration-200 shadow-sm dark:shadow-none"
                 >
                   EXECUTIVE BOARD
                 </a>
                 <a
                   href="#heads"
-                  className="px-4 py-2.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-white font-mono text-xs sm:text-sm transition-all duration-200"
+                  className="px-4 py-2.5 rounded-full bg-slate-100 hover:bg-slate-200 dark:bg-white/5 dark:hover:bg-white/10 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-white font-mono text-xs sm:text-sm transition-all duration-200 shadow-sm dark:shadow-none"
                 >
                   DEPT HEADS
                 </a>
                 <a
                   href="#coheads"
-                  className="px-4 py-2.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-white font-mono text-xs sm:text-sm transition-all duration-200"
+                  className="px-4 py-2.5 rounded-full bg-slate-100 hover:bg-slate-200 dark:bg-white/5 dark:hover:bg-white/10 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-white font-mono text-xs sm:text-sm transition-all duration-200 shadow-sm dark:shadow-none"
                 >
                   CO-LEADERSHIP
                 </a>
@@ -411,24 +411,24 @@ export default function Team() {
         </div>
 
         {/* Progressive Blur Layer at Bottom */}
-        <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-[#09090b] to-transparent pointer-events-none z-20" aria-hidden="true" />
+        <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-slate-100/60 dark:from-[#09090b] to-transparent pointer-events-none z-20" aria-hidden="true" />
       </section>
 
       {/* 1. Faculty Coordinator (Style 1: Balanced background shade watermark) */}
-      <section id="faculty" className="py-14 sm:py-20 px-4 sm:px-6 lg:px-8 bg-[#09090b]" aria-labelledby="faculty-heading">
+      <section id="faculty" className="py-14 sm:py-20 px-4 sm:px-6 lg:px-8 bg-slate-50/70 dark:bg-[#09090b] border-b border-slate-200/80 dark:border-white/5" aria-labelledby="faculty-heading">
         <div className="max-w-7xl mx-auto">
           <div className="mb-10 text-center">
-            <span className="block font-mono text-xs uppercase tracking-[0.15em] text-cyan-400 mb-2 font-medium">FACULTY MENTOR</span>
-            <h2 id="faculty-heading" className="font-display text-2xl sm:text-3xl font-bold text-white tracking-tight leading-tight">Faculty Coordinator</h2>
+            <span className="block font-mono text-xs uppercase tracking-[0.15em] text-cyan-700 dark:text-cyan-400 mb-2 font-medium">FACULTY MENTOR</span>
+            <h2 id="faculty-heading" className="font-display text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white tracking-tight leading-tight">Faculty Coordinator</h2>
           </div>
           <div className="grid grid-cols-1 gap-6 max-w-3xl mx-auto">
             {teamData.faculty.map((member, idx) => {
               const linkedinUrl = getLinkedinUrl(member.linkedin, member.name)
               return (
-                <div key={member.name} className="group relative flex flex-col sm:flex-row bg-[#121215] border border-white/10 rounded-xl overflow-hidden transition-all duration-300 hover:border-cyan-500/50 hover:shadow-[0_0_30px_rgba(6,182,212,0.15),0_12px_25px_rgba(0,0,0,0.4)] min-h-[280px]">
+                <div key={member.name} className="group relative flex flex-col sm:flex-row bg-white dark:bg-[#121215] border border-slate-200/90 dark:border-white/10 rounded-xl overflow-hidden shadow-sm dark:shadow-none transition-all duration-300 hover:border-cyan-500/50 hover:shadow-[0_10px_25px_rgba(6,182,212,0.1),0_4px_12px_rgba(0,0,0,0.05)] dark:hover:shadow-[0_0_30px_rgba(6,182,212,0.15),0_12px_25px_rgba(0,0,0,0.4)] min-h-[280px]">
                   
                   {/* Expanded, Prominent Photo Container */}
-                  <div className="relative w-full sm:w-80 md:w-96 sm:shrink-0 aspect-[4/3] sm:aspect-auto overflow-hidden bg-[#050507]">
+                  <div className="relative w-full sm:w-80 md:w-96 sm:shrink-0 aspect-[4/3] sm:aspect-auto overflow-hidden bg-slate-100 dark:bg-[#050507]">
                     {member.image ? (
                       <img
                         src={encodeURI(member.image)}
@@ -437,23 +437,23 @@ export default function Team() {
                         className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
                       />
                     ) : (
-                      <div className="w-full h-full min-h-[200px] flex flex-col items-center justify-center bg-[repeating-linear-gradient(45deg,transparent,transparent_12px,rgba(255,255,255,0.02)_12px,rgba(255,255,255,0.02)_24px)] text-gray-500 font-mono text-xs">
+                      <div className="w-full h-full min-h-[200px] flex flex-col items-center justify-center bg-[repeating-linear-gradient(45deg,transparent,transparent_12px,rgba(0,0,0,0.02)_12px,rgba(0,0,0,0.02)_24px)] dark:bg-[repeating-linear-gradient(45deg,transparent,transparent_12px,rgba(255,255,255,0.02)_12px,rgba(255,255,255,0.02)_24px)] text-slate-400 dark:text-gray-500 font-mono text-xs">
                         Photo Pending
                       </div>
                     )}
-                    <div className="absolute inset-0 bg-gradient-to-t sm:bg-gradient-to-r from-[#121215] via-transparent to-transparent pointer-events-none" aria-hidden="true" />
+                    <div className="absolute inset-0 bg-gradient-to-t sm:bg-gradient-to-r from-white via-transparent to-transparent dark:from-[#121215] pointer-events-none" aria-hidden="true" />
                   </div>
 
                   {/* Refined, Balanced Text Container */}
                   <div className="p-6 sm:p-8 flex-1 flex flex-col justify-center relative overflow-hidden">
                     <div className="relative z-10">
-                      <span className="block font-mono text-xs uppercase tracking-[0.12em] text-cyan-400 mb-1.5 font-medium">{member.role}</span>
-                      <h3 className="font-display text-lg sm:text-xl font-bold text-white tracking-tight mb-2.5">
-                        <a href={linkedinUrl} target="_blank" rel="noopener noreferrer" className="hover:text-cyan-400 transition-colors inline-flex items-center gap-2">
+                      <span className="block font-mono text-xs uppercase tracking-[0.12em] text-cyan-700 dark:text-cyan-400 mb-1.5 font-medium">{member.role}</span>
+                      <h3 className="font-display text-lg sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight mb-2.5">
+                        <a href={linkedinUrl} target="_blank" rel="noopener noreferrer" className="hover:text-cyan-700 dark:hover:text-cyan-400 transition-colors inline-flex items-center gap-2">
                           {member.name}
                         </a>
                       </h3>
-                      <p className="font-body text-sm text-gray-300 leading-relaxed">{member.bio}</p>
+                      <p className="font-body text-sm text-slate-600 dark:text-gray-300 leading-relaxed">{member.bio}</p>
                     </div>
 
                     {/* Group Style 1: Faculty Coordinator Signature Watermark */}
@@ -467,19 +467,19 @@ export default function Team() {
       </section>
 
       {/* 2. Advisors (Style 2: Balanced background shade watermark) */}
-      <section id="advisors" className="py-14 sm:py-20 px-4 sm:px-6 lg:px-8 bg-[#050507]" aria-labelledby="advisors-heading">
+      <section id="advisors" className="py-14 sm:py-20 px-4 sm:px-6 lg:px-8 bg-white dark:bg-[#050507] border-b border-slate-200/80 dark:border-white/5" aria-labelledby="advisors-heading">
         <div className="max-w-7xl mx-auto">
           <div className="mb-10 text-center">
-            <span className="block font-mono text-xs uppercase tracking-[0.15em] text-cyan-400 mb-2 font-medium">ADVISORY COUNCIL</span>
-            <h2 id="advisors-heading" className="font-display text-2xl sm:text-3xl font-bold text-white tracking-tight leading-tight">Advisors</h2>
+            <span className="block font-mono text-xs uppercase tracking-[0.15em] text-cyan-700 dark:text-cyan-400 mb-2 font-medium">ADVISORY COUNCIL</span>
+            <h2 id="advisors-heading" className="font-display text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white tracking-tight leading-tight">Advisors</h2>
           </div>
           <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
             {teamData.advisors.map((advisor, idx) => {
               const linkedinUrl = getLinkedinUrl(advisor.linkedin, advisor.name)
               return (
-                <div key={advisor.name} className="group relative flex flex-col bg-[#121215] border border-white/10 rounded-xl overflow-hidden transition-all duration-300 hover:border-cyan-500/40 hover:-translate-y-1 hover:shadow-[0_12px_30px_rgba(6,182,212,0.15)]">
+                <div key={advisor.name} className="group relative flex flex-col bg-white dark:bg-[#121215] border border-slate-200/90 dark:border-white/10 rounded-xl overflow-hidden shadow-sm dark:shadow-none transition-all duration-300 hover:border-cyan-500/40 hover:-translate-y-1 hover:shadow-[0_8px_20px_rgba(6,182,212,0.1)] dark:hover:shadow-[0_12px_30px_rgba(6,182,212,0.15)]">
                   
-                  <div className="relative aspect-[3/4] overflow-hidden bg-[#050507]">
+                  <div className="relative aspect-[3/4] overflow-hidden bg-slate-100 dark:bg-[#050507]">
                     {advisor.image ? (
                       <img
                         src={encodeURI(advisor.image)}
@@ -488,7 +488,7 @@ export default function Team() {
                         className="w-full h-full object-cover object-top filter grayscale-[15%] transition-all duration-700 ease-out group-hover:scale-105 group-hover:grayscale-0"
                       />
                     ) : (
-                      <div className="w-full h-full flex flex-col items-center justify-center bg-[repeating-linear-gradient(45deg,transparent,transparent_12px,rgba(255,255,255,0.02)_12px,rgba(255,255,255,0.02)_24px)] text-gray-500 font-mono text-xs">
+                      <div className="w-full h-full flex flex-col items-center justify-center bg-[repeating-linear-gradient(45deg,transparent,transparent_12px,rgba(0,0,0,0.02)_12px,rgba(0,0,0,0.02)_24px)] dark:bg-[repeating-linear-gradient(45deg,transparent,transparent_12px,rgba(255,255,255,0.02)_12px,rgba(255,255,255,0.02)_24px)] text-slate-400 dark:text-gray-500 font-mono text-xs">
                         Photo Pending
                       </div>
                     )}
@@ -497,14 +497,14 @@ export default function Team() {
 
                   <div className="p-4 sm:p-5 flex-1 flex flex-col justify-center relative overflow-hidden">
                     <div className="relative z-10">
-                      <span className="block font-mono text-xs uppercase tracking-wider text-cyan-400/90 mb-1 font-medium">{advisor.role}</span>
-                      <h3 className="font-display text-base sm:text-lg font-semibold text-white tracking-tight mb-1">
-                        <a href={linkedinUrl} target="_blank" rel="noopener noreferrer" className="hover:text-cyan-400 transition-colors">
+                      <span className="block font-mono text-xs uppercase tracking-wider text-cyan-700 dark:text-cyan-400/90 mb-1 font-medium">{advisor.role}</span>
+                      <h3 className="font-display text-base sm:text-lg font-semibold text-slate-900 dark:text-white tracking-tight mb-1">
+                        <a href={linkedinUrl} target="_blank" rel="noopener noreferrer" className="hover:text-cyan-700 dark:hover:text-cyan-400 transition-colors">
                           {advisor.name}
                         </a>
                       </h3>
                       {advisor.bio && (
-                        <p className="font-body text-xs text-gray-400 leading-relaxed">{advisor.bio}</p>
+                        <p className="font-body text-xs text-slate-600 dark:text-gray-400 leading-relaxed">{advisor.bio}</p>
                       )}
                     </div>
 
@@ -519,19 +519,19 @@ export default function Team() {
       </section>
 
       {/* 3. Executive Board / Core Leadership (Style 3: Balanced Cyan Glow Emblem on hover) */}
-      <section id="core" className="py-14 sm:py-20 px-4 sm:px-6 lg:px-8 bg-[#09090b]" aria-labelledby="core-heading">
+      <section id="core" className="py-14 sm:py-20 px-4 sm:px-6 lg:px-8 bg-slate-50/70 dark:bg-[#09090b] border-b border-slate-200/80 dark:border-white/5" aria-labelledby="core-heading">
         <div className="max-w-7xl mx-auto">
           <div className="mb-10 text-center">
-            <span className="block font-mono text-xs uppercase tracking-[0.15em] text-cyan-400 mb-2 font-medium">EXECUTIVE BOARD</span>
-            <h2 id="core-heading" className="font-display text-2xl sm:text-3xl font-bold text-white tracking-tight leading-tight">Core Leadership</h2>
+            <span className="block font-mono text-xs uppercase tracking-[0.15em] text-cyan-700 dark:text-cyan-400 mb-2 font-medium">EXECUTIVE BOARD</span>
+            <h2 id="core-heading" className="font-display text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white tracking-tight leading-tight">Core Leadership</h2>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 max-w-3xl mx-auto">
             {teamData.core.map((member, idx) => {
               const linkedinUrl = getLinkedinUrl(member.linkedin, member.name)
               return (
-                <div key={member.name} className="group relative flex flex-col bg-[#121215] border border-white/10 rounded-xl overflow-hidden transition-all duration-300 hover:border-cyan-500/50 hover:shadow-[0_0_30px_rgba(6,182,212,0.15),0_12px_25px_rgba(0,0,0,0.4)]">
+                <div key={member.name} className="group relative flex flex-col bg-white dark:bg-[#121215] border border-slate-200/90 dark:border-white/10 rounded-xl overflow-hidden shadow-sm dark:shadow-none transition-all duration-300 hover:border-cyan-500/50 hover:shadow-[0_10px_25px_rgba(6,182,212,0.1),0_4px_12px_rgba(0,0,0,0.05)] dark:hover:shadow-[0_0_30px_rgba(6,182,212,0.15),0_12px_25px_rgba(0,0,0,0.4)]">
                   
-                  <div className="relative aspect-[4/5] overflow-hidden bg-[#050507]">
+                  <div className="relative aspect-[4/5] overflow-hidden bg-slate-100 dark:bg-[#050507]">
                     {member.image ? (
                       <img
                         src={encodeURI(member.image)}
@@ -540,22 +540,22 @@ export default function Team() {
                         className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
                       />
                     ) : (
-                      <div className="w-full h-full flex flex-col items-center justify-center bg-[repeating-linear-gradient(45deg,transparent,transparent_12px,rgba(255,255,255,0.02)_12px,rgba(255,255,255,0.02)_24px)] text-gray-500 font-mono text-xs">
+                      <div className="w-full h-full flex flex-col items-center justify-center bg-[repeating-linear-gradient(45deg,transparent,transparent_12px,rgba(0,0,0,0.02)_12px,rgba(0,0,0,0.02)_24px)] dark:bg-[repeating-linear-gradient(45deg,transparent,transparent_12px,rgba(255,255,255,0.02)_12px,rgba(255,255,255,0.02)_24px)] text-slate-400 dark:text-gray-500 font-mono text-xs">
                         Photo Pending
                       </div>
                     )}
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#121215] via-transparent to-transparent pointer-events-none" aria-hidden="true" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent dark:from-[#121215] pointer-events-none" aria-hidden="true" />
                   </div>
 
                   <div className="p-5 sm:p-6 flex-1 flex flex-col justify-between relative overflow-hidden">
                     <div className="relative z-10">
-                      <span className="block font-mono text-xs uppercase tracking-[0.12em] text-cyan-400 mb-1.5 font-medium">{member.role}</span>
-                      <h3 className="font-display text-lg sm:text-xl font-semibold text-white tracking-tight mb-2">
-                        <a href={linkedinUrl} target="_blank" rel="noopener noreferrer" className="hover:text-cyan-400 transition-colors">
+                      <span className="block font-mono text-xs uppercase tracking-[0.12em] text-cyan-700 dark:text-cyan-400 mb-1.5 font-medium">{member.role}</span>
+                      <h3 className="font-display text-lg sm:text-xl font-semibold text-slate-900 dark:text-white tracking-tight mb-2">
+                        <a href={linkedinUrl} target="_blank" rel="noopener noreferrer" className="hover:text-cyan-700 dark:hover:text-cyan-400 transition-colors">
                           {member.name}
                         </a>
                       </h3>
-                      <p className="font-body text-xs sm:text-sm text-gray-400 leading-relaxed">{member.bio}</p>
+                      <p className="font-body text-xs sm:text-sm text-slate-600 dark:text-gray-400 leading-relaxed">{member.bio}</p>
                     </div>
 
                     {/* Group Style 3: Core Officers Signature Watermark */}
@@ -569,19 +569,19 @@ export default function Team() {
       </section>
 
       {/* 4. Department Heads (Style 4: Balanced Duotone Indigo Silhouette) */}
-      <section id="heads" className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-[#050507]" aria-labelledby="heads-heading">
+      <section id="heads" className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-white dark:bg-[#050507] border-b border-slate-200/80 dark:border-white/5" aria-labelledby="heads-heading">
         <div className="max-w-7xl mx-auto">
           <div className="mb-12 text-center">
-            <span className="block font-mono text-xs uppercase tracking-[0.15em] text-cyan-400 mb-2 font-medium">DEPARTMENT LEADERSHIP</span>
-            <h2 id="heads-heading" className="font-display text-3xl sm:text-4xl font-bold text-white tracking-tight leading-tight">Department Heads</h2>
+            <span className="block font-mono text-xs uppercase tracking-[0.15em] text-cyan-700 dark:text-cyan-400 mb-2 font-medium">DEPARTMENT LEADERSHIP</span>
+            <h2 id="heads-heading" className="font-display text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white tracking-tight leading-tight">Department Heads</h2>
           </div>
           <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             {teamData.heads.map((head, idx) => {
               const linkedinUrl = getLinkedinUrl(head.linkedin, head.name)
               return (
-                <div key={head.name} className="group relative flex flex-col bg-[#121215] border border-white/10 rounded-xl overflow-hidden transition-all duration-300 hover:border-cyan-500/40 hover:-translate-y-1 hover:shadow-[0_12px_30px_rgba(6,182,212,0.15)]">
+                <div key={head.name} className="group relative flex flex-col bg-white dark:bg-[#121215] border border-slate-200/90 dark:border-white/10 rounded-xl overflow-hidden shadow-sm dark:shadow-none transition-all duration-300 hover:border-cyan-500/40 hover:-translate-y-1 hover:shadow-[0_8px_20px_rgba(6,182,212,0.1)] dark:hover:shadow-[0_12px_30px_rgba(6,182,212,0.15)]">
                   
-                  <div className="relative aspect-[3/4] overflow-hidden bg-[#050507]">
+                  <div className="relative aspect-[3/4] overflow-hidden bg-slate-100 dark:bg-[#050507]">
                     {head.image ? (
                       <img
                         src={encodeURI(head.image)}
@@ -590,7 +590,7 @@ export default function Team() {
                         className="w-full h-full object-cover object-top filter grayscale-[15%] transition-all duration-700 ease-out group-hover:scale-105 group-hover:grayscale-0"
                       />
                     ) : (
-                      <div className="w-full h-full flex flex-col items-center justify-center bg-[repeating-linear-gradient(45deg,transparent,transparent_12px,rgba(255,255,255,0.02)_12px,rgba(255,255,255,0.02)_24px)] text-gray-500 font-mono text-xs">
+                      <div className="w-full h-full flex flex-col items-center justify-center bg-[repeating-linear-gradient(45deg,transparent,transparent_12px,rgba(0,0,0,0.02)_12px,rgba(0,0,0,0.02)_24px)] dark:bg-[repeating-linear-gradient(45deg,transparent,transparent_12px,rgba(255,255,255,0.02)_12px,rgba(255,255,255,0.02)_24px)] text-slate-400 dark:text-gray-500 font-mono text-xs">
                         Photo Pending
                       </div>
                     )}
@@ -599,13 +599,13 @@ export default function Team() {
 
                   <div className="p-5 flex-1 flex flex-col justify-center relative overflow-hidden">
                     <div className="relative z-10">
-                      <span className="block font-mono text-xs uppercase tracking-wider text-cyan-400/90 mb-1 font-medium">{head.department}</span>
-                      <h3 className="font-display text-lg font-semibold text-white tracking-tight mb-1">
-                        <a href={linkedinUrl} target="_blank" rel="noopener noreferrer" className="hover:text-cyan-400 transition-colors">
+                      <span className="block font-mono text-xs uppercase tracking-wider text-cyan-700 dark:text-cyan-400/90 mb-1 font-medium">{head.department}</span>
+                      <h3 className="font-display text-lg font-semibold text-slate-900 dark:text-white tracking-tight mb-1">
+                        <a href={linkedinUrl} target="_blank" rel="noopener noreferrer" className="hover:text-cyan-700 dark:hover:text-cyan-400 transition-colors">
                           {head.name}
                         </a>
                       </h3>
-                      <p className="font-body text-xs sm:text-sm text-gray-400">{head.role}</p>
+                      <p className="font-body text-xs sm:text-sm text-slate-600 dark:text-gray-400">{head.role}</p>
                     </div>
 
                     {/* Group Style 4: Department Heads Signature Watermark */}
@@ -619,19 +619,19 @@ export default function Team() {
       </section>
 
       {/* 5. Department Co-Heads (Style 5: Balanced Quantum Lattice Corner Badge) */}
-      <section id="coheads" className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-[#09090b]" aria-labelledby="coheads-heading">
+      <section id="coheads" className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-slate-50/70 dark:bg-[#09090b]" aria-labelledby="coheads-heading">
         <div className="max-w-7xl mx-auto">
           <div className="mb-12 text-center">
-            <span className="block font-mono text-xs uppercase tracking-[0.15em] text-cyan-400 mb-2 font-medium">CO-LEADERSHIP</span>
-            <h2 id="coheads-heading" className="font-display text-3xl sm:text-4xl font-bold text-white tracking-tight leading-tight">Department Co-Heads</h2>
+            <span className="block font-mono text-xs uppercase tracking-[0.15em] text-cyan-700 dark:text-cyan-400 mb-2 font-medium">CO-LEADERSHIP</span>
+            <h2 id="coheads-heading" className="font-display text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white tracking-tight leading-tight">Department Co-Heads</h2>
           </div>
           <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-5xl mx-auto">
             {teamData.coheads.map((cohead, idx) => {
               const linkedinUrl = getLinkedinUrl(cohead.linkedin, cohead.name)
               return (
-                <div key={cohead.name} className="group relative flex flex-col bg-[#121215] border border-white/10 rounded-xl overflow-hidden transition-all duration-300 hover:border-cyan-500/40 hover:-translate-y-1 hover:shadow-[0_12px_30px_rgba(6,182,212,0.15)]">
+                <div key={cohead.name} className="group relative flex flex-col bg-white dark:bg-[#121215] border border-slate-200/90 dark:border-white/10 rounded-xl overflow-hidden shadow-sm dark:shadow-none transition-all duration-300 hover:border-cyan-500/40 hover:-translate-y-1 hover:shadow-[0_8px_20px_rgba(6,182,212,0.1)] dark:hover:shadow-[0_12px_30px_rgba(6,182,212,0.15)]">
                   
-                  <div className="relative aspect-[3/4] overflow-hidden bg-[#050507]">
+                  <div className="relative aspect-[3/4] overflow-hidden bg-slate-100 dark:bg-[#050507]">
                     {cohead.image ? (
                       <img
                         src={encodeURI(cohead.image)}
@@ -640,8 +640,8 @@ export default function Team() {
                         className="w-full h-full object-cover object-top filter grayscale-[15%] transition-all duration-700 ease-out group-hover:scale-105 group-hover:grayscale-0"
                       />
                     ) : (
-                      <div className="w-full h-full flex flex-col items-center justify-center bg-[repeating-linear-gradient(45deg,transparent,transparent_12px,rgba(255,255,255,0.02)_12px,rgba(255,255,255,0.02)_24px)] text-gray-500 font-mono text-xs gap-2">
-                        <svg className="w-8 h-8 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <div className="w-full h-full flex flex-col items-center justify-center bg-[repeating-linear-gradient(45deg,transparent,transparent_12px,rgba(0,0,0,0.02)_12px,rgba(0,0,0,0.02)_24px)] dark:bg-[repeating-linear-gradient(45deg,transparent,transparent_12px,rgba(255,255,255,0.02)_12px,rgba(255,255,255,0.02)_24px)] text-slate-400 dark:text-gray-500 font-mono text-xs gap-2">
+                        <svg className="w-8 h-8 text-slate-400 dark:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                         </svg>
                         <span>Photo Pending</span>
@@ -652,13 +652,13 @@ export default function Team() {
 
                   <div className="p-5 flex-1 flex flex-col justify-center relative overflow-hidden">
                     <div className="relative z-10">
-                      <span className="block font-mono text-xs uppercase tracking-wider text-cyan-400/90 mb-1 font-medium">{cohead.department}</span>
-                      <h3 className="font-display text-lg font-semibold text-white tracking-tight mb-1">
-                        <a href={linkedinUrl} target="_blank" rel="noopener noreferrer" className="hover:text-cyan-400 transition-colors">
+                      <span className="block font-mono text-xs uppercase tracking-wider text-cyan-700 dark:text-cyan-400/90 mb-1 font-medium">{cohead.department}</span>
+                      <h3 className="font-display text-lg font-semibold text-slate-900 dark:text-white tracking-tight mb-1">
+                        <a href={linkedinUrl} target="_blank" rel="noopener noreferrer" className="hover:text-cyan-700 dark:hover:text-cyan-400 transition-colors">
                           {cohead.name}
                         </a>
                       </h3>
-                      <p className="font-body text-xs sm:text-sm text-gray-400">{cohead.role}</p>
+                      <p className="font-body text-xs sm:text-sm text-slate-600 dark:text-gray-400">{cohead.role}</p>
                     </div>
 
                     {/* Group Style 5: Department Co-Heads Signature Watermark */}
